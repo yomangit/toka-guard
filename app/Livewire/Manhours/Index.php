@@ -224,14 +224,22 @@ class Index extends Component
             }
         }
 
-        $graphMail = new GraphMailService();
+       
+        // 🔹 Kirim Email setelah save
+        try {
+            $mailService = app(GraphMailService::class); // resolve service dari container
 
-        $graphMail->sendMail(
-            from: 'yoman.banea@archimining.com',
-            to: 'penerima@domain.com',
-            subject: 'Test Email via Microsoft Graph API',
-            body: '<h1>Halo!</h1><p>Email ini dikirim via Graph API Laravel.</p>'
-        );
+            $fromUserId = 'yoman.banea@archimining.com';  // user/email di Azure AD
+            $to         = 'yomandenis28@gmail.com';  // penerima (misalnya manager)
+            $subject    = $mode === 'create'
+                ? 'Input Manhours Baru'
+                : 'Update Data Manhours';
+            $body       = "<p>Data manhours telah {$mode} untuk perusahaan <b>{$this->company}</b>, departemen <b>{$this->department}</b>.</p>";
+
+            $mailService->sendMail($fromUserId, $to, $subject, $body);
+        } catch (\Exception $e) {
+            \Log::error('Gagal kirim email Graph: ' . $e->getMessage());
+        }
 
         $this->dispatch('alert', [
             'text'            => $mode === 'create' ? "Data berhasil di input!!!" : "Data berhasil diperbarui!!!",

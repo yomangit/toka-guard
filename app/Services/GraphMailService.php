@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use Microsoft\Graph\GraphServiceClient;
+use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Generated\Models\Message;
-use Microsoft\Graph\Generated\Models\BodyType;
 use Microsoft\Graph\Generated\Models\ItemBody;
+use Microsoft\Graph\Generated\Models\BodyType;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
-use Microsoft\Graph\Generated\Models\SendMailPostRequestBody;
-use Microsoft\Kiota\Authentication\Oauth\BaseBearerTokenAuthenticationProvider;
-
+use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
 
 class GraphMailService
 {
@@ -18,38 +17,23 @@ class GraphMailService
 
     public function __construct()
     {
-        $token = $this->getAccessToken();
-
-        // Gunakan AuthenticationProvider sesuai v2.47
-        $authProvider = new BaseBearerTokenAuthenticationProvider($token);
-        $this->graph = new GraphServiceClient($authProvider);
-    }
-
-    protected function getAccessToken(): string
-    {
         $tenantId = config('services.msgraph.tenant_id');
         $clientId = config('services.msgraph.client_id');
         $clientSecret = config('services.msgraph.client_secret');
 
-        $url = "https://login.microsoftonline.com/{$tenantId}/oauth2/v2.0/token";
+        // Context client credentials (v2.47 cara resmi)
+        $tokenRequestContext = new ClientCredentialContext(
+            $tenantId,
+            $clientId,
+            $clientSecret
+        );
 
-        $response = \Http::asForm()->post($url, [
-            'grant_type' => 'client_credentials',
-            'client_id' => $clientId,
-            'client_secret' => $clientSecret,
-            'scope' => 'https://graph.microsoft.com/.default',
-        ]);
-
-        if ($response->failed()) {
-            throw new \Exception('Failed to get access token: ' . $response->body());
-        }
-
-        return $response->json()['access_token'];
+        $this->graph = new GraphServiceClient($tokenRequestContext);
     }
 
     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
-        // Build Message
+        // Build message
         $message = new Message();
         $message->setSubject($subject);
 
@@ -74,6 +58,7 @@ class GraphMailService
             ->users()
             ->byUserId($fromUserId)
             ->sendMail()
-            ->post($sendMailBody);
+            ->post($sendMailBody)
+            ->wait(); // async → tunggu selesai
     }
 }
