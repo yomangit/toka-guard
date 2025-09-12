@@ -2,22 +2,22 @@
 
 namespace App\Services;
 
-use Microsoft\Graph\Graph;
-use Microsoft\Graph\Model;
+use Microsoft\Graph\GraphServiceClient;
+use Microsoft\Graph\Generated\Models;
 
 class GraphMailService
 {
-    protected $graph;
+    protected GraphServiceClient $graph;
 
     public function __construct()
     {
         $token = $this->getAccessToken();
-        
-        $this->graph = new Graph();
-        $this->graph->setAccessToken($token);
+
+        // Pakai arrow function (fn) agar lebih ringkas
+        $this->graph = new GraphServiceClient(fn () => $token);
     }
 
-    protected function getAccessToken()
+    protected function getAccessToken(): string
     {
         $tenantId = config('services.msgraph.tenant_id');
         $clientId = config('services.msgraph.client_id');
@@ -39,33 +39,34 @@ class GraphMailService
         return $response->json()['access_token'];
     }
 
-    public function sendMail($from, $to, $subject, $body)
+    public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
-        $message = [
-            'message' => [
-                'subject' => $subject,
-                'body' => [
-                    'contentType' => 'HTML',
-                    'content' => $body,
-                ],
-                'from' => [
-                    'emailAddress' => [
-                        'address' => $from,
-                    ],
-                ],
-                'toRecipients' => [
-                    [
-                        'emailAddress' => [
-                            'address' => $to,
-                        ],
-                    ],
-                ],
-            ],
-            'saveToSentItems' => 'true',
-        ];
+        // Buat objek Message
+        $message = new Models\Message();
+        $message->setSubject($subject);
 
-        return $this->graph->createRequest("POST", "/users/{$from}/sendMail")
-            ->attachBody($message)
-            ->execute();
+        $messageBody = new Models\ItemBody();
+        $messageBody->setContentType(new Models\BodyType(Models\BodyType::HTML));
+        $messageBody->setContent($body);
+        $message->setBody($messageBody);
+
+        $recipient = new Models\Recipient();
+        $emailAddress = new Models\EmailAddress();
+        $emailAddress->setAddress($to);
+        $recipient->setEmailAddress($emailAddress);
+
+        $message->setToRecipients([$recipient]);
+
+        // Bungkus message dalam request body
+        $sendMailBody = new Models\SendMailPostRequestBody();
+        $sendMailBody->setMessage($message);
+        $sendMailBody->setSaveToSentItems(true);
+
+        // Kirim email via Graph
+        $this->graph
+            ->users()
+            ->byUserId($fromUserId)
+            ->sendMail()
+            ->post($sendMailBody);
     }
 }
