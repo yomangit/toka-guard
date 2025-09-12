@@ -238,7 +238,14 @@ class Index extends Component
 
             $mailService->sendMail($fromUserId, $to, $subject, $body);
         } catch (\Exception $e) {
-            \Log::error('Gagal kirim email Graph: ' . $e->getMessage());
+             $this->dispatch('alert', [
+            'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
+            'duration'        => 5000,
+            'destination'     => '/contact',
+            'newWindow'       => true,
+            'close'           => true,
+            'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+        ]);
         }
 
         $this->dispatch('alert', [
