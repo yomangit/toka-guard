@@ -3,7 +3,14 @@
 namespace App\Services;
 
 use Microsoft\Graph\GraphServiceClient;
-use Microsoft\Graph\Generated\Models;
+use Microsoft\Graph\Generated\Models\Message;
+use Microsoft\Graph\Generated\Models\BodyType;
+use Microsoft\Graph\Generated\Models\ItemBody;
+use Microsoft\Graph\Generated\Models\Recipient;
+use Microsoft\Graph\Generated\Models\EmailAddress;
+use Microsoft\Graph\Generated\Models\SendMailPostRequestBody;
+use Microsoft\Kiota\Authentication\Oauth\BaseBearerTokenAuthenticationProvider;
+
 
 class GraphMailService
 {
@@ -13,8 +20,9 @@ class GraphMailService
     {
         $token = $this->getAccessToken();
 
-        // Pakai arrow function (fn) agar lebih ringkas
-        $this->graph = new GraphServiceClient(fn () => $token);
+        // Gunakan AuthenticationProvider sesuai v2.47
+        $authProvider = new BaseBearerTokenAuthenticationProvider($token);
+        $this->graph = new GraphServiceClient($authProvider);
     }
 
     protected function getAccessToken(): string
@@ -41,28 +49,27 @@ class GraphMailService
 
     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
-        // Buat objek Message
-        $message = new Models\Message();
+        // Build Message
+        $message = new Message();
         $message->setSubject($subject);
 
-        $messageBody = new Models\ItemBody();
-        $messageBody->setContentType(new Models\BodyType(Models\BodyType::HTML));
+        $messageBody = new ItemBody();
+        $messageBody->setContentType(new BodyType(BodyType::HTML));
         $messageBody->setContent($body);
         $message->setBody($messageBody);
 
-        $recipient = new Models\Recipient();
-        $emailAddress = new Models\EmailAddress();
+        $recipient = new Recipient();
+        $emailAddress = new EmailAddress();
         $emailAddress->setAddress($to);
         $recipient->setEmailAddress($emailAddress);
-
         $message->setToRecipients([$recipient]);
 
-        // Bungkus message dalam request body
-        $sendMailBody = new Models\SendMailPostRequestBody();
+        // Wrap in request body
+        $sendMailBody = new SendMailPostRequestBody();
         $sendMailBody->setMessage($message);
         $sendMailBody->setSaveToSentItems(true);
 
-        // Kirim email via Graph
+        // Send email
         $this->graph
             ->users()
             ->byUserId($fromUserId)
