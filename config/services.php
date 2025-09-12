@@ -34,10 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    // 'msgraph' => [
-    //     'tenant_id' => env('MSGRAPH_TENANT_ID'),
-    //     'client_id' => env('MSGRAPH_CLIENT_ID'),
-    //     'client_secret' => env('MSGRAPH_CLIENT_SECRET'),
-    // ],
+    'msgraph' => [
+        'tenant_id' => env('MSGRAPH_TENANT_ID'),
+        'client_id' => env('MSGRAPH_CLIENT_ID'),
+        'client_secret' => env('MSGRAPH_CLIENT_SECRET'),
+    ],
 
 ];

@@ -224,14 +224,14 @@ class Index extends Component
             }
         }
 
-        // $graphMail = new GraphMailService();
+        $graphMail = new GraphMailService();
 
-        // $graphMail->sendMail(
-        //     from: 'yoman.banea@archimining.com',
-        //     to: 'penerima@domain.com',
-        //     subject: 'Test Email via Microsoft Graph API',
-        //     body: '<h1>Halo!</h1><p>Email ini dikirim via Graph API Laravel.</p>'
-        // );
+        $graphMail->sendMail(
+            from: 'yoman.banea@archimining.com',
+            to: 'penerima@domain.com',
+            subject: 'Test Email via Microsoft Graph API',
+            body: '<h1>Halo!</h1><p>Email ini dikirim via Graph API Laravel.</p>'
+        );
 
         $this->dispatch('alert', [
             'text'            => $mode === 'create' ? "Data berhasil di input!!!" : "Data berhasil diperbarui!!!",
