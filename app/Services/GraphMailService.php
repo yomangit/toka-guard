@@ -28,12 +28,13 @@ class GraphMailService
             $clientId,
             $clientSecret
         );
-
+        // default scope SDK = https://graph.microsoft.com/.default
+        $scopes = ['https://graph.microsoft.com/.default'];
         // Auth provider pakai league/oauth2-client
         $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
 
-        // Graph Service Client
-        $this->graphClient = new GraphServiceClient($authProvider);
+        // inisialisasi GraphServiceClient dengan TokenRequestContext
+        $this->graphClient = new GraphServiceClient($tokenRequestContext, $scopes);
     }
 
     /**
