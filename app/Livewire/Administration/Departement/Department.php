@@ -136,6 +136,6 @@ class Department extends Component
     }
     public function paginationView()
     {
-        return 'vendor.livewire.tailwind';
+        return 'view.paginate.pagination';
     }
 }
