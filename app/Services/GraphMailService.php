@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Services;
-
 use Microsoft\Graph\GraphServiceClient;
-use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Generated\Models\Message;
-use Microsoft\Graph\Generated\Models\ItemBody;
 use Microsoft\Graph\Generated\Models\BodyType;
+use Microsoft\Graph\Generated\Models\ItemBody;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
+use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
 
 class GraphMailService
 {
-    protected GraphServiceClient $graph;
+    protected $graph;
 
     public function __construct()
     {
@@ -27,10 +26,8 @@ class GraphMailService
             $clientId,
             $clientSecret
         );
-
         $this->graph = new GraphServiceClient($tokenRequestContext);
     }
-
     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
         // Build message
