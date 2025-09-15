@@ -60,7 +60,7 @@
                 <form wire:submit.prevent="{{ $selectedId ? "update($selectedId)" : 'store' }}">
                     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box border p-4 overflow-y-auto">
                         <legend class="fieldset-legend">Form Input Manhours & Manpower</legend>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {{-- Bulan --}}
                             <fieldset class="fieldset">
                                 <x-form.label label="Bulan" required />
