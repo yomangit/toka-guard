@@ -61,20 +61,13 @@ class GraphMailService
         $sendMailBody->setMessage($message);
         $sendMailBody->setSaveToSentItems(true);
 
-        try {
+     
             $this->graphClient
                 ->users()
                 ->byUserId($fromUserId)
                 ->sendMail()
                 ->post($sendMailBody)
                 ->wait();
-        } catch (\Throwable $e) {
-            // log error detail
-            \Log::error('Graph API SendMail failed', [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-            throw $e; // boleh dibuang kalau tidak mau bubble up
-        }
+       
     }
 }
