@@ -17,6 +17,7 @@
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0",
         "maatwebsite/excel": "^3.1",
+        "microsoft/kiota-authentication-phpleague": "^1.5",
         "microsoft/microsoft-graph": "^2.47",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-activitylog": "^4.10",

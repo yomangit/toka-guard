@@ -8,8 +8,9 @@ use Microsoft\Graph\Generated\Models\BodyType;
 use Microsoft\Graph\Generated\Models\ItemBody;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
-use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
+use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
+use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
 {
@@ -20,24 +21,28 @@ class GraphMailService
         $tenantId     = env('MSGRAPH_TENANT_ID');
         $clientId     = env('MSGRAPH_CLIENT_ID');
         $clientSecret = env('MSGRAPH_CLIENT_SECRET');
-        // Context untuk client credentials flow
+
+        // Context untuk Client Credentials Flow
         $tokenRequestContext = new ClientCredentialContext(
             $tenantId,
             $clientId,
             $clientSecret
         );
-        // default scope SDK = https://graph.microsoft.com/.default
-        $scopes = ['https://graph.microsoft.com/.default'];
-        // inisialisasi GraphServiceClient dengan TokenRequestContext
-        $this->graphClient = new GraphServiceClient($tokenRequestContext, $scopes);
+
+        // Auth provider pakai league/oauth2-client
+        $authProvider = new GraphPhpLeagueAuthenticationProvider(
+            $tokenRequestContext,
+            ['https://graph.microsoft.com/.default']
+        );
+
+        $this->graphClient = new GraphServiceClient($authProvider);
     }
 
     /**
-     * Kirim email via Microsoft Graph
+     * Kirim email via Microsoft Graph API
      */
     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
-        // Build message
         $message = new Message();
         $message->setSubject($subject);
 
@@ -52,17 +57,24 @@ class GraphMailService
         $recipient->setEmailAddress($emailAddress);
         $message->setToRecipients([$recipient]);
 
-        // Wrap in request body
         $sendMailBody = new SendMailPostRequestBody();
         $sendMailBody->setMessage($message);
         $sendMailBody->setSaveToSentItems(true);
 
-        // Send email (async → tunggu selesai)
-        $this->graphClient
-            ->users()
-            ->byUserId($fromUserId)
-            ->sendMail()
-            ->post($sendMailBody)
-            ->wait();
+        try {
+            $this->graphClient
+                ->users()
+                ->byUserId($fromUserId)
+                ->sendMail()
+                ->post($sendMailBody)
+                ->wait();
+        } catch (\Throwable $e) {
+            // log error detail
+            \Log::error('Graph API SendMail failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            throw $e; // boleh dibuang kalau tidak mau bubble up
+        }
     }
 }

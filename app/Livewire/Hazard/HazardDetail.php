@@ -584,8 +584,6 @@ class HazardDetail extends Component
                 'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
             ]
         );
-
-        Notification::send($ermUsers, new HazardSubmittedNotification($hazard));
     }
     public function edit($likelihoodId, $consequenceId)
     {
