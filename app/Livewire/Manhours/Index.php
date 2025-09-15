@@ -229,7 +229,7 @@ class Index extends Component
         // 🔹 Kirim Email setelah save
         $mailService = app(GraphMailService::class);
 
-        $fromUserId = 'yoman.banea@archimining.com'; // user/email di O365
+        $fromUserId = 'Yoman.Banea@archimining.com'; // user/email di O365
         $to         = 'yomandenis28@gmail.com';
         $subject    = $mode === 'create'? 'Input Manhours Baru': 'Update Data Manhours';
         $body       = "<p>Data manhours telah {$mode} untuk perusahaan <b>{$this->company}</b>, departemen <b>{$this->department}</b>.</p>";
