@@ -28,14 +28,7 @@ class GraphMailService
             $clientId,
             $clientSecret
         );
-
-        // Auth provider pakai league/oauth2-client
-        $authProvider = new GraphPhpLeagueAuthenticationProvider(
-            $tokenRequestContext,
-            ['https://graph.microsoft.com/.default']
-        );
-
-        $this->graphClient = new GraphServiceClient($authProvider);
+        $this->graphClient = new GraphServiceClient($tokenRequestContext);
     }
 
     /**
