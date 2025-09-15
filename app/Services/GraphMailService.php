@@ -9,7 +9,6 @@ use Microsoft\Graph\Generated\Models\ItemBody;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
-use Microsoft\Kiota\Authentication\Oauth\AuthorizationCodeContext;
 use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
 
 class GraphMailService
