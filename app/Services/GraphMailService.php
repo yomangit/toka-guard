@@ -10,27 +10,43 @@ use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
+use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
 {
-    protected GraphServiceClient $graph;
+    protected GraphServiceClient $graphClient;
 
     public function __construct()
     {
-        $tenantId = config('services.msgraph.tenant_id');
-        $clientId = config('services.msgraph.client_id');
-        $clientSecret = config('services.msgraph.client_secret');
-
-        // Context client credentials (v2.47 cara resmi)
+        $tenantId = env('MSGRAPH_TENANT_ID');
+        $clientId = env('MSGRAPH_CLIENT_ID');
+        $clientSecret = env('MSGRAPH_CLIENT_SECRET');
+        // Callback function untuk akses token dari cache/refresh token
+        // Context untuk client credentials
         $tokenRequestContext = new ClientCredentialContext(
             $tenantId,
             $clientId,
             $clientSecret
         );
-        $this->graph = new GraphServiceClient($tokenRequestContext);
+        // Provider auth yang menggunakan phpleague
+        $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
+        $this->graphClient = new GraphServiceClient($authProvider, ['https://graph.microsoft.com/.default']);
     }
 
-    public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
+    /**
+     * Ambil access token dari cache / database / redis
+     * (implementasi disesuaikan dengan OAuth flow di aplikasi kamu)
+     */
+    protected function getAccessToken(): string
+    {
+        // contoh ambil dari session/redis
+        return cache('msgraph_token');
+    }
+
+    /**
+     * Kirim email via Microsoft Graph
+     */
+     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
         // Build message
         $message = new Message();

@@ -13,7 +13,7 @@
         "intervention/image": "^3.11",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "league/oauth2-client": "^2.8",
+        "league/oauth2-client": "*",
         "livewire/flux": "^2.1.1",
         "livewire/volt": "^1.7.0",
         "maatwebsite/excel": "^3.1",
