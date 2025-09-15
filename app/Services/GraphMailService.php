@@ -10,7 +10,6 @@ use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
 use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
 use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
-use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
 {
@@ -21,7 +20,6 @@ class GraphMailService
         $tenantId     = env('MSGRAPH_TENANT_ID');
         $clientId     = env('MSGRAPH_CLIENT_ID');
         $clientSecret = env('MSGRAPH_CLIENT_SECRET');
-
         // Context untuk client credentials flow
         $tokenRequestContext = new ClientCredentialContext(
             $tenantId,
@@ -30,9 +28,6 @@ class GraphMailService
         );
         // default scope SDK = https://graph.microsoft.com/.default
         $scopes = ['https://graph.microsoft.com/.default'];
-        // Auth provider pakai league/oauth2-client
-        $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
-
         // inisialisasi GraphServiceClient dengan TokenRequestContext
         $this->graphClient = new GraphServiceClient($tokenRequestContext, $scopes);
     }
