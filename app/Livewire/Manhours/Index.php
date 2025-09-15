@@ -29,6 +29,7 @@ class Index extends Component
     public $company;
     public $department;
     public $dept_group;
+    public $form;
 
     // jobclass setup
     public $jobclasses = [
@@ -75,7 +76,7 @@ class Index extends Component
     public function open_modal($id = null)
     {
         $this->modalOpen = 'modal-open';
-
+        $this->form = !empty($id )? 'Input': 'Update';
         if ($id) {
             $this->selectedId = $id;
             $data = Manhour::findOrFail($id);
