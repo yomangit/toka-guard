@@ -136,6 +136,6 @@ class Department extends Component
     }
     public function paginationView()
     {
-        return 'view.paginate.pagination';
+        return 'views.paginate.pagination';
     }
 }
