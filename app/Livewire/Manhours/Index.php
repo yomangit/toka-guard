@@ -76,7 +76,7 @@ class Index extends Component
     public function open_modal($id = null)
     {
         $this->modalOpen = 'modal-open';
-        $this->form = !empty($id )? 'Input': 'Update';
+        $this->form = empty($id )? 'Input': 'Update';
         if ($id) {
             $this->selectedId = $id;
             $data = Manhour::findOrFail($id);
