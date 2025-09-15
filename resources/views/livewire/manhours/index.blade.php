@@ -60,89 +60,91 @@
                 <form wire:submit.prevent="{{ $selectedId ? "update($selectedId)" : 'store' }}">
                     <fieldset class="fieldset bg-base-200 border-base-300 rounded-box border p-4 overflow-y-auto">
                         <legend class="fieldset-legend">Form Input Manhours & Manpower</legend>
-                        {{-- Bulan --}}
-                        <fieldset class="fieldset">
-                            <x-form.label label="Bulan" required />
-                            <div x-data="{
-                                fp: null,
-                                initFlatpickr() {
-                                    this.fp = flatpickr(this.$refs.input, {
-                                        plugins: [
-                                            new monthSelectPlugin({
-                                                disableMobile: true,
-                                                shorthand: true,  // Jan, Feb, ...
-                                                dateFormat: 'M-Y', // format yang dikirim ke Livewire
-                                                altFormat: 'F Y',  // format yang ditampilkan ke user (September 2025)
-                                                theme: 'light'
-                                            })
-                                        ],
-                                        onChange: (selectedDates, dateStr) => {
-                                            $wire.set('date', dateStr)
-                                        }
-                                    })
-                                }
-                            }" x-init="initFlatpickr()" x-effect="if($wire.date) fp.setDate($wire.date, true)" wire:ignore>
-                                <input x-ref="input" type="text" wire:model.live="date" class="input input-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih bulan" />
-                            </div>
-                            <x-label-error :messages="$errors->get('date')" />
-                        </fieldset>
-
-                        {{-- Kategori Perusahaan --}}
-                        <fieldset class="fieldset">
-                            <x-form.label label="Jenis Entitas" required />
-                            <select wire:model.live="entity_type" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
-                                <option value="">-- Pilih --</option>
-                                <option value="owner">Perusahaan (Owner)</option>
-                                <option value="contractor">Kontraktor</option>
-
-                            </select>
-
-                            <x-label-error :messages="$errors->get('entity_type')" />
-                        </fieldset>
-
-                        {{-- Perusahaan --}}
-                        <fieldset class="fieldset">
-                            <x-form.label label="Perusahaan" required />
-                            <select wire:model.live="company" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
-                                <option value="">-- Pilih --</option>
-                                @if ($entity_type==="owner")
-                                @foreach ($bu as $comp)
-                                <option value="{{ $comp->company_name }}" @selected($company===$comp->company_name)>
-                                    {{ $comp->company_name }}
-                                </option>
-                                @endforeach
-                                @elseif($entity_type==="contractor")
-                                @foreach ($cont as $co)
-                                <option value="{{ $co->contractor_name }}" @selected($company===$co->contractor_name)>
-                                    {{ $co->contractor_name }}
-                                </option>
-                                @endforeach
-                                @endif
-                            </select>
-                            <x-label-error :messages="$errors->get('company')" />
-                        </fieldset>
-
-                        {{-- Departemen --}}
-                        <fieldset class="fieldset">
-                            <x-form.label label="Department" required />
-                            <select wire:model.live="department" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
-                                <option value="">-- Pilih --</option>
-                                @if($entity_type === "contractor")
-                                @foreach ($custodian as $cust)
-                                <option value="{{ $cust->Departemen->department_name }}" @selected($department===$cust->Departemen->department_name)>
-                                    {{ $cust->Departemen->department_name }}
-                                </option>
-                                @endforeach
-                                @else
-                                @foreach ($deptGroup as $dg)
-                                <option value="{{ $dg->Departemen->department_name }}" @selected($department===$dg->Departemen->department_name)>
-                                    {{ $dg->Departemen->department_name }}
-                                </option>
-                                @endforeach
-                                @endif
-                            </select>
-                            <x-label-error :messages="$errors->get('department')" />
-                        </fieldset>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {{-- Bulan --}}
+                            <fieldset class="fieldset">
+                                <x-form.label label="Bulan" required />
+                                <div x-data="{
+                                    fp: null,
+                                    initFlatpickr() {
+                                        this.fp = flatpickr(this.$refs.input, {
+                                            plugins: [
+                                                new monthSelectPlugin({
+                                                    disableMobile: true,
+                                                    shorthand: true,  // Jan, Feb, ...
+                                                    dateFormat: 'M-Y', // format yang dikirim ke Livewire
+                                                    altFormat: 'F Y',  // format yang ditampilkan ke user (September 2025)
+                                                    theme: 'light'
+                                                })
+                                            ],
+                                            onChange: (selectedDates, dateStr) => {
+                                                $wire.set('date', dateStr)
+                                            }
+                                        })
+                                    }
+                                }" x-init="initFlatpickr()" x-effect="if($wire.date) fp.setDate($wire.date, true)" wire:ignore>
+                                    <input x-ref="input" type="text" wire:model.live="date" class="input input-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih bulan" />
+                                </div>
+                                <x-label-error :messages="$errors->get('date')" />
+                            </fieldset>
+    
+                            {{-- Kategori Perusahaan --}}
+                            <fieldset class="fieldset">
+                                <x-form.label label="Jenis Entitas" required />
+                                <select wire:model.live="entity_type" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                                    <option value="">-- Pilih --</option>
+                                    <option value="owner">Perusahaan (Owner)</option>
+                                    <option value="contractor">Kontraktor</option>
+    
+                                </select>
+    
+                                <x-label-error :messages="$errors->get('entity_type')" />
+                            </fieldset>
+    
+                            {{-- Perusahaan --}}
+                            <fieldset class="fieldset">
+                                <x-form.label label="Perusahaan" required />
+                                <select wire:model.live="company" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                                    <option value="">-- Pilih --</option>
+                                    @if ($entity_type==="owner")
+                                    @foreach ($bu as $comp)
+                                    <option value="{{ $comp->company_name }}" @selected($company===$comp->company_name)>
+                                        {{ $comp->company_name }}
+                                    </option>
+                                    @endforeach
+                                    @elseif($entity_type==="contractor")
+                                    @foreach ($cont as $co)
+                                    <option value="{{ $co->contractor_name }}" @selected($company===$co->contractor_name)>
+                                        {{ $co->contractor_name }}
+                                    </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                                <x-label-error :messages="$errors->get('company')" />
+                            </fieldset>
+    
+                            {{-- Departemen --}}
+                            <fieldset class="fieldset">
+                                <x-form.label label="Department" required />
+                                <select wire:model.live="department" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                                    <option value="">-- Pilih --</option>
+                                    @if($entity_type === "contractor")
+                                    @foreach ($custodian as $cust)
+                                    <option value="{{ $cust->Departemen->department_name }}" @selected($department===$cust->Departemen->department_name)>
+                                        {{ $cust->Departemen->department_name }}
+                                    </option>
+                                    @endforeach
+                                    @else
+                                    @foreach ($deptGroup as $dg)
+                                    <option value="{{ $dg->Departemen->department_name }}" @selected($department===$dg->Departemen->department_name)>
+                                        {{ $dg->Departemen->department_name }}
+                                    </option>
+                                    @endforeach
+                                    @endif
+                                </select>
+                                <x-label-error :messages="$errors->get('department')" />
+                            </fieldset>
+                        </div>  
 
                         {{-- Job Class --}}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
