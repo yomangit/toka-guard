@@ -224,29 +224,29 @@ class Index extends Component
             }
         }
 
-       
-        // 🔹 Kirim Email setelah save
-        $mailService = app(GraphMailService::class); // resolve service dari container
 
-        $fromUserId = 'yoman.banea@archimining.com';  // user/email di Azure AD
-        $to         = 'yomandenis28@gmail.com';  // penerima (misalnya manager)
+        // 🔹 Kirim Email setelah save
+        $mailService = app(GraphMailService::class);
+
+        $fromUserId = 'yoman.banea@archimining.com'; // user/email di O365
+        $to         = 'yomandenis28@gmail.com';
         $subject    = $mode === 'create'
             ? 'Input Manhours Baru'
             : 'Update Data Manhours';
         $body       = "<p>Data manhours telah {$mode} untuk perusahaan <b>{$this->company}</b>, departemen <b>{$this->department}</b>.</p>";
 
         $mailService->sendMail($fromUserId, $to, $subject, $body);
-        // try {
-        // } catch (\Exception $e) {
-        //      $this->dispatch('alert', [
-        //     'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
-        //     'duration'        => 5000,
-        //     'destination'     => '/contact',
-        //     'newWindow'       => true,
-        //     'close'           => true,
-        //     'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
-        // ]);
-        // }
+        try {
+        } catch (\Exception $e) {
+            $this->dispatch('alert', [
+                'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
+                'duration'        => 5000,
+                'destination'     => '/contact',
+                'newWindow'       => true,
+                'close'           => true,
+                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+            ]);
+        }
 
         $this->dispatch('alert', [
             'text'            => $mode === 'create' ? "Data berhasil di input!!!" : "Data berhasil diperbarui!!!",

@@ -8,8 +8,8 @@ use Microsoft\Graph\Generated\Models\BodyType;
 use Microsoft\Graph\Generated\Models\ItemBody;
 use Microsoft\Graph\Generated\Models\Recipient;
 use Microsoft\Graph\Generated\Models\EmailAddress;
-use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Generated\Users\Item\SendMail\SendMailPostRequestBody;
+use Microsoft\Kiota\Authentication\Oauth\ClientCredentialContext;
 use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
@@ -18,35 +18,28 @@ class GraphMailService
 
     public function __construct()
     {
-        $tenantId = env('MSGRAPH_TENANT_ID');
-        $clientId = env('MSGRAPH_CLIENT_ID');
+        $tenantId     = env('MSGRAPH_TENANT_ID');
+        $clientId     = env('MSGRAPH_CLIENT_ID');
         $clientSecret = env('MSGRAPH_CLIENT_SECRET');
-        // Callback function untuk akses token dari cache/refresh token
-        // Context untuk client credentials
+
+        // Context untuk client credentials flow
         $tokenRequestContext = new ClientCredentialContext(
             $tenantId,
             $clientId,
             $clientSecret
         );
-        // Provider auth yang menggunakan phpleague
-        $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
-        $this->graphClient = new GraphServiceClient($authProvider, ['https://graph.microsoft.com/.default']);
-    }
 
-    /**
-     * Ambil access token dari cache / database / redis
-     * (implementasi disesuaikan dengan OAuth flow di aplikasi kamu)
-     */
-    protected function getAccessToken(): string
-    {
-        // contoh ambil dari session/redis
-        return cache('msgraph_token');
+        // Auth provider pakai league/oauth2-client
+        $authProvider = new GraphPhpLeagueAuthenticationProvider($tokenRequestContext);
+
+        // Graph Service Client
+        $this->graphClient = new GraphServiceClient($authProvider);
     }
 
     /**
      * Kirim email via Microsoft Graph
      */
-     public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
+    public function sendMail(string $fromUserId, string $to, string $subject, string $body): void
     {
         // Build message
         $message = new Message();
@@ -68,12 +61,12 @@ class GraphMailService
         $sendMailBody->setMessage($message);
         $sendMailBody->setSaveToSentItems(true);
 
-        // Send email
-        $this->graph
+        // Send email (async → tunggu selesai)
+        $this->graphClient
             ->users()
             ->byUserId($fromUserId)
             ->sendMail()
             ->post($sendMailBody)
-            ->wait(); // async → tunggu selesai
+            ->wait();
     }
 }
