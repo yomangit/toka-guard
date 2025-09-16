@@ -116,11 +116,11 @@ class User extends Authenticatable
 
     public function contractors()
     {
-        return $this->belongsToMany(Contractor::class);
+        return $this->belongsToMany(Contractor::class,'contractor_user');
     }
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class,'role_user');
     }
 
     public function hasRole($role)

@@ -13,6 +13,8 @@ use App\Models\BusinessUnit;
 use Livewire\WithPagination;
 use App\Models\Department_group;
 use App\Services\GraphMailService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -23,6 +25,7 @@ class Index extends Component
     public $deptGroup = [];
     public $selectedId = null;
     public $confirmingDelete = false;
+    public $canCreate = false;
     // input umum
     public $date;
     public $entity_type;
@@ -75,8 +78,9 @@ class Index extends Component
 
     public function open_modal($id = null)
     {
+        Gate::authorize('create', Manhour::class);
         $this->modalOpen = 'modal-open';
-        $this->form = empty($id )? 'Input': 'Update';
+        $this->form = empty($id) ? 'Input' : 'Update';
         if ($id) {
             $this->selectedId = $id;
             $data = Manhour::findOrFail($id);
@@ -231,7 +235,7 @@ class Index extends Component
 
         $fromUserId = 'Yoman.Banea@archimining.com'; // user/email di O365
         $to         = 'yomandenis28@gmail.com';
-        $subject    = $mode === 'create'? 'Input Manhours Baru': 'Update Data Manhours';
+        $subject    = $mode === 'create' ? 'Input Manhours Baru' : 'Update Data Manhours';
         $body       = "<p>Data manhours telah {$mode} untuk perusahaan <b>{$this->company}</b>, departemen <b>{$this->department}</b>.</p>";
 
         $mailService->sendMail($fromUserId, $to, $subject, $body);
@@ -299,6 +303,6 @@ class Index extends Component
     }
     public function paginationView()
     {
-         return 'paginate.pagination';
+        return 'paginate.pagination';
     }
 }

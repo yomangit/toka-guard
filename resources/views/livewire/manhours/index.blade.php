@@ -5,9 +5,11 @@
     @include('partials.manhours')
     <div class="flex justify-between">
         <!-- You can open the modal using ID.showModal() method -->
+        @can('create', \App\Models\Manhour::class)
         <flux:tooltip content="tambah data" position="top">
             <flux:button size="xs" wire:click='open_modal' icon="add-icon" variant="primary"></flux:button>
         </flux:tooltip>
+        @endif
     </div>
     <x-manhours.layout>
         <div class="overflow-x-auto ">
@@ -87,7 +89,7 @@
                                 </div>
                                 <x-label-error :messages="$errors->get('date')" />
                             </fieldset>
-    
+
                             {{-- Kategori Perusahaan --}}
                             <fieldset class="fieldset">
                                 <x-form.label label="Jenis Entitas" required />
@@ -95,12 +97,12 @@
                                     <option value="">-- Pilih --</option>
                                     <option value="owner">Perusahaan (Owner)</option>
                                     <option value="contractor">Kontraktor</option>
-    
+
                                 </select>
-    
+
                                 <x-label-error :messages="$errors->get('entity_type')" />
                             </fieldset>
-    
+
                             {{-- Perusahaan --}}
                             <fieldset class="fieldset">
                                 <x-form.label label="Perusahaan" required />
@@ -122,7 +124,7 @@
                                 </select>
                                 <x-label-error :messages="$errors->get('company')" />
                             </fieldset>
-    
+
                             {{-- Departemen --}}
                             <fieldset class="fieldset">
                                 <x-form.label label="Department" required />
@@ -144,7 +146,7 @@
                                 </select>
                                 <x-label-error :messages="$errors->get('department')" />
                             </fieldset>
-                        </div>  
+                        </div>
 
                         {{-- Job Class --}}
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
