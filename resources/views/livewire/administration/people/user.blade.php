@@ -3,8 +3,11 @@
     <x-tabs-relation.layout>
         <div class="p-4">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">User Management</h2>
+                <flux:tooltip content="Bulk Update" position="top">
+                    <flux:button size="xs" variant="primary" icon='refresh-cw' wire:click="$set('showBulkUpdateModal', true)"></flux:button>
+                </flux:tooltip>
                 <div>
+
                     <flux:tooltip content="tambah data" position="top">
                         <flux:button size="xs" wire:click="create" icon="add-icon" variant="primary"></flux:button>
                     </flux:tooltip>
@@ -18,6 +21,9 @@
                 <table class="table table-xs">
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" wire:model.live="selectAll">
+                            </th>
                             <th>Name</th>
                             <th>Gender</th>
                             <th>Username</th>
@@ -31,6 +37,9 @@
                     <tbody>
                         @foreach($users as $user)
                         <tr>
+                            <td>
+                                <input type="checkbox" value="{{ $user->id }}" wire:model.live="selectedUsers">
+                            </td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->gender }}</td>
                             <td>{{ $user->username }}</td>
@@ -187,6 +196,27 @@
                     <flux:button size="xs" wire:click="$set('showImportModal', false)" icon:trailing="circle-x" variant="danger">
                         Batal
                     </flux:button>
+                </div>
+            </div>
+        </dialog>
+
+        <dialog class="modal" @if($showBulkUpdateModal) open @endif>
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Bulk Update User</h3>
+
+                <fieldset class="fieldset">
+                    <label class="block">Role Baru</label>
+                    <select wire:model="bulkRole" class="select select-bordered w-full input-xs">
+                        <option value="">-- Pilih Role --</option>
+                        @foreach ($role as $r)
+                        <option value="{{ $r->id }}">{{ $r->name }}</option>
+                        @endforeach
+                    </select>
+                </fieldset>
+
+                <div class="modal-action">
+                    <flux:button size="xs" wire:click="bulkUpdate" variant="primary">Update</flux:button>
+                    <flux:button size="xs" wire:click="$set('showBulkUpdateModal', false)" variant="danger">Batal</flux:button>
                 </div>
             </div>
         </dialog>

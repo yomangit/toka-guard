@@ -1,7 +1,7 @@
 <div class='overflow-y-scroll'>
     <flux:navlist variant="outline">
         <flux:navlist.group class="grid">
-            @role('administrator')
+         
             @foreach ($Menus as $menu)
 
             {{-- Skip Administration jika bukan administrator --}}
@@ -43,7 +43,7 @@
 
             @endforeach
 
-            @endrole
+           
         </flux:navlist.group>
     </flux:navlist>
 

@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         App::setLocale(Session::get('locale', config('app.locale')));
+        
         Blade::if('role', function ($role) {
         return Auth::check() && Auth::user()->roles()->where('name', $role)->exists();
     });

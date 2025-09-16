@@ -23,6 +23,10 @@ class User extends Component
     // Property untuk menampilkan hasil
     public $importedCount = 0;
     public $skippedCount = 0;
+    public $selectedUsers = []; // simpan user yang dicentang
+    public $selectAll = false; // untuk checkbox master
+    public $showBulkUpdateModal = false;
+    public $bulkRole;
     protected function rules()
     {
         return [
@@ -57,7 +61,14 @@ class User extends Component
     {
         $this->validateOnly($propertyName);
     }
-
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedUsers = UserProfile::pluck('id')->toArray(); // pilih semua
+        } else {
+            $this->selectedUsers = [];
+        }
+    }
     public function import()
     {
         $this->validate([
@@ -108,7 +119,7 @@ class User extends Component
             'role' => Role::all()
         ]);
     }
-     public function paginationView()
+    public function paginationView()
     {
         return 'vendor.livewire.tailwind';
     }
@@ -180,6 +191,28 @@ class User extends Component
                 'newWindow' => true,
                 'close' => true,
                 'backgroundColor' => "background: linear-gradient(135deg, #f44336, #d32f2f);",
+            ]
+        );
+    }
+
+    public function bulkUpdate()
+    {
+        $this->validate([
+            'bulkRole' => 'required|exists:roles,id',
+        ]);
+
+        UserProfile::whereIn('id', $this->selectedUsers)
+            ->update(['role_id' => $this->bulkRole]);
+
+        $this->reset(['selectedUsers', 'selectAll', 'bulkRole']);
+        $this->showBulkUpdateModal = false;
+
+        $this->dispatch(
+            'alert',
+            [
+                'text' => "Bulk update berhasil!",
+                'duration' => 5000,
+                'backgroundColor' => "background: linear-gradient(135deg, #2196f3, #1976d2);",
             ]
         );
     }
