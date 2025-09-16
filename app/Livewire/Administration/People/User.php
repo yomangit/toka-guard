@@ -27,6 +27,7 @@ class User extends Component
     public $selectAll = false; // untuk checkbox master
     public $showBulkUpdateModal = false;
     public $bulkRole;
+    public $roles;
     protected function rules()
     {
         return [
@@ -56,6 +57,10 @@ class User extends Component
             'date_commenced.date' => 'Tanggal mulai kerja harus berupa format tanggal.',
         ];
     }
+    public function mount()
+{
+    $this->roles = Role::all(); // pakai model role kamu
+}
     // 🔹 Jalankan validasi realtime
     public function updated($propertyName)
     {

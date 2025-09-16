@@ -208,7 +208,7 @@
                     <label class="block">Role Baru</label>
                     <select wire:model="bulkRole" class="select select-bordered w-full input-xs">
                         <option value="">-- Pilih Role --</option>
-                        @foreach ($role as $r)
+                        @foreach ($roles as $r)
                         <option value="{{ $r->id }}">{{ $r->name }}</option>
                         @endforeach
                     </select>
