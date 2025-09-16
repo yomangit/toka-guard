@@ -108,6 +108,10 @@ class User extends Component
             'role' => Role::all()
         ]);
     }
+     public function paginationView()
+    {
+        return 'vendor.livewire.tailwind';
+    }
     public function create()
     {
         $this->resetInput();

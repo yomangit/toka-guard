@@ -92,4 +92,8 @@ class ListMenu extends Component
             'Menus' => Menu::urutan()->paginate(20)
         ]);
     }
+     public function paginationView()
+    {
+        return 'vendor.livewire.tailwind';
+    }
 }

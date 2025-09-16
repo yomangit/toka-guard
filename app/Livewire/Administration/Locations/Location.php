@@ -122,14 +122,15 @@ class Location extends Component
             ]
         );
     }
-    public function paginationView()
-    {
-        return 'vendor.livewire.tailwind';
-    }
+   
     public function render()
     {
         return view('livewire.administration.locations.location',[
             'location'=>ModelsLocation::search(trim($this->search_lokasi))->paginate(20)
         ]);
+    }
+    public function paginationView()
+    {
+        return 'paginate.pagination';
     }
 }

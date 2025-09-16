@@ -99,4 +99,8 @@ class ExtraSubMenu extends Component
             'SubMenu' => SubMenu::get(),
         ]);
     }
+     public function paginationView()
+    {
+        return 'vendor.livewire.tailwind';
+    }
 }

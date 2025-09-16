@@ -94,4 +94,8 @@ class ListSubMenu extends Component
             'Menus' => Menu::get(),
         ]);
     }
+     public function paginationView()
+    {
+        return 'vendor.livewire.tailwind';
+    }
 }

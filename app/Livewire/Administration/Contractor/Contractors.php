@@ -93,6 +93,6 @@ class Contractors extends Component
     }
     public function paginationView()
     {
-        return 'vendor.livewire.tailwind';
+        return 'paginate.pagination';
     }
 }
