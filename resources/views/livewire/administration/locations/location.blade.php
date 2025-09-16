@@ -55,7 +55,7 @@
                 </tfoot>
             </table>
         </div>
-        <div class="mt-2">{{ $location->links() }}</div>
+       
         <flux:modal name="lokasi">
             <form wire:submit='store' class='grid justify-items-stretch'>
                 @csrf
@@ -113,4 +113,5 @@
             </div>
         </flux:modal>
     </x-manhours.layout>
+     <div class="mt-1">{{ $location->links() }}</div>
 </section>
