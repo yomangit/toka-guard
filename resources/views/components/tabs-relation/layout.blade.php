@@ -4,7 +4,7 @@
             <flux:navlist-horizontal.item :href="route('departmentUserManager')" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('contractorUserManager')" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('user_roles')" :current="request()->routeIs(  'user_roles' )" wire:navigate>{{ __('User Role') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('user_roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('people')" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
         </flux:navlist-horizontal>
     </div>
@@ -13,6 +13,7 @@
             <flux:navlist-horizontal.item :href="route('departmentUserManager')" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('contractorUserManager')" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
+             <flux:navlist-horizontal.item :href="route('user_roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('people')" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
         </flux:navlist>
     </div>
