@@ -1,7 +1,7 @@
 @if ($paginator->hasPages())
-    <div class="flex flex-col items-center justify-between gap-2 sm:flex-row sm:px-6 py-2">
-
-        {{-- Info --}}
+    <div class="flex flex-col sm:flex-row items-center justify-between px-4 py-2 gap-2">
+        
+        {{-- Info text --}}
         <div class="text-xs text-gray-600">
             Showing
             <span class="font-semibold">{{ $paginator->firstItem() }}</span>
@@ -14,37 +14,35 @@
 
         {{-- Pagination --}}
         <div class="join">
-            {{-- Previous --}}
+            {{-- Previous Page --}}
             @if ($paginator->onFirstPage())
-                <button class="join-item btn btn-xs btn-disabled">«</button>
+                <button class="btn btn-xs join-item btn-disabled">«</button>
             @else
-                <button wire:click="previousPage" class="join-item btn btn-xs">«</button>
+                <button wire:click="previousPage" type="button" class="btn btn-xs join-item">«</button>
             @endif
 
             {{-- Page Numbers --}}
             @foreach ($elements as $element)
-                {{-- Separator --}}
                 @if (is_string($element))
-                    <button class="join-item btn btn-xs btn-disabled">{{ $element }}</button>
+                    <button class="btn btn-xs join-item btn-disabled">…</button>
                 @endif
 
-                {{-- Links --}}
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <button class="join-item btn btn-xs btn-active">{{ $page }}</button>
+                            <button class="btn btn-xs join-item btn-active">{{ $page }}</button>
                         @else
-                            <button wire:click="gotoPage({{ $page }})" class="join-item btn btn-xs">{{ $page }}</button>
+                            <button wire:click="gotoPage({{ $page }})" type="button" class="btn btn-xs join-item">{{ $page }}</button>
                         @endif
                     @endforeach
                 @endif
             @endforeach
 
-            {{-- Next --}}
+            {{-- Next Page --}}
             @if ($paginator->hasMorePages())
-                <button wire:click="nextPage" class="join-item btn btn-xs">»</button>
+                <button wire:click="nextPage" type="button" class="btn btn-xs join-item">»</button>
             @else
-                <button class="join-item btn btn-xs btn-disabled">»</button>
+                <button class="btn btn-xs join-item btn-disabled">»</button>
             @endif
         </div>
     </div>
