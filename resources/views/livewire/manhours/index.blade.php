@@ -25,7 +25,7 @@
                         <th>Job Class</th>
                         <th>Manhour</th>
                         <th>Manpower</th>
-                        <th>Aksi</th>
+                        @can('create', \App\Models\Manhour::class)<th>Aksi</th>@endif
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +40,7 @@
                         <td>{{ $manhour->job_class }}</td>
                         <td>{{ $manhour->manhours }}</td>
                         <td>{{ $manhour->manpower }}</td>
+                        @can('create', \App\Models\Manhour::class)
                         <th class='flex justify-center flex-row gap-2'>
                             <flux:tooltip content="edit" position="top">
                                 <flux:button wire:click="open_modal({{ $manhour->id }})" size="xs" icon="pencil-square" variant="subtle"></flux:button>
@@ -50,6 +51,7 @@
                                 </flux:tooltip>
                             </flux:modal.trigger>
                         </th>
+                        @endif
                     </tr>
                     @endforeach
 
