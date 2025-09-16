@@ -1,19 +1,19 @@
 <div class="flex  flex-col ">
     <div class=" hidden md:block w-60">
         <flux:navlist-horizontal>
-            <flux:navlist-horizontal.item :href="route('departmentUserManager')" :current="request()->routeIs(  'departmentUserManager' )" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('contractorUserManager')" :current="request()->routeIs(  'contractorUserManager' )" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('roles')" :current="request()->routeIs(  'roles' )" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('departmentUserManager')" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('contractorUserManager')" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('user_roles')" :current="request()->routeIs(  'user_roles' )" wire:navigate>{{ __('User Role') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('people')" :current="request()->routeIs(  'people' )" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('people')" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
         </flux:navlist-horizontal>
     </div>
     <div class=" md:hidden w-full">
         <flux:navlist>
-            <flux:navlist-horizontal.item :href="route('departmentUserManager')" :current="request()->routeIs(  'departmentUserManager' )" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('contractorUserManager')" :current="request()->routeIs(  'contractorUserManager' )" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('roles')" :current="request()->routeIs(  'roles' )" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
-            <flux:navlist-horizontal.item :href="route('people')" :current="request()->routeIs(  'people' )" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('departmentUserManager')" wire:navigate>{{ __('Depertement User Manager') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('contractorUserManager')" wire:navigate>{{ __('Contractor User Manager') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('roles')" wire:navigate>{{ __('Role') }}</flux:navlist-horizontal.item>
+            <flux:navlist-horizontal.item :href="route('people')" wire:navigate>{{ __('People') }}</flux:navlist-horizontal.item>
         </flux:navlist>
     </div>
     {{-- <flux:separator class="md:hidden" /> --}}
