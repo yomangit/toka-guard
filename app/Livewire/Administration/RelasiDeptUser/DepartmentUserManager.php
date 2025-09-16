@@ -23,12 +23,11 @@ class DepartmentUserManager extends Component
 
     public function updatedSearchDepartment()
     {
-        $this->departments = \App\Models\Department::where('department_name', 'like', '%' . $this->searchDepartment . '%')
+        $this->departments = Department::where('department_name', 'like', '%' . $this->searchDepartment . '%')
             ->orderBy('department_name')
             ->limit(10)
             ->get();
     }
-
     public function selectDepartment($id, $name)
     {
         $this->department_id = $id;
@@ -44,7 +43,6 @@ class DepartmentUserManager extends Component
             $this->users = User::search(trim($this->searchUser))->get();
         }
     }
-
     // Toggle user di selectedUsers
     public function toggleUser($id)
     {
@@ -54,7 +52,6 @@ class DepartmentUserManager extends Component
             $this->selectedUsers[] = $id;
         }
     }
-
     // Simpan relasi ke pivot
     public function save()
     {
@@ -72,7 +69,6 @@ class DepartmentUserManager extends Component
             ]
         );
     }
-
     public function render()
     {
         $this->updateSearchUser();

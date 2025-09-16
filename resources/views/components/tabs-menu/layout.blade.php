@@ -1,12 +1,12 @@
 <div class="flex  md:flex-col ">
-     <div class=" hidden md:block w-60">
+     <div wire:ignore class=" hidden md:block w-60">
         <flux:navlist-horizontal>
             <flux:navlist-horizontal.item :href="route('administration-menu')"  :current="request()->routeIs(  'administration-menu' )"  wire:navigate>{{ __('Menu') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('administration-menu-submenu')" :current="request()->routeIs(  'administration-menu-submenu' )"  wire:navigate>{{ __('Sub Menu') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('administration-menu-extrasubmenu')" :current="request()->routeIs(  'administration-menu-extrasubmenu' )"  wire:navigate>{{ __('Extra Sub menu') }}</flux:navlist-horizontal.item>
         </flux:navlist-horizontal>
     </div>
-   <div class=" md:hidden w-full">
+   <div  wire:ignore class=" md:hidden w-full">
         <flux:navlist>
             <flux:navlist-horizontal.item :href="route('administration-menu')"  :current="request()->routeIs(  'administration-menu' )"  wire:navigate>{{ __('Menu') }}</flux:navlist-horizontal.item>
             <flux:navlist-horizontal.item :href="route('administration-menu-submenu')" :current="request()->routeIs(  'administration-menu-submenu' )"  wire:navigate>{{ __('Sub Menu') }}</flux:navlist-horizontal.item>
