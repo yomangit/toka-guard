@@ -3,12 +3,10 @@
         <flux:navlist.group class="grid">
          
             @foreach ($Menus as $menu)
-
             {{-- Skip Administration jika bukan administrator --}}
-            @if($menu->menu === 'Administration' && !auth()->user()->hasRole('administrator'))
+            @if($menu->menu === 'Administrator' && !auth()->user()->hasRole('administrator'))
             @continue
             @endif
-
             @if(count($menu->SubMenu) > 0)
             <flux:navlist.group-list expandable route='{{ $menu->request_route }}' heading="{{ $menu->menu }}" class="grid ">
                 @foreach ($menu->SubMenu as $submenu)

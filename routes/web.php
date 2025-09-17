@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('hazard/form', HazardForm::class)->name('hazard-form');
     Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail');
 });
-Route::middleware(['role:administrator'])->group(function () {
+Route::middleware(['role:Administrator'])->group(function () {
 
     Route::get('administration/companies', CompanyIndex::class)->name('administration-companies');
     Route::get('administration/department', Department::class)->name('administration-department');

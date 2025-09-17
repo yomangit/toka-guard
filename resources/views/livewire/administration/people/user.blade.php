@@ -213,7 +213,6 @@
                         @endforeach
                     </select>
                 </fieldset>
-
                 <div class="modal-action">
                     <flux:button size="xs" wire:click="bulkUpdate" variant="primary">Update</flux:button>
                     <flux:button size="xs" wire:click="$set('showBulkUpdateModal', false)" variant="danger">Batal</flux:button>

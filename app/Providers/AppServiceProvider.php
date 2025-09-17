@@ -7,12 +7,13 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Auth;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
-    
+
     public function register(): void
     {
         //
@@ -24,9 +25,26 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         App::setLocale(Session::get('locale', config('app.locale')));
-        
-        Blade::if('role', function ($role) {
-        return Auth::check() && Auth::user()->roles()->where('name', $role)->exists();
-    });
+
+        Blade::if('role', function ($roles) {
+            $user = Auth::user();
+            if (!$user) return false;
+
+            $roles = is_array($roles) ? $roles : [$roles];
+
+            // ✅ Kasus: single role (role_id)
+            if (method_exists($user, 'role') && $user->role) {
+                if (in_array($user->role->name, $roles)) {
+                    return true;
+                }
+            }
+
+            // ✅ Kasus: multiple role (pivot)
+            if (method_exists($user, 'roles') && $user->roles()->whereIn('name', $roles)->exists()) {
+                return true;
+            }
+
+            return false;
+        });
     }
 }
