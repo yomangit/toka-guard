@@ -333,7 +333,7 @@
                             <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                             </div>
-                            @if(count($pelapors) > 0)
+                            @if(count($pelaporsAct) > 0)
                             @foreach($pelaporsAct as $pelapor)
                             <li wire:click="selectActPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
                                 {{ $pelapor->name }}
