@@ -176,7 +176,29 @@ class Index extends Component
         $dept_id = Department::where('department_name', 'LIKE', $this->department)->value('id') ?? null;
         $this->dept_group = Department_group::where('department_id', $dept_id)->first()->Group->group_name ?? null;
     }
+    public function updatedEntityType($value)
+    {
+        $user = Auth::user();
 
+        if ($user->roles()->where('role_id', 1)->exists()) {
+            // 🔹 Admin: bisa lihat semua
+            if ($value === 'owner') {
+                $this->companies = BusinessUnit::pluck('company_name')->toArray();
+            } elseif ($value === 'contractor') {
+                $this->companies = Contractor::pluck('contractor_name')->toArray();
+            }
+        } else {
+            // 🔹 Contractor user: hanya kontraktor miliknya
+            if ($value === 'contractor') {
+                $this->companies = $user->contractors()->pluck('contractor_name')->toArray();
+            } else {
+                $this->companies = []; // contractor user nggak boleh pilih owner
+            }
+        }
+
+        // reset pilihan company setiap ganti entity_type
+        $this->company = '';
+    }
     public function render()
     {
         // authorize viewAny
