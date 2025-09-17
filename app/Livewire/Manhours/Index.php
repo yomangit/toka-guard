@@ -80,7 +80,6 @@ class Index extends Component
     {
         // kalau admin, ambil semua
         if (auth()->user()->roles()->where('role_id', 1)->exists()) {
-            $this->entity_type = 'owner';
             $this->companies = [
                 'owners' => BusinessUnit::all(),
                 'contractors' => Contractor::all(),
