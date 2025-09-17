@@ -351,7 +351,7 @@
                             @if($manualActPelaporMode)
                             <li class="p-2">
                                 <div class="relative w-full">
-                                    <input type="text" wire:model.live="manualActPelapor" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                    <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                                     <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
                                         <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
                                             Tambah
