@@ -39,12 +39,15 @@ class HazardForm extends Component
     public $search = '';
     public $searchLocation = '';
     public $searchPelapor = '';
+    public $searchActResponsibility = '';
     public $locations = [];
     public $pelapors = [];
+    public $pelaporsAct = [];
     public $departments = [];
     public $showDropdown = false;
     public $showLocationDropdown = false;
     public $showPelaporDropdown = false;
+    public $showActPelaporDropdown = false;
     public $searchContractor = '';
     public $contractors = [];
     public $showContractorDropdown = false;
@@ -93,6 +96,8 @@ class HazardForm extends Component
     public $tanggal;
     public $manualPelaporMode = false;
     public $manualPelaporName = '';
+    public $manualActPelaporMode = false;
+    public $manualActPelaporName = '';
     // input action
     public $actions = []; // kumpulan action sebelum disimpan
     public $action_description;
@@ -310,6 +315,46 @@ class HazardForm extends Component
         $this->searchPelapor = $this->manualPelaporName;
         $this->showPelaporDropdown = false;
         $this->pelapor_id = null;
+    }
+
+    public function updatedSearchActResponsibility()
+    {
+        $this->reset('manualActPelapor');
+        $this->manualActPelaporMode = false;
+        if (strlen($this->searchActResponsibility) > 1) {
+            $this->pelaporsAct = User::where('name', 'like', '%' . $this->searchActResponsibility . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+            $this->showActPelaporDropdown = true;
+        } else {
+            $this->pelaporsAct = [];
+            $this->showActPelaporDropdown = false;
+        }
+    }
+    public function selectActPelapor($id, $name)
+    {
+        $this->action_responsible_id = $id;
+        $this->searchActResponsibility = $name;
+        $this->showActPelaporDropdown = false;
+        $this->manualActPelaporMode = false;
+        $this->validateOnly('pelapor_id');
+    }
+    public function enableManualActPelapor()
+    {
+        $this->manualActPelaporMode = true;
+        $this->manualActPelaporName = $this->searchPelapor; // isi default sama dengan isi search
+    }
+    public function updatedManualActPelaporName($value)
+    {
+        $this->action_responsible_id = null;
+    }
+
+    public function addActPelaporManual()
+    {
+        $this->searchActResponsibility = $this->manualActPelaporName;
+        $this->showActPelaporDropdown = false;
+        $this->action_responsible_id = null;
     }
     public function getIsFormValidProperty()
     {
