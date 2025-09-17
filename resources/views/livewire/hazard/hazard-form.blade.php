@@ -281,7 +281,7 @@
                     <x-label-error :messages="$errors->get('doc_corrective')" />
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
+            <div class="grid grid-cols-1 gap-4 mb-4 border border-gray-300 p-4 rounded">
                 <div class="mt-4">
                     <h3 class="font-bold">Tindakan Perbaikan</h3>
 
