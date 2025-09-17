@@ -289,7 +289,7 @@
                         <input type="text" wire:model="action_description" placeholder="Deskripsi tindakan" class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
                         <fieldset class="fieldset mb-4">
                             <label class="block"></label>
-                            <x-form.label label="Tindakan perbaikan langsung" required />
+                            <x-form.label label="Deskripsi tindakan" required />
                             <div wire:ignore>
                                 <textarea id="ckeditor-action_description"></textarea>
                             </div>
@@ -297,14 +297,16 @@
                             <input type="hidden" wire:model.live="action_description" id="action_description">
                             <x-label-error :messages="$errors->get('action_description')" />
                         </fieldset>
-                        <div class="relative" wire:ignore x-data="{
+                        <fieldset class="fieldset relative">
+                            <x-form.label label="Tanggal & Waktu" required />
+                            <div class="relative" wire:ignore x-data="{
                             fp: null,
                             initFlatpickr() {
                                 if (this.fp) this.fp.destroy();
                                 this.fp = flatpickr(this.$refs.tanggalInput2, {
                                     disableMobile: true,
                                     enableTime: true,
-                                    dateFormat: 'd-m-Y H:i',
+                                    dateFormat: 'd-m-Y',
                                     clickOpens: true,
                                     appendTo: this.$refs.wrapper,
                                     onChange: (selectedDates, dateStr) => {
@@ -318,8 +320,10 @@
                                 initFlatpickr();
                             });
                         ">
-                            <input type="text" x-ref="tanggalInput2" wire:model.live='action_due_date' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
-                        </div>
+                                <input type="text" x-ref="tanggalInput2" wire:model.live='action_due_date' placeholder="Pilih Tanggal " readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                            </div>
+                            <x-label-error :messages="$errors->get('tanggal')" />
+                        </fieldset>
                         <select wire:model="action_responsible_id" class="select select-bordered">
                             <option value="">--Pilih Penanggung Jawab--</option>
                             @foreach($users as $user)
