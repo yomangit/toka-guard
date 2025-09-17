@@ -287,33 +287,33 @@
                         <h2 class="card-title text-lg font-semibold mb-4">Tambah Tindakan Lanjutan</h2>
 
                         <!-- Grid input -->
+                        <!-- Deskripsi Tindakan -->
+                        <fieldset class="fieldset md:col-span-1">
+                            <x-form.label label="Deskripsi Tindakan" required />
+                            <div wire:ignore>
+                                <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20"></textarea>
+                            </div>
+                            <input type="hidden" wire:model.live="action_description" id="action_description">
+                            <x-label-error :messages="$errors->get('action_description')" />
+                        </fieldset>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
 
-                            <!-- Deskripsi Tindakan -->
-                            <fieldset class="fieldset md:col-span-1">
-                                <x-form.label label="Deskripsi Tindakan" required />
-                                <div wire:ignore>
-                                    <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20"></textarea>
-                                </div>
-                                <input type="hidden" wire:model.live="action_description" id="action_description">
-                                <x-label-error :messages="$errors->get('action_description')" />
-                            </fieldset>
 
                             <!-- Tanggal & Waktu -->
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Tanggal & Waktu" required />
                                 <div class="relative" wire:ignore x-data="{
-                            fp: null,
-                            initFlatpickr() {
-                                if (this.fp) this.fp.destroy();
-                                this.fp = flatpickr(this.$refs.tanggalInput2, {
-                                    disableMobile: true,
-                                    enableTime: false,
-                                    dateFormat: 'd-m-Y',
-                                    onChange: (dates, str) => $wire.set('action_due_date', str),
-                                });
-                            }
-                        }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
+                                        fp: null,
+                                        initFlatpickr() {
+                                            if (this.fp) this.fp.destroy();
+                                            this.fp = flatpickr(this.$refs.tanggalInput2, {
+                                                disableMobile: true,
+                                                enableTime: false,
+                                                dateFormat: 'd-m-Y',
+                                                onChange: (dates, str) => $wire.set('action_due_date', str),
+                                            });
+                                        }
+                                    }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
                                     <input type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full cursor-pointer input-sm focus:ring-1 focus:border-info focus:ring-info" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
@@ -369,7 +369,7 @@
                         </div>
 
                         <!-- Tombol Tambah -->
-                        <div class="mt-4 flex justify-center">
+                        <div class="mt-4 flex justify-end">
                             <button type="button" wire:click="addAction" class="btn btn-primary btn-sm">Tambah</button>
                         </div>
 
