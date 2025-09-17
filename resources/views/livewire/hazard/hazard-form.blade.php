@@ -334,7 +334,7 @@
                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                             </div>
                             @if(count($pelapors) > 0)
-                            @foreach($pelapors as $pelapor)
+                            @foreach($pelaporsAct as $pelapor)
                             <li wire:click="selectActPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
                                 {{ $pelapor->name }}
                             </li>
