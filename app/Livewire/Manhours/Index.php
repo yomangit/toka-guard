@@ -162,12 +162,22 @@ class Index extends Component
 
     public function render()
     {
+        // authorize viewAny
+        Gate::authorize('viewAny', Manhour::class);
+        $user = auth()->user();
+
+        if ($user->roles()->where('role_id', 1)->exists()) {
+            $query = Manhour::query();
+        } else {
+            $contractorNames = $user->contractors()->pluck('contractor_name');
+            $query = Manhour::whereIn('company', $contractorNames);
+        }
         return view('livewire.manhours.index', [
             'bu'        => BusinessUnit::all(),
             'cont'      => Contractor::all(),
             'departemen' => Department::get(),
             'Companies' => Company::get(),
-            'data_manhours'  => Manhour::paginate(30),
+            'data_manhours'  => $query->latest()->paginate(10),
         ]);
     }
 
