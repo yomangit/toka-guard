@@ -55,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail');
 });
 Route::middleware(['role:Administrator'])->group(function () {
-
     Route::get('administration/companies', CompanyIndex::class)->name('administration-companies');
     Route::get('administration/department', Department::class)->name('administration-department');
     Route::get('administration/menu', ListMenu::class)->name('administration-menu');
