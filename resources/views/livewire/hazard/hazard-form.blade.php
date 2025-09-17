@@ -287,6 +287,16 @@
 
                     <div class="flex gap-2 items-end">
                         <input type="text" wire:model="action_description" placeholder="Deskripsi tindakan" class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
+                        <fieldset class="fieldset mb-4">
+                            <label class="block"></label>
+                            <x-form.label label="Tindakan perbaikan langsung" required />
+                            <div wire:ignore>
+                                <textarea id="ckeditor-action_description"></textarea>
+                            </div>
+                            <!-- Hidden input untuk binding Livewire -->
+                            <input type="hidden" wire:model.live="action_description" id="action_description">
+                            <x-label-error :messages="$errors->get('action_description')" />
+                        </fieldset>
                         <div class="relative" wire:ignore x-data="{
                             fp: null,
                             initFlatpickr() {
@@ -552,6 +562,33 @@
 
                     // Kirim ke Livewire
                     @this.set('immediate_corrective_action', data);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+
+</script>
+<script>
+    document.addEventListener('livewire:navigated', () => {
+        ClassicEditor
+            .create(document.querySelector('#ckeditor-action_description'), {
+                toolbar: [
+                    // 'heading', '|'
+                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    , 'undo', 'redo'
+                ]
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+            })
+            .then(editor => {
+                editor.model.document.on('change:data', () => {
+                    // Update ke hidden input
+                    const data = editor.getData();
+                    document.querySelector('#ckeditor-action_description').value = data;
+
+                    // Kirim ke Livewire
+                    @this.set('action_description', data);
                 });
             })
             .catch(error => {
