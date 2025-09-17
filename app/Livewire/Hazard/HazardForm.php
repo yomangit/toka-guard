@@ -319,7 +319,7 @@ class HazardForm extends Component
 
     public function updatedSearchActResponsibility()
     {
-        $this->reset('manualActPelapor');
+        $this->reset('manualActPelaporName');
         $this->manualActPelaporMode = false;
         if (strlen($this->searchActResponsibility) > 1) {
             $this->pelaporsAct = User::where('name', 'like', '%' . $this->searchActResponsibility . '%')
