@@ -1,10 +1,14 @@
 <div class='overflow-y-scroll'>
     <flux:navlist variant="outline">
         <flux:navlist.group class="grid">
-         
+
             @foreach ($Menus as $menu)
             {{-- Skip Administration jika bukan administrator --}}
             @if($menu->menu === 'Administrator' && !auth()->user()->hasRole('administrator'))
+            @continue
+            @endif
+            {{-- Skip Manhours kalau user tidak punya izin --}}
+            @if($menu->menu === 'Manhours' && !auth()->user()->can('viewAny', \App\Models\Manhour::class))
             @continue
             @endif
             @if(count($menu->SubMenu) > 0)
@@ -19,6 +23,7 @@
                     @endforeach
                 </flux:navlist.group-list>
                 @elseif(!$submenu->route)
+
                 <flux:menu.item :current="(($submenu->request_route!=null)? Request::is($submenu->request_route ):Request::is($submenu->route ))" icon="{{ $submenu->icon }}" wire:navigate>
                     {{ $submenu->menu }}
                 </flux:menu.item>
@@ -41,7 +46,7 @@
 
             @endforeach
 
-           
+
         </flux:navlist.group>
     </flux:navlist>
 
