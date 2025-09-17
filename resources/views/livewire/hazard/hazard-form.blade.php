@@ -282,6 +282,61 @@
                 </fieldset>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
+                <div class="mt-4">
+                    <h3 class="font-bold">Tindakan Perbaikan</h3>
+
+                    <div class="flex gap-2 items-end">
+                        <input type="text" wire:model="action_description" placeholder="Deskripsi tindakan" class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
+                        <div class="relative" wire:ignore x-data="{
+                            fp: null,
+                            initFlatpickr() {
+                                if (this.fp) this.fp.destroy();
+                                this.fp = flatpickr(this.$refs.tanggalInput2, {
+                                    disableMobile: true,
+                                    enableTime: true,
+                                    dateFormat: 'd-m-Y H:i',
+                                    clickOpens: true,
+                                    appendTo: this.$refs.wrapper,
+                                    onChange: (selectedDates, dateStr) => {
+                                        this.$wire.set('action_due_date', dateStr);
+                                    }
+                                });
+                            }
+                        }" x-ref="wrapper" x-init="
+                            initFlatpickr();
+                            Livewire.hook('message.processed', () => {
+                                initFlatpickr();
+                            });
+                        ">
+                            <input type="text" x-ref="tanggalInput2" wire:model.live='action_due_date' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        </div>
+                        <select wire:model="action_responsible_id" class="select select-bordered">
+                            <option value="">--Pilih Penanggung Jawab--</option>
+                            @foreach($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        <button type="button" wire:click="addAction" class="btn btn-primary">Tambah</button>
+                    </div>
+
+                    <ul class="mt-3 space-y-2">
+                        @foreach($actions as $index => $act)
+                        <li class="flex items-center justify-between border p-2 rounded">
+                            <div>
+                                <p><strong>{{ $act['description'] }}</strong></p>
+                                <p class="text-sm text-gray-500">
+                                    Deadline: {{ $act['due_date'] }} |
+                                    PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
+                                </p>
+                            </div>
+                            <button type="button" wire:click="removeAction({{ $index }})" class="btn btn-sm btn-error">Hapus</button>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
                 {{-- KEY WORD --}}
                 <fieldset>
                     <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />

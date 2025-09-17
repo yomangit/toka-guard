@@ -14,6 +14,7 @@ use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\Likelihood;
 use App\Helpers\FileHelper;
+use App\Models\ActionHazard;
 use App\Models\EventSubType;
 use App\Models\ErmAssignment;
 use Livewire\WithFileUploads;
@@ -23,6 +24,7 @@ use App\Events\HazardSubmitted;
 use App\Models\RiskConsequence;
 use App\Models\UnsafeCondition;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\DB;
 use App\Models\RiskAssessmentMatrix;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\DateBeforeOrEqualToday;
@@ -91,6 +93,11 @@ class HazardForm extends Component
     public $tanggal;
     public $manualPelaporMode = false;
     public $manualPelaporName = '';
+    // input action
+    public $actions = []; // kumpulan action sebelum disimpan
+    public $action_description;
+    public $action_due_date;
+    public $action_responsible_id;
     public function rules()
     {
         return [
@@ -313,68 +320,112 @@ class HazardForm extends Component
             && !empty($this->description)
             && !empty($this->severity);
     }
+    public function addAction()
+    {
+        $this->validate([
+            'action_description' => 'required|string',
+            'action_due_date' => 'required|date',
+            'action_responsible_id' => 'required|exists:users,id',
+        ]);
+
+        $this->actions[] = [
+            'description' => $this->action_description,
+            'due_date' => $this->action_due_date,
+            'responsible_id' => $this->action_responsible_id,
+            'status' => 'open',
+        ];
+
+        // reset input sementara
+        $this->reset(['action_description', 'action_due_date', 'action_responsible_id']);
+    }
+
+    public function removeAction($index)
+    {
+        unset($this->actions[$index]);
+        $this->actions = array_values($this->actions); // reindex
+    }
     public function submit()
     {
         $this->validate();
-        $docDeskripsiPath = null;
-        $docCorrectivePath = null;
-        // Convert tanggal ke format Y-m-d H:i:s
-        $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
-        if ($this->doc_deskripsi) {
-            $docDeskripsiPath = FileHelper::compressAndStore($this->doc_deskripsi, 'sebelum_perbaikan');
-        }
-        if ($this->doc_corrective) {
-            $docCorrectivePath = FileHelper::compressAndStore($this->doc_corrective, 'sesudah_perbaikan');
-        }
-        // Hitung risk level (opsional: ambil dari RiskMatrixCell atau kalkulasi manual)
-        $riskLevel = null;
-        if ($this->consequence_id && $this->likelihood_id) {
-            $riskLevel = \App\Models\RiskMatrixCell::where('likelihood_id', $this->likelihood_id)
-                ->where('risk_consequence_id', $this->consequence_id)
-                ->value('severity');
-        }
-        $pelaporId = $this->pelapor_id ?: null;
-        $hazard = Hazard::create([
-            'event_type_id'          => $this->tipe_bahaya,
-            'event_sub_type_id'      => $this->sub_tipe_bahaya,
-            'department_id'          => $this->department_id,
-            'contractor_id'          => $this->contractor_id,
-            'pelapor_id'             => $pelaporId,
-            'penanggung_jawab_id'    => $this->penanggungJawab,
-            'location_id'            => $this->location_id,
-            'location_specific'      => $this->location_specific,
-            'tanggal'                => $tanggal, // ✅ sudah diformat
-            'description'            => $this->description,
-            'doc_deskripsi'          => $docDeskripsiPath,
-            'immediate_corrective_action' => $this->immediate_corrective_action,
-            'doc_corrective'         => $docCorrectivePath,
-            'key_word'               => $this->keyWord,
-            'kondisi_tidak_aman_id'  => $this->kondisi_tidak_aman,
-            'tindakan_tidak_aman_id' => $this->tindakan_tidak_aman,
-            'consequence_id'         => $this->consequence_id,
-            'likelihood_id'          => $this->likelihood_id,
-            'risk_level'             => $riskLevel,
-            'manualPelaporName' => $this->pelapor_id ? User::find($this->pelapor_id)?->name : $this->manualPelaporName, // kalau tidak ada, ambil dari input manual
-        ]);
-        $ermUsers = ErmAssignment::where('department_id', $hazard->department_id)
-            ->orWhere('contractor_id', $hazard->contractor_id)
-            ->with('user')
-            ->get()
-            ->pluck('user');
-        $this->dispatch(
-            'alert',
-            [
-                'text' => "Laporan berhasil dikirim!",
-                'duration' => 5000,
-                'destination' => '/contact',
-                'newWindow' => true,
-                'close' => true,
-                'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
-            ]
-        );
-        Notification::send($ermUsers, new HazardSubmittedNotification($hazard));
 
-        $this->resetForm(); // reset form
+        DB::transaction(function () {
+            $docDeskripsiPath = null;
+            $docCorrectivePath = null;
+
+            $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
+
+            if ($this->doc_deskripsi) {
+                $docDeskripsiPath = FileHelper::compressAndStore($this->doc_deskripsi, 'sebelum_perbaikan');
+            }
+            if ($this->doc_corrective) {
+                $docCorrectivePath = FileHelper::compressAndStore($this->doc_corrective, 'sesudah_perbaikan');
+            }
+
+            $riskLevel = null;
+            if ($this->consequence_id && $this->likelihood_id) {
+                $riskLevel = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)
+                    ->where('risk_consequence_id', $this->consequence_id)
+                    ->value('severity');
+            }
+
+            $pelaporId = $this->pelapor_id ?: null;
+
+            // 1. Simpan hazard
+            $hazard = Hazard::create([
+                'event_type_id'          => $this->tipe_bahaya,
+                'event_sub_type_id'      => $this->sub_tipe_bahaya,
+                'department_id'          => $this->department_id,
+                'contractor_id'          => $this->contractor_id,
+                'pelapor_id'             => $pelaporId,
+                'penanggung_jawab_id'    => $this->penanggungJawab,
+                'location_id'            => $this->location_id,
+                'location_specific'      => $this->location_specific,
+                'tanggal'                => $tanggal,
+                'description'            => $this->description,
+                'doc_deskripsi'          => $docDeskripsiPath,
+                'immediate_corrective_action' => $this->immediate_corrective_action,
+                'doc_corrective'         => $docCorrectivePath,
+                'key_word'               => $this->keyWord,
+                'kondisi_tidak_aman_id'  => $this->kondisi_tidak_aman,
+                'tindakan_tidak_aman_id' => $this->tindakan_tidak_aman,
+                'consequence_id'         => $this->consequence_id,
+                'likelihood_id'          => $this->likelihood_id,
+                'risk_level'             => $riskLevel,
+                'manualPelaporName'      => $this->pelapor_id ? User::find($this->pelapor_id)?->name : $this->manualPelaporName,
+            ]);
+
+            // 2. Simpan semua action
+            foreach ($this->actions as $act) {
+                ActionHazard::create([
+                    'hazard_id'     => $hazard->id,
+                    'description'   => $act['description'],
+                    'status'        => $act['status'],
+                    'due_date'      => $act['due_date'],
+                    'responsible_id' => $act['responsible_id'],
+                ]);
+            }
+
+            // 3. Notifikasi
+            $ermUsers = ErmAssignment::where('department_id', $hazard->department_id)
+                ->orWhere('contractor_id', $hazard->contractor_id)
+                ->with('user')
+                ->get()
+                ->pluck('user');
+
+            Notification::send($ermUsers, new HazardSubmittedNotification($hazard));
+        });
+
+        // 4. Feedback ke user
+        $this->dispatch('alert', [
+            'text' => "Laporan berhasil dikirim!",
+            'duration' => 5000,
+            'destination' => '/contact',
+            'newWindow' => true,
+            'close' => true,
+            'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
+        ]);
+
+        $this->resetForm();
     }
     public function edit($likelihoodId, $consequenceId)
     {
@@ -385,8 +436,8 @@ class HazardForm extends Component
         $this->selectedConsequenceId = $this->consequence_id;
 
         $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
-        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id',$id_table)->first()->risk_assessment_id;
-        $this->RiskAssessment =RiskAssessment::whereId($risk_assessment_id)->first();
+        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
+        $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
     }
 
     public function render()
@@ -425,6 +476,7 @@ class HazardForm extends Component
             'tindakan_tidak_aman',
             'consequence_id',
             'likelihood_id',
+            'actions',  // <--- penting
         ]);
     }
 }

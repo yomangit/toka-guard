@@ -35,6 +35,8 @@ class Index extends Component
     public $dept_group;
     public $form;
 
+
+
     // jobclass setup
     public $jobclasses = [
         'supervisor'     => 'Supervisor',
@@ -86,7 +88,7 @@ class Index extends Component
             ];
         } else {
             // kalau contractor, ambil hanya contractor yg punya relasi
-             $this->entity_type = 'contractor';
+            $this->entity_type = 'contractor';
             $this->companies = [
                 'owners' => collect([]), // kosong
                 'contractors' => auth()->user()->contractors, // relasi dari user
@@ -200,6 +202,7 @@ class Index extends Component
         // reset pilihan company setiap ganti entity_type
         $this->company = '';
     }
+    
     public function render()
     {
         // authorize viewAny
