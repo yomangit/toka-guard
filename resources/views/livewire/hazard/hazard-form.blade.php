@@ -296,9 +296,7 @@
                             <input type="hidden" wire:model.live="action_description" id="action_description">
                             <x-label-error :messages="$errors->get('action_description')" />
                         </fieldset>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-
-
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                             <!-- Tanggal & Waktu -->
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Tanggal & Waktu" required />
@@ -318,7 +316,6 @@
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>
-
                             <!-- Dilaporkan Oleh -->
                             <fieldset class="fieldset md:col-span-1 relative">
                                 <x-form.label label="Dilaporkan Oleh" required />
@@ -367,10 +364,9 @@
                                 @endif
                             </fieldset>
                         </div>
-
                         <!-- Tombol Tambah -->
                         <div class="mt-4 flex justify-end">
-                            <button type="button" wire:click="addAction" class="btn btn-primary btn-sm">Tambah</button>
+                            <flux:button size="xs"  wire:click="addAction"  icon:trailing="send" variant="primary">Tambah</flux:button>
                         </div>
 
                         <!-- List Actions -->
