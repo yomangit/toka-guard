@@ -114,7 +114,7 @@
                         <x-label-error :messages="$errors->get('department_id')" />
                         @endif
                     </div>
-                    <div class="hidden peer-checked/company:block mt-1">
+                    <div class="hidden peer-checked/company:block ">
                         {{-- Contractor --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
@@ -281,8 +281,8 @@
                     <x-label-error :messages="$errors->get('doc_corrective')" />
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1 gap-4 mb-4 border border-gray-300 p-4 rounded">
-                <div class="mt-4">
+            <div class="grid grid-cols-1 gap-4  border border-gray-300 p-4 rounded">
+               
                     <div class="flex gap-2 items-end">
                         <fieldset class="fieldset mb-4">
                             <label class="block"></label>
@@ -302,7 +302,7 @@
                                 if (this.fp) this.fp.destroy();
                                 this.fp = flatpickr(this.$refs.tanggalInput2, {
                                     disableMobile: true,
-                                    enableTime: true,
+                                    enableTime: false,
                                     dateFormat: 'd-m-Y',
                                     clickOpens: true,
                                     appendTo: this.$refs.wrapper,
@@ -322,55 +322,55 @@
                             <x-label-error :messages="$errors->get('tanggal')" />
                         </fieldset>
                         <fieldset class="fieldset">
-                    <x-form.label label="Dilaporkan Oleh" required />
-                    <div class="relative">
-                        <!-- Input Search -->
-                        <input type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
-                        <!-- Dropdown hasil search -->
-                        @if($showActPelaporDropdown)
-                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
-                            <!-- Spinner ketika klik -->
-                            <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
-                                <span class="loading loading-spinner loading-sm text-secondary"></span>
-                            </div>
-                            @if(count($pelaporsAct) > 0)
-                            @foreach($pelaporsAct as $pelapor)
-                            <li wire:click="selectActPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                {{ $pelapor->name }}
-                            </li>
-                            @endforeach
-                            @else
-                            <!-- Jika tidak ada hasil & belum mode manual -->
-                            @if(!$manualActPelaporMode)
-                            <li wire:click="enableManualActPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
-                                Tidak ditemukan, tambah pelapor manual
-                            </li>
-                            @endif
-                            @endif
-                            <!-- Input manual jika mode manual aktif -->
-                            @if($manualActPelaporMode)
-                            <li class="p-2">
-                                <div class="relative w-full">
-                                    <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
-                                    <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
-                                        <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
-                                            Tambah
-                                        </flux:button>
+                            <x-form.label label="Dilaporkan Oleh" required />
+                            <div class="relative">
+                                <!-- Input Search -->
+                                <input type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                <!-- Dropdown hasil search -->
+                                @if($showActPelaporDropdown)
+                                <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                                    <!-- Spinner ketika klik -->
+                                    <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
+                                        <span class="loading loading-spinner loading-sm text-secondary"></span>
                                     </div>
-                                </div>
-                            </li>
+                                    @if(count($pelaporsAct) > 0)
+                                    @foreach($pelaporsAct as $pelapor)
+                                    <li wire:click="selectActPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                        {{ $pelapor->name }}
+                                    </li>
+                                    @endforeach
+                                    @else
+                                    <!-- Jika tidak ada hasil & belum mode manual -->
+                                    @if(!$manualActPelaporMode)
+                                    <li wire:click="enableManualActPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
+                                        Tidak ditemukan, tambah pelapor manual
+                                    </li>
+                                    @endif
+                                    @endif
+                                    <!-- Input manual jika mode manual aktif -->
+                                    @if($manualActPelaporMode)
+                                    <li class="p-2">
+                                        <div class="relative w-full">
+                                            <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                            <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
+                                                <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
+                                                    Tambah
+                                                </flux:button>
+                                            </div>
+                                        </div>
+                                    </li>
 
+                                    @endif
+                                </ul>
+                                @endif
+                            </div>
+                            <!-- Error Message -->
+                            @if($manualPelaporMode)
+                            <x-label-error :messages="$errors->get('manualPelaporName')" />
+                            @else
+                            <x-label-error :messages="$errors->get('pelapor_id')" />
                             @endif
-                        </ul>
-                        @endif
-                    </div>
-                    <!-- Error Message -->
-                    @if($manualPelaporMode)
-                    <x-label-error :messages="$errors->get('manualPelaporName')" />
-                    @else
-                    <x-label-error :messages="$errors->get('pelapor_id')" />
-                    @endif
-                </fieldset>
+                        </fieldset>
                         <button type="button" wire:click="addAction" class="btn btn-primary">Tambah</button>
                     </div>
 
@@ -378,7 +378,7 @@
                         @foreach($actions as $index => $act)
                         <li class="flex items-center justify-between border p-2 rounded">
                             <div>
-                                <p><strong>{{ $act['description'] }}</strong></p>
+                                <p><strong>{!! $act['description'] !!}</strong></p>
                                 <p class="text-sm text-gray-500">
                                     Deadline: {{ $act['due_date'] }} |
                                     PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
@@ -388,7 +388,7 @@
                         </li>
                         @endforeach
                     </ul>
-                </div>
+               
 
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
