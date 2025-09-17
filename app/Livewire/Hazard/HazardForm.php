@@ -443,6 +443,7 @@ class HazardForm extends Component
     public function render()
     {
         return view('livewire.hazard.hazard-form', [
+            'users'=>User::limit(10)->get(),
             'Department'   => Department::all(),
             'likelihoodss' => Likelihood::orderByDesc('level')->get(),
             'consequencess' => RiskConsequence::orderBy('level')->get(),
