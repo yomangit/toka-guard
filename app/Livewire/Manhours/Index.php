@@ -23,6 +23,7 @@ class Index extends Component
     public $modalOpen;
     public $custodian = [];
     public $deptGroup = [];
+    public $companies = [];
     public $selectedId = null;
     public $confirmingDelete = false;
     public $canCreate = false;
@@ -74,6 +75,22 @@ class Index extends Component
         }
 
         return $rules;
+    }
+    public function mount()
+    {
+        // kalau admin, ambil semua
+        if (auth()->user()->roles()->where('role_id', 1)->exists()) {
+            $this->companies = [
+                'owners' => BusinessUnit::all(),
+                'contractors' => Contractor::all(),
+            ];
+        } else {
+            // kalau contractor, ambil hanya contractor yg punya relasi
+            $this->companies = [
+                'owners' => collect([]), // kosong
+                'contractors' => auth()->user()->contractors, // relasi dari user
+            ];
+        }
     }
 
     public function open_modal($id = null)
@@ -176,7 +193,6 @@ class Index extends Component
             'bu'        => BusinessUnit::all(),
             'cont'      => Contractor::all(),
             'departemen' => Department::get(),
-            'Companies' => Company::get(),
             'data_manhours'  => $query->latest()->paginate(10),
         ]);
     }
