@@ -590,7 +590,7 @@
 
     // inisialisasi semua editor setelah navigasi Livewire
     document.addEventListener('livewire:navigated', () => {
-        initCkeditor('#ckeditor-description', 'description');
+        // initCkeditor('#ckeditor-description', 'description');
         initCkeditor('#ckeditor-immediate_corrective_action', 'immediate_corrective_action');
         initCkeditor('#ckeditor-action_description', 'action_description', true);
     });
