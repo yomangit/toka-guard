@@ -49,17 +49,17 @@ class Hazard extends Model
             ->logAll()
             ->logOnlyDirty(); // hanya field berubah yang dicatat
     }
-        /**
+    /**
      * Ubah ID relasi jadi name di activity log
      */
     public function tapActivity(Activity $activity, string $eventName)
     {
         $map = [
-            'penanggung_jawab_id' => fn($id) => User::find($id)?->name,
-            'pelapor_id'          => fn($id) => User::find($id)?->name,
-            'department_id'       => fn($id) => Department::find($id)?->department_name,
-            'contractor_id'       => fn($id) => Contractor::find($id)?->contractor_name,
-            'location_id'         => fn($id) => Location::find($id)?->name,
+            'penanggung_jawab_id' => fn($id) => \App\Models\User::find($id)?->name,
+            'pelapor_id'          => fn($id) => \App\Models\User::find($id)?->name,
+            'department_id'       => fn($id) => \App\Models\Department::find($id)?->department_name,
+            'contractor_id'       => fn($id) => \App\Models\Contractor::find($id)?->contractor_name,
+            'location_id'         => fn($id) => \App\Models\Location::find($id)?->name,
         ];
 
         foreach (['attributes', 'old'] as $key) {
@@ -67,14 +67,21 @@ class Hazard extends Model
                 continue;
             }
 
+            // ambil sebagai array/collection sementara
+            $props = collect($activity->properties[$key]);
+
             foreach ($map as $field => $resolver) {
-                if (isset($activity->properties[$key][$field])) {
-                    $id = $activity->properties[$key][$field];
-                    $activity->properties[$key][$field . '_name'] = $resolver($id);
+                if (isset($props[$field])) {
+                    $id = $props[$field];
+                    $props[$field . '_name'] = $resolver($id);
                 }
             }
+
+            // set ulang sebagai array
+            $activity->properties[$key] = $props->toArray();
         }
     }
+
     // relasi ke logs
     public function activities()
     {
