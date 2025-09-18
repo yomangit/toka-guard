@@ -140,7 +140,7 @@
                                     $oldValue = $activity->subject->eventType?->event_type_name ?? $oldValue;
                                     $newValue = \App\Models\EventType::find($new)?->event_type_name ?? $newValue;
                                     break;
-                                    case 'event_type_id':
+                                    case 'event_sub_type_id':
                                     $oldValue = $activity->subject->eventSubType?->event_sub_type_name ?? $oldValue;
                                     $newValue = \App\Models\EventSubType::find($new)?->event_sub_type_name ?? $newValue;
                                     break;
