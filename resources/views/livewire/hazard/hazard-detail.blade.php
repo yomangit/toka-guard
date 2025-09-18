@@ -90,81 +90,83 @@
 
             {{-- Modal DaisyUI --}}
             <dialog class="modal" id="my_modal_2" role="dialog">
-                <div class="modal-box max-w-4xl max-h-[80vh] overflow-y-auto">
+                <div class="modal-box max-w-4xl ">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="text-lg font-bold mb-2">Audit Trail</h3>
-                    <table class="table table-sm w-full border">
-                        <thead>
-                            <tr class="bg-gray-100">
-                                <th class="border px-2 py-1">Tanggal</th>
-                                <th class="border px-2 py-1">User</th>
-                                <th class="border px-2 py-1">Perubahan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($report->activities as $activity)
-                            <tr>
-                                <td class="border px-2 py-1">{{ $activity->created_at->format('d-m-Y H:i') }}</td>
-                                <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
-                                <td class="border px-2 py-1">
-                                    @foreach($activity->changes['attributes'] ?? [] as $field => $new)
-                                    @continue($field === 'updated_at')
-                                    @php
-                                    $oldValue = $activity->changes['old'][$field] ?? '-';
-                                    $newValue = $new;
+                    <div class="max-h-[80vh] overflow-y-auto">
+                        <table class="table table-sm w-full border">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="border px-2 py-1">Tanggal</th>
+                                    <th class="border px-2 py-1">User</th>
+                                    <th class="border px-2 py-1">Perubahan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($report->activities as $activity)
+                                <tr>
+                                    <td class="border px-2 py-1">{{ $activity->created_at->format('d-m-Y H:i') }}</td>
+                                    <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
+                                    <td class="border px-2 py-1">
+                                        @foreach($activity->changes['attributes'] ?? [] as $field => $new)
+                                        @continue($field === 'updated_at')
+                                        @php
+                                        $oldValue = $activity->changes['old'][$field] ?? '-';
+                                        $newValue = $new;
 
-                                    switch ($field) {
-                                    case 'penanggung_jawab_id':
-                                    $oldValue = $activity->subject->penanggungJawab?->name ?? $oldValue;
-                                    $newValue = \App\Models\User::find($new)?->name ?? $newValue;
-                                    break;
-                                    case 'pelapor_id':
-                                    $oldValue = $activity->subject->pelapor?->name ?? $oldValue;
-                                    $newValue = \App\Models\User::find($new)?->name ?? $newValue;
-                                    break;
-                                    case 'department_id':
-                                    $oldValue = $activity->subject->department?->department_name ?? $oldValue;
-                                    $newValue = \App\Models\Department::find($new)?->department_name ?? $newValue;
-                                    break;
-                                    case 'contractor_id':
-                                    $oldValue = $activity->subject->contractor?->contractor_name ?? $oldValue;
-                                    $newValue = \App\Models\Contractor::find($new)?->contractor_name ?? $newValue;
-                                    break;
-                                    case 'location_id':
-                                    $oldValue = $activity->subject->location?->name ?? $oldValue;
-                                    $newValue = \App\Models\Location::find($new)?->name ?? $newValue;
-                                    break;
-                                    case 'event_type_id':
-                                    $oldValue = $activity->subject->eventType?->event_type_name ?? $oldValue;
-                                    $newValue = \App\Models\EventType::find($new)?->event_type_name ?? $newValue;
-                                    break;
-                                    case 'event_sub_type_id':
-                                    $oldValue = $activity->subject->eventSubType?->event_sub_type_name ?? $oldValue;
-                                    $newValue = \App\Models\EventSubType::find($new)?->event_sub_type_name ?? $newValue;
-                                    break;
-                                    }
+                                        switch ($field) {
+                                        case 'penanggung_jawab_id':
+                                        $oldValue = $activity->subject->penanggungJawab?->name ?? $oldValue;
+                                        $newValue = \App\Models\User::find($new)?->name ?? $newValue;
+                                        break;
+                                        case 'pelapor_id':
+                                        $oldValue = $activity->subject->pelapor?->name ?? $oldValue;
+                                        $newValue = \App\Models\User::find($new)?->name ?? $newValue;
+                                        break;
+                                        case 'department_id':
+                                        $oldValue = $activity->subject->department?->department_name ?? $oldValue;
+                                        $newValue = \App\Models\Department::find($new)?->department_name ?? $newValue;
+                                        break;
+                                        case 'contractor_id':
+                                        $oldValue = $activity->subject->contractor?->contractor_name ?? $oldValue;
+                                        $newValue = \App\Models\Contractor::find($new)?->contractor_name ?? $newValue;
+                                        break;
+                                        case 'location_id':
+                                        $oldValue = $activity->subject->location?->name ?? $oldValue;
+                                        $newValue = \App\Models\Location::find($new)?->name ?? $newValue;
+                                        break;
+                                        case 'event_type_id':
+                                        $oldValue = $activity->subject->eventType?->event_type_name ?? $oldValue;
+                                        $newValue = \App\Models\EventType::find($new)?->event_type_name ?? $newValue;
+                                        break;
+                                        case 'event_sub_type_id':
+                                        $oldValue = $activity->subject->eventSubType?->event_sub_type_name ?? $oldValue;
+                                        $newValue = \App\Models\EventSubType::find($new)?->event_sub_type_name ?? $newValue;
+                                        break;
+                                        }
 
-                                    $label = ucfirst(str_replace('_', ' ', $field));
-                                    @endphp
+                                        $label = ucfirst(str_replace('_', ' ', $field));
+                                        @endphp
 
-                                    <div class="mb-1">
-                                        <strong>{{ $label }}</strong>:
-                                        <span class="text-red-500">{{ $oldValue }}</span>
-                                        →
-                                        <span class="text-green-600">{{ $newValue }}</span>
-                                    </div>
-                                    @endforeach
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="3" class="text-center text-gray-500 py-2">Belum ada perubahan</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
+                                        <div class="mb-1">
+                                            <strong>{{ $label }}</strong>:
+                                            <span class="text-red-500">{{ $oldValue }}</span>
+                                            →
+                                            <span class="text-green-600">{{ $newValue }}</span>
+                                        </div>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center text-gray-500 py-2">Belum ada perubahan</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </dialog>
 
