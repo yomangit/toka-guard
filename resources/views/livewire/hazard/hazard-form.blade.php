@@ -282,9 +282,9 @@
                 </fieldset>
             </div>
             <div class="max-w-5xl mx-auto">
-                <div class="card bg-base-100 shadow-md border border-gray-200">
-                    <fieldset class="card-body fieldset">
-                        <legend class="card-title text-lg font-semibold mb-4">Tambah Tindakan Lanjutan</legend>
+                <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200">
+                    <legend class="card-title text-lg font-semibold mb-4">Tambah Tindakan Lanjutan</legend>
+                    <div class="card-body ">
 
                         <!-- Grid input -->
                         <!-- Deskripsi Tindakan -->
@@ -389,8 +389,8 @@
                             <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>
                             @endforelse
                         </ul>
-                    </fieldset>
-                </div>
+                    </div>
+                </fieldset>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
