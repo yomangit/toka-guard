@@ -208,7 +208,6 @@
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
-
             </div>
             <fieldset class="fieldset mb-4">
                 <x-form.label label="Deskripsi" required />
