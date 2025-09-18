@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Enums\HazardStatus;
-
-use Spatie\Activitylog\LogOptions;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 class Hazard extends Model
 {
     use LogsActivity;
+
     protected $table = 'hazard_reports';
+
     protected $fillable = [
         'event_type_id',
         'event_sub_type_id',
@@ -37,112 +38,69 @@ class Hazard extends Model
         'risk_level',
     ];
 
-
-
-    protected static $logOnlyDirty = true; // hanya log kalau ada perubahan
+    protected static $logOnlyDirty = true;
     protected static $logName = 'hazard_report';
 
+    /**
+     * Activity Log Options
+     */
     public function getActivitylogOptions(): LogOptions
     {
+        // Catat semua field, tapi log *_id diganti nama lewat accessor
         return LogOptions::defaults()
-            ->useLogName('hazard_report')
+            ->useLogName($this->getTable())
             ->logAll()
-            ->logOnlyDirty(); // hanya field berubah yang dicatat
+            ->logOnlyDirty();
     }
+
     /**
-     * Ubah ID relasi jadi name di activity log
+     * Tap activity untuk menambahkan nama relasi
      */
     public function tapActivity(Activity $activity, string $eventName)
     {
         $map = [
-            'penanggung_jawab_id' => fn($id) => \App\Models\User::find($id)?->name,
-            'pelapor_id'          => fn($id) => \App\Models\User::find($id)?->name,
-            'department_id'       => fn($id) => \App\Models\Department::find($id)?->department_name,
-            'contractor_id'       => fn($id) => \App\Models\Contractor::find($id)?->contractor_name,
-            'location_id'         => fn($id) => \App\Models\Location::find($id)?->name,
+            'penanggung_jawab_id' => fn($id) => $id ? $this->penanggungJawab?->name : null,
+            'pelapor_id'          => fn($id) => $id ? $this->pelapor?->name : null,
+            'department_id'       => fn($id) => $id ? $this->department?->department_name : null,
+            'contractor_id'       => fn($id) => $id ? $this->contractor?->contractor_name : null,
+            'location_id'         => fn($id) => $id ? $this->location?->name : null,
         ];
 
         foreach (['attributes', 'old'] as $key) {
-            if (! isset($activity->properties[$key])) {
-                continue;
-            }
+            if (!isset($activity->properties[$key])) continue;
 
-            // ambil sebagai array/collection sementara
             $props = collect($activity->properties[$key]);
-
             foreach ($map as $field => $resolver) {
                 if (isset($props[$field])) {
-                    $id = $props[$field];
-                    $props[$field . '_name'] = $resolver($id);
+                    // Ganti ID dengan name agar log lebih readable
+                    $props[$field . '_name'] = $resolver($props[$field]);
                 }
             }
-
-            // set ulang sebagai array
             $activity->properties[$key] = $props->toArray();
         }
     }
 
-    // relasi ke logs
-    public function activities()
-    {
-        return $this->morphMany(Activity::class, 'subject');
-    }
-    public function eventType()
-    {
-        return $this->belongsTo(EventType::class, 'event_type_id');
-    }
+    /** RELATIONS */
+    public function activities()          { return $this->morphMany(Activity::class, 'subject'); }
+    public function eventType()           { return $this->belongsTo(EventType::class, 'event_type_id'); }
+    public function eventSubType()        { return $this->belongsTo(EventSubType::class, 'event_sub_type_id'); }
+    public function department()          { return $this->belongsTo(Department::class); }
+    public function contractor()          { return $this->belongsTo(Contractor::class); }
+    public function penanggungJawab()     { return $this->belongsTo(User::class, 'penanggung_jawab_id'); }
+    public function pelapor()             { return $this->belongsTo(User::class, 'pelapor_id'); }
+    public function location()            { return $this->belongsTo(Location::class); }
+    public function consequence()         { return $this->belongsTo(RiskConsequence::class); }
+    public function likelihood()          { return $this->belongsTo(Likelihood::class); }
+    public function company()             { return $this->belongsTo(Company::class); }
+    public function assignedErms()        { return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id'); }
 
-    public function eventSubType()
-    {
-        return $this->belongsTo(EventSubType::class, 'event_sub_type_id');
-    }
-
-    public function department()
-    {
-        return $this->belongsTo(Department::class);
-    }
-
-    public function contractor()
-    {
-        return $this->belongsTo(Contractor::class);
-    }
-
-    public function penanggungJawab()
-    {
-        return $this->belongsTo(User::class, 'penanggung_jawab_id');
-    }
-    public function pelapor()
-    {
-        return $this->belongsTo(User::class, 'pelapor_id');
-    }
-
-    public function location()
-    {
-        return $this->belongsTo(Location::class);
-    }
-
-    public function consequence()
-    {
-        return $this->belongsTo(RiskConsequence::class);
-    }
-
-    public function likelihood()
-    {
-        return $this->belongsTo(Likelihood::class);
-    }
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
-    }
-    public function assignedErms()
-    {
-        return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id');
-    }
-    // Scope untuk filter status
+    /** SCOPES */
     public function scopeStatus($query, $status)
     {
         return $query->where('status', $status);
     }
+
+    /** HELPERS */
     public function resolveCompanyId()
     {
         return $this->department->company_id ?? $this->contractor->company_id ?? null;
