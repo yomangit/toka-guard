@@ -280,12 +280,11 @@
                     <x-label-error :messages="$errors->get('doc_corrective')" />
                 </fieldset>
             </div>
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-5xl mx-auto mb-4">
                 <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                     <legend class="card-title text-sm font-semibold ">Tambah Tindakan Lanjutan</legend>
                     <div class="card-body ">
 
-                        <!-- Grid input -->
                         <!-- Deskripsi Tindakan -->
                         <fieldset class="fieldset md:col-span-1">
                             <x-form.label label="Deskripsi Tindakan" required />
@@ -365,13 +364,11 @@
                         </div>
 
                         <!-- Tombol Tambah -->
-                        <div class="mt-4 flex justify-end">
-
+                        <div class=" flex justify-end">
                             <flux:button size="xs" wire:click="addAction" icon:trailing="add-icon" variant="primary">Tambah</flux:button>
                         </div>
-
                         <!-- List Actions -->
-                        <div class="divider my-4">Daftar Tindakan</div>
+                        <div class="divider my-2">Daftar Tindakan</div>
                         <ul class="space-y-2">
                             @forelse($actions as $index => $act)
                             <li class="flex flex-col md:flex-row md:items-center justify-between border p-3 rounded bg-base-50">
