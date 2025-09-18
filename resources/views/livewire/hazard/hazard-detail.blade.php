@@ -110,24 +110,42 @@
                                 <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
                                 <td class="border px-2 py-1">
                                     @foreach($activity->changes['attributes'] ?? [] as $field => $new)
+                                    @php
+                                    // Cek nama relasi berdasarkan field
+                                    $oldValue = $activity->changes['old'][$field] ?? '-';
+                                    $newValue = $new;
+
+                                    switch ($field) {
+                                    case 'penanggung_jawab_id':
+                                    $oldValue = $activity->subject->penanggungJawab?->name ?? $oldValue;
+                                    $newValue = \App\Models\User::find($new)?->name ?? $newValue;
+                                    break;
+                                    case 'pelapor_id':
+                                    $oldValue = $activity->subject->pelapor?->name ?? $oldValue;
+                                    $newValue = \App\Models\User::find($new)?->name ?? $newValue;
+                                    break;
+                                    case 'department_id':
+                                    $oldValue = $activity->subject->department?->department_name ?? $oldValue;
+                                    $newValue = \App\Models\Department::find($new)?->department_name ?? $newValue;
+                                    break;
+                                    case 'contractor_id':
+                                    $oldValue = $activity->subject->contractor?->contractor_name ?? $oldValue;
+                                    $newValue = \App\Models\Contractor::find($new)?->contractor_name ?? $newValue;
+                                    break;
+                                    case 'location_id':
+                                    $oldValue = $activity->subject->location?->name ?? $oldValue;
+                                    $newValue = \App\Models\Location::find($new)?->name ?? $newValue;
+                                    break;
+                                    }
+
+                                    $label = ucfirst(str_replace('_', ' ', $field));
+                                    @endphp
+
                                     <div class="mb-1">
-                                        <strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong>:
-                                        <span class="text-red-500">
-                                            {{
-                            // Prioritaskan *_name untuk old value jika ada
-                            $activity->changes['old'][$field . '_name'] 
-                            ?? $activity->changes['old'][$field] 
-                            ?? '-' 
-                        }}
-                                        </span>
+                                        <strong>{{ $label }}</strong>:
+                                        <span class="text-red-500">{{ $oldValue }}</span>
                                         →
-                                        <span class="text-green-600">
-                                            {{
-                            // Prioritaskan *_name untuk new value jika ada
-                            $activity->changes['attributes'][$field . '_name'] 
-                            ?? $new 
-                        }}
-                                        </span>
+                                        <span class="text-green-600">{{ $newValue }}</span>
                                     </div>
                                     @endforeach
                                 </td>
