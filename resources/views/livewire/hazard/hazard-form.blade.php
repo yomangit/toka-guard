@@ -221,7 +221,7 @@
             </fieldset>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                 <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi Sebelum Tidakan perbaikan langsung" />
+                    <x-form.label label="Dokumentasi Sebelum Tindakkan perbaikan langsung" />
                     <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                         <!-- Tombol custom -->
                         <span class="btn btn-info btn-xs">
@@ -257,7 +257,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
 
                 <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi Sesudah Tidakan perbaikan langsung" />
+                    <x-form.label label="Dokumentasi Sesudah Tindakkan perbaikan langsung" />
                     <label class="block"></label>
                     <label wire:ignore for="upload-corrective" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                         <!-- Tombol custom -->
@@ -367,8 +367,8 @@
 
                         <!-- Tombol Tambah -->
                         <div class="mt-4 flex justify-end">
-                          
-                            <flux:button size="xs"  wire:click="addAction"  icon:trailing="add-icon" variant="primary">Tambah</flux:button>
+
+                            <flux:button size="xs" wire:click="addAction" icon:trailing="add-icon" variant="primary">Tambah</flux:button>
                         </div>
 
                         <!-- List Actions -->
@@ -629,6 +629,7 @@
                 , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
+                actionDescriptionEditor = editor;
                 editor.model.document.on('change:data', () => {
                     // Update ke hidden input
                     const data = editor.getData();
@@ -642,10 +643,11 @@
                 console.error(error);
             });
     });
-     document.addEventListener('reset-ckeditor', () => {
+    document.addEventListener('reset-ckeditor', () => {
         if (actionDescriptionEditor) {
             actionDescriptionEditor.setData('');
         }
     });
+
 </script>
 @endpush
