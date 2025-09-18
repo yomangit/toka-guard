@@ -49,6 +49,32 @@ class Hazard extends Model
             ->logAll()
             ->logOnlyDirty(); // hanya field berubah yang dicatat
     }
+        /**
+     * Ubah ID relasi jadi name di activity log
+     */
+    public function tapActivity(Activity $activity, string $eventName)
+    {
+        $map = [
+            'penanggung_jawab_id' => fn($id) => User::find($id)?->name,
+            'pelapor_id'          => fn($id) => User::find($id)?->name,
+            'department_id'       => fn($id) => Department::find($id)?->department_name,
+            'contractor_id'       => fn($id) => Contractor::find($id)?->contractor_name,
+            'location_id'         => fn($id) => Location::find($id)?->name,
+        ];
+
+        foreach (['attributes', 'old'] as $key) {
+            if (! isset($activity->properties[$key])) {
+                continue;
+            }
+
+            foreach ($map as $field => $resolver) {
+                if (isset($activity->properties[$key][$field])) {
+                    $id = $activity->properties[$key][$field];
+                    $activity->properties[$key][$field . '_name'] = $resolver($id);
+                }
+            }
+        }
+    }
     // relasi ke logs
     public function activities()
     {
