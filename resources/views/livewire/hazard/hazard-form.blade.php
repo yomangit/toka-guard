@@ -553,7 +553,7 @@
 
             </table>
             @endif
-            <div class=" flex justify-end">
+            <div class=" flex justify-end mt-4">
                 <flux:button size="xs" type="submit" icon:trailing="send" variant="primary">Kirim Laporan</flux:button>
             </div>
         </form>
