@@ -183,15 +183,7 @@
                     <x-input-datetime name="tanggal" label="Tanggal & Waktu" required />
                 </fieldset>
             </div>
-            <fieldset class="fieldset mb-4">
-                <x-form.label label="Deskripsi" required />
-                <div wire:ignore>
-                    <textarea id="ckeditor-description"></textarea>
-                </div>
-                <!-- Hidden input untuk binding Livewire -->
-                <input name="description" type="hidden" wire:model.live="description" id="description">
-                <x-label-error :messages="$errors->get('description')" />
-            </fieldset>
+            <x-input-ckeditor name="description" label="Deskripsi" required />
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                 <fieldset class=" fieldset">
                     <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
