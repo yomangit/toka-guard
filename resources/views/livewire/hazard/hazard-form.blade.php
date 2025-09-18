@@ -553,8 +553,11 @@
 
             </table>
             @endif
-            <div class=" flex justify-end mt-4">
+            <div class="hidden md:block flex justify-end mt-4">
                 <flux:button size="xs" type="submit" icon:trailing="send" variant="primary">Kirim Laporan</flux:button>
+            </div>
+            <div class="block md:hidden flex justify-end mt-4">
+                <flux:button size="xs" class="w-full" type="submit" icon:trailing="send" variant="primary">Kirim Laporan</flux:button>
             </div>
         </form>
     </x-manhours.layout>
