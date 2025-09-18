@@ -584,59 +584,50 @@
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
-    // simpan semua instance editor
     let editors = {};
 
-    function initCkeditor(selector, livewireProperty, resettable = false) {
+    function initCkeditor(selector, livewireProperty) {
         const el = document.querySelector(selector);
         if (!el) return;
 
         ClassicEditor
             .create(el, {
-                toolbar: (() => {
-                    const items = ['bold', 'italic'];
-
-                    // tambahkan list kalau plugin ada
-                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'List')) {
-                        items.push('bulletedList', 'numberedList');
-                    }
-
-                    // tambahkan undo/redo kalau Essentials ada
-                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'Essentials')) {
-                        items.push('|', 'undo', 'redo');
-                    }
-
-                    return items;
-                })(),
-                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+                toolbar: ['bold','italic','bulletedList','numberedList','|','undo','redo'],
+                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
                 editors[livewireProperty] = editor;
-                // Update ke Livewire
+
+                // Sync ke Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     el.value = data;
                     @this.set(livewireProperty, data);
                 });
-
-                // kalau field ini bisa reset (hanya action_description)
-                if (resettable) {
-                    document.addEventListener('reset-ckeditor', () => {
-                        editor.setData('');
-                    });
-                }
             })
             .catch(error => {
                 console.error(`CKEditor init error (${livewireProperty}):`, error);
             });
     }
 
-    // inisialisasi semua editor setelah navigasi Livewire
+    // Init semua editor
     document.addEventListener('livewire:navigated', () => {
         initCkeditor('#ckeditor-description', 'description');
         initCkeditor('#ckeditor-immediate_corrective_action', 'immediate_corrective_action');
-        initCkeditor('#ckeditor-action_description', 'action_description', true);
+        initCkeditor('#ckeditor-action_description', 'action_description');
+    });
+
+    // Satu listener global untuk reset
+    window.addEventListener('reset-ckeditor', (ev) => {
+        const field = ev.detail?.field ?? 'action_description';
+        const editor = editors[field];
+        if (editor) {
+            editor.setData('');
+        } else {
+            console.warn('Editor belum ditemukan untuk field:', field);
+        }
     });
 </script>
+
 
 @endpush
