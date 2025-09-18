@@ -175,7 +175,7 @@
 
                 {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                 @if($location_id)
-                <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
+                {{-- <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" /> --}}
                 @endif
                 <fieldset class="fieldset relative">
                     <x-form.label label="Tanggal & Waktu" required />
