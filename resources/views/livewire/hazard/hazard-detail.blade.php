@@ -109,12 +109,25 @@
                                 <td class="border px-2 py-1">{{ $activity->created_at->format('d-m-Y H:i') }}</td>
                                 <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
                                 <td class="border px-2 py-1">
-                                    @foreach(($activity->changes['attributes'] ?? []) as $field => $new)
-                                    <div>
+                                    @foreach($activity->changes['attributes'] ?? [] as $field => $new)
+                                    <div class="mb-1">
                                         <strong>{{ ucfirst(str_replace('_', ' ', $field)) }}</strong>:
-                                        <span class="text-red-500">{{ $activity->changes['old'][$field] ?? '-' }}</span>
+                                        <span class="text-red-500">
+                                            {{
+                            // Prioritaskan *_name untuk old value jika ada
+                            $activity->changes['old'][$field . '_name'] 
+                            ?? $activity->changes['old'][$field] 
+                            ?? '-' 
+                        }}
+                                        </span>
                                         →
-                                        <span class="text-green-600">{{ $new }}</span>
+                                        <span class="text-green-600">
+                                            {{
+                            // Prioritaskan *_name untuk new value jika ada
+                            $activity->changes['attributes'][$field . '_name'] 
+                            ?? $new 
+                        }}
+                                        </span>
                                     </div>
                                     @endforeach
                                 </td>
@@ -124,6 +137,7 @@
                                 <td colspan="3" class="text-center text-gray-500 py-2">Belum ada perubahan</td>
                             </tr>
                             @endforelse
+
                         </tbody>
                     </table>
                 </div>
@@ -610,7 +624,7 @@
                     }
 
                 });
-              
+
                 // Update hidden input dan Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
