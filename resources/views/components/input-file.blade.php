@@ -1,5 +1,12 @@
+@props([
+    'name',
+    'label' => null,
+    'required' => false,
+])
 <fieldset class="fieldset">
-    <x-form.label :label="$label" :required="$required ?? false" />
+     @if($label)
+        <x-form.label :label="$label" :required="$required" />
+    @endif
 
     <label wire:ignore for="upload-{{ $name }}" 
         class="flex items-center gap-2 cursor-pointer border border-info rounded 
