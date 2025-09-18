@@ -593,13 +593,6 @@
             })
             .then(editor => {
                 editors[livewireProperty] = editor;
-
-                // Debug: tampilkan plugin yang tersedia
-                console.log(`=== CKEditor Plugins Loaded for ${livewireProperty} ===`);
-                editor.plugins._plugins.forEach((plugin, i) => {
-                    console.log(i + 1, plugin.constructor.name);
-                });
-
                 // Update ke Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
