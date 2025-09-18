@@ -372,7 +372,6 @@ class HazardForm extends Component
             'action_due_date' => 'required|date',
             'action_responsible_id' => 'required|exists:users,id',
         ]);
-
         $this->actions[] = [
             'description' => $this->action_description,
             'due_date' => $this->action_due_date,
