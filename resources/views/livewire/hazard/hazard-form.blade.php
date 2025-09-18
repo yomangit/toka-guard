@@ -179,8 +179,9 @@
                     <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
                 </fieldset>
                 @endif
-                
-                <x-input-datetime name="tanggal" label="Tanggal & Waktu" required />
+                <fieldset>
+                    <x-input-datetime name="tanggal" label="Tanggal & Waktu" required />
+                </fieldset>
             </div>
             <fieldset class="fieldset mb-4">
                 <x-form.label label="Deskripsi" required />
