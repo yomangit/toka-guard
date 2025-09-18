@@ -176,9 +176,7 @@
                 {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                 @if($location_id)
                 <fieldset class="fieldset">
-                    <x-form.label label="Lokasi Spesifik" required />
-                    <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
-                    <x-label-error :messages="$errors->get('location_specific')" />
+                    <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
                 </fieldset>
                 @endif
                 <fieldset class="fieldset relative">
