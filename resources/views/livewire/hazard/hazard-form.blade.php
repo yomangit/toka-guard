@@ -367,8 +367,8 @@
 
                         <!-- Tombol Tambah -->
                         <div class="mt-4 flex justify-end">
-                            <button type="button"class="btn btn-primary btn-sm">Tambah</button>
-                            <flux:button size="xs"  wire:click="addAction"  icon:trailing="send" variant="primary">Tambah</flux:button>
+                          
+                            <flux:button size="xs"  wire:click="addAction"  icon:trailing="add" variant="primary">Tambah</flux:button>
                         </div>
 
                         <!-- List Actions -->
