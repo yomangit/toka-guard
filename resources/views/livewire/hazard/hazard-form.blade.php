@@ -11,7 +11,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <fieldset class="fieldset">
                     <x-form.label label="Tipe Bahaya" required />
-                    <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                    <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                         <option value="">-- Pilih --</option>
                         @foreach ($eventTypes as $et )
                         <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
