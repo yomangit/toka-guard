@@ -96,7 +96,7 @@
                     </form>
                     <h3 class="text-lg font-bold mb-2">Audit Trail</h3>
                     <div class="max-h-[80vh] overflow-y-auto">
-                        <table class="table table-sm w-full border">
+                       <table class="table table-xs table-pin-rows table-pin-cols ">
                             <thead>
                                 <tr class="bg-gray-100">
                                     <th class="border px-2 py-1">Tanggal</th>
