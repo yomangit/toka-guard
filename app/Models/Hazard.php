@@ -64,6 +64,8 @@ class Hazard extends Model
             'department_id'       => fn($id) => $id ? $this->department?->department_name : null,
             'contractor_id'       => fn($id) => $id ? $this->contractor?->contractor_name : null,
             'location_id'         => fn($id) => $id ? $this->location?->name : null,
+            'event_type_id'         => fn($id) => $id ? $this->eventType?->event_type_name : null,
+            'event_sub_type_id'         => fn($id) => $id ? $this->eventSubType?->event_sub_type_name : null,
         ];
 
         foreach (['attributes', 'old'] as $key) {
