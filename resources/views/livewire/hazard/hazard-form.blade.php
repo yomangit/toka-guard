@@ -84,9 +84,9 @@
                     @endif
                 </fieldset>
                 <fieldset>
-                    <input  id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
+                    <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                     <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
-                    <input  id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
+                    <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
                     <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
 
                     <div class="hidden peer-checked/department:block ">
@@ -175,11 +175,7 @@
 
                 {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                 @if($location_id)
-                <fieldset class="fieldset">
-                    <x-form.label label="Lokasi Spesifik" required />
-                    <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
-                    <x-label-error :messages="$errors->get('location_specific')" />
-                </fieldset>
+                <x-livewire.input-field model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
                 @endif
                 <fieldset class="fieldset relative">
                     <x-form.label label="Tanggal & Waktu" required />
@@ -312,7 +308,7 @@
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
                                     <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
                                 </div>
-                                <x-label-error :messages="$errors->get('tanggal')" />
+                                <x-label-error :messages="$errors->get('action_due_date')" />
                             </fieldset>
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Tanggal Penyelesaian Tindakan" required />
@@ -330,7 +326,7 @@
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
                                     <input name="actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
                                 </div>
-                                <x-label-error :messages="$errors->get('tanggal')" />
+                                <x-label-error :messages="$errors->get('actual_close_date')" />
                             </fieldset>
                             <!-- Dilaporkan Oleh -->
                             <fieldset class="fieldset md:col-span-1 relative">
@@ -411,9 +407,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
                 {{-- KEY WORD --}}
                 <fieldset>
-                    <input  id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
+                    <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
-                    <input  id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
+                    <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
                     <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
                     <div class="hidden peer-checked/kta:block mt-1">
                         <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
@@ -597,18 +593,18 @@
                     const items = ['bold', 'italic'];
 
                     // tambahkan list kalau plugin ada
-                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'List')) {
+                    if (ClassicEditor.builtinPlugins ? .some(p => p.pluginName === 'List')) {
                         items.push('bulletedList', 'numberedList');
                     }
 
                     // tambahkan undo/redo kalau Essentials ada
-                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'Essentials')) {
+                    if (ClassicEditor.builtinPlugins ? .some(p => p.pluginName === 'Essentials')) {
                         items.push('|', 'undo', 'redo');
                     }
 
                     return items;
-                })(),
-                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+                })()
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
                 editors[livewireProperty] = editor;
@@ -637,6 +633,7 @@
         initCkeditor('#ckeditor-immediate_corrective_action', 'immediate_corrective_action');
         initCkeditor('#ckeditor-action_description', 'action_description', true);
     });
+
 </script>
 
 @endpush
