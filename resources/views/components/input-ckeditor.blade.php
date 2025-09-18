@@ -1,3 +1,8 @@
+@props([
+    'name',
+    'label' => null,
+    'required' => false,
+])
 <fieldset class="fieldset mb-4">
     @if($label)
     <x-form.label :label="$label" :required="$required" />
