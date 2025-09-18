@@ -175,7 +175,7 @@
 
                 {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                 @if($location_id)
-                <fieldset class="fieldset">
+                <fieldset>
                     <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
                 </fieldset>
                 @endif
