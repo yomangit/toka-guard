@@ -1,4 +1,5 @@
-<fieldset class="fieldset">
+<div>
+    <fieldset class="fieldset">
     @if($label)
         <x-form.label :label="$label" :required="$required" />
     @endif
@@ -18,3 +19,4 @@
 
     <x-label-error :messages="$errors->get($name)" />
 </fieldset>
+</div>
