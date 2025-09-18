@@ -610,15 +610,7 @@
                     }
 
                 });
-                // Live update ketika status berubah
-                // Livewire.on('hazardStatusChanged', (payload) => {
-                //     if (payload.isDisabled) {
-                //         editor.enableReadOnlyMode('hazard-description');
-                //     } else {
-                //         editor.disableReadOnlyMode('hazard-description');
-                //     }
-                // });
-
+              
                 // Update hidden input dan Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
@@ -643,6 +635,20 @@
                 , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
+                // Set awal read-only jika isDisabled true
+                if (isDisabled) {
+                    editor.enableReadOnlyMode('hazard-immediate_corrective_action');
+                }
+                Livewire.on('hazardStatusChanged', event => {
+                    data = event[0];
+                    const bekukan = data.isDisabled;
+                    if (bekukan === true) {
+                        editor.enableReadOnlyMode('hazard-immediate_corrective_action');
+                    } else {
+                        editor.disableReadOnlyMode('hazard-immediate_corrective_action');
+                    }
+
+                });
 
                 editor.model.document.on('change:data', () => {
                     // Update ke hidden input
