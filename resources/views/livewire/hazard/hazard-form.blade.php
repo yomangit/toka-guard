@@ -565,90 +565,66 @@
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <script>
-    document.addEventListener('livewire:navigated', () => {
+    // simpan semua instance editor
+    let editors = {};
+
+    function initCkeditor(selector, livewireProperty, resettable = false) {
+        const el = document.querySelector(selector);
+        if (!el) return;
+
         ClassicEditor
-            .create(document.querySelector('#ckeditor-description'), {
-                toolbar: [
-                    // 'heading', '|'
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
-                    , 'undo', 'redo'
-                ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+            .create(el, {
+                toolbar: (() => {
+                    const items = ['bold', 'italic'];
+
+                    // tambahkan list kalau plugin ada
+                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'List')) {
+                        items.push('bulletedList', 'numberedList');
+                    }
+
+                    // tambahkan undo/redo kalau Essentials ada
+                    if (ClassicEditor.builtinPlugins?.some(p => p.pluginName === 'Essentials')) {
+                        items.push('|', 'undo', 'redo');
+                    }
+
+                    return items;
+                })(),
+                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
-                editor.model.document.on('change:data', () => {
-                    // Update ke hidden input
-                    const data = editor.getData();
-                    document.querySelector('#description').value = data;
+                editors[livewireProperty] = editor;
 
-                    // Kirim ke Livewire
-                    @this.set('description', data);
+                // Debug: tampilkan plugin yang tersedia
+                console.log(`=== CKEditor Plugins Loaded for ${livewireProperty} ===`);
+                editor.plugins._plugins.forEach((plugin, i) => {
+                    console.log(i + 1, plugin.constructor.name);
                 });
+
+                // Update ke Livewire
+                editor.model.document.on('change:data', () => {
+                    const data = editor.getData();
+                    el.value = data;
+                    @this.set(livewireProperty, data);
+                });
+
+                // kalau field ini bisa reset (hanya action_description)
+                if (resettable) {
+                    document.addEventListener('reset-ckeditor', () => {
+                        editor.setData('');
+                    });
+                }
             })
             .catch(error => {
-                console.error(error);
+                console.error(`CKEditor init error (${livewireProperty}):`, error);
             });
-    });
+    }
 
-</script>
-<script>
+    // inisialisasi semua editor setelah navigasi Livewire
     document.addEventListener('livewire:navigated', () => {
-        ClassicEditor
-            .create(document.querySelector('#ckeditor-immediate_corrective_action'), {
-                toolbar: [
-                    // 'heading', '|'
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
-                    , 'undo', 'redo'
-                ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
-            })
-            .then(editor => {
-                editor.model.document.on('change:data', () => {
-                    // Update ke hidden input
-                    const data = editor.getData();
-                    document.querySelector('#ckeditor-immediate_corrective_action').value = data;
-
-                    // Kirim ke Livewire
-                    @this.set('immediate_corrective_action', data);
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        initCkeditor('#ckeditor-description', 'description');
+        initCkeditor('#ckeditor-immediate_corrective_action', 'immediate_corrective_action');
+        initCkeditor('#ckeditor-action_description', 'action_description', true);
     });
-
 </script>
-<script>
-    document.addEventListener('livewire:navigated', () => {
-        ClassicEditor
-            .create(document.querySelector('#ckeditor-action_description'), {
-                toolbar: [
-                    // 'heading', '|'
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
-                    , 'undo', 'redo'
-                ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
-            })
-            .then(editor => {
-                actionDescriptionEditor = editor;
-                editor.model.document.on('change:data', () => {
-                    // Update ke hidden input
-                    const data = editor.getData();
-                    document.querySelector('#ckeditor-action_description').value = data;
 
-                    // Kirim ke Livewire
-                    @this.set('action_description', data);
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
-    });
-    document.addEventListener('reset-ckeditor', () => {
-        if (actionDescriptionEditor) {
-            actionDescriptionEditor.setData('');
-        }
-    });
-
-</script>
 @endpush
