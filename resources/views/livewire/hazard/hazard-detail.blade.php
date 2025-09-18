@@ -110,6 +110,7 @@
                                 <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
                                 <td class="border px-2 py-1">
                                     @foreach($activity->changes['attributes'] ?? [] as $field => $new)
+                                     @continue($field === 'updated_at') {{-- skip updated_at --}}
                                     @php
                                     // Cek nama relasi berdasarkan field
                                     $oldValue = $activity->changes['old'][$field] ?? '-';
