@@ -294,10 +294,10 @@
                             <input name="action_description" type="hidden" wire:model.live="action_description" id="action_description">
                             <x-label-error :messages="$errors->get('action_description')" />
                         </fieldset>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                             <!-- Tanggal & Waktu -->
                             <fieldset class="fieldset md:col-span-1">
-                                <x-form.label label="Tanggal & Waktu" required />
+                                <x-form.label label="Batas Waktu Penyelesaian" required />
                                 <div class="relative" wire:ignore x-data="{
                                         fp: null,
                                         initFlatpickr() {
@@ -311,6 +311,24 @@
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
                                     <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
+                                </div>
+                                <x-label-error :messages="$errors->get('tanggal')" />
+                            </fieldset>
+                            <fieldset class="fieldset md:col-span-1">
+                                <x-form.label label="Tanggal Penyelesaian Tindakan" required />
+                                <div class="relative" wire:ignore x-data="{
+                                        fp: null,
+                                        initFlatpickr() {
+                                            if (this.fp) this.fp.destroy();
+                                            this.fp = flatpickr(this.$refs.tanggalInput3, {
+                                                disableMobile: true,
+                                                enableTime: false,
+                                                dateFormat: 'd-m-Y',
+                                                onChange: (dates, str) => $wire.set('actual_close_date', str),
+                                            });
+                                        }
+                                    }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
+                                    <input name="actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>

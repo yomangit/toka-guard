@@ -102,6 +102,7 @@ class HazardForm extends Component
     public $actions = []; // kumpulan action sebelum disimpan
     public $action_description;
     public $action_due_date;
+    public $actual_close_date;
     public $action_responsible_id;
     public function rules()
     {
@@ -370,11 +371,13 @@ class HazardForm extends Component
         $this->validate([
             'action_description' => 'required|string',
             'action_due_date' => 'required|date',
+            'actual_close_date' => 'required|date',
             'action_responsible_id' => 'required|exists:users,id',
         ]);
         $this->actions[] = [
             'description' => $this->action_description,
             'due_date' => $this->action_due_date,
+            'actual_close_date' => $this->actual_close_date,
             'responsible_id' => $this->action_responsible_id,
         ];
         $this->dispatch('alert', [
@@ -465,6 +468,7 @@ class HazardForm extends Component
                     'description'   => $act['description'],
                     'status'        => $act['status'],
                     'due_date'      => $act['due_date'],
+                    'actual_close_date'      => $act['actual_close_date'],
                     'responsible_id' => $act['responsible_id'],
                 ]);
             }
