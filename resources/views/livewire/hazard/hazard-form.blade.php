@@ -221,7 +221,7 @@
             </fieldset>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                 <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi Sebelum Tindakkan perbaikan langsung" />
+                    <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
                     <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                         <!-- Tombol custom -->
                         <span class="btn btn-info btn-xs">
@@ -257,7 +257,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
 
                 <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi Sesudah Tindakkan perbaikan langsung" />
+                    <x-form.label label="Dokumentasi Sesudah Tindakan perbaikan langsung" />
                     <label class="block"></label>
                     <label wire:ignore for="upload-corrective" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                         <!-- Tombol custom -->
