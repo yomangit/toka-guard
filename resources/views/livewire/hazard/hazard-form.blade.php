@@ -179,6 +179,7 @@
                     <x-input-field name="location_specific" wire-model="location_specific" label="Lokasi Spesifik" placeholder="Masukkan detail lokasi spesifik..." required="true" />
                 </fieldset>
                 @endif
+                
                 <x-input-datetime name="tanggal" label="Tanggal & Waktu" required />
             </div>
             <fieldset class="fieldset mb-4">
