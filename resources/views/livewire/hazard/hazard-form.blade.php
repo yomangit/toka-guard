@@ -209,16 +209,7 @@
                     <x-label-error :messages="$errors->get('doc_deskripsi')" />
                 </fieldset>
             </div>
-            <fieldset class="fieldset mb-4">
-                <label class="block"></label>
-                <x-form.label label="Tindakan perbaikan langsung" required />
-                <div wire:ignore>
-                    <textarea id="ckeditor-immediate_corrective_action"></textarea>
-                </div>
-                <!-- Hidden input untuk binding Livewire -->
-                <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
-                <x-label-error :messages="$errors->get('immediate_corrective_action')" />
-            </fieldset>
+             <x-input-ckeditor name="immediate_corrective_action" label="Tindakan perbaikan langsung" required />
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
 
                 <fieldset class=" fieldset">
