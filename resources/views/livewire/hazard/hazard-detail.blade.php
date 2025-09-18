@@ -146,7 +146,6 @@
                                         $newValue = \App\Models\EventSubType::find($new)?->event_sub_type_name ?? $newValue;
                                         break;
                                         }
-
                                         $label = ucfirst(str_replace('_', ' ', $field));
                                         @endphp
 
