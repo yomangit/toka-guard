@@ -37,7 +37,7 @@
                     <x-form.label label="Dilaporkan Oleh" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                         <!-- Dropdown hasil search -->
                         @if($showPelaporDropdown)
                         <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -63,7 +63,7 @@
                             @if($manualPelaporMode)
                             <li class="p-2">
                                 <div class="relative w-full">
-                                    <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                    <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                     <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
                                         <flux:button size="xs" wire:click="addPelaporManual" icon="plus" variant="primary">
                                             Tambah
@@ -94,7 +94,7 @@
                         <div class="relative mb-1">
                             <!-- Input Search -->
 
-                            <input name="search" type="text" wire:model.live.debounce.300ms="search" placeholder="Cari departemen..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " />
+                            <input name="search" type="text" wire:model.live.debounce.300ms="search" placeholder="Cari departemen..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                             <!-- Dropdown hasil search -->
                             @if($showDropdown && count($departments) > 0)
                             <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -118,7 +118,7 @@
                         {{-- Contractor --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
-                            <input name="searchContractor" type="text" wire:model.live.debounce.300ms="searchContractor" placeholder="Cari kontraktor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                            <input name="searchContractor" type="text" wire:model.live.debounce.300ms="searchContractor" placeholder="Cari kontraktor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('contractor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                             <!-- Dropdown hasil search -->
                             @if($showContractorDropdown && count($contractors) > 0)
                             <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -141,7 +141,7 @@
                 </fieldset>
                 <fieldset class="fieldset">
                     <x-form.label label="Penanggung Jawab Area" required />
-                    <select wire:model.live="penanggungJawab" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                    <select wire:model.live="penanggungJawab" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('penanggungJawab') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                         <option value="">-- Pilih --</option>
                         @foreach($penanggungJawabOptions as $pj)
                         <option value="{{ $pj['id'] }}">{{ $pj['name'] }}</option>
@@ -154,7 +154,7 @@
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                         <!-- Dropdown hasil search -->
                         @if($showLocationDropdown && count($locations) > 0)
                         <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -177,7 +177,7 @@
                 @if($location_id)
                 <fieldset class="fieldset">
                     <x-form.label label="Lokasi Spesifik" required />
-                    <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_specific') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     <x-label-error :messages="$errors->get('location_specific')" />
                 </fieldset>
                 @endif
@@ -204,7 +204,7 @@
                                 initFlatpickr();
                             });
                         ">
-                        <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
@@ -310,7 +310,7 @@
                                             });
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                                    <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
+                                    <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('action_due_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>
@@ -328,7 +328,7 @@
                                             });
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                                    <input name="actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
+                                    <input name="actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('actual_close_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>
@@ -336,7 +336,7 @@
                             <fieldset class="fieldset md:col-span-1 relative">
                                 <x-form.label label="Dilaporkan Oleh" required />
                                 <div class="relative">
-                                    <input name="searchActResponsibility" type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                    <input name="searchActResponsibility" type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
 
                                     <!-- Dropdown hasil search -->
                                     @if($showActPelaporDropdown)
@@ -361,7 +361,7 @@
                                         @if($manualActPelaporMode)
                                         <li class="p-2">
                                             <div class="relative w-full">
-                                                <input name="manualActPelaporName" type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                                <input name="manualActPelaporName" type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                                 <div class="absolute top-1/2 -translate-y-1/2 right-0">
                                                     <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
                                                         Tambah
@@ -416,7 +416,7 @@
                     <input  id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
                     <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
                     <div class="hidden peer-checked/kta:block mt-1">
-                        <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                        <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih Kondisi Tidak Aman --</option>
                             @foreach ($ktas as $kta)
                             <option value="{{ $kta->id }}">{{ $kta->name }}</option>
@@ -425,7 +425,7 @@
 
                     </div>
                     <div class="hidden peer-checked/tta:block mt-1">
-                        <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                        <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih Tidakan Tidak Aman --</option>
                             @foreach ($ttas as $tta)
                             <option value="{{ $tta->id }}">{{ $tta->name }}</option>
@@ -448,7 +448,7 @@
                     {{-- Consequence --}}
                     <fieldset class="fieldset ">
                         <x-form.label label="Consequence" required />
-                        <select wire:model.live="consequence_id" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                        <select wire:model.live="consequence_id" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none {{ $errors->has('consequence_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih --</option>
                             @foreach ($consequencess as $cons)
                             <option value="{{ $cons->id }}">{{ $cons->name }}</option>
@@ -470,7 +470,7 @@
                     {{-- Likelihood --}}
                     <fieldset class="fieldset ">
                         <x-form.label label="Likelihood" required />
-                        <select wire:model.live="likelihood_id" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                        <select wire:model.live="likelihood_id" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none {{ $errors->has('likelihood_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih --</option>
                             @foreach ($likelihoodss as $like)
                             <option value="{{ $like->id }}">{{ $like->name }}</option>
