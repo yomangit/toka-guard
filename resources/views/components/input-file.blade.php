@@ -26,7 +26,7 @@
         @if (in_array($ext, ['jpg','jpeg','png','gif','webp']))
             <img src="{{ $file->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
         @else
-            <p class="mt-2 text-sm text-gray-600">File: {{ $file->getClientOriginalName() }}</p>
+            <p class="mt-2 text-xs text-gray-600">File: {{ $file->getClientOriginalName() }}</p>
         @endif
     @endif
 
