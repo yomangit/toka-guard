@@ -37,7 +37,7 @@
                     <x-form.label label="Dilaporkan Oleh" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                         <!-- Dropdown hasil search -->
                         @if($showPelaporDropdown)
                         <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -63,7 +63,7 @@
                             @if($manualPelaporMode)
                             <li class="p-2">
                                 <div class="relative w-full">
-                                    <input type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                    <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                                     <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
                                         <flux:button size="xs" wire:click="addPelaporManual" icon="plus" variant="primary">
                                             Tambah
@@ -84,9 +84,9 @@
                     @endif
                 </fieldset>
                 <fieldset>
-                    <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
+                    <input  id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                     <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
-                    <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
+                    <input  id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
                     <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
 
                     <div class="hidden peer-checked/department:block ">
@@ -94,7 +94,7 @@
                         <div class="relative mb-1">
                             <!-- Input Search -->
 
-                            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Cari departemen..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " />
+                            <input name="search" type="text" wire:model.live.debounce.300ms="search" placeholder="Cari departemen..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " />
                             <!-- Dropdown hasil search -->
                             @if($showDropdown && count($departments) > 0)
                             <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -118,7 +118,7 @@
                         {{-- Contractor --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
-                            <input type="text" wire:model.live.debounce.300ms="searchContractor" placeholder="Cari kontraktor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                            <input name="searchContractor" type="text" wire:model.live.debounce.300ms="searchContractor" placeholder="Cari kontraktor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                             <!-- Dropdown hasil search -->
                             @if($showContractorDropdown && count($contractors) > 0)
                             <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -154,7 +154,7 @@
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                         <!-- Dropdown hasil search -->
                         @if($showLocationDropdown && count($locations) > 0)
                         <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -177,7 +177,7 @@
                 @if($location_id)
                 <fieldset class="fieldset">
                     <x-form.label label="Lokasi Spesifik" required />
-                    <input type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <x-label-error :messages="$errors->get('location_specific')" />
                 </fieldset>
                 @endif
@@ -204,7 +204,7 @@
                                 initFlatpickr();
                             });
                         ">
-                        <input type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
@@ -215,7 +215,7 @@
                     <textarea id="ckeditor-description"></textarea>
                 </div>
                 <!-- Hidden input untuk binding Livewire -->
-                <input type="hidden" wire:model.live="description" id="description">
+                <input name="description" type="hidden" wire:model.live="description" id="description">
                 <x-label-error :messages="$errors->get('description')" />
             </fieldset>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
@@ -239,7 +239,7 @@
                     @endif
                     @endif
                     <!-- Input asli (disembunyikan) -->
-                    <input id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
+                    <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
                     <x-label-error :messages="$errors->get('doc_deskripsi')" />
                 </fieldset>
             </div>
@@ -250,7 +250,7 @@
                     <textarea id="ckeditor-immediate_corrective_action"></textarea>
                 </div>
                 <!-- Hidden input untuk binding Livewire -->
-                <input type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
+                <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
                 <x-label-error :messages="$errors->get('immediate_corrective_action')" />
             </fieldset>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
@@ -276,7 +276,7 @@
                     @endif
                     @endif
                     <!-- Input asli (disembunyikan) -->
-                    <input id="upload-corrective" wire:model.live='doc_corrective' type="file" class="hidden" onchange="document.getElementById('file-name-corrective').textContent = this.files[0]?.name ?? 'Belum ada file'" />
+                    <input name="doc_corrective" id="upload-corrective" wire:model.live='doc_corrective' type="file" class="hidden" onchange="document.getElementById('file-name-corrective').textContent = this.files[0]?.name ?? 'Belum ada file'" />
                     <x-label-error :messages="$errors->get('doc_corrective')" />
                 </fieldset>
             </div>
@@ -291,7 +291,7 @@
                             <div wire:ignore>
                                 <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20"></textarea>
                             </div>
-                            <input type="hidden" wire:model.live="action_description" id="action_description">
+                            <input name="action_description" type="hidden" wire:model.live="action_description" id="action_description">
                             <x-label-error :messages="$errors->get('action_description')" />
                         </fieldset>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
@@ -310,7 +310,7 @@
                                             });
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                                    <input type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
+                                    <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>
@@ -318,7 +318,7 @@
                             <fieldset class="fieldset md:col-span-1 relative">
                                 <x-form.label label="Dilaporkan Oleh" required />
                                 <div class="relative">
-                                    <input type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                    <input name="searchActResponsibility" type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
 
                                     <!-- Dropdown hasil search -->
                                     @if($showActPelaporDropdown)
@@ -343,7 +343,7 @@
                                         @if($manualActPelaporMode)
                                         <li class="p-2">
                                             <div class="relative w-full">
-                                                <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                                                <input name="manualActPelaporName" type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                                                 <div class="absolute top-1/2 -translate-y-1/2 right-0">
                                                     <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
                                                         Tambah
@@ -392,9 +392,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
                 {{-- KEY WORD --}}
                 <fieldset>
-                    <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
+                    <input  id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
-                    <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
+                    <input  id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
                     <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
                     <div class="hidden peer-checked/kta:block mt-1">
                         <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
