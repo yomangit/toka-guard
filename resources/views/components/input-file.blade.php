@@ -10,7 +10,7 @@
 
     <label wire:ignore for="upload-{{ $name }}" 
         class="flex items-center gap-2 cursor-pointer border border-info rounded 
-               hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden px-2">
+               hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden ">
         <!-- Tombol custom -->
         <span class="btn btn-info btn-xs">Pilih file atau gambar</span>
         <!-- Nama file -->
