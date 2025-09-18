@@ -358,7 +358,7 @@
                         <x-form.label label="Dokumentasi Sebelum Tidakan perbaikan langsung" />
                         <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2  {{ $isDisabled ? 'cursor-not-allowed' : 'cursor-pointer' }} border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                             <!-- Tombol custom -->
-                            <span class="btn btn-info btn-xs">
+                            <span class="btn btn-info btn-xs {{ $isDisabled ? 'btn btn-disabled' : '' }}">
                                 Pilih file atau gambar
                             </span>
                             <!-- Nama file -->
@@ -394,7 +394,7 @@
                         <x-form.label label="Dokumentasi Sesudah Tidakan perbaikan langsung" />
                         <label wire:ignore for="upload-corrective" class="flex items-center gap-2  {{ $isDisabled ? 'cursor-not-allowed' : 'cursor-pointer' }} border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                             <!-- Tombol custom -->
-                            <span class="btn btn-info btn-xs">
+                            <span class="btn btn-info btn-xs {{ $isDisabled ? 'btn btn-disabled' : '' }}">
                                 Pilih file atau gambar
                             </span>
                             <!-- Nama file -->
