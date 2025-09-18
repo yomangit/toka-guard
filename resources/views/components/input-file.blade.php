@@ -1,13 +1,35 @@
-@props(['value', 'name', 'error'])
+<fieldset class="fieldset">
+    <x-form.label :label="$label" :required="$required ?? false" />
 
-<input {{ $attributes->class([
-'file-input file-input-info file:bg-accent file:text-accent-content file:border-0 file-input-bordered file-input-xs pr-3 border
-shadow-sm border-accent/20 placeholder-slate-400
-focus:outline-none focus:border-accent focus:ring-accent/20 block w-full sm:text-sm font-semibold focus:ring-1 ',
-'border-rose-500 ring-1 ring-rose-500 file-input file-input-bordered file-input-xs pr-3 border shadow-sm
-border-slate-300 placeholder-slate-400' => $error,
-]) }}
-@isset($name) name="{{ $name }}" @endif
-type="file"
-@isset($value) value="{{ $value }}" @endif
-{{ $attributes }} />
+    <label wire:ignore for="upload-{{ $name }}" 
+        class="flex items-center gap-2 cursor-pointer border border-info rounded 
+               hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden px-2 py-1">
+        <!-- Tombol custom -->
+        <span class="btn btn-info btn-xs">Pilih file atau gambar</span>
+        <!-- Nama file -->
+        <span id="file-name-{{ $name }}" class="text-xs text-gray-500">Belum ada file</span>
+    </label>
+
+    @if (${$name} ?? false)
+        @php
+            $file = ${$name};
+            $ext = strtolower($file->getClientOriginalExtension());
+        @endphp
+
+        @if (in_array($ext, ['jpg','jpeg','png','gif','webp']))
+            <img src="{{ $file->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
+        @else
+            <p class="mt-2 text-sm text-gray-600">File: {{ $file->getClientOriginalName() }}</p>
+        @endif
+    @endif
+
+    <!-- Input asli -->
+    <input id="upload-{{ $name }}" 
+           name="{{ $name }}" 
+           type="file" 
+           wire:model.live="{{ $name }}" 
+           class="hidden"
+           onchange="document.getElementById('file-name-{{ $name }}').textContent = this.files[0]?.name ?? 'Belum ada file'">
+
+    <x-label-error :messages="$errors->get($name)" />
+</fieldset>
