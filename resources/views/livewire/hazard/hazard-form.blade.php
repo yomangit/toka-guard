@@ -185,7 +185,29 @@
             </div>
             <x-input-ckeditor name="description" label="Deskripsi" required />
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
-                <x-input-file name="doc_deskripsi" label="Dokumentasi Sebelum Tindakan Perbaikan" />
+                <fieldset class=" fieldset">
+                    <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
+                    <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
+                        <!-- Tombol custom -->
+                        <span class="btn btn-info btn-xs">
+                            Pilih file atau gambar
+                        </span>
+                        <!-- Nama file -->
+                        <span id="file-name" class="text-xs text-gray-500">
+                            Belum ada file
+                        </span>
+                    </label>
+                    @if ($doc_deskripsi)
+                    @if (in_array($doc_deskripsi->getClientOriginalExtension(), ['jpg','jpeg','png']))
+                    <img src="{{ $doc_deskripsi->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
+                    @else
+                    <p class="mt-2 text-sm text-gray-600">File: {{ $doc_deskripsi->getClientOriginalName() }}</p>
+                    @endif
+                    @endif
+                    <!-- Input asli (disembunyikan) -->
+                    <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
+                    <x-label-error :messages="$errors->get('doc_deskripsi')" />
+                </fieldset>
             </div>
              <x-input-ckeditor name="immediate_corrective_action" label="Tindakan perbaikan langsung" required />
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
