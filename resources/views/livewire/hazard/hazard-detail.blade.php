@@ -90,10 +90,10 @@
 
             {{-- Modal DaisyUI --}}
             <dialog class="modal" id="my_modal_2" role="dialog">
-                <form method="dialog">
-                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                </form>
                 <div class="modal-box max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
                     <h3 class="text-lg font-bold mb-2">Audit Trail</h3>
                     <table class="table table-sm w-full border">
                         <thead>
