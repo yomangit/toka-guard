@@ -377,9 +377,15 @@ class HazardForm extends Component
             'description' => $this->action_description,
             'due_date' => $this->action_due_date,
             'responsible_id' => $this->action_responsible_id,
-            'status' => 'open',
         ];
-
+        $this->dispatch('alert', [
+            'text' => "Tindakan Lanjutan berhasil dibuat!!",
+            'duration' => 5000,
+            'destination' => '/contact',
+            'newWindow' => true,
+            'close' => true,
+            'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
+        ]);
         // reset input sementara
         $this->reset(['action_description', 'action_due_date', 'action_responsible_id','searchActResponsibility']);
         $this->dispatch('reset-ckeditor');
@@ -389,6 +395,17 @@ class HazardForm extends Component
     {
         unset($this->actions[$index]);
         $this->actions = array_values($this->actions); // reindex
+         $this->dispatch(
+            'alert',
+            [
+                'text' => "Tindakan Lanjutan berhasil di hapus!!!",
+                'duration' => 5000,
+                'destination' => '/contact',
+                'newWindow' => true,
+                'close' => true,
+                'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
+            ]
+        );
     }
     public function submit()
     {
@@ -398,7 +415,8 @@ class HazardForm extends Component
             $docDeskripsiPath = null;
             $docCorrectivePath = null;
 
-            $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
+            $tanggal_time = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
+            $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d');
 
             if ($this->doc_deskripsi) {
                 $docDeskripsiPath = FileHelper::compressAndStore($this->doc_deskripsi, 'sebelum_perbaikan');
@@ -426,7 +444,7 @@ class HazardForm extends Component
                 'penanggung_jawab_id'    => $this->penanggungJawab,
                 'location_id'            => $this->location_id,
                 'location_specific'      => $this->location_specific,
-                'tanggal'                => $tanggal,
+                'tanggal'                => $tanggal_time,
                 'description'            => $this->description,
                 'doc_deskripsi'          => $docDeskripsiPath,
                 'immediate_corrective_action' => $this->immediate_corrective_action,
@@ -444,6 +462,7 @@ class HazardForm extends Component
             foreach ($this->actions as $act) {
                 ActionHazard::create([
                     'hazard_id'     => $hazard->id,
+                    'orginal_date'     => $tanggal,
                     'description'   => $act['description'],
                     'status'        => $act['status'],
                     'due_date'      => $act['due_date'],
