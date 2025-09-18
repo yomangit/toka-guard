@@ -338,7 +338,7 @@ class HazardForm extends Component
         $this->searchActResponsibility = $name;
         $this->showActPelaporDropdown = false;
         $this->manualActPelaporMode = false;
-        $this->validateOnly('pelapor_id');
+        $this->validateOnly('action_responsible_id');
     }
     public function enableManualActPelapor()
     {
@@ -381,7 +381,8 @@ class HazardForm extends Component
         ];
 
         // reset input sementara
-        $this->reset(['action_description', 'action_due_date', 'action_responsible_id']);
+        $this->reset(['action_description', 'action_due_date', 'action_responsible_id','searchActResponsibility']);
+        $this->dispatch('reset-ckeditor');
     }
 
     public function removeAction($index)

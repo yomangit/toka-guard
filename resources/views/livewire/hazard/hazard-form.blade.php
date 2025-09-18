@@ -20,7 +20,7 @@
                     <x-label-error :messages="$errors->get('tipe_bahaya')" />
                 </fieldset>
                 <fieldset class="fieldset">
-                    <x-form.label label="Sub Tipe Bahaya" required />
+                    <x-form.label label="Jenis Bahaya" required />
                     <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
                         <option value="">-- Pilih --</option>
                         @if ($tipe_bahaya)
@@ -312,7 +312,7 @@
                                             });
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                                    <input type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full cursor-pointer input-sm focus:ring-1 focus:border-info focus:ring-info" readonly />
+                                    <input type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full cursor-pointer input-xs focus:ring-1 focus:border-info focus:ring-info" readonly />
                                 </div>
                                 <x-label-error :messages="$errors->get('tanggal')" />
                             </fieldset>
@@ -320,7 +320,7 @@
                             <fieldset class="fieldset md:col-span-1 relative">
                                 <x-form.label label="Dilaporkan Oleh" required />
                                 <div class="relative">
-                                    <input type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full input-sm focus:ring-1 focus:border-info focus:ring-info" />
+                                    <input type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full input-xs focus:ring-1 focus:border-info focus:ring-info" />
 
                                     <!-- Dropdown hasil search -->
                                     @if($showActPelaporDropdown)
@@ -345,7 +345,7 @@
                                         @if($manualActPelaporMode)
                                         <li class="p-2">
                                             <div class="relative w-full">
-                                                <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 input-sm focus:ring-1 focus:border-info focus:ring-info" />
+                                                <input type="text" wire:model.live="manualActPelaporName" placeholder="Masukkan nama..." class="input input-bordered w-full pr-20 input-xs focus:ring-1 focus:border-info focus:ring-info" />
                                                 <div class="absolute top-1/2 -translate-y-1/2 right-0">
                                                     <flux:button size="xs" wire:click="addActPelaporManual" icon="plus" variant="primary">
                                                         Tambah
@@ -642,6 +642,10 @@
                 console.error(error);
             });
     });
-
+     document.addEventListener('reset-ckeditor', () => {
+        if (actionDescriptionEditor) {
+            actionDescriptionEditor.setData('');
+        }
+    });
 </script>
 @endpush
