@@ -90,10 +90,10 @@
 
             {{-- Modal DaisyUI --}}
             <dialog class="modal" id="my_modal_2" role="dialog">
-                <div class="modal-box max-w-4xl">
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+                <div class="modal-box max-w-4xl max-h-[80vh] overflow-y-auto">
                     <h3 class="text-lg font-bold mb-2">Audit Trail</h3>
                     <table class="table table-sm w-full border">
                         <thead>
@@ -110,9 +110,8 @@
                                 <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
                                 <td class="border px-2 py-1">
                                     @foreach($activity->changes['attributes'] ?? [] as $field => $new)
-                                     @continue($field === 'updated_at') {{-- skip updated_at --}}
+                                    @continue($field === 'updated_at')
                                     @php
-                                    // Cek nama relasi berdasarkan field
                                     $oldValue = $activity->changes['old'][$field] ?? '-';
                                     $newValue = $new;
 
@@ -164,11 +163,11 @@
                                 <td colspan="3" class="text-center text-gray-500 py-2">Belum ada perubahan</td>
                             </tr>
                             @endforelse
-
                         </tbody>
                     </table>
                 </div>
             </dialog>
+
         </div>
 
     </div>
