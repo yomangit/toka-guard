@@ -591,7 +591,7 @@
                         </div>
                     </fieldset>
                     <!-- Modal Edit ActionHazard -->
-                    <div id="editActionModal" class="modal">
+                    <dialog id="editActionModal" class="modal">
                         <div class="modal-box w-11/12 max-w-4xl">
                             <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan</h3>
 
@@ -657,12 +657,12 @@
 
                             <div class="modal-action mt-4">
                                 <flux:button variant="primary" wire:click="updateAction">Update</flux:button>
-                                <form method="dialog">
+                                <form >
                                     <flux:button variant="outline">Batal</flux:button>
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </dialog>
                 </div>
 
 
