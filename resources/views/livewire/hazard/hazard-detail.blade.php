@@ -805,12 +805,12 @@
                              this.fp = flatpickr(this.$refs.closeEdit,{
                                  disableMobile:true,
                                  dateFormat:'d-m-Y',
-                                 defaultDate: this.$wire.entangle('edit_action_actual_close_date').defer,
+                                 
                                  onChange:(dates,str)=>$wire.set('edit_action_actual_close_date',str),
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date"  class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                        <input type="text" x-ref="closeEdit" wire:model.live.debounce.300ms="edit_action_actual_close_date"  class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
                     <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
                 </fieldset>
