@@ -796,7 +796,7 @@
                                 // ==== Tambahan: isi ulang saat modal dibuka ====
                                 Livewire.on('open-edit-action', () => {
                                     // Ambil value terbaru dari Livewire
-                                    const val = @this.get('edit_action_due_date') ?? '';
+                                    const val = @this.get('edit_action_due_date');
                                     // setDate akan menyesuaikan input + kalender
                                     if (val && this.fp) {
                                         this.fp.setDate(val, true, 'd-m-Y');
