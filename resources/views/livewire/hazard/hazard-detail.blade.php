@@ -810,7 +810,7 @@
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date"  class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
                     <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
                 </fieldset>
@@ -967,35 +967,39 @@
         ClassicEditor
             .create(document.querySelector('#ckeditor-edit-action'), {
                 toolbar: [
-                    // 'heading', '|'
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    'bold', 'italic', 'bulletedList', 'numberedList', '|'
                     , 'undo', 'redo'
                 ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
-                // Set awal read-only jika isDisabled true
+                // ==== MODE READ ONLY ====
                 if (isDisabled) {
                     editor.enableReadOnlyMode('hazard-action_description');
                 }
+
                 Livewire.on('hazardStatusChanged', event => {
-                    data = event[0];
+                    const data = event[0];
                     const bekukan = data.isDisabled;
                     if (bekukan === true) {
                         editor.enableReadOnlyMode('hazard-action_description');
                     } else {
                         editor.disableReadOnlyMode('hazard-action_description');
                     }
-
                 });
 
+                // ==== KIRIM DATA KE LIVEWIRE ====
                 editor.model.document.on('change:data', () => {
-                    // Update ke hidden input
                     const data = editor.getData();
                     document.querySelector('#ckeditor-edit-action').value = data;
-
-                    // Kirim ke Livewire
                     @this.set('edit_action_description', data);
+                });
+
+                // ==== **ISI ULANG SAAT MODAL DIBUKA** ====
+                Livewire.on('open-edit-action', () => {
+                    // Ambil value terbaru dari property Livewire
+                    const newValue = @this.get('edit_action_description') ? ? '';
+                    editor.setData(newValue);
                 });
             })
             .catch(error => {
@@ -1004,4 +1008,5 @@
     });
 
 </script>
+
 @endpush
