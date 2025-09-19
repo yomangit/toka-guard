@@ -576,14 +576,14 @@
                                     <div class="mb-2 md:mb-0">
                                         <p><strong>{!! $act['description'] !!}</strong></p>
                                         <p class="text-sm text-gray-500">
-                                            Batas Waktu Penyelesaian: {{ \Carbon\Carbon::parse($act['due_date'])->timezone('Asia/Makassar')->format('d-m-Y') }}  |
+                                            Batas Waktu Penyelesaian: {{ \Carbon\Carbon::parse($act['due_date'])->timezone('Asia/Makassar')->format('d-m-Y') }} |
                                             Tanggal Penyelesaian Tindakan:{{ \Carbon\Carbon::parse($act['actual_close_date'])->timezone('Asia/Makassar')->format('d-m-Y') }} |
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
                                     <div class="flex gap-2">
                                         <flux:button variant="subtle" size="xs" wire:click="loadEditAction({{ $act['id'] }})" icon="pencil-square"></flux:button>
-                                    <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger"></flux:button>
+                                        <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger"></flux:button>
                                     </div>
                                 </li>
                                 @empty
@@ -842,14 +842,14 @@
             <!-- Aksi -->
             <div class="modal-action mt-4 flex justify-end gap-2">
                 <!-- Update tidak menutup modal -->
-                <flux:button variant="primary" type="button" wire:click="updateAction" x-on:click="$wire.call('updateAction').then(() => { open = false })">
+                <flux:button variant="primary" size="xs" type="button" wire:click="updateAction" x-on:click="$wire.call('updateAction').then(() => { open = false })">
                     Update
                 </flux:button>
-
                 <!-- Batal -->
-                <flux:button variant="outline" type="button" x-on:click="open = false">
+                <flux:button variant="outline" size="xs" type="button" x-on:click="open = false">
                     Batal
                 </flux:button>
+               
             </div>
         </div>
     </div>
