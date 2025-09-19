@@ -780,20 +780,34 @@
                 <fieldset class="fieldset">
                     <x-form.label label="Batas Waktu Penyelesaian" required />
                     <div class="relative" wire:ignore x-data="{
-                         fp:null,
-                         initFlatpickr(){
-                             if(this.fp) this.fp.destroy();
-                             this.fp = flatpickr(this.$refs.dueEdit,{
-                                 disableMobile:true,
-                                 dateFormat:'d-m-Y',
-                                 onChange:(dates,str)=>$wire.set('edit_action_due_date',str),
-                             });
-                         }
-                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" value="{{ $edit_action_due_date }}" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                                fp:null,
+                                initFlatpickr(){
+                                    if(this.fp) this.fp.destroy();
+                                    this.fp = flatpickr(this.$refs.dueEdit,{
+                                        disableMobile:true,
+                                        dateFormat:'d-m-Y',
+                                        onChange:(dates,str)=>$wire.set('edit_action_due_date',str),
+                                    });
+                                }
+                            }" x-init="
+                                initFlatpickr();
+                                Livewire.hook('message.processed', ()=>initFlatpickr());
+
+                                // ==== Tambahan: isi ulang saat modal dibuka ====
+                                Livewire.on('open-edit-action', () => {
+                                    // Ambil value terbaru dari Livewire
+                                    const val = @this.get('edit_action_due_date') ?? '';
+                                    // setDate akan menyesuaikan input + kalender
+                                    if (val && this.fp) {
+                                        this.fp.setDate(val, true, 'd-m-Y');
+                                    }
+                                });
+                            " x-ref="wrapper">
+                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
                     <x-label-error :messages="$errors->get('edit_action_due_date')" />
                 </fieldset>
+
 
                 {{-- Actual Close Date --}}
                 <fieldset class="fieldset">
