@@ -128,6 +128,7 @@ class HazardDetail extends Component
     public $edit_action_due_date;
     public $edit_action_actual_close_date;
     public $edit_action_responsible_id;
+    public $edit_searchResponsibility;
 
     // Untuk menampilkan daftar ActionHazard terkait hazard
     public $actionHazards = [];
@@ -720,7 +721,6 @@ class HazardDetail extends Component
     }
     public function loadEditAction($id)
     {
-        
         $action = ActionHazard::findOrFail($id);
 
         $this->edit_action_id               = $action->id;
@@ -728,6 +728,7 @@ class HazardDetail extends Component
         $this->edit_action_due_date         = optional($action->due_date)->format('d-m-Y');
         $this->edit_action_actual_close_date = optional($action->actual_close_date)->format('d-m-Y');
         $this->edit_action_responsible_id   = $action->responsible_id;
+        $this->edit_searchResponsibility   = optional(User::find($action->responsible_id))->name;
 
         // kirim event ke Alpine supaya modal dibuka setelah data siap
         $this->dispatch('open-edit-action');

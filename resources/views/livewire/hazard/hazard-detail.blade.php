@@ -581,7 +581,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button variant="subtle" size="sm" wire:click="loadEditAction({{ $act['id'] }})" icon="pencil-square"> Edit </flux:button>
+                                    <flux:button variant="subtle" size="xs" wire:click="loadEditAction({{ $act['id'] }})" icon="pencil-square"> Edit </flux:button>
                                     <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
@@ -590,7 +590,7 @@
                             </ul>
                         </div>
                     </fieldset>
-                   
+
 
                 </div>
 
@@ -760,26 +760,26 @@
             </div>
         </x-tab-hazard.layout>
     </form>
- <!-- Modal Edit ActionHazard -->
-                    <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
-                        <div class="modal-box w-11/12 max-w-4xl" @click.outside="open = false">
-                            <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan </h3>
+    <!-- Modal Edit ActionHazard -->
+    <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
+        <div class="modal-box w-11/12 max-w-4xl" @click.outside="open = false">
+            <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan </h3>
 
-                            {{-- === Form Update === --}}
-                            <fieldset class="fieldset md:col-span-1">
-                                <x-form.label label="Deskripsi Tindakan" required />
-                                <div wire:ignore>
-                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
-                                </div>
-                                <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
-                                <x-label-error :messages="$errors->get('edit_action_description')" />
-                            </fieldset>
+            {{-- === Form Update === --}}
+            <fieldset class="fieldset md:col-span-1">
+                <x-form.label label="Deskripsi Tindakan" required />
+                <div wire:ignore>
+                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
+                </div>
+                <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
+                <x-label-error :messages="$errors->get('edit_action_description')" />
+            </fieldset>
 
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4">
-                                {{-- Batas Waktu --}}
-                                <fieldset class="fieldset">
-                                    <x-form.label label="Batas Waktu Penyelesaian" required />
-                                    <div class="relative" wire:ignore x-data="{
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4">
+                {{-- Batas Waktu --}}
+                <fieldset class="fieldset">
+                    <x-form.label label="Batas Waktu Penyelesaian" required />
+                    <div class="relative" wire:ignore x-data="{
                          fp:null,
                          initFlatpickr(){
                              if(this.fp) this.fp.destroy();
@@ -790,15 +790,15 @@
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
-                                    </div>
-                                    <x-label-error :messages="$errors->get('edit_action_due_date')" />
-                                </fieldset>
+                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                    </div>
+                    <x-label-error :messages="$errors->get('edit_action_due_date')" />
+                </fieldset>
 
-                                {{-- Actual Close Date --}}
-                                <fieldset class="fieldset">
-                                    <x-form.label label="Tanggal Penyelesaian Tindakan" required />
-                                    <div class="relative" wire:ignore x-data="{
+                {{-- Actual Close Date --}}
+                <fieldset class="fieldset">
+                    <x-form.label label="Tanggal Penyelesaian Tindakan" required />
+                    <div class="relative" wire:ignore x-data="{
                          fp:null,
                          initFlatpickr(){
                              if(this.fp) this.fp.destroy();
@@ -809,33 +809,33 @@
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
-                                    </div>
-                                    <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
-                                </fieldset>
-
-                                {{-- Responsible Person --}}
-                                <fieldset class="fieldset relative">
-                                    <x-form.label label="Dilaporkan Oleh" required />
-                                    <input type="text" wire:model.live.debounce.300ms="edit_searchResponsibility" placeholder="Cari Nama..." class="input input-bordered w-full input-xs" />
-                                    <x-label-error :messages="$errors->get('edit_action_responsible_id')" />
-                                </fieldset>
-                            </div>
-
-                            <!-- Aksi -->
-                            <div class="modal-action mt-4 flex justify-end gap-2">
-                                <!-- Update tidak menutup modal -->
-                                <flux:button variant="primary" type="button" wire:click="updateAction" x-on:click="$wire.call('updateAction').then(() => { open = false })">
-                                    Update
-                                </flux:button>
-
-                                <!-- Batal -->
-                                <flux:button variant="outline" type="button" x-on:click="open = false">
-                                    Batal
-                                </flux:button>
-                            </div>
-                        </div>
+                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
+                    <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
+                </fieldset>
+
+                {{-- Responsible Person --}}
+                <fieldset class="fieldset relative">
+                    <x-form.label label="Dilaporkan Oleh" required />
+                    <input type="text" wire:model.live.debounce.300ms="edit_searchResponsibility" placeholder="Cari Nama..." class="input input-bordered w-full input-xs" />
+                    <x-label-error :messages="$errors->get('edit_action_responsible_id')" />
+                </fieldset>
+            </div>
+
+            <!-- Aksi -->
+            <div class="modal-action mt-4 flex justify-end gap-2">
+                <!-- Update tidak menutup modal -->
+                <flux:button variant="primary" type="button" wire:click="updateAction" x-on:click="$wire.call('updateAction').then(() => { open = false })">
+                    Update
+                </flux:button>
+
+                <!-- Batal -->
+                <flux:button variant="outline" type="button" x-on:click="open = false">
+                    Batal
+                </flux:button>
+            </div>
+        </div>
+    </div>
 </section>
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
