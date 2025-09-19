@@ -591,7 +591,7 @@
                         </div>
                     </fieldset>
                     <!-- Modal Edit ActionHazard -->
-                    <dialog id="editActionModal" class="modal">
+                    <div id="editActionModal" class="modal">
                         <div class="modal-box w-11/12 max-w-4xl">
                             <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan</h3>
 
@@ -662,7 +662,7 @@
                                 </form>
                             </div>
                         </div>
-                    </dialog>
+                    </div>
                 </div>
 
 
