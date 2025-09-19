@@ -599,7 +599,7 @@
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Deskripsi Tindakan" required />
                                 <div wire:ignore>
-                                    <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
+                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
                                 </div>
                                 <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
                                 <x-label-error :messages="$errors->get('edit_action_description')" />
@@ -953,6 +953,48 @@
 
                     // Kirim ke Livewire
                     @this.set('action_description', data);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+
+</script>
+<script>
+    document.addEventListener('livewire:navigated', () => {
+        ClassicEditor
+            .create(document.querySelector('#ckeditor-edit-action'), {
+                toolbar: [
+                    // 'heading', '|'
+                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    , 'undo', 'redo'
+                ]
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+            })
+            .then(editor => {
+                // Set awal read-only jika isDisabled true
+                if (isDisabled) {
+                    editor.enableReadOnlyMode('hazard-action_description');
+                }
+                Livewire.on('hazardStatusChanged', event => {
+                    data = event[0];
+                    const bekukan = data.isDisabled;
+                    if (bekukan === true) {
+                        editor.enableReadOnlyMode('hazard-action_description');
+                    } else {
+                        editor.disableReadOnlyMode('hazard-action_description');
+                    }
+
+                });
+
+                editor.model.document.on('change:data', () => {
+                    // Update ke hidden input
+                    const data = editor.getData();
+                    document.querySelector('#ckeditor-edit-action').value = data;
+
+                    // Kirim ke Livewire
+                    @this.set('edit_action_description', data);
                 });
             })
             .catch(error => {
