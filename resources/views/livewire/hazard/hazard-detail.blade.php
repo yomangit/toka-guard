@@ -581,7 +581,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button wire:click="editAction({{ $act['id'] }})" onclick="editActionModal.showModal()" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
+                                    <flux:button x-on:click="$dispatch('open-edit-action')" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
                                     <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
@@ -591,8 +591,8 @@
                         </div>
                     </fieldset>
                     <!-- Modal Edit ActionHazard -->
-                    <dialog id="editActionModal" class="modal">
-                        <div class="modal-box w-11/12 max-w-4xl">
+                    <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
+                        <div class="modal-box w-11/12 max-w-4xl" @click.outside="open = false">
                             <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan</h3>
 
                             {{-- === Form Update === --}}
@@ -652,20 +652,20 @@
                                 </fieldset>
                             </div>
 
-                            <!-- Perbaikan di sini: tambahkan type="button" -->
-                            <div class="modal-action mt-4">
-                                <!-- Update tidak menutup modal otomatis -->
-                                <flux:button variant="primary" type="button" wire:click="updateAction">
+                            <!-- Aksi -->
+                            <div class="modal-action mt-4 flex justify-end gap-2">
+                                <!-- Update tidak menutup modal -->
+                                <flux:button variant="primary" type="button" wire:click="updateAction" x-on:click="$wire.call('updateAction').then(() => { open = false })">
                                     Update
                                 </flux:button>
 
-                                <!-- Batal menutup modal secara manual -->
-                                <flux:button variant="outline" type="button" x-on:click="document.getElementById('editActionModal').close()">
+                                <!-- Batal -->
+                                <flux:button variant="outline" type="button" x-on:click="open = false">
                                     Batal
                                 </flux:button>
                             </div>
                         </div>
-                    </dialog>
+                    </div>
 
                 </div>
 
