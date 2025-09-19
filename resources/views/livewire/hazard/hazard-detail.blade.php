@@ -565,7 +565,7 @@
                         <!-- List Actions -->
                         <div class="divider my-2">Daftar Tindakan</div>
                         <ul class="space-y-2">
-                            @forelse($actions as $index => $act)
+                            @forelse($actionHazards  as  $act)
                             <li class="flex flex-col md:flex-row md:items-center justify-between border p-3 rounded bg-base-50">
                                 <div class="mb-2 md:mb-0">
                                     <p><strong>{!! $act['description'] !!}</strong></p>
@@ -575,7 +575,7 @@
                                         PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                     </p>
                                 </div>
-                                <button type="button" wire:click="removeAction({{ $index }})" class="btn btn-error btn-xs self-start md:self-center">Hapus</button>
+                                <button type="button" wire:click="removeAction({{ $act->id }})" class="btn btn-error btn-xs self-start md:self-center">Hapus</button>
                             </li>
                             @empty
                             <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>
