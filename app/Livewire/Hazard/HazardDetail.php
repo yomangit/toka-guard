@@ -651,7 +651,6 @@ class HazardDetail extends Component
     {
         $this->validate([
             'action_description' => 'required|string',
-            'action_status' => 'required|string',
             'action_due_date' => 'required|date',
             'action_actual_close_date' => 'nullable|date',
             'action_responsible_id' => 'required|integer|exists:users,id',
@@ -661,7 +660,6 @@ class HazardDetail extends Component
             'hazard_id'        => $this->hazards->id,
             'orginal_date'     => now(), // atau bisa diambil dari form jika ada
             'description'      => $this->action_description,
-            'status'           => $this->action_status,
             'due_date'         => Carbon::parse($this->action_due_date),
             'actual_close_date' => $this->action_actual_close_date
                 ? Carbon::parse($this->action_actual_close_date)
@@ -675,7 +673,6 @@ class HazardDetail extends Component
         // Reset form
         $this->reset([
             'action_description',
-            'action_status',
             'action_due_date',
             'action_actual_close_date',
             'action_responsible_id',
