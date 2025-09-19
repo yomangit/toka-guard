@@ -113,7 +113,7 @@ class HazardDetail extends Component
     public $manualActPelaporMode = false;
     public $manualActPelaporName = '';
     public $hazard_id;
-    
+
     // Data Action Hazard
     public $action_description;
     public $action_due_date;
@@ -138,33 +138,20 @@ class HazardDetail extends Component
         ];
     }
     protected $messages = [
-
         'likelihood_id.required'     => 'likelihood wajib diisi.',
         'consequence_id.required'     => 'consequence wajib diisi.',
         'location_id.required'     => 'Lokasi wajib diisi.',
         'location_specific.required'     => 'Lokasi Spesifik wajib diisi.',
-
         'description.required'     => 'Deskripsi wajib diisi.',
-
-
         'immediate_corrective_action.required'     => 'Tindakan perbaikan langsung wajib diisi.',
-
-
         'department_id.required_without' => 'Departemen wajib dipilih jika kontraktor tidak diisi.',
         'contractor_id.required_without' => 'Kontraktor wajib dipilih jika departemen tidak diisi.',
-
         'kondisi_tidak_aman.required_without' => 'Kondisi Tidak Aman wajib dipilih jika Tindakan Tidak Aman tidak diisi.',
         'tindakan_tidak_aman.required_without' => 'Tindakan Tidak Aman wajib dipilih jika Kondisi Tidak Aman tidak diisi.',
-
         'pelapor_id.required' => 'Pelapor wajib dipilih.',
         'penanggungJawab.required' => 'Penanggung jawab area wajib dipilih.',
-
         'tipe_bahaya.required'     => 'Tipe Bahaya wajib dipilih.',
-
-
         'sub_tipe_bahaya.required' => 'Sub Tipe Bahaya wajib dipilih.',
-
-
         'tanggal.required'         => 'Tanggal wajib dipilih.',
         'tanggal.date'             => 'Tanggal harus berupa format tanggal valid.',
     ];
