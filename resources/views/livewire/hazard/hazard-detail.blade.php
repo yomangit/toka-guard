@@ -581,7 +581,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button  wire:click="editAction({{ $act['id'] }})" onclick="editActionModal.showModal()" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
+                                    <flux:button wire:click="editAction({{ $act['id'] }})" onclick="editActionModal.showModal()" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
                                     <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
