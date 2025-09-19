@@ -967,34 +967,36 @@
         ClassicEditor
             .create(document.querySelector('#ckeditor-edit-action'), {
                 toolbar: [
-                    'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    // 'heading', '|'
+                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
                     , 'undo', 'redo'
                 ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
-                // ==== MODE READ ONLY ====
+                // Set awal read-only jika isDisabled true
                 if (isDisabled) {
                     editor.enableReadOnlyMode('hazard-action_description');
                 }
-
                 Livewire.on('hazardStatusChanged', event => {
-                    const data = event[0];
+                    data = event[0];
                     const bekukan = data.isDisabled;
                     if (bekukan === true) {
                         editor.enableReadOnlyMode('hazard-action_description');
                     } else {
                         editor.disableReadOnlyMode('hazard-action_description');
                     }
+
                 });
 
-                // ==== KIRIM DATA KE LIVEWIRE ====
                 editor.model.document.on('change:data', () => {
+                    // Update ke hidden input
                     const data = editor.getData();
                     document.querySelector('#ckeditor-edit-action').value = data;
+
+                    // Kirim ke Livewire
                     @this.set('edit_action_description', data);
                 });
-
                 // ==== **ISI ULANG SAAT MODAL DIBUKA** ====
                 Livewire.on('open-edit-action', () => {
                     // Ambil value terbaru dari property Livewire
@@ -1008,5 +1010,4 @@
     });
 
 </script>
-
 @endpush
