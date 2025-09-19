@@ -9,6 +9,10 @@ class ActionHazard extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'due_date' => 'datetime',
+        'actual_close_date' => 'datetime',
+    ];
     protected $fillable = [
         'hazard_id',
         'original_date',      // atau 'original_date'
@@ -17,6 +21,7 @@ class ActionHazard extends Model
         'actual_close_date',
         'responsible_id',
     ];
+
 
      // === BOOTED EVENT HOOKS ===
     protected static function booted()

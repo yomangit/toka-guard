@@ -725,7 +725,7 @@ class HazardDetail extends Component
 
         $this->edit_action_id               = $action->id;
         $this->edit_action_description      = $action->description;
-        $this->edit_action_due_date         = $action->due_date;
+        $this->edit_action_due_date         = optional($action->due_date)->format('d-m-Y');
         $this->edit_action_actual_close_date = optional($action->actual_close_date)->format('d-m-Y');
         $this->edit_action_responsible_id   = $action->responsible_id;
         $this->edit_searchResponsibility   = optional(User::find($action->responsible_id))->name;
