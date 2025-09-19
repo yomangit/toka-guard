@@ -13,11 +13,54 @@ class ActionHazard extends Model
         'hazard_id',
         'original_date',      // atau 'original_date'
         'description',
-        'status',
         'due_date',
         'actual_close_date',
         'responsible_id',
     ];
+
+     // === BOOTED EVENT HOOKS ===
+    protected static function booted()
+    {
+        // Saat CREATE
+        static::created(function ($action) {
+            activity()
+                ->performedOn($action->hazard)        // subject = parent Hazard
+                ->causedBy(auth()->user())            // user yang login (optional)
+                ->withProperties([
+                    'action_hazard_id' => $action->id,
+                    'description'      => $action->description,
+                    'due_date'         => $action->due_date,
+                    'event'            => 'created',
+                ])
+                ->log('ActionHazard ditambahkan');
+        });
+
+        // Saat UPDATE
+        static::updated(function ($action) {
+            activity()
+                ->performedOn($action->hazard)
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'action_hazard_id' => $action->id,
+                    'changes'          => $action->getChanges(),
+                    'event'            => 'updated',
+                ])
+                ->log('ActionHazard diperbarui');
+        });
+
+        // Saat DELETE
+        static::deleted(function ($action) {
+            activity()
+                ->performedOn($action->hazard)
+                ->causedBy(auth()->user())
+                ->withProperties([
+                    'action_hazard_id' => $action->id,
+                    'description'      => $action->description,
+                    'event'            => 'deleted',
+                ])
+                ->log('ActionHazard dihapus');
+        });
+    }
 
     // Relasi
     public function hazard()

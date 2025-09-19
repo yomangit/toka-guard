@@ -110,6 +110,12 @@
                                     <td class="border px-2 py-1">{{ $activity->created_at->format('d-m-Y H:i') }}</td>
                                     <td class="border px-2 py-1">{{ $activity->causer->name ?? 'System' }}</td>
                                     <td class="border px-2 py-1">
+                                        @if(str_contains($activity->description, 'ActionHazard'))
+                                        {{-- Log khusus ActionHazard --}}
+                                        <div class="mb-1 text-blue-600">
+                                            {{ $activity->description }}
+                                        </div>
+                                        @endif
                                         @foreach($activity->changes['attributes'] ?? [] as $field => $new)
                                         @continue($field === 'updated_at')
                                         @php
