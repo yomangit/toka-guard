@@ -95,6 +95,7 @@ class Hazard extends Model
     public function likelihood()          { return $this->belongsTo(Likelihood::class); }
     public function company()             { return $this->belongsTo(Company::class); }
     public function assignedErms()        { return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id'); }
+    public function actionHazards()        { return $this->hasMany(ActionHazard::class, 'hazard_id'); }
 
     /** SCOPES */
     public function scopeStatus($query, $status)

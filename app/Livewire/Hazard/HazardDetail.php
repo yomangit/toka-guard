@@ -14,6 +14,7 @@ use App\Models\Department;
 use App\Models\Likelihood;
 use App\Enums\HazardStatus;
 use App\Helpers\FileHelper;
+use App\Models\ActionHazard;
 use App\Models\EventSubType;
 use App\Models\ErmAssignment;
 use Livewire\WithFileUploads;
@@ -51,10 +52,12 @@ class HazardDetail extends Component
     public $searchPelapor = '';
     public $locations = [];
     public $pelapors = [];
+    public $pelaporsAct = [];
     public $departments = [];
     public $showDropdown = false;
     public $showLocationDropdown = false;
     public $showPelaporDropdown = false;
+    public $showActPelaporDropdown = false;
     public $searchContractor = '';
     public $contractors = [];
     public $showContractorDropdown = false;
@@ -105,7 +108,22 @@ class HazardDetail extends Component
     public $tanggal;
     public $manualPelaporMode = false;
     public $manualPelaporName = '';
+    public $manualActPelaporMode = false;
+    public $manualActPelaporName = '';
     public $hazard_id;
+    // Data Action Hazard
+    #[Validate('required|string')]
+    public $action_description;
+    #[Validate('required|date')]
+    public $action_due_date;
+    #[Validate('nullable|date')]
+    public $action_actual_close_date;
+    #[Validate('required|integer|exists:users,id')]
+    public $action_responsible_id;
+
+    // Untuk menampilkan daftar ActionHazard terkait hazard
+    public $actionHazards = [];
+
     public function rules()
     {
         return [
@@ -149,7 +167,7 @@ class HazardDetail extends Component
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
-        
+
         $this->hazards = Hazard::with('assignedErms')->findOrFail($hazard);
         $this->tanggal = Carbon::createFromFormat('Y-m-d H:i:s', $this->hazards->tanggal)->format('d-m-Y H:i');
         $this->tipe_bahaya = $this->hazards->event_type_id;
@@ -210,8 +228,10 @@ class HazardDetail extends Component
             $this->searchContractor = Contractor::find($this->contractor_id)?->contractor_name ?? '';
         }
         $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
-        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id',$id_table)->first()->risk_assessment_id;
-        $this->RiskAssessment =RiskAssessment::whereId($risk_assessment_id)->first();
+        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
+        $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
+
+        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $hazard)->orderByDesc('created_at')->get()->toArray();
     }
     protected function setEffectiveRole(): void
     {
@@ -489,6 +509,34 @@ class HazardDetail extends Component
         $this->searchPelapor = $this->manualPelaporName;
         $this->showPelaporDropdown = false;
     }
+    public function updatedSearchActResponsibility()
+    {
+        $this->reset('manualActPelaporName');
+        $this->manualActPelaporMode = false;
+        if (strlen($this->searchActResponsibility) > 1) {
+            $this->pelaporsAct = User::where('name', 'like', '%' . $this->searchActResponsibility . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+            $this->showActPelaporDropdown = true;
+        } else {
+            $this->pelaporsAct = [];
+            $this->showActPelaporDropdown = false;
+        }
+    }
+    public function selectActPelapor($id, $name)
+    {
+        $this->action_responsible_id = $id;
+        $this->searchActResponsibility = $name;
+        $this->showActPelaporDropdown = false;
+        $this->manualActPelaporMode = false;
+        $this->validateOnly('action_responsible_id');
+    }
+    public function enableManualActPelapor()
+    {
+        $this->manualActPelaporMode = true;
+        $this->manualActPelaporName = $this->searchPelapor; // isi default sama dengan isi search
+    }
     public function getIsFormValidProperty()
     {
         // Kalau user pilih department_id atau contractor_id salah satu boleh
@@ -592,9 +640,53 @@ class HazardDetail extends Component
 
         $this->selectedLikelihoodId = $this->likelihood_id;
         $this->selectedConsequenceId = $this->consequence_id;
-         $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
-        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id',$id_table)->first()->risk_assessment_id;
-        $this->RiskAssessment =RiskAssessment::whereId($risk_assessment_id)->first();
+        $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
+        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
+        $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
+    }
+
+    public function addActionHazard()
+    {
+        $this->validate([
+            'action_description' => 'required|string',
+            'action_status' => 'required|string',
+            'action_due_date' => 'required|date',
+            'action_actual_close_date' => 'nullable|date',
+            'action_responsible_id' => 'required|integer|exists:users,id',
+        ]);
+
+        ActionHazard::create([
+            'hazard_id'        => $this->hazards->id,
+            'orginal_date'     => now(), // atau bisa diambil dari form jika ada
+            'description'      => $this->action_description,
+            'status'           => $this->action_status,
+            'due_date'         => Carbon::parse($this->action_due_date),
+            'actual_close_date' => $this->action_actual_close_date
+                ? Carbon::parse($this->action_actual_close_date)
+                : null,
+            'responsible_id'   => $this->action_responsible_id,
+        ]);
+
+        // Refresh list setelah simpan
+        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
+
+        // Reset form
+        $this->reset([
+            'action_description',
+            'action_status',
+            'action_due_date',
+            'action_actual_close_date',
+            'action_responsible_id',
+        ]);
+
+        $this->dispatch(
+            'alert',
+            [
+                'text' => "Action Hazard berhasil ditambahkan!",
+                'duration' => 4000,
+                'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
+            ]
+        );
     }
     public function render()
     {
@@ -602,7 +694,7 @@ class HazardDetail extends Component
         $this->loadAvailableTransitions();
         $this->loadErmList();
         return view('livewire.hazard.hazard-detail', [
-            'report'=>Hazard::with('activities.causer')->findOrFail($this->hazard_id),
+            'report' => Hazard::with('activities.causer')->findOrFail($this->hazard_id),
             'Department'   => Department::all(),
             'likelihoodss' => Likelihood::orderByDesc('level')->get(),
             'consequencess' => RiskConsequence::orderBy('level')->get(),
