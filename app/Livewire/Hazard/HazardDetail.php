@@ -701,7 +701,6 @@ class HazardDetail extends Component
 
         // Jika mau hapus di database juga:
         ActionHazard::where('id', $id)->delete();
-         $this->dispatch('notify', 'Tindakan berhasil dihapus');
         $this->dispatch(
                 'alert',
                 [
