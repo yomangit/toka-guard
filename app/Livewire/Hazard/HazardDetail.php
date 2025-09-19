@@ -721,6 +721,7 @@ class HazardDetail extends Component
     }
     public function loadEditAction($id)
     {
+          $this->dispatch('open-edit-action');
         $action = ActionHazard::findOrFail($id);
 
         $this->edit_action_id               = $action->id;
@@ -731,7 +732,7 @@ class HazardDetail extends Component
         $this->edit_searchResponsibility   = optional(User::find($action->responsible_id))->name;
 
         // kirim event ke Alpine supaya modal dibuka setelah data siap
-        $this->dispatch('open-edit-action');
+      
     }
 
     public function updateAction()
