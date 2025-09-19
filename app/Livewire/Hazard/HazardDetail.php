@@ -722,18 +722,15 @@ class HazardDetail extends Component
     public function loadEditAction($id)
     {
         $action = ActionHazard::findOrFail($id);
-
         $this->edit_action_id               = $action->id;
         $this->edit_action_description      = $action->description;
         $this->edit_action_due_date         = optional($action->due_date)->format('d-m-Y');
         $this->edit_action_actual_close_date = optional($action->actual_close_date)->format('d-m-Y');
         $this->edit_action_responsible_id   = $action->responsible_id;
         $this->edit_searchResponsibility   = optional(User::find($action->responsible_id))->name;
-
         // kirim event ke Alpine supaya modal dibuka setelah data siap
         $this->dispatch('open-edit-action');
     }
-
     public function updateAction()
     {
         $this->validate([
@@ -742,7 +739,6 @@ class HazardDetail extends Component
             'edit_action_actual_close_date' => 'nullable|date_format:d-m-Y',
             'edit_action_responsible_id' => 'required|integer',
         ]);
-
         $action = ActionHazard::findOrFail($this->edit_action_id);
         $action->update([
             'description'       => $this->edit_action_description,
@@ -752,17 +748,14 @@ class HazardDetail extends Component
                 : null,
             'responsible_id'    => $this->edit_action_responsible_id,
         ]);
-
         $this->dispatch('alert', ['text' => 'Tindakan berhasil diperbarui!']);
         $this->dispatch('close-modal', id: 'editActionModal');
-
         // Refresh list
         $this->loadActionHazards();
     }
     public function loadActionHazards() {
          $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
     }
-
     public function render()
     {
         $this->setEffectiveRole();
