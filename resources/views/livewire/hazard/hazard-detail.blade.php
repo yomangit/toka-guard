@@ -599,7 +599,7 @@
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Deskripsi Tindakan" required />
                                 <div wire:ignore>
-                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
+                                    <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
                                 </div>
                                 <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
                                 <x-label-error :messages="$errors->get('edit_action_description')" />
