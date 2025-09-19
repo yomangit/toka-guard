@@ -696,8 +696,10 @@ class HazardDetail extends Component
             ->values()
             ->toArray();
         // Jika mau hapus di database juga:
-        ActionHazard::where('id', $id)->delete();
-        $this->dispatch(
+        $action = ActionHazard::find($id);
+        if ($action) {
+            $action->delete(); // event deleted + activity log terpicu
+            $this->dispatch(
                 'alert',
                 [
                     'text' => "Data berhasil di hapus!!!",
@@ -708,6 +710,7 @@ class HazardDetail extends Component
                     'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
                 ]
             );
+        }
     }
 
     public function render()
