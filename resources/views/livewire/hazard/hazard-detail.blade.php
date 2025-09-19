@@ -581,8 +581,10 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button variant="subtle" size="xs" wire:click="loadEditAction({{ $act['id'] }})" icon="pencil-square"> Edit </flux:button>
-                                    <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
+                                    <div class="flex gap-2">
+                                        <flux:button variant="subtle" size="xs" wire:click="loadEditAction({{ $act['id'] }})" icon="pencil-square"></flux:button>
+                                    <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger"></flux:button>
+                                    </div>
                                 </li>
                                 @empty
                                 <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>
