@@ -575,7 +575,7 @@
                                         PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                     </p>
                                 </div>
-                                <button type="button" wire:click="removeAction({{ $act->id }})" class="btn btn-error btn-xs self-start md:self-center">Hapus</button>
+                                <button type="button" wire:click="removeAction({{ }})" class="btn btn-error btn-xs self-start md:self-center">Hapus</button>
                             </li>
                             @empty
                             <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>
