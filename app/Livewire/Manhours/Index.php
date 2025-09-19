@@ -172,9 +172,23 @@ class Index extends Component
 
         try {
             Mail::to($this->recipient)->send(new TestEmail());
-            $this->dispatch('alert', type: 'success', message: 'Email berhasil dikirim ke ' . $this->recipient);
+            $this->dispatch('alert', [
+                'text'            => 'Email berhasil dikirim ke ' . $this->recipient,
+                'duration'        => 5000,
+                'destination'     => '/contact',
+                'newWindow'       => true,
+                'close'           => true,
+                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+            ]);
         } catch (\Throwable $e) {
-            $this->dispatch('alert', type: 'error', message: 'Gagal mengirim email: ' . $e->getMessage());
+            $this->dispatch('alert', [
+                'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
+                'duration'        => 5000,
+                'destination'     => '/contact',
+                'newWindow'       => true,
+                'close'           => true,
+                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+            ]);
         }
     }
 
