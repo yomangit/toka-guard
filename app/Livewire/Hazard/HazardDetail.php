@@ -718,7 +718,7 @@ class HazardDetail extends Component
             );
         }
     }
-    public function editAction($id)
+    public function loadEditAction($id)
     {
         $action = ActionHazard::findOrFail($id);
 
@@ -728,8 +728,8 @@ class HazardDetail extends Component
         $this->edit_action_actual_close_date = optional($action->actual_close_date)->format('d-m-Y');
         $this->edit_action_responsible_id   = $action->responsible_id;
 
-        // trigger CKEditor update via browser event if needed
-        $this->dispatch('editActionLoaded', description: $action->description);
+        // kirim event ke Alpine supaya modal dibuka setelah data siap
+        $this->dispatch('open-edit-action');
     }
 
     public function updateAction()
