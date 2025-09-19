@@ -575,21 +575,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button wire:click="$dispatch('confirm-delete', { id: {{ $act['id'] }} })" size="xs" icon="trash" variant="danger">Hapus</flux:button>
-                                    <script>
-                                        document.addEventListener('livewire:load', () => {
-                                            window.addEventListener('confirm-delete', e => {
-                                                const id = e.detail.id;
-                                                if (confirm('Yakin hapus tindakan ini?')) {
-                                                    Livewire.dispatch('delete-confirmed', {
-                                                        id
-                                                    });
-                                                }
-                                            });
-                                        });
-
-                                    </script>
-
+                                    <flux:button wire:click="showDelete({{ $manhour->id }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
                                 <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>

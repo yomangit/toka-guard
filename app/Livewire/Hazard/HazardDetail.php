@@ -698,7 +698,6 @@ class HazardDetail extends Component
             ->reject(fn($act) => $act['id'] == $id)
             ->values()
             ->toArray();
-
         // Jika mau hapus di database juga:
         ActionHazard::where('id', $id)->delete();
         $this->dispatch(
