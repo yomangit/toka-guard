@@ -835,4 +835,46 @@
     });
 
 </script>
+<script>
+    document.addEventListener('livewire:navigated', () => {
+        ClassicEditor
+            .create(document.querySelector('#ckeditor-action_description'), {
+                toolbar: [
+                    // 'heading', '|'
+                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    , 'undo', 'redo'
+                ]
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+            })
+            .then(editor => {
+                // Set awal read-only jika isDisabled true
+                if (isDisabled) {
+                    editor.enableReadOnlyMode('hazard-action_description');
+                }
+                Livewire.on('hazardStatusChanged', event => {
+                    data = event[0];
+                    const bekukan = data.isDisabled;
+                    if (bekukan === true) {
+                        editor.enableReadOnlyMode('hazard-action_description');
+                    } else {
+                        editor.disableReadOnlyMode('hazard-action_description');
+                    }
+
+                });
+
+                editor.model.document.on('change:data', () => {
+                    // Update ke hidden input
+                    const data = editor.getData();
+                    document.querySelector('#ckeditor-action_description').value = data;
+
+                    // Kirim ke Livewire
+                    @this.set('action_description', data);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    });
+
+</script>
 @endpush
