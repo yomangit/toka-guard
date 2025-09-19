@@ -10,8 +10,8 @@ class ActionHazard extends Model
     use HasFactory;
 
     protected $casts = [
-        'due_date' => 'datetime',
-        'actual_close_date' => 'datetime',
+        'due_date' => 'date',
+        'actual_close_date' => 'date',
     ];
     protected $fillable = [
         'hazard_id',
