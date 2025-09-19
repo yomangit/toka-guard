@@ -759,6 +759,9 @@ class HazardDetail extends Component
         // Refresh list
         $this->loadActionHazards();
     }
+    public function loadActionHazards() {
+         $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
+    }
 
     public function render()
     {
