@@ -676,6 +676,7 @@ class HazardDetail extends Component
             'action_due_date',
             'action_actual_close_date',
             'action_responsible_id',
+            'searchActResponsibility',
         ]);
 
         $this->dispatch(
