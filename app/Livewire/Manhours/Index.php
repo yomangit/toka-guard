@@ -3,6 +3,7 @@
 namespace App\Livewire\Manhours;
 
 use Carbon\Carbon;
+use App\Mail\TestEmail;
 use App\Models\Company;
 use App\Models\Manhour;
 use Livewire\Component;
@@ -15,6 +16,7 @@ use App\Models\Department_group;
 use App\Services\GraphMailService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 class Index extends Component
 {
@@ -160,7 +162,21 @@ class Index extends Component
             $this->manpower[$key] = null;
         }
     }
+    public string $recipient = '';
 
+    public function send()
+    {
+        $this->validate([
+            'recipient' => 'required|email',
+        ]);
+
+        try {
+            Mail::to($this->recipient)->send(new TestEmail());
+            $this->dispatch('alert', type: 'success', message: 'Email berhasil dikirim ke ' . $this->recipient);
+        } catch (\Throwable $e) {
+            $this->dispatch('alert', type: 'error', message: 'Gagal mengirim email: ' . $e->getMessage());
+        }
+    }
 
     public function updatedCompany()
     {
@@ -202,7 +218,7 @@ class Index extends Component
         // reset pilihan company setiap ganti entity_type
         $this->company = '';
     }
-    
+
     public function render()
     {
         // authorize viewAny
