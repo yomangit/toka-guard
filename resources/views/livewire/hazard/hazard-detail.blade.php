@@ -599,9 +599,7 @@
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Deskripsi Tindakan" required />
                                 <div wire:ignore>
-                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">
-                                    {{ $edit_action_description }}
-                                    </textarea>
+                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
                                 </div>
                                 <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
                                 <x-label-error :messages="$errors->get('edit_action_description')" />
@@ -612,16 +610,16 @@
                                 <fieldset class="fieldset">
                                     <x-form.label label="Batas Waktu Penyelesaian" required />
                                     <div class="relative" wire:ignore x-data="{
-                                                fp:null,
-                                                initFlatpickr(){
-                                                    if(this.fp) this.fp.destroy();
-                                                    this.fp = flatpickr(this.$refs.dueEdit,{
-                                                        disableMobile:true,
-                                                        dateFormat:'d-m-Y',
-                                                        onChange:(dates,str)=>$wire.set('edit_action_due_date',str),
-                                                    });
-                                                }
-                                            }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
+                         fp:null,
+                         initFlatpickr(){
+                             if(this.fp) this.fp.destroy();
+                             this.fp = flatpickr(this.$refs.dueEdit,{
+                                 disableMobile:true,
+                                 dateFormat:'d-m-Y',
+                                 onChange:(dates,str)=>$wire.set('edit_action_due_date',str),
+                             });
+                         }
+                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
                                         <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                                     </div>
                                     <x-label-error :messages="$errors->get('edit_action_due_date')" />
@@ -631,16 +629,16 @@
                                 <fieldset class="fieldset">
                                     <x-form.label label="Tanggal Penyelesaian Tindakan" required />
                                     <div class="relative" wire:ignore x-data="{
-                                            fp:null,
-                                            initFlatpickr(){
-                                                if(this.fp) this.fp.destroy();
-                                                this.fp = flatpickr(this.$refs.closeEdit,{
-                                                    disableMobile:true,
-                                                    dateFormat:'d-m-Y',
-                                                    onChange:(dates,str)=>$wire.set('edit_action_actual_close_date',str),
-                                                });
-                                            }
-                                        }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
+                         fp:null,
+                         initFlatpickr(){
+                             if(this.fp) this.fp.destroy();
+                             this.fp = flatpickr(this.$refs.closeEdit,{
+                                 disableMobile:true,
+                                 dateFormat:'d-m-Y',
+                                 onChange:(dates,str)=>$wire.set('edit_action_actual_close_date',str),
+                             });
+                         }
+                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
                                         <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                                     </div>
                                     <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
@@ -650,17 +648,25 @@
                                 <fieldset class="fieldset relative">
                                     <x-form.label label="Dilaporkan Oleh" required />
                                     <input type="text" wire:model.live.debounce.300ms="edit_searchResponsibility" placeholder="Cari Nama..." class="input input-bordered w-full input-xs" />
-                                    {{-- Dropdown seperti create bisa ditempatkan di sini jika perlu --}}
                                     <x-label-error :messages="$errors->get('edit_action_responsible_id')" />
                                 </fieldset>
                             </div>
 
+                            <!-- Perbaikan di sini: tambahkan type="button" -->
                             <div class="modal-action mt-4">
-                                <flux:button variant="primary" type="button" wire:click="updateAction">Update</flux:button>
-                                <flux:button variant="outline" type="button" x-on:click="document.getElementById('editActionModal').close()">Batal</flux:button>
+                                <!-- Update tidak menutup modal otomatis -->
+                                <flux:button variant="primary" type="button" wire:click="updateAction">
+                                    Update
+                                </flux:button>
+
+                                <!-- Batal menutup modal secara manual -->
+                                <flux:button variant="outline" type="button" x-on:click="document.getElementById('editActionModal').close()">
+                                    Batal
+                                </flux:button>
                             </div>
                         </div>
                     </dialog>
+
                 </div>
 
 
