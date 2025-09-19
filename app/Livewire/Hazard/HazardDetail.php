@@ -234,7 +234,6 @@ class HazardDetail extends Component
         $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
 
         $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $hazard)->orderByDesc('created_at')->get()->toArray();
-        dd($this->actionHazards);
     }
     protected function setEffectiveRole(): void
     {
