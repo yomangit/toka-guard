@@ -123,6 +123,12 @@ class HazardDetail extends Component
     #[Validate('required|integer|exists:users,id')]
     public $action_responsible_id;
 
+    public $edit_action_id;
+    public $edit_action_description;
+    public $edit_action_due_date;
+    public $edit_action_actual_close_date;
+    public $edit_action_responsible_id;
+
     // Untuk menampilkan daftar ActionHazard terkait hazard
     public $actionHazards = [];
 
@@ -711,6 +717,45 @@ class HazardDetail extends Component
                 ]
             );
         }
+    }
+    public function editAction($id)
+    {
+        $action = ActionHazard::findOrFail($id);
+
+        $this->edit_action_id               = $action->id;
+        $this->edit_action_description      = $action->description;
+        $this->edit_action_due_date         = optional($action->due_date)->format('d-m-Y');
+        $this->edit_action_actual_close_date = optional($action->actual_close_date)->format('d-m-Y');
+        $this->edit_action_responsible_id   = $action->responsible_id;
+
+        // trigger CKEditor update via browser event if needed
+        $this->dispatch('editActionLoaded', description: $action->description);
+    }
+
+    public function updateAction()
+    {
+        $this->validate([
+            'edit_action_description' => 'required|string',
+            'edit_action_due_date' => 'required|date_format:d-m-Y',
+            'edit_action_actual_close_date' => 'nullable|date_format:d-m-Y',
+            'edit_action_responsible_id' => 'required|integer',
+        ]);
+
+        $action = ActionHazard::findOrFail($this->edit_action_id);
+        $action->update([
+            'description'       => $this->edit_action_description,
+            'due_date'          => Carbon::createFromFormat('d-m-Y', $this->edit_action_due_date),
+            'actual_close_date' => $this->edit_action_actual_close_date
+                ? Carbon::createFromFormat('d-m-Y', $this->edit_action_actual_close_date)
+                : null,
+            'responsible_id'    => $this->edit_action_responsible_id,
+        ]);
+
+        $this->dispatch('alert', ['text' => 'Tindakan berhasil diperbarui!']);
+        $this->dispatch('close-modal', id: 'editActionModal');
+
+        // Refresh list
+        $this->loadActionHazards();
     }
 
     public function render()

@@ -581,6 +581,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
+                                    <flux:button  wire:click="editAction({{ $act['id'] }})" onclick="editActionModal.showModal()" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
                                     <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
@@ -589,6 +590,79 @@
                             </ul>
                         </div>
                     </fieldset>
+                    <!-- Modal Edit ActionHazard -->
+                    <dialog id="editActionModal" class="modal">
+                        <div class="modal-box w-11/12 max-w-4xl">
+                            <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan</h3>
+
+                            {{-- === Form Update === --}}
+                            <fieldset class="fieldset md:col-span-1">
+                                <x-form.label label="Deskripsi Tindakan" required />
+                                <div wire:ignore>
+                                    <textarea id="ckeditor-edit-action" class="textarea textarea-bordered w-full h-20">
+                                    {{ $edit_action_description }}
+                                    </textarea>
+                                </div>
+                                <input type="hidden" wire:model.live="edit_action_description" id="edit_action_description">
+                                <x-label-error :messages="$errors->get('edit_action_description')" />
+                            </fieldset>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4">
+                                {{-- Batas Waktu --}}
+                                <fieldset class="fieldset">
+                                    <x-form.label label="Batas Waktu Penyelesaian" required />
+                                    <div class="relative" wire:ignore x-data="{
+                                                fp:null,
+                                                initFlatpickr(){
+                                                    if(this.fp) this.fp.destroy();
+                                                    this.fp = flatpickr(this.$refs.dueEdit,{
+                                                        disableMobile:true,
+                                                        dateFormat:'d-m-Y',
+                                                        onChange:(dates,str)=>$wire.set('edit_action_due_date',str),
+                                                    });
+                                                }
+                                            }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
+                                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                                    </div>
+                                    <x-label-error :messages="$errors->get('edit_action_due_date')" />
+                                </fieldset>
+
+                                {{-- Actual Close Date --}}
+                                <fieldset class="fieldset">
+                                    <x-form.label label="Tanggal Penyelesaian Tindakan" required />
+                                    <div class="relative" wire:ignore x-data="{
+                                            fp:null,
+                                            initFlatpickr(){
+                                                if(this.fp) this.fp.destroy();
+                                                this.fp = flatpickr(this.$refs.closeEdit,{
+                                                    disableMobile:true,
+                                                    dateFormat:'d-m-Y',
+                                                    onChange:(dates,str)=>$wire.set('edit_action_actual_close_date',str),
+                                                });
+                                            }
+                                        }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
+                                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                                    </div>
+                                    <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
+                                </fieldset>
+
+                                {{-- Responsible Person --}}
+                                <fieldset class="fieldset relative">
+                                    <x-form.label label="Dilaporkan Oleh" required />
+                                    <input type="text" wire:model.live.debounce.300ms="edit_searchResponsibility" placeholder="Cari Nama..." class="input input-bordered w-full input-xs" />
+                                    {{-- Dropdown seperti create bisa ditempatkan di sini jika perlu --}}
+                                    <x-label-error :messages="$errors->get('edit_action_responsible_id')" />
+                                </fieldset>
+                            </div>
+
+                            <div class="modal-action mt-4">
+                                <flux:button variant="primary" wire:click="updateAction">Update</flux:button>
+                                <form method="dialog">
+                                    <flux:button variant="outline">Batal</flux:button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
                 </div>
 
 
@@ -846,41 +920,47 @@
         ClassicEditor
             .create(document.querySelector('#ckeditor-action_description'), {
                 toolbar: [
-                    // 'heading', '|'
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    'bold', 'italic', 'bulletedList', 'numberedList', '|'
                     , 'undo', 'redo'
                 ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
-                // Set awal read-only jika isDisabled true
+                // simpan ke window supaya bisa diakses Livewire.on lain kalau perlu
+                window.editorEditAction = editor;
+
+                // Set awal read-only
                 if (isDisabled) {
                     editor.enableReadOnlyMode('hazard-action_description');
                 }
+
+                // Jika status hazard berubah → toggle readonly
                 Livewire.on('hazardStatusChanged', event => {
-                    data = event[0];
-                    const bekukan = data.isDisabled;
-                    if (bekukan === true) {
+                    const data = event[0];
+                    if (data.isDisabled) {
                         editor.enableReadOnlyMode('hazard-action_description');
                     } else {
                         editor.disableReadOnlyMode('hazard-action_description');
                     }
-
                 });
 
+                // Update Livewire ketika data editor berubah
                 editor.model.document.on('change:data', () => {
-                    // Update ke hidden input
                     const data = editor.getData();
                     document.querySelector('#ckeditor-action_description').value = data;
-
-                    // Kirim ke Livewire
                     @this.set('action_description', data);
                 });
+
+                // >>> Tambahkan listener editActionLoaded di sini <<<
+                Livewire.on('editActionLoaded', ({
+                    description
+                }) => {
+                    editor.setData(description ? ? ''); // set isi editor
+                });
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch(error => console.error(error));
     });
 
 </script>
+
 @endpush
