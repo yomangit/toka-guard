@@ -472,7 +472,7 @@
                             <fieldset class="fieldset md:col-span-1">
                                 <x-form.label label="Deskripsi Tindakan" required />
                                 <div wire:ignore>
-                                    <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20">{{ $edit_action_description }}</textarea>
+                                    <textarea id="ckeditor-action_description" class="textarea textarea-bordered w-full h-20">{{ $action_description }}</textarea>
                                 </div>
                                 <input name="action_description" type="hidden" wire:model.live="action_description" id="action_description">
                                 <x-label-error :messages="$errors->get('action_description')" />
@@ -581,7 +581,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button x-on:click="$dispatch('open-edit-action')" size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
+                                    <flux:button x-on:click="$dispatch('open-edit-action')" wire:click="editAction({{ $act['id'] }})"> size="xs" icon="pencil-square" variant="subtle"> Edit</flux:button>
                                     <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
