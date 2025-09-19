@@ -720,7 +720,7 @@ class HazardDetail extends Component
     }
     public function loadEditAction($id)
     {
-        dd($id);
+        
         $action = ActionHazard::findOrFail($id);
 
         $this->edit_action_id               = $action->id;
