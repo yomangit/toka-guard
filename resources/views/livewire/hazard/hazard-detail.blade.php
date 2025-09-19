@@ -575,7 +575,7 @@
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
-                                    <flux:button wire:click="showDelete({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
+                                    <flux:button wire:click="removeAction({{  $act['id'] }})" wire:confirm="Yakin hapus tindakan ini?" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                 </li>
                                 @empty
                                 <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>

@@ -690,7 +690,6 @@ class HazardDetail extends Component
             ]
         );
     }
-    #[On('delete-confirmed')]
     public function removeAction($id)
     {
         // Jika datanya hanya di array property
