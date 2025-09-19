@@ -113,14 +113,11 @@ class HazardDetail extends Component
     public $manualActPelaporMode = false;
     public $manualActPelaporName = '';
     public $hazard_id;
+    
     // Data Action Hazard
-    #[Validate('required|string')]
     public $action_description;
-    #[Validate('required|date')]
     public $action_due_date;
-    #[Validate('nullable|date')]
     public $action_actual_close_date;
-    #[Validate('required|integer|exists:users,id')]
     public $action_responsible_id;
 
     public $edit_action_id;
@@ -240,7 +237,7 @@ class HazardDetail extends Component
         $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
         $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
 
-        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $hazard)->orderByDesc('created_at')->get()->toArray();
+        $this->loadActionHazards();
     }
     protected function setEffectiveRole(): void
     {
@@ -675,7 +672,7 @@ class HazardDetail extends Component
         ]);
 
         // Refresh list setelah simpan
-        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
+        $this->loadActionHazards();
 
         // Reset form
         $this->reset([
@@ -753,8 +750,9 @@ class HazardDetail extends Component
         // Refresh list
         $this->loadActionHazards();
     }
-    public function loadActionHazards() {
-         $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
+    public function loadActionHazards()
+    {
+        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
     }
     public function render()
     {
