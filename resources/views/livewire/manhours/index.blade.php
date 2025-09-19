@@ -9,26 +9,6 @@
         <flux:tooltip content="tambah data" position="top">
             <flux:button size="xs" wire:click='open_modal' icon="add-icon" variant="primary"></flux:button>
         </flux:tooltip>
-        <form wire:submit.prevent="send" class="space-y-4">
-            <label class="block">
-                <span class="text-gray-700">Alamat Email Tujuan</span>
-                <input type="email" wire:model.live="recipient" class="mt-1 block w-full border rounded p-2" placeholder="user@example.com">
-                @error('recipient') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-            </label>
-
-            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Kirim Test Email
-            </button>
-        </form>
-        <script>
-            Livewire.on('alert', ({
-                type
-                , message
-            }) => {
-                alert(`[${type.toUpperCase()}] ${message}`);
-            });
-
-        </script>
         @endif
     </div>
     <x-manhours.layout>

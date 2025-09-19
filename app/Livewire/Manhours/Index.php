@@ -163,35 +163,6 @@ class Index extends Component
         }
     }
     public string $recipient = '';
-
-    public function send()
-    {
-        $this->validate([
-            'recipient' => 'required|email',
-        ]);
-
-        try {
-            Mail::to($this->recipient)->send(new TestEmail());
-            $this->dispatch('alert', [
-                'text'            => 'Email berhasil dikirim ke ' . $this->recipient,
-                'duration'        => 5000,
-                'destination'     => '/contact',
-                'newWindow'       => true,
-                'close'           => true,
-                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
-            ]);
-        } catch (\Throwable $e) {
-            $this->dispatch('alert', [
-                'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
-                'duration'        => 5000,
-                'destination'     => '/contact',
-                'newWindow'       => true,
-                'close'           => true,
-                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
-            ]);
-        }
-    }
-
     public function updatedCompany()
     {
         if ($this->entity_type === "contractor") {
