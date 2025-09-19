@@ -1000,7 +1000,7 @@
                 // ==== **ISI ULANG SAAT MODAL DIBUKA** ====
                 Livewire.on('open-edit-action', () => {
                     // Ambil value terbaru dari property Livewire
-                    const newValue = @this.get('edit_action_description') ? ? '';
+                    const newValue = @this.get('edit_action_description');
                     editor.setData(newValue);
                 });
             })
