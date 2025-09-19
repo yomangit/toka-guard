@@ -577,7 +577,7 @@
                                         <p><strong>{!! $act['description'] !!}</strong></p>
                                         <p class="text-sm text-gray-500">
                                             Batas Waktu Penyelesaian: {{ \Carbon\Carbon::parse($act['due_date'])->timezone('Asia/Makassar')->format('d-m-Y') }}  |
-                                            Tanggal Penyelesaian Tindakan: {{ $act['actual_close_date'] }} |
+                                            Tanggal Penyelesaian Tindakan:{{ \Carbon\Carbon::parse($act['actual_close_date'])->timezone('Asia/Makassar')->format('d-m-Y') }} |
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
