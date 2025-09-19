@@ -593,7 +593,7 @@
                     <!-- Modal Edit ActionHazard -->
                     <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
                         <div class="modal-box w-11/12 max-w-4xl" @click.outside="open = false">
-                            <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan</h3>
+                            <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan {{ $edit_action_description }}</h3>
 
                             {{-- === Form Update === --}}
                             <fieldset class="fieldset md:col-span-1">
