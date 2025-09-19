@@ -578,9 +578,8 @@
                                     <flux:button wire:click="$dispatch('confirm-delete', { id: {{ $act['id'] }} })" size="xs" icon="trash" variant="danger">Hapus</flux:button>
                                     <script>
                                         document.addEventListener('livewire:load', () => {
-                                            Livewire.on('confirm-delete', ({
-                                                id
-                                            }) => {
+                                            window.addEventListener('confirm-delete', e => {
+                                                const id = e.detail.id;
                                                 if (confirm('Yakin hapus tindakan ini?')) {
                                                     Livewire.dispatch('delete-confirmed', {
                                                         id
@@ -590,6 +589,7 @@
                                         });
 
                                     </script>
+
                                 </li>
                                 @empty
                                 <li class="text-gray-500 text-sm">Belum ada tindakan lanjutan ditambahkan.</li>
