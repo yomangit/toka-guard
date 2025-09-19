@@ -657,9 +657,7 @@
 
                             <div class="modal-action mt-4">
                                 <flux:button variant="primary" wire:click="updateAction">Update</flux:button>
-                                <form >
-                                    <flux:button variant="outline">Batal</flux:button>
-                                </form>
+                                <flux:button variant="outline">Batal</flux:button>
                             </div>
                         </div>
                     </dialog>
