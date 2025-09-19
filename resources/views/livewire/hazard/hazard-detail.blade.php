@@ -577,9 +577,10 @@
                                         <p><strong>{!! $act['description'] !!}</strong></p>
                                         <p class="text-sm text-gray-500">
                                             Batas Waktu Penyelesaian:
-                                            {{ $act->due_date?->format('d-m-Y') }} |
+                                            {{ $act['due_date'] ? \Carbon\Carbon::parse($act['due_date'])->format('d-m-Y') : '' }} |
                                             Tanggal Penyelesaian Tindakan:
-                                            {{ $act->actual_close_date?->format('d-m-Y') }} |
+                                            {{ $act['actual_close_date'] ? \Carbon\Carbon::parse($act['actual_close_date'])->format('d-m-Y') : '' }} |
+
                                             PIC: {{ optional(\App\Models\User::find($act['responsible_id']))->name }}
                                         </p>
                                     </div>
