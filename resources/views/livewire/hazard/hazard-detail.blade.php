@@ -501,13 +501,13 @@
                                                 disableMobile: true,
                                                 enableTime: false,
                                                 dateFormat: 'd-m-Y',
-                                                onChange: (dates, str) => $wire.set('actual_close_date', str),
+                                                onChange: (dates, str) => $wire.set('action_actual_close_date', str),
                                             });
                                         }
                                     }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                                        <input name="actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('actual_close_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
+                                        <input name="action_actual_close_date" type="text" x-ref="tanggalInput3" wire:model.live="action_actual_close_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('action_actual_close_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
                                     </div>
-                                    <x-label-error :messages="$errors->get('actual_close_date')" />
+                                    <x-label-error :messages="$errors->get('action_actual_close_date')" />
                                 </fieldset>
                                 <!-- Dilaporkan Oleh -->
                                 <fieldset class="fieldset md:col-span-1 relative">
@@ -551,9 +551,9 @@
                                         @endif
                                     </div>
                                     @if($manualPelaporMode)
-                                    <x-label-error :messages="$errors->get('manualPelaporName')" />
+                                    <x-label-error :messages="$errors->get('manualActPelaporName')" />
                                     @else
-                                    <x-label-error :messages="$errors->get('pelapor_id')" />
+                                    <x-label-error :messages="$errors->get('action_responsible_id')" />
                                     @endif
                                 </fieldset>
                             </div>
