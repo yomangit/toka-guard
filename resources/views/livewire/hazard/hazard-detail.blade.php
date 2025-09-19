@@ -790,7 +790,7 @@
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                        <input type="text" x-ref="dueEdit" wire:model.live="edit_action_due_date" value="{{ $edit_action_due_date }}" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
                     <x-label-error :messages="$errors->get('edit_action_due_date')" />
                 </fieldset>
@@ -809,7 +809,7 @@
                              });
                          }
                      }" x-init="initFlatpickr(); Livewire.hook('message.processed', ()=>initFlatpickr());" x-ref="wrapper">
-                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
+                        <input type="text" x-ref="closeEdit" wire:model.live="edit_action_actual_close_date" value="{{ $edit_action_actual_close_date }}" class="input input-bordered w-full input-xs" placeholder="Pilih Tanggal" readonly />
                     </div>
                     <x-label-error :messages="$errors->get('edit_action_actual_close_date')" />
                 </fieldset>
