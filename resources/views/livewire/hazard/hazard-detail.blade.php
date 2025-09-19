@@ -920,47 +920,41 @@
         ClassicEditor
             .create(document.querySelector('#ckeditor-action_description'), {
                 toolbar: [
-                    'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    // 'heading', '|'
+                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
                     , 'undo', 'redo'
                 ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
-                // simpan ke window supaya bisa diakses Livewire.on lain kalau perlu
-                window.editorEditAction = editor;
-
-                // Set awal read-only
+                // Set awal read-only jika isDisabled true
                 if (isDisabled) {
                     editor.enableReadOnlyMode('hazard-action_description');
                 }
-
-                // Jika status hazard berubah → toggle readonly
                 Livewire.on('hazardStatusChanged', event => {
-                    const data = event[0];
-                    if (data.isDisabled) {
+                    data = event[0];
+                    const bekukan = data.isDisabled;
+                    if (bekukan === true) {
                         editor.enableReadOnlyMode('hazard-action_description');
                     } else {
                         editor.disableReadOnlyMode('hazard-action_description');
                     }
+
                 });
 
-                // Update Livewire ketika data editor berubah
                 editor.model.document.on('change:data', () => {
+                    // Update ke hidden input
                     const data = editor.getData();
                     document.querySelector('#ckeditor-action_description').value = data;
+
+                    // Kirim ke Livewire
                     @this.set('action_description', data);
                 });
-
-                // >>> Tambahkan listener editActionLoaded di sini <<<
-                Livewire.on('editActionLoaded', ({
-                    description
-                }) => {
-                    editor.setData(description ? ? ''); // set isi editor
-                });
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(error);
+            });
     });
 
 </script>
-
 @endpush
