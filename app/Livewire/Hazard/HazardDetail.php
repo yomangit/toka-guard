@@ -14,6 +14,7 @@ use App\Models\Department;
 use App\Models\Likelihood;
 use App\Enums\HazardStatus;
 use App\Helpers\FileHelper;
+use Livewire\Attributes\On;
 use App\Models\ActionHazard;
 use App\Models\EventSubType;
 use App\Models\ErmAssignment;
@@ -50,6 +51,7 @@ class HazardDetail extends Component
     public $search = '';
     public $searchLocation = '';
     public $searchPelapor = '';
+    public $searchActResponsibility = '';
     public $locations = [];
     public $pelapors = [];
     public $pelaporsAct = [];
@@ -689,6 +691,30 @@ class HazardDetail extends Component
             ]
         );
     }
+    #[On('delete-confirmed')]
+    public function removeAction($id)
+    {
+        // Jika datanya hanya di array property
+        $this->actionHazards = collect($this->actionHazards)
+            ->reject(fn($act) => $act['id'] == $id)
+            ->values()
+            ->toArray();
+
+        // Jika mau hapus di database juga:
+        ActionHazard::where('id', $id)->delete();
+        $this->dispatch(
+                'alert',
+                [
+                    'text' => "Data berhasil di hapus!!!",
+                    'duration' => 5000,
+                    'destination' => '/contact',
+                    'newWindow' => true,
+                    'close' => true,
+                    'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
+                ]
+            );
+    }
+
     public function render()
     {
         $this->setEffectiveRole();
