@@ -389,7 +389,7 @@ class HazardForm extends Component
             'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
         ]);
         // reset input sementara
-        $this->reset(['action_description', 'action_due_date', 'action_responsible_id','searchActResponsibility']);
+        $this->reset(['action_description', 'action_due_date', 'action_responsible_id', 'searchActResponsibility']);
         $this->dispatch('reset-ckeditor');
     }
 
@@ -397,7 +397,7 @@ class HazardForm extends Component
     {
         unset($this->actions[$index]);
         $this->actions = array_values($this->actions); // reindex
-         $this->dispatch(
+        $this->dispatch(
             'alert',
             [
                 'text' => "Tindakan Lanjutan berhasil di hapus!!!",
@@ -419,6 +419,7 @@ class HazardForm extends Component
 
             $tanggal_time = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
             $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d');
+
 
             if ($this->doc_deskripsi) {
                 $docDeskripsiPath = FileHelper::compressAndStore($this->doc_deskripsi, 'sebelum_perbaikan');
@@ -462,13 +463,14 @@ class HazardForm extends Component
 
             // 2. Simpan semua action
             foreach ($this->actions as $act) {
+                $due_date = Carbon::createFromFormat('d-m-Y', $act['due_date'])->format('Y-m-d');
+                $actual_close_date = Carbon::createFromFormat('d-m-Y', $act['actual_close_date'])->format('Y-m-d');
                 ActionHazard::create([
                     'hazard_id'     => $hazard->id,
-                    'orginal_date'     => $tanggal,
+                    'original_date'     => $tanggal,
                     'description'   => $act['description'],
-                    'status'        => $act['status'],
-                    'due_date'      => $act['due_date'],
-                    'actual_close_date'      => $act['actual_close_date'],
+                    'due_date'      => $due_date,
+                    'actual_close_date'      => $actual_close_date,
                     'responsible_id' => $act['responsible_id'],
                 ]);
             }
@@ -511,7 +513,7 @@ class HazardForm extends Component
     public function render()
     {
         return view('livewire.hazard.hazard-form', [
-            'users'=>User::limit(10)->get(),
+            'users' => User::limit(10)->get(),
             'Department'   => Department::all(),
             'likelihoodss' => Likelihood::orderByDesc('level')->get(),
             'consequencess' => RiskConsequence::orderBy('level')->get(),
