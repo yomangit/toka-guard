@@ -154,6 +154,13 @@ class HazardDetail extends Component
         'sub_tipe_bahaya.required' => 'Sub Tipe Bahaya wajib dipilih.',
         'tanggal.required'         => 'Tanggal wajib dipilih.',
         'tanggal.date'             => 'Tanggal harus berupa format tanggal valid.',
+        'new_doc_deskripsi.file'    => 'File deskripsi harus berupa berkas.',
+        'new_doc_deskripsi.mimes'   => 'File deskripsi hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
+        'new_doc_deskripsi.max'     => 'Ukuran file deskripsi maksimal 2 MB.',
+
+        'new_doc_corrective.file'   => 'File tindakan perbaikan harus berupa berkas.',
+        'new_doc_corrective.mimes'  => 'File tindakan perbaikan hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
+        'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
     public function mount($hazard)
     {
@@ -640,12 +647,28 @@ class HazardDetail extends Component
 
     public function addActionHazard()
     {
-        $this->validate([
-            'action_description' => 'required|string',
-            'action_due_date' => 'required|date',
-            'action_actual_close_date' => 'nullable|date',
-            'action_responsible_id' => 'required|integer|exists:users,id',
-        ]);
+        $this->validate(
+            [
+                'action_description'       => 'required|string',
+                'action_due_date'          => 'required|date',
+                'action_actual_close_date' => 'nullable|date',
+                'action_responsible_id'    => 'required|integer|exists:users,id',
+            ],
+            [
+                'action_description.required'       => 'Deskripsi tindakan wajib diisi.',
+                'action_description.string'         => 'Deskripsi tindakan harus berupa teks.',
+
+                'action_due_date.required'          => 'Batas waktu penyelesaian wajib diisi.',
+                'action_due_date.date'              => 'Batas waktu penyelesaian harus berupa tanggal yang valid.',
+
+                'action_actual_close_date.date'     => 'Tanggal penyelesaian tindakan harus berupa tanggal yang valid.',
+
+                'action_responsible_id.required'    => 'Penanggung jawab wajib dipilih.',
+                'action_responsible_id.integer'     => 'Penanggung jawab tidak valid.',
+                'action_responsible_id.exists'      => 'Penanggung jawab yang dipilih tidak ditemukan.',
+            ]
+        );
+
 
         ActionHazard::create([
             'hazard_id'        => $this->hazards->id,
@@ -717,12 +740,27 @@ class HazardDetail extends Component
     }
     public function updateAction()
     {
-        $this->validate([
-            'edit_action_description' => 'required|string',
-            'edit_action_due_date' => 'required|date_format:d-m-Y',
-            'edit_action_actual_close_date' => 'nullable|date_format:d-m-Y',
-            'edit_action_responsible_id' => 'required|integer',
-        ]);
+        $this->validate(
+            [
+                'edit_action_description'       => 'required|string',
+                'edit_action_due_date'          => 'required|date_format:d-m-Y',
+                'edit_action_actual_close_date'  => 'nullable|date_format:d-m-Y',
+                'edit_action_responsible_id'    => 'required|integer',
+            ],
+            [
+                'edit_action_description.required'      => 'Deskripsi tindakan wajib diisi.',
+                'edit_action_description.string'        => 'Deskripsi tindakan harus berupa teks.',
+
+                'edit_action_due_date.required'         => 'Tanggal batas waktu wajib diisi.',
+                'edit_action_due_date.date_format'      => 'Tanggal batas waktu harus dalam format dd-mm-YYYY.',
+
+                'edit_action_actual_close_date.date_format' => 'Tanggal penyelesaian harus dalam format dd-mm-YYYY.',
+
+                'edit_action_responsible_id.required'   => 'Penanggung jawab wajib dipilih.',
+                'edit_action_responsible_id.integer'    => 'Penanggung jawab tidak valid.',
+            ]
+        );
+
         $action = ActionHazard::findOrFail($this->edit_action_id);
         $action->update([
             'description'       => $this->edit_action_description,

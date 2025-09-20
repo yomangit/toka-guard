@@ -142,6 +142,13 @@ class HazardForm extends Component
 
         'tanggal.required'         => 'Tanggal wajib dipilih.',
         'tanggal.date'             => 'Tanggal harus berupa format tanggal valid.',
+        'doc_deskripsi.file'   => 'File deskripsi harus berupa berkas yang valid.',
+        'doc_deskripsi.mimes'  => 'File deskripsi hanya boleh dalam format JPG, JPEG, PNG, atau PDF.',
+        'doc_deskripsi.max'    => 'Ukuran file deskripsi maksimal 2 MB.',
+
+        'doc_corrective.file'  => 'File tindakan perbaikan harus berupa berkas yang valid.',
+        'doc_corrective.mimes' => 'File tindakan perbaikan hanya boleh dalam format JPG, JPEG, PNG, atau PDF.',
+        'doc_corrective.max'   => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
     public function mount()
     {
