@@ -592,11 +592,7 @@
                             </ul>
                         </div>
                     </fieldset>
-
-
                 </div>
-
-
                 <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
                     {{-- KEY WORD --}}
                     <fieldset>
