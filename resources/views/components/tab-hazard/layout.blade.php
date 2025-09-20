@@ -1,7 +1,7 @@
 <div class="flex items-start max-md:flex-col ">
     <div class="flex-1 self-stretch max-md:pt-4">
         <div class="flex w-full flex-1 flex-col gap-4 rounded-xl 
-            h-[calc(100vh-14asrem)] 
+            h-[calc(100vh-14rem)] 
             sm:max-h-[calc(100vh-9rem)] 
             md:max-h-[calc(100vh-14rem)] 
             lg:max-h-[calc(100vh-16rem)] 
