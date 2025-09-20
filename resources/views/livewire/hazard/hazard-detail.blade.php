@@ -460,7 +460,7 @@
                         @endif
                         <!-- Input asli (disembunyikan) -->
                         <input {{ $isDisabled ? 'disabled' : '' }} id="upload-corrective" wire:model.live='new_doc_corrective' type="file" class="hidden" onchange="document.getElementById('file-name-corrective').textContent = this.files[0]?.name ?? 'Belum ada file'" />
-                        <x-label-error :messages="$errors->get('doc_corrective')" />
+                        <x-label-error :messages="$errors->get('new_doc_corrective')" />
                     </fieldset>
                 </div>
                 <div class="max-w-5xl mx-auto mb-4">
