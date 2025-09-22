@@ -26,6 +26,6 @@ class ModeratorAssignment extends Model
 
     public function eventType()
     {
-        return $this->belongsTo(eventType::class,'event_type_id');
+        return $this->belongsTo(EventType::class,'event_type_id');
     }
 }
