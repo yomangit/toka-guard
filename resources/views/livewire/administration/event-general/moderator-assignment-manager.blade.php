@@ -120,7 +120,7 @@
                     <th class="border px-2 py-1">User</th>
                     <th class="border px-2 py-1">Dept</th>
                     <th class="border px-2 py-1">Contractor</th>
-                    <th class="border px-2 py-1">Company</th>
+                    <th class="border px-2 py-1">Tipe Bahaya</th>
                     <th class="border px-2 py-1">Aksi</th>
                 </tr>
             </thead>
@@ -130,7 +130,7 @@
                     <td class="border px-2">{{ $mod->user->name }}</td>
                     <td class="border px-2">{{ $mod->department->department_name ?? '-' }}</td>
                     <td class="border px-2">{{ $mod->contractor->contractor_name ?? '-' }}</td>
-                    <td class="border px-2">{{ $mod->company->company_name ?? '-' }}</td>
+                    <td class="border px-2">{{ $mod->eventType->event_type_name ?? '-' }}</td>
                     <td class="border px-2">
                         <button wire:click="delete({{ $mod->id }})" class="text-red-500 hover:underline text-xs">
                             Hapus
