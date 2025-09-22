@@ -12,19 +12,19 @@ use Diglactic\Breadcrumbs\Generator as Trail;
 */
 
 // Halaman daftar hazard
-Breadcrumbs::for('hazard', function (Trail $trail) {
+Breadcrumbs::for('hazard.index', function (Trail $trail) {
     // Ganti 'Home' dengan nama lain jika mau
     $trail->push('Hazard List', route('hazard'));
 });
 
 // Form create hazard
 Breadcrumbs::for('hazard-form', function (Trail $trail) {
-    $trail->parent('hazard');
+    $trail->parent('hazard.index');
     $trail->push('Create Hazard', route('hazard-form'));
 });
 
 // Detail hazard (parameter model/ID)
 Breadcrumbs::for('hazard-detail', function (Trail $trail, $hazard) {
-    $trail->parent('hazard');
+    $trail->parent('hazard.index');
     $trail->push("Detail #{$hazard->id}", route('hazard-detail', $hazard));
 });
