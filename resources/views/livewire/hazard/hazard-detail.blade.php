@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <div class="flex justify-start mb-2 ">
         @if (Breadcrumbs::exists('hazard-detail'))
-        {!! Breadcrumbs::render('hazard-detail', $hazards) !!}
+        {!! Breadcrumbs::render('hazard-detail', $hazard_id) !!}
         @endif
     </div>
     <div class="card bg-base-100 shadow-md mb-2 ">
