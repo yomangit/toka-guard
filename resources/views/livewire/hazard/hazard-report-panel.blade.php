@@ -35,19 +35,12 @@
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ $report->created_at->format('d M Y') }}</td>
                     <td>
-                        @if(
-                        auth()->user()->hasRole('administrator') ||
-                        auth()->id() === $report->pelapor_id ||
-                        auth()->id() === $report->penanggung_jawab_id
-                        )
-                        <a href="{{ route('hazard-detail', $report->id) }}" class="text-blue-600 text-sm hover:underline">
-                            Detail
-                        </a>
+                        @can('view', $report)
+                        <a href="{{ route('hazard-detail', $report->id) }}" class="text-blue-600 text-sm hover:underline">Detail</a>
                         @else
                         <span class="text-gray-400 text-sm cursor-not-allowed">Detail</span>
-                        @endif
+                        @endcan
                     </td>
-
                 </tr>
                 @empty
                 <tr>
