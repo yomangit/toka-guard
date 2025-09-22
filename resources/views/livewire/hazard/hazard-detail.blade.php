@@ -3,7 +3,7 @@
     <x-toast />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <div class="card bg-base-100 shadow-md mb-2 ">
-        <div class="card-body py-2 px-4 ">
+        <div class="card-body py-1 px-4 ">
             {{-- STATUS + Tombol Audit Trail --}}
             <div class="flex justify-between items-center">
                 <div class="flex gap-2 items-center">
@@ -178,9 +178,8 @@
         </div>
 
     </div>
-
     <form wire:submit.prevent="submit">
-        <div class="w-full bg-base-200 p-1 rounded mb-2">
+        <div class="w-full bg-base-200 p-1 rounded mb-1">
             <flux:button size="xs" class="{{ $isDisabled ? 'btn btn-disabled cursor-not-allowed' : '' }}" type="submit" icon:trailing="save" variant="primary">Simpan</flux:button>
             <flux:button size="xs" class="{{ $isDisabled ? 'btn btn-disabled cursor-not-allowed' : '' }}" icon:trailing="trash" variant="danger">Hapus</flux:button>
         </div>
