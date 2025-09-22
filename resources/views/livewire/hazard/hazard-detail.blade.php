@@ -16,7 +16,7 @@
                         <span class="label-text text-xs font-semibold">Status :</span>
                     </label>
                     <span class="text-green-600 italic text-xs capitalize">
-                        {{ $hazards->status }}
+                        {{ $hazard->status }}
                     </span>
                 </div>
 
@@ -25,7 +25,7 @@
             </div>
 
             @php
-            $isDisabled = in_array(optional($hazards)->status, ['cancelled', 'closed']);
+            $isDisabled = in_array(optional($hazard)->status, ['cancelled', 'closed']);
             @endphp
 
             {{-- Form Action --}}
