@@ -863,10 +863,51 @@
                 </fieldset>
 
                 {{-- Responsible Person --}}
-                <fieldset class="fieldset relative">
+                <fieldset class="fieldset md:col-span-1 relative">
                     <x-form.label label="Dilaporkan Oleh" required />
-                    <input type="text" wire:model.live.debounce.300ms="edit_searchResponsibility" placeholder="Cari Nama..." class="input input-bordered w-full input-xs" />
-                    <x-label-error :messages="$errors->get('edit_action_responsible_id')" />
+                    <div class="relative">
+                        <input name="searchActResponsibilityEdit" type="text" wire:model.live.debounce.300ms="searchActResponsibilityEdit" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+
+                        <!-- Dropdown hasil search -->
+                        @if($showActPelaporDropdownEdit)
+                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                            <div wire:loading wire:target="selectActPelaporEdit" class="p-2 text-center">
+                                <span class="loading loading-spinner loading-sm text-secondary"></span>
+                            </div>
+                            @if(count($pelaporsActEdit) > 0)
+                            @foreach($pelaporsActEdit as $pelapor)
+                            <li wire:click="selectActPelaporEdit({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                {{ $pelapor->name }}
+                            </li>
+                            @endforeach
+                            @else
+                            @if(!$manualActPelaporModeEdit)
+                            <li wire:click="enableManualActPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
+                                Tidak ditemukan, tambah pelapor manual
+                            </li>
+                            @endif
+                            @endif
+
+                            @if($manualActPelaporModeEdit)
+                            <li class="p-2">
+                                <div class="relative w-full">
+                                    <input name="manualActPelaporNameEdit" type="text" wire:model.live="manualActPelaporNameEdit" placeholder="Masukkan nama..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                    <div class="absolute top-1/2 -translate-y-1/2 right-0">
+                                        <flux:button size="xs" wire:click="addActPelaporManualEdit" icon="plus" variant="primary">
+                                            Tambah
+                                        </flux:button>
+                                    </div>
+                                </div>
+                            </li>
+                            @endif
+                        </ul>
+                        @endif
+                    </div>
+                    @if($manualPelaporMode)
+                    <x-label-error :messages="$errors->get('manualActPelaporName')" />
+                    @else
+                    <x-label-error :messages="$errors->get('action_responsible_id')" />
+                    @endif
                 </fieldset>
             </div>
 

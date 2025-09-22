@@ -736,6 +736,45 @@ class HazardDetail extends Component
         // kirim event ke Alpine supaya modal dibuka setelah data siap
         $this->dispatch('open-edit-action');
     }
+    public $manualActPelaporModeEdit=false;
+    public $showActPelaporDropdownEdit =false;
+    public $pelaporsActEdit =[];
+    public $searchActResponsibilityEdit='';
+    public $manualActPelaporNameEdit='';
+    public function updatedSearchActResponsibilityEdit()
+    {
+        $this->reset('manualActPelaporName');
+        $this->manualActPelaporModeEdit = false;
+        if (strlen($this->searchActResponsibilityEdit) > 1) {
+            $this->pelaporsActEdit = User::where('name', 'like', '%' . $this->searchActResponsibilityEdit . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+            $this->showActPelaporDropdownEdit = true;
+        } else {
+            $this->pelaporsActEdit = [];
+            $this->showActPelaporDropdownEdit = false;
+        }
+    }
+    public function selectActPelaporEdit($id, $name)
+    {
+        $this->action_responsible_id = $id;
+        $this->searchActResponsibilityEdit = $name;
+        $this->showActPelaporDropdownEdit = false;
+        $this->manualActPelaporModeEdit = false;
+        $this->validateOnly('action_responsible_id');
+    }
+    public function addActPelaporManualEdit()
+    {
+        $this->searchActResponsibilityEdit = $this->manualActPelaporNameEdit;
+        $this->showActPelaporDropdownEdit = false;
+    }
+    public function enableManualActPelaporEdit()
+    {
+        $this->manualActPelaporModeEdit = true;
+        $this->manualActPelaporNameEdit = $this->searchActResponsibilityEdit; // isi default sama dengan isi search
+    }
+
     public function updateAction()
     {
         $this->validate(
