@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\Hazard;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Hazard;
 use Illuminate\Auth\Access\Response;
 
 class HazardPolicy
@@ -37,8 +38,10 @@ class HazardPolicy
         }
 
         // Assigned ERM atau moderator sesuai event_type
-        elseif ($user->assignedErms()->wherePivot('hazard_id', $hazard->id)->exists()) {
-            dd('ada');
+        elseif (DB::table('hazard_erm_assignments')
+            ->where('hazard_id', $hazard->id)
+            ->where('erm_id', $user->id) // Asumsi user.id adalah yang dicocokkan dengan erm_id
+            ->exists()) {
             return true;
         } elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
             return true;
