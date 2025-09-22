@@ -174,16 +174,7 @@ class HazardDetail extends Component
     public function mount(Hazard $hazard)
     {
         
-      if (!$hazard) {
-            abort(404, 'Hazard not found');
-        }
-
-        // ✅ Periksa policy
-        try {
-            $this->authorize('view', $hazard);
-        } catch (AuthorizationException $e) {
-            abort(403, 'Forbidden');
-        }
+    
         $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
