@@ -1,4 +1,4 @@
-@if (Breadcrumbs::has())
+@if (Breadcrumbs::exists())
     <nav class="breadcrumbs text-sm mb-4">
         <ul>
             @foreach (Breadcrumbs::current() as $crumb)
