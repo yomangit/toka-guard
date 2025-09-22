@@ -31,12 +31,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\HazardSubmittedNotification;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HazardDetail extends Component
 {
     use WithFileUploads, AuthorizesRequests;
-    public $hazard;
+    public ?Hazard $hazard = null;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -173,7 +174,16 @@ class HazardDetail extends Component
     public function mount(Hazard $hazard)
     {
         
-        $this->authorize('view', $hazard);
+      if (!$hazard) {
+            abort(404, 'Hazard not found');
+        }
+
+        // ✅ Periksa policy
+        try {
+            $this->authorize('view', $hazard);
+        } catch (AuthorizationException $e) {
+            abort(403, 'Forbidden');
+        }
         $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
