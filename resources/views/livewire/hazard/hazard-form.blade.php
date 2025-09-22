@@ -1,8 +1,7 @@
 <section class="w-full">
     <x-toast />
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> --}}
+    <div> {{ Breadcrumbs::render('hazard-form') }}</div>
     @include('partials.manhours-heading')
-    {{-- @livewire('hazard.hazard-form') --}}
     <x-manhours.layout>
         {{-- <livewire:hazard.hazard-report-panel /> --}}
 
