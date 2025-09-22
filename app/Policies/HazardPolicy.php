@@ -33,7 +33,7 @@ class HazardPolicy
         }
         // Assigned ERM atau moderatorAssignments sesuai event_type
         return
-            $hazard->assignedErms()->where('users.id', $user->id)->exists()
+            $hazard->assignedErms()->where('erm_id', $user->id)->exists()
             || $user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists();
     }
 
