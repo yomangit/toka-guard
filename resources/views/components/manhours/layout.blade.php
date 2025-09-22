@@ -5,8 +5,8 @@
 
         <div class="flex w-full flex-1 flex-col gap-4 rounded-xl 
              h-[calc(100vh-16rem)] 
-            sm:max-h-[calc(100vh-8rem)] 
-            md:max-h-[calc(100vh-9rem)] 
+            sm:max-h-[calc(100vh-10rem)] 
+            md:max-h-[calc(100vh-11rem)] 
             lg:h-[23rem] 
             2xl:h-[45rem]">
             <div class="h-full flex-1 overflow-y-auto overflow-x-hidden rounded-xl border border-neutral-200 dark:border-base-200 p-4">
