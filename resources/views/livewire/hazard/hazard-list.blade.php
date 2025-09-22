@@ -1,6 +1,6 @@
 <!-- resources/views/livewire/hazard-list.blade.php -->
-<div> {{ Breadcrumbs::render('hazard') }}</div>
 <section class="w-full">
+    <div> {{ Breadcrumbs::render('hazard') }}</div>
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
   
