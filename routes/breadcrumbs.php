@@ -26,7 +26,7 @@ Breadcrumbs::for('hazard-form', function (Trail $trail) {
 
 // Detail (toleran: menerima model atau id)
 Breadcrumbs::for('hazard-detail', function (Trail $trail, $hazard) {
-    $trail->parent('hazard.index');
+    $trail->parent('hazard');
 
     // Jika $hazard adalah id (int/string) -> ambil model
     if (is_numeric($hazard) || is_string($hazard)) {
