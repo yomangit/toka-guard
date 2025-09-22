@@ -2,8 +2,10 @@
 <section class="w-full">
     <x-toast />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <div class="flex justify-end ">
-        {!! Breadcrumbs::render('hazard-detail', $hazard_id) !!}
+    <div class="flex justify-end ">
+        @if (Breadcrumbs::exists('hazard-detail'))
+        {!! Breadcrumbs::render('hazard-detail', $hazards) !!}
+        @endif
     </div>
     <div class="card bg-base-100 shadow-md mb-2 ">
         <div class="card-body py-1 px-4 ">

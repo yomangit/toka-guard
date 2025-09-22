@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Hazard;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as Trail;
 
@@ -23,8 +24,23 @@ Breadcrumbs::for('hazard-form', function (Trail $trail) {
     $trail->push('Create Hazard', route('hazard-form'));
 });
 
-// Detail hazard (parameter model/ID)
+// Detail (toleran: menerima model atau id)
 Breadcrumbs::for('hazard-detail', function (Trail $trail, $hazard) {
-    $trail->parent('hazard');
-    $trail->push("Detail #{$hazard->id}", route('hazard-detail', $hazard));
+    $trail->parent('hazard.index');
+
+    // Jika $hazard adalah id (int/string) -> ambil model
+    if (is_numeric($hazard) || is_string($hazard)) {
+        $hazard = Hazard::find($hazard);
+    }
+
+    if ($hazard) {
+        $title = "Detail #{$hazard->id}";
+        $url = route('hazard-detail', $hazard);
+    } else {
+        // fallback bila model tidak ditemukan (mis. saat generate dipanggil sebelum load)
+        $title = "Detail";
+        $url = '#';
+    }
+
+    $trail->push($title, $url);
 });
