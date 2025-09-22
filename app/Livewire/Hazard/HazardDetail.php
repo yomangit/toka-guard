@@ -170,10 +170,10 @@ class HazardDetail extends Component
         'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
 
-    public function mount($hazard)
+    public function mount(Hazard $hazard)
     {
         
-        $this->authorize('view', Hazard::with('activities.causer')->findOrFail($hazard));
+        $this->authorize('view', $hazard);
         $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
