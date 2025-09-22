@@ -37,7 +37,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class HazardDetail extends Component
 {
     use WithFileUploads, AuthorizesRequests;
-    public ?Hazard $hazard = null;
+    public $hazard ;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -176,7 +176,8 @@ class HazardDetail extends Component
         
     
         $this->hazard = $hazard;
-        $this->hazard_id = $hazard;
+        $this->hazard_id = $hazard->id;
+
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
 
