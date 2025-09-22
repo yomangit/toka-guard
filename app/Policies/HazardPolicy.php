@@ -41,7 +41,7 @@ class HazardPolicy
         // }
 
         // Jika tidak ada yang cocok
-        return false;
+        // return false;
     }
 
     /**
