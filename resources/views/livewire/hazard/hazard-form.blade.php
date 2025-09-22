@@ -1,7 +1,7 @@
 <section class="w-full">
     <x-toast />
    {{-- Breadcrumb di sebelah kanan --}}
-    <div wire:ignore class="hidden md:block flex justify-end ">
+    <div  class="hidden md:block flex justify-end ">
         {{ Breadcrumbs::render('hazard-form') }}
     </div>
     @include('partials.manhours-heading')
