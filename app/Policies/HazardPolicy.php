@@ -19,7 +19,7 @@ class HazardPolicy
     /**
      * Determine whether the user can view the model.
      */
-   public function view(User $user, Hazard $hazard): bool
+    public function view(User $user, Hazard $hazard): bool
     {
         // Admin selalu bisa
         if ($user->roles()->where('role_id', 1)->exists()) {
@@ -27,26 +27,24 @@ class HazardPolicy
         }
 
         // Penanggung jawab bisa
-        if ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
+        elseif ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
             return true;
         }
 
         // Pelapor bisa
-        if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
+        elseif ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
             return true;
         }
 
         // Assigned ERM atau moderator sesuai event_type
-        if ($hazard->assignedErms()->wherePivot('erm_id', $user->id)->exists()) {
+        elseif ($hazard->assignedErms()->wherePivot('erm_id', $user->id)->exists()) {
             dd('ada');
             return true;
-        }
-
-        if ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
+        } elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
     /**
