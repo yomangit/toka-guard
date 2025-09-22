@@ -1,6 +1,9 @@
 <section class="w-full">
     <x-toast />
-    <div> {{ Breadcrumbs::render('hazard-form') }}</div>
+   {{-- Breadcrumb di sebelah kanan --}}
+    <div class="flex justify-end ">
+        {{ Breadcrumbs::render('hazard-form') }}
+    </div>
     @include('partials.manhours-heading')
     <x-manhours.layout>
         {{-- <livewire:hazard.hazard-report-panel /> --}}
