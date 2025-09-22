@@ -28,6 +28,7 @@ class ModeratorAssignmentManager extends Component
     protected $messages =
     [
         'user_id.required'               => 'Nama Moderator wajib diisi.',
+        'event_type_id.required'               => 'Tipe Bahaya wajib diisi.',
         'department_id.required_without' => 'Departemen wajib dipilih jika kontraktor tidak diisi.',
         'contractor_id.required_without' => 'Kontraktor wajib dipilih jika departemen tidak diisi.',
     ];

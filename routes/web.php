@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('manhours', Index::class)->name('manhours');
-    Route::get('hazard', HazardList::class)->name('hazard');
+    Route::get('hazard', HazardList::class)->middleware('can:view,hazard')->name('hazard');
     Route::get('hazard/form', HazardForm::class)->name('hazard-form');
     Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail');
 });

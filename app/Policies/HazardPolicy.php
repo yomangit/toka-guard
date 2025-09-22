@@ -21,11 +21,20 @@ class HazardPolicy
      */
     public function view(User $user, Hazard $hazard): bool
     {
-        // if ($user->roles()->where('role_id', 1)->exists()) {
-        //     return true;
-        // }
-        // return $hazard->assignedErms()->where('users.id', $user->id)->exists();
-          return false;
+        if ($user->roles()->where('role_id', 1)->exists()) {
+            return true;
+        }
+        if ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
+            return true;
+        }
+        // ✅ jika user adalah pelapor
+        if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
+            return true;
+        }
+        // Assigned ERM atau moderatorAssignments sesuai event_type
+        return
+            $hazard->assignedErms()->where('users.id', $user->id)->exists()
+            || $user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists();
     }
 
     /**

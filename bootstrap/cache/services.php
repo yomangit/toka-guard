@@ -39,6 +39,7 @@
     35 => 'Spatie\\Permission\\PermissionServiceProvider',
     36 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
     37 => 'App\\Providers\\AppServiceProvider',
+    38 => 'App\\Providers\\AuthServiceProvider',
   ),
   'eager' => 
   array (
@@ -64,6 +65,7 @@
     19 => 'Spatie\\Permission\\PermissionServiceProvider',
     20 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
     21 => 'App\\Providers\\AppServiceProvider',
+    22 => 'App\\Providers\\AuthServiceProvider',
   ),
   'deferred' => 
   array (
