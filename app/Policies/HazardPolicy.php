@@ -24,14 +24,14 @@ class HazardPolicy
         if ($user->roles()->where('role_id', 1)->exists()) {
             return true;
         }
-        if ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
-            return true;
-        }
-        // ✅ jika user adalah pelapor
-        if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
-            return true;
-        }
-        // // Assigned ERM atau moderatorAssignments sesuai event_type
+        // if ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
+        //     return true;
+        // }
+        // // ✅ jika user adalah pelapor
+        // if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
+        //     return true;
+        // }
+        // // // Assigned ERM atau moderatorAssignments sesuai event_type
         // if ($hazard->assignedErms()->where('erm_id', $user->id)->exists()) {
         //     return true;
         // }
