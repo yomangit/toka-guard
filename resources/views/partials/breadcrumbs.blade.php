@@ -4,7 +4,7 @@
 @endphp
 
 @if ($crumbs->isNotEmpty())
-    <nav wire:ignore class="breadcrumbs text-sm ">
+    <nav  class="breadcrumbs text-sm ">
         <ul>
             @foreach ($crumbs as $crumb)
                 <li>
