@@ -45,7 +45,7 @@ class HazardPolicy
             return true;
         }
 
-        return false;
+        return true;
     }
 
     /**
