@@ -31,14 +31,14 @@ class HazardPolicy
         if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
             return true;
         }
-        // Assigned ERM atau moderatorAssignments sesuai event_type
-        if ($hazard->assignedErms()->where('erm_id', $user->id)->exists()) {
-            return true;
-        }
+        // // Assigned ERM atau moderatorAssignments sesuai event_type
+        // if ($hazard->assignedErms()->where('erm_id', $user->id)->exists()) {
+        //     return true;
+        // }
 
-        if ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
-            return true;
-        }
+        // if ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
+        //     return true;
+        // }
 
         // Jika tidak ada yang cocok
         return false;
