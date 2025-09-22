@@ -4,7 +4,7 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as Trail;
 
 // 1. Halaman daftar hazard
-Breadcrumbs::for('Hazard', function (Trail $trail) {
+Breadcrumbs::for('Hazard-List', function (Trail $trail) {
     $trail->push('Home', route('hazard')); // bisa diarahkan ke dashboard kalau perlu
     $trail->push('Hazard List', route('hazard'));
 });
