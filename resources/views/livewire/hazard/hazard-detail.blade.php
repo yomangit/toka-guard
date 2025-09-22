@@ -3,7 +3,7 @@
     <x-toast />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <div class="flex justify-end ">
-        {!! Breadcrumbs::render('hazard-detail', $hazard) !!}
+        {!! Breadcrumbs::render('hazard-detail', $hazard_id) !!}
     </div>
     <div class="card bg-base-100 shadow-md mb-2 ">
         <div class="card-body py-1 px-4 ">
