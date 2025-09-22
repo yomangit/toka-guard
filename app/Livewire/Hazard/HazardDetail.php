@@ -804,9 +804,7 @@ class HazardDetail extends Component
         $action->update([
             'description'       => $this->edit_action_description,
             'due_date'          => Carbon::createFromFormat('d-m-Y', $this->edit_action_due_date),
-            'actual_close_date' => $this->edit_action_actual_close_date
-                ? Carbon::createFromFormat('d-m-Y', $this->edit_action_actual_close_date)
-                : null,
+            'actual_close_date' => $this->edit_action_actual_close_date ? Carbon::createFromFormat('d-m-Y', $this->edit_action_actual_close_date) : null,
             'responsible_id'    => $this->edit_action_responsible_id,
         ]);
         $this->dispatch(
