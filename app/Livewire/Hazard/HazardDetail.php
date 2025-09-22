@@ -762,7 +762,7 @@ class HazardDetail extends Component
         $this->searchActResponsibilityEdit = $name;
         $this->showActPelaporDropdownEdit = false;
         $this->manualActPelaporModeEdit = false;
-        $this->validateOnly('action_responsible_id');
+        $this->validateOnly('edit_action_responsible_id');
     }
     public function addActPelaporManualEdit()
     {
