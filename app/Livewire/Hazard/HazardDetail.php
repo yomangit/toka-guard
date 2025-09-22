@@ -168,7 +168,7 @@ class HazardDetail extends Component
         'new_doc_corrective.mimes'  => 'File tindakan perbaikan hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
         'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
-    public function mount($hazard)
+    public function mount(Hazard $hazard)
     {
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
