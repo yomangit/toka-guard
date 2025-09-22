@@ -37,7 +37,7 @@ class HazardPolicy
         }
 
         // Assigned ERM atau moderator sesuai event_type
-        elseif ($hazard->assignedErms()->wherePivot('erm_id', $user->id)->exists()) {
+        elseif ($user->assignedErms()->wherePivot('hazard_id', $hazard->id)->exists()) {
             dd('ada');
             return true;
         } elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
