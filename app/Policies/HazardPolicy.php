@@ -19,7 +19,7 @@ class HazardPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Hazard $hazard): bool
+    public function view(User $user, Hazard $hazard)
     {
         if ($user->roles()->where('role_id', 1)->exists()) {
             return true;
