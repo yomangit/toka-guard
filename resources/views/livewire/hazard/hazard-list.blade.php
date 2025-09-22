@@ -5,7 +5,7 @@
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
   
     @include('partials.header-hazard')
-    <div class="tooltip ">
+    <div class="tooltip tooltip-right md:tooltip-top">
         <div class="tooltip-content z-40">
             <div class="animate-bounce text-orange-400  text-sm font-black">Tambah Hazard</div>
         </div>
