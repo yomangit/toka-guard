@@ -3,18 +3,27 @@
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as Trail;
 
-// 1. Halaman daftar hazard
+/*
+|--------------------------------------------------------------------------
+| Hazard Breadcrumbs
+|--------------------------------------------------------------------------
+| Pastikan nama breadcrumb sama dengan nama route agar mudah dipanggil.
+| Nama breadcrumb boleh beda dari nama route, tapi sebaiknya konsisten.
+*/
+
+// Halaman daftar hazard
 Breadcrumbs::for('hazard', function (Trail $trail) {
-    $trail->push('Hazard List', route('hazard')); // bisa diarahkan ke dashboard kalau perlu
+    // Ganti 'Home' dengan nama lain jika mau
+    $trail->push('Hazard List', route('hazard'));
 });
 
-// 2. Form tambah hazard
+// Form create hazard
 Breadcrumbs::for('hazard-form', function (Trail $trail) {
     $trail->parent('hazard');
     $trail->push('Create Hazard', route('hazard-form'));
 });
 
-// 3. Detail hazard
+// Detail hazard (parameter model/ID)
 Breadcrumbs::for('hazard-detail', function (Trail $trail, $hazard) {
     $trail->parent('hazard');
     $trail->push("Detail #{$hazard->id}", route('hazard-detail', $hazard));
