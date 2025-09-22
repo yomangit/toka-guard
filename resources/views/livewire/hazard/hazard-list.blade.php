@@ -2,6 +2,7 @@
 <section class="w-full">
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <div> {{ Breadcrumbs::render('hazard') }}</div>
     @include('partials.header-hazard')
     <div class="tooltip ">
         <div class="tooltip-content z-40">
