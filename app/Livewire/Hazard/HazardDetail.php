@@ -87,10 +87,10 @@ class HazardDetail extends Component
     public $contractor_id;
     #[Validate('required')]
     public $penanggungJawab;
-    #[Validate('nullable|file|mimes:jpg,jpeg,png,pdf|max:2048')]
+    #[Validate('nullable|file|mimes:jpg,jpeg,png,pdf')]
     public $new_doc_deskripsi;
     public $doc_deskripsi;
-    #[Validate('nullable|file|mimes:jpg,jpeg,png,pdf|max:2048')]
+    #[Validate('nullable|file|mimes:jpg,jpeg,png,pdf')]
     public $new_doc_corrective;
     public $doc_corrective;
     #[Validate('required')]
