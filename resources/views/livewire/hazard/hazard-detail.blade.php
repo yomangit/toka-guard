@@ -2,7 +2,7 @@
 <section class="w-full">
     <x-toast />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <div class="flex justify-end ">
+    <div class="flex justify-start mb-2 ">
         @if (Breadcrumbs::exists('hazard-detail'))
         {!! Breadcrumbs::render('hazard-detail', $hazards) !!}
         @endif
