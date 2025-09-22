@@ -172,6 +172,7 @@ class HazardDetail extends Component
 
     public function mount(Hazard $hazard)
     {
+        dd($hazard);
         $this->authorize('view', $hazard);
         $this->hazard = $hazard;
         $this->hazard_id = $hazard;
