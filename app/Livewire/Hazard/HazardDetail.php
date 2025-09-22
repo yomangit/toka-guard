@@ -172,8 +172,8 @@ class HazardDetail extends Component
 
     public function mount(Hazard $hazard)
     {
-        $this->hazard = $hazard;
         $this->authorize('view', $this->hazard);
+        $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
