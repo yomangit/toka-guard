@@ -37,7 +37,7 @@ class HazardPolicy
         }
 
         // Assigned ERM atau moderator sesuai event_type
-        if ($hazard->assignedErms()->where('erm_id', $user->id)->exists()) {
+        if ($hazard->assignedErms()->where('users.id', $user->id)->exists()) {
             return true;
         }
 
