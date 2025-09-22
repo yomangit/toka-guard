@@ -1,34 +1,31 @@
 @php
-    // Ambil breadcrumbs untuk rute aktif (termasuk parameter jika ada)
-    $crumbs = Breadcrumbs::generate();
+// Ambil breadcrumbs untuk rute aktif (termasuk parameter jika ada)
+$crumbs = Breadcrumbs::generate();
 @endphp
 
 @if ($crumbs->isNotEmpty())
-    <nav wire:ignore class="breadcrumbs text-sm hidden md:block">
-        <ul>
-            @foreach ($crumbs as $crumb)
-                <li>
-                    @if ($crumb->url && !$loop->last)
-                        <a href="{{ $crumb->url }}" class="inline-flex items-center gap-1">
-                            {{-- Icon folder --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-current" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-                            </svg>
-                            {{ $crumb->title }}
-                        </a>
-                    @else
-                        <span class="inline-flex items-center gap-1">
-                            {{-- Icon file --}}
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-current" fill="none" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                      d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                            </svg>
-                            {{ $crumb->title }}
-                        </span>
-                    @endif
-                </li>
-            @endforeach
-        </ul>
-    </nav>
+<nav wire:ignore class="breadcrumbs text-sm hidden md:block">
+    <ul>
+        @foreach ($crumbs as $crumb)
+        <li>
+            @if ($crumb->url && !$loop->last)
+            <a href="{{ $crumb->url }}" class="inline-flex items-center gap-1">
+                {{-- Icon folder --}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-closed-icon lucide-folder-closed">
+                    <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+                    <path d="M2 10h20" /></svg>
+                {{ $crumb->title }}
+            </a>
+            @else
+            <span class="inline-flex items-center gap-1">
+                {{-- Icon file --}}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-open-icon lucide-folder-open">
+                    <path d="m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2" /></svg>
+                {{ $crumb->title }}
+            </span>
+            @endif
+        </li>
+        @endforeach
+    </ul>
+</nav>
 @endif
