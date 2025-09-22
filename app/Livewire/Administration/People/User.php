@@ -126,7 +126,7 @@ class User extends Component
     }
     public function paginationView()
     {
-        return 'vendor.livewire.tailwind';
+       return 'paginate.pagination';
     }
     public function create()
     {
@@ -226,4 +226,5 @@ class User extends Component
     {
         $this->reset(['userId', 'name', 'gender', 'date_birth', 'username', 'role_id', 'department_name', 'employee_id', 'date_commenced', 'email']);
     }
+    
 }
