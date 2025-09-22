@@ -758,7 +758,7 @@ class HazardDetail extends Component
     }
     public function selectActPelaporEdit($id, $name)
     {
-        $this->action_responsible_id = $id;
+        $this->edit_action_responsible_id = $id;
         $this->searchActResponsibilityEdit = $name;
         $this->showActPelaporDropdownEdit = false;
         $this->manualActPelaporModeEdit = false;
