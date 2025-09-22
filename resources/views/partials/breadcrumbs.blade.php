@@ -1,7 +1,12 @@
-@if (Breadcrumbs::exists())
+@php
+    // Ambil breadcrumbs untuk rute aktif (termasuk parameter jika ada)
+    $crumbs = Breadcrumbs::generate();
+@endphp
+
+@if ($crumbs->isNotEmpty())
     <nav class="breadcrumbs text-sm mb-4">
         <ul>
-            @foreach (Breadcrumbs::current() as $crumb)
+            @foreach ($crumbs as $crumb)
                 <li>
                     @if ($crumb->url && !$loop->last)
                         <a href="{{ $crumb->url }}" class="inline-flex items-center gap-1">
