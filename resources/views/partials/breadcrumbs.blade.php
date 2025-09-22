@@ -4,7 +4,7 @@ $crumbs = Breadcrumbs::generate();
 @endphp
 
 @if ($crumbs->isNotEmpty())
-<nav wire:ignore class="breadcrumbs text-xs hidden md:block">
+<nav wire:ignore class="breadcrumbs text-xs font-semibold hidden md:block">
     <ul>
         @foreach ($crumbs as $crumb)
         <li>
