@@ -509,12 +509,42 @@ class HazardForm extends Component
         $this->likelihood_id = $likelihoodId;
         $this->consequence_id = $consequenceId;
 
-        $this->selectedLikelihoodId = $this->likelihood_id;
-        $this->selectedConsequenceId = $this->consequence_id;
+        $this->selectedLikelihoodId = $likelihoodId;
+        $this->selectedConsequenceId = $consequenceId;
 
-        $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
-        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
-        $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
+        $this->loadRiskAssessment();
+    }
+
+    public function updatedConsequenceId()
+    {
+        $this->loadRiskAssessment();
+    }
+
+    public function updatedLikelihoodId()
+    {
+        $this->loadRiskAssessment();
+    }
+    protected function loadRiskAssessment(): void
+    {
+        if (!$this->likelihood_id || !$this->consequence_id) {
+            $this->RiskAssessment = null;
+            return;
+        }
+
+        $cell = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)
+            ->where('risk_consequence_id', $this->consequence_id)
+            ->first();
+
+        if (!$cell) {
+            $this->RiskAssessment = null;
+            return;
+        }
+
+        $matrix = RiskAssessmentMatrix::where('risk_matrix_cell_id', $cell->id)->first();
+
+        $this->RiskAssessment = $matrix
+            ? RiskAssessment::find($matrix->risk_assessment_id)
+            : null;
     }
 
     public function render()
