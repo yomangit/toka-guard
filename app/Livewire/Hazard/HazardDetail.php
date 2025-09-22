@@ -36,7 +36,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class HazardDetail extends Component
 {
     use WithFileUploads, AuthorizesRequests;
-    public Hazard $hazard;
+    public $hazard;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
