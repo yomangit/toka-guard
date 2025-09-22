@@ -52,7 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('manhours', Index::class)->name('manhours');
     Route::get('hazard', HazardList::class)->name('hazard');
     Route::get('hazard/form', HazardForm::class)->name('hazard-form');
-    Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail')->middleware('can:view,hazard_id');
+    Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail')->middleware('can:view,hazard');
 });
 Route::middleware(['role:Administrator'])->group(function () {
     Route::get('administration/companies', CompanyIndex::class)->name('administration-companies');
