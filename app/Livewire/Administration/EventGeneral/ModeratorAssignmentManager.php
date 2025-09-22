@@ -7,6 +7,7 @@ use App\Models\Company;
 use Livewire\Component;
 use App\Models\Contractor;
 use App\Models\Department;
+use App\Models\EventType;
 use Livewire\Attributes\Validate;
 use App\Models\ModeratorAssignment;
 
@@ -40,7 +41,7 @@ class ModeratorAssignmentManager extends Component
     }
     public function loadAssignments()
     {
-        $query  = ModeratorAssignment::with(['user', 'department', 'contractor', 'company']);
+        $query  = ModeratorAssignment::with(['user', 'department', 'contractor', 'eventType']);
         if ($this->search) {
             $query->whereHas('user', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
@@ -167,7 +168,7 @@ class ModeratorAssignmentManager extends Component
     public function render()
     {
         return view('livewire.administration.event-general.moderator-assignment-manager', [
-            'companies' => Company::all(),
+            'eventType' => EventType::all(),
             'contractors' => Contractor::all(),
         ]);
     }
