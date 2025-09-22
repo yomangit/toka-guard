@@ -6,7 +6,6 @@ $crumbs = ($routeName && $routeName !== 'livewire.update' && Breadcrumbs::exists
 ? Breadcrumbs::generate($routeName, ...array_values(request()->route()->parameters()))
 : collect();
 @endphp
-
 @if ($crumbs->isNotEmpty())
 <nav  class="breadcrumbs text-xs font-semibold hidden md:block">
     <ul>
