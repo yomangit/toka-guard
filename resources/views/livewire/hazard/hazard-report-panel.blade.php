@@ -36,7 +36,7 @@
                     <td class="border px-2 py-1">{{ $report->created_at->format('d M Y') }}</td>
                     <td>
                         @can('view', $report)
-                        <a href="{{ route('hazard-detail', $report->id) }}" class="text-blue-600 text-sm hover:underline">Detail</a>
+                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">Detail</a>
                         @else
                         <span class="text-gray-400 text-sm cursor-not-allowed">Detail</span>
                         @endcan
