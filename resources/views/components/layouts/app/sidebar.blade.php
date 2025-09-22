@@ -5,7 +5,7 @@
 </head>
 <body class="min-h-screen " x-data="{ sidebarHidden: false }">
     <flux:sidebar sticky stashable x-bind:class="sidebarHidden ? 'border-e border-zinc-200 bg-zinc-50 bg-base-300 hidden' : 'border-e border-base-100 bg-base-300 '">
-        
+
         <div class="flex items-center justify-between ">
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
@@ -13,7 +13,7 @@
             </a>
 
             <!-- Toggle button di lingkaran kuning -->
-           <flux:sidebar.toggle class="lg:hidden" icon="chevron-left" />
+            <flux:sidebar.toggle class="lg:hidden" icon="chevron-left" />
         </div>
 
         <livewire:administration.menu.navlist>
@@ -84,7 +84,7 @@
                 <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
         </label>
-        
+
     </flux:header>
 
     <!-- Mobile User Menu -->
@@ -131,8 +131,10 @@
             </flux:menu>
         </flux:dropdown>
     </flux:header>
-   
-    {{ $slot }}
+    <div class="flex flex-col">
+        <div> {{ Breadcrumbs::render('hazard') }}</div>
+        {{ $slot }}
+    </div>
 
     @stack('scripts')
     @fluxScripts
