@@ -36,8 +36,9 @@
     32 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     33 => 'Termwind\\Laravel\\TermwindServiceProvider',
     34 => 'Spatie\\Activitylog\\ActivitylogServiceProvider',
-    35 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
-    36 => 'App\\Providers\\AppServiceProvider',
+    35 => 'Spatie\\Permission\\PermissionServiceProvider',
+    36 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
+    37 => 'App\\Providers\\AppServiceProvider',
   ),
   'eager' => 
   array (
@@ -60,8 +61,9 @@
     16 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     17 => 'Termwind\\Laravel\\TermwindServiceProvider',
     18 => 'Spatie\\Activitylog\\ActivitylogServiceProvider',
-    19 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
-    20 => 'App\\Providers\\AppServiceProvider',
+    19 => 'Spatie\\Permission\\PermissionServiceProvider',
+    20 => 'LivewireUI\\Modal\\LivewireModalServiceProvider',
+    21 => 'App\\Providers\\AppServiceProvider',
   ),
   'deferred' => 
   array (

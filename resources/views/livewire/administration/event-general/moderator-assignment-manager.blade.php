@@ -94,13 +94,17 @@
                     @endif
                 </div>
             </fieldset>
-          
-            <x-flux.select-searchable id="companyId" :wireModel="'companyId'" label="Perusahaan">
-                <option value="">-- Perusahaan --</option>
-                @foreach($companies as $co)
-                <option value="{{ $co->id }}">{{ $co->company_name }}</option>
-                @endforeach
-            </x-flux.select-searchable>
+
+            <fieldset class="fieldset">
+                <x-form.label label="Tipe Bahaya" required />
+                <select wire:model.live="event_type_id" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('event_type_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                    <option value="">-- Pilih --</option>
+                    @foreach($companies as $co)
+                    <option value="{{ $co->id }}">{{ $co->event_type_name }}</option>
+                    @endforeach
+                </select>
+                <x-label-error :messages="$errors->get('event_type_id')" />
+            </fieldset>
         </div>
 
         <div class="mt-2">

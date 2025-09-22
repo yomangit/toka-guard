@@ -22,6 +22,7 @@
         "microsoft/microsoft-graph": "^2.47",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-permission": "*",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

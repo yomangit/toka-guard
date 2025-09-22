@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModeratorAssignment extends Model
 {
     protected $table='moderator_assignments';
-    protected $fillable = ['user_id', 'department_id', 'contractor_id', 'company_id'];
+    protected $fillable = ['user_id', 'department_id', 'contractor_id', 'event_type_id'];
 
     public function user()
     {
@@ -24,8 +24,8 @@ class ModeratorAssignment extends Model
         return $this->belongsTo(Contractor::class);
     }
 
-    public function company()
+    public function eventType()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(eventType::class,'event_type_id');
     }
 }

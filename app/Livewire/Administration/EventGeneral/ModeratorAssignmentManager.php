@@ -16,7 +16,7 @@ class ModeratorAssignmentManager extends Component
     public $department_id;
     #[Validate('required_without:department_id')]
     public $contractor_id;
-    public  $company_id;
+    public  $event_type_id;
     public $assignments, $search = '';
     public $status = 'department'; // default departemen
     public $users = [], $showMpderatorDropdown = false, $searchModerator = '';
@@ -132,7 +132,7 @@ class ModeratorAssignmentManager extends Component
             ->where(function ($q) {
                 $q->where('department_id', $this->department_id)
                     ->orWhere('contractor_id', $this->contractor_id)
-                    ->orWhere('company_id', $this->company_id);
+                    ->orWhere('event_type_id', $this->event_type_id);
             })->exists();
 
         if ($exists) {
@@ -143,9 +143,9 @@ class ModeratorAssignmentManager extends Component
             'user_id' => $this->user_id,
             'department_id' => $this->department_id,
             'contractor_id' => $this->contractor_id,
-            'company_id' => $this->company_id,
+            'event_type_id' => $this->event_type_id,
         ]);
-        $this->reset(['user_id', 'department_id', 'contractor_id', 'company_id']);
+        $this->reset(['user_id', 'department_id', 'contractor_id', 'event_type_id']);
         $this->loadAssignments();
         $this->dispatch(
             'alert',
