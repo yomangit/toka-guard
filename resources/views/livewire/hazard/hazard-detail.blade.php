@@ -462,7 +462,7 @@
                         <x-label-error :messages="$errors->get('new_doc_corrective')" />
                     </fieldset>
                 </div>
-                <div class="max-w-5xl mx-auto mb-4">
+                <div class=" mx-auto mb-4">
                     <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                         <legend class="card-title text-sm font-semibold ">Tambah Tindakan Lanjutan</legend>
                         <div class="card-body ">
