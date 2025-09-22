@@ -31,10 +31,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\HazardSubmittedNotification;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HazardDetail extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads,AuthorizesRequests;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -170,7 +171,7 @@ class HazardDetail extends Component
     public $hazard;
     public function mount(Hazard $hazard)
     {
-        $this->authorize('view', $hazard->id);
+        $this->authorize('view', $hazard);
         $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
