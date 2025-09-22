@@ -35,7 +35,6 @@ use App\Notifications\HazardSubmittedNotification;
 class HazardDetail extends Component
 {
     use WithFileUploads;
-    public $hazard;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -168,6 +167,7 @@ class HazardDetail extends Component
         'new_doc_corrective.mimes'  => 'File tindakan perbaikan hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
         'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
+    public Hazard $hazard;
     public function mount(Hazard $hazard)
     {
         $this->hazard_id = $hazard;
