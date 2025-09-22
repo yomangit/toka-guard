@@ -35,7 +35,7 @@ use App\Notifications\HazardSubmittedNotification;
 class HazardDetail extends Component
 {
     use WithFileUploads;
-    public Hazard $hazards;
+    public $hazard;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -174,26 +174,26 @@ class HazardDetail extends Component
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
 
-        $this->hazards = $hazard;
-        $this->tanggal = Carbon::createFromFormat('Y-m-d H:i:s', $this->hazards->tanggal)->format('d-m-Y H:i');
-        $this->tipe_bahaya = $this->hazards->event_type_id;
-        $this->sub_tipe_bahaya = $this->hazards->event_sub_type_id;
-        $this->status = $this->hazards->status;
-        $this->department_id = $this->hazards->department_id;
-        $this->contractor_id = $this->hazards->contractor_id;
-        $this->pelapor_id = $this->hazards->pelapor_id;
-        $this->penanggungJawab = $this->hazards->penanggung_jawab_id;
-        $this->location_id = $this->hazards->location_id;
-        $this->location_specific = $this->hazards->location_specific;
-        $this->description = $this->hazards->description;
-        $this->doc_deskripsi = $this->hazards->doc_deskripsi;
-        $this->immediate_corrective_action = $this->hazards->immediate_corrective_action;
-        $this->doc_corrective = $this->hazards->doc_corrective;
-        $this->keyWord = $this->hazards->key_word;
-        $this->kondisi_tidak_aman = $this->hazards->kondisi_tidak_aman_id;
-        $this->tindakan_tidak_aman = $this->hazards->tindakan_tidak_aman_id;
-        $this->consequence_id = $this->hazards->consequence_id;
-        $this->likelihood_id = $this->hazards->likelihood_id;
+        $this->hazard = $hazard;
+        $this->tanggal = Carbon::createFromFormat('Y-m-d H:i:s', $this->hazard->tanggal)->format('d-m-Y H:i');
+        $this->tipe_bahaya = $this->hazard->event_type_id;
+        $this->sub_tipe_bahaya = $this->hazard->event_sub_type_id;
+        $this->status = $this->hazard->status;
+        $this->department_id = $this->hazard->department_id;
+        $this->contractor_id = $this->hazard->contractor_id;
+        $this->pelapor_id = $this->hazard->pelapor_id;
+        $this->penanggungJawab = $this->hazard->penanggung_jawab_id;
+        $this->location_id = $this->hazard->location_id;
+        $this->location_specific = $this->hazard->location_specific;
+        $this->description = $this->hazard->description;
+        $this->doc_deskripsi = $this->hazard->doc_deskripsi;
+        $this->immediate_corrective_action = $this->hazard->immediate_corrective_action;
+        $this->doc_corrective = $this->hazard->doc_corrective;
+        $this->keyWord = $this->hazard->key_word;
+        $this->kondisi_tidak_aman = $this->hazard->kondisi_tidak_aman_id;
+        $this->tindakan_tidak_aman = $this->hazard->tindakan_tidak_aman_id;
+        $this->consequence_id = $this->hazard->consequence_id;
+        $this->likelihood_id = $this->hazard->likelihood_id;
         // ✅ Load nama untuk ditampilkan di search input
         if ($this->pelapor_id) {
             // ✅ Jika pelapor_id ada → ambil nama user
@@ -201,7 +201,7 @@ class HazardDetail extends Component
             $this->manualPelaporName = $this->searchPelapor; // biar konsisten juga
         } else {
             // ✅ Jika pelapor_id null → pakai manualPelaporName dari DB
-            $this->manualPelaporName = $this->hazards->manualPelaporName ?? '';
+            $this->manualPelaporName = $this->hazard->manualPelaporName ?? '';
             $this->searchPelapor     = $this->manualPelaporName;
             $this->manualPelaporMode = true; // langsung aktifkan mode input manual
         }
@@ -242,8 +242,8 @@ class HazardDetail extends Component
     protected function setEffectiveRole(): void
     {
         $userId = Auth::id();
-        $dept   = $this->hazards->department_id;
-        $cont   = $this->hazards->contractor_id;
+        $dept   = $this->hazard->department_id;
+        $cont   = $this->hazard->contractor_id;
         $comp   = null;
         // Ambil dari relasi departemen
         if ($dept) {
@@ -281,7 +281,7 @@ class HazardDetail extends Component
             })
             ->exists();
         // --- Perubahan di sini ---
-        $currentStatus = $this->hazards->status; // contoh: 'in_progress'
+        $currentStatus = $this->hazard->status; // contoh: 'in_progress'
         // Kumpulkan semua role user
         $roles = [];
         if ($isMod) $roles[] = 'moderator';
@@ -300,14 +300,14 @@ class HazardDetail extends Component
     protected function loadAvailableTransitions(): void
     {
         $this->availableTransitions = HazardWorkflow::getAvailableTransitions(
-            $this->hazards->status,
+            $this->hazard->status,
             $this->effectiveRole
         );
     }
     protected function loadErmList(): void
     {
-        $dept = $this->hazards->department_id;
-        $cont = $this->hazards->contractor_id;
+        $dept = $this->hazard->department_id;
+        $cont = $this->hazard->contractor_id;
         $userIds = DB::table('erm_assignments')
             ->select('user_id')
             ->when($dept || $cont, function ($q) use ($dept, $cont) {
@@ -327,16 +327,16 @@ class HazardDetail extends Component
     public function processAction()
     {
         $newStatus = $this->proceedTo;
-        if (!HazardWorkflow::isValidTransition($this->hazards->status, $newStatus, $this->effectiveRole)) {
+        if (!HazardWorkflow::isValidTransition($this->hazard->status, $newStatus, $this->effectiveRole)) {
             session()->flash('message', 'Transisi tidak valid untuk peran dan status saat ini.');
             return;
         }
         if ($newStatus === 'in_progress') {
             $assignIds = array_filter([$this->assignTo1, $this->assignTo2]);
-            $this->hazards->assignedErms()->sync($assignIds);
+            $this->hazard->assignedErms()->sync($assignIds);
         }
-        $this->hazards->status = $newStatus;
-        $this->hazards->save();
+        $this->hazard->status = $newStatus;
+        $this->hazard->save();
         $this->loadAvailableTransitions();
         $isDisabled = in_array($newStatus, ['cancelled', 'closed']);
         $this->dispatch('hazardStatusChanged', ['isDisabled' => $isDisabled]);
@@ -619,7 +619,7 @@ class HazardDetail extends Component
             $updateData['doc_corrective'] = $docCorrectivePath;
         }
 
-        $hazard = Hazard::findOrFail($this->hazards->id);
+        $hazard = Hazard::findOrFail($this->hazard->id);
         $hazard->update($updateData);
 
         $ermUsers = ErmAssignment::where('department_id', $this->department_id)
@@ -709,7 +709,7 @@ class HazardDetail extends Component
 
 
         ActionHazard::create([
-            'hazard_id'        => $this->hazards->id,
+            'hazard_id'        => $this->hazard->id,
             'orginal_date'     => now(), // atau bisa diambil dari form jika ada
             'description'      => $this->action_description,
             'due_date'         => Carbon::parse($this->action_due_date),
@@ -853,7 +853,7 @@ class HazardDetail extends Component
     }
     public function loadActionHazards()
     {
-        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazards->id)->orderByDesc('created_at')->get()->toArray();
+        $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazard->id)->orderByDesc('created_at')->get()->toArray();
     }
     public function render()
     {
