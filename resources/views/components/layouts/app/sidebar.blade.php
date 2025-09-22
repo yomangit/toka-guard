@@ -131,7 +131,7 @@
             </flux:menu>
         </flux:dropdown>
     </flux:header>
-   
+   <div> {{ Breadcrumbs::render('hazard') }}</div>
     {{ $slot }}
 
     @stack('scripts')
