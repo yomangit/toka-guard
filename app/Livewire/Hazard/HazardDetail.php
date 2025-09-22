@@ -35,7 +35,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class HazardDetail extends Component
 {
-    use WithFileUploads,AuthorizesRequests;
+    use WithFileUploads, AuthorizesRequests;
+    public Hazard $hazard;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -168,7 +169,7 @@ class HazardDetail extends Component
         'new_doc_corrective.mimes'  => 'File tindakan perbaikan hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
         'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
-    public $hazard;
+
     public function mount(Hazard $hazard)
     {
         $this->authorize('view', $hazard);
