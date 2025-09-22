@@ -680,7 +680,14 @@ class HazardDetail extends Component
                 : null,
             'responsible_id'   => $this->action_responsible_id,
         ]);
-
+        $this->dispatch(
+            'alert',
+            [
+                'text' => "Action Hazard berhasil ditambahkan!",
+                'duration' => 4000,
+                'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
+            ]
+        );
         // Refresh list setelah simpan
         $this->loadActionHazards();
 
@@ -692,15 +699,6 @@ class HazardDetail extends Component
             'action_responsible_id',
             'searchActResponsibility',
         ]);
-
-        $this->dispatch(
-            'alert',
-            [
-                'text' => "Action Hazard berhasil ditambahkan!",
-                'duration' => 4000,
-                'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
-            ]
-        );
     }
     public function removeAction($id)
     {
