@@ -167,15 +167,15 @@ class HazardDetail extends Component
         'new_doc_corrective.mimes'  => 'File tindakan perbaikan hanya boleh berupa JPG, JPEG, PNG, atau PDF.',
         'new_doc_corrective.max'    => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
-    public Hazard $hazard;
+    public $hazard;
     public function mount(Hazard $hazard)
     {
         $this->authorize('view', $hazard);
+        $this->hazard = $hazard;
         $this->hazard_id = $hazard;
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
 
-        $this->hazard = $hazard;
         $this->tanggal = Carbon::createFromFormat('Y-m-d H:i:s', $this->hazard->tanggal)->format('d-m-Y H:i');
         $this->tipe_bahaya = $this->hazard->event_type_id;
         $this->sub_tipe_bahaya = $this->hazard->event_sub_type_id;
