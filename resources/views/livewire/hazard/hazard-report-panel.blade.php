@@ -1,10 +1,4 @@
 <div class="space-y-4">
-    @if (session()->has('message'))
-    <div class="bg-green-100 text-green-700 p-2 rounded">
-        {{ session('message') }}
-    </div>
-    @endif
-
     <div class="overflow-auto ">
         <table class="table table-xs border text-sm px-2">
             <thead>
@@ -50,4 +44,5 @@
             </tbody>
         </table>
     </div>
+    {{ $reports->links() }}
 </div>

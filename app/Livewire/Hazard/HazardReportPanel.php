@@ -6,9 +6,11 @@ use App\Models\Hazard;
 use Livewire\Component;
 use App\Enums\HazardStatus;
 use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 
 class HazardReportPanel extends Component
 {
+    use WithPagination;
     public $filterStatus = 'all', $role;
     public $openDropdownId = null;
 
@@ -92,11 +94,12 @@ class HazardReportPanel extends Component
         if ($this->filterStatus !== 'all') {
             $query->where('status', $this->filterStatus);
         }
-        $reports = $query->get();
+        $reports = $query->paginate(30);
         return view('livewire.hazard.hazard-report-panel', compact('reports'));
     }
-    public static function modalMaxWidth(): string
+    public function paginationView()
     {
-        return 'sm';
+        return 'paginate.pagination';
     }
+
 }
