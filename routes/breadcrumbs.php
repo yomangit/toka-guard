@@ -34,7 +34,7 @@ Breadcrumbs::for('hazard-detail', function (Trail $trail, $hazard) {
     }
 
     if ($hazard) {
-        $title = "Detail #{$hazard->id}";
+        $title = "Detail #{$hazard->no_referensi }";
         $url = route('hazard-detail', $hazard);
     } else {
         // fallback bila model tidak ditemukan (mis. saat generate dipanggil sebelum load)
