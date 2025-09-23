@@ -10,7 +10,7 @@
             <thead>
                 <tr class="bg-gray-100">
                     <th class="border px-2 py-1">ID</th>
-                    <th class="border px-2 py-1">Judul</th>
+                    <th class="border px-2 py-1">reference</th>
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Pelapor</th>
                     <th class="border px-2 py-1">Tanggal</th>
@@ -21,7 +21,7 @@
                 @forelse ($reports as $report)
                 <tr class="hover:bg-gray-50">
                     <td class="border px-2 py-1">{{ $report->id }}</td>
-                    <td class="border px-2 py-1">{{ $report->title ?? '-' }}</td>
+                    <td class="border px-2 py-1">{{ $report->no_referensi  ?? '-' }}</td>
                     <td class="border px-2 py-1">
                         <span class="text-xs uppercase px-2 py-1 rounded
                                 @if($report->status == 'submitted') bg-yellow-100 text-yellow-800
