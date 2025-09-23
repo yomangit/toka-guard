@@ -11,11 +11,10 @@ use Illuminate\Notifications\Messages\MailMessage;
 class HazardReportNotif extends Notification implements ShouldQueue
 {
     use Queueable;
-    protected $hazard;
     /**
      * Create a new notification instance.
      */
-    public function __construct(Hazard $hazard)
+    public function __construct(public Hazard $hazard)
     {
         $this->hazard = $hazard;
     }
