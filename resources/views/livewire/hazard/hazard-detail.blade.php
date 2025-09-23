@@ -468,7 +468,7 @@
                     </fieldset>
                 </div>
                 <div class=" mx-auto mb-4">
-                    <fieldset class="fieldset card bg-base-100 grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4">
+                    <fieldset class="fieldset card bg-base-100 grid grid-cols-1 md:grid-cols-3 gap-4 items-end mt-4 border border-gray-300">
                         <legend class="card-title text-sm font-semibold ">Tambah Tindakan Lanjutan</legend>
                         <div class="card-body ">
 
