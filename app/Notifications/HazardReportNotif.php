@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class HazardReportNotif extends Notification implements ShouldQueue
+class HazardReportNotif extends Notification 
 {
     use Queueable;
     /**
