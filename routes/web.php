@@ -2,7 +2,6 @@
 
 use App\Livewire\Manhours\Index;
 use App\Livewire\Settings\Profile;
-use App\Livewire\Hazard\HazardList;
 use App\Livewire\Settings\Password;
 use App\Livewire\Hazard\HazardDetail;
 use App\Livewire\Settings\Appearance;
@@ -35,7 +34,7 @@ use App\Livewire\Administration\RiskAssessment\Assessement;
 use App\Livewire\Administration\Roles\Role;
 use App\Livewire\Administrator\UserRoleManager\UserRole;
 use App\Livewire\Hazard\HazardForm;
-
+use App\Livewire\Hazard\HazardReportPanel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -50,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('manhours', Index::class)->name('manhours');
-    Route::get('hazard', HazardList::class)->name('hazard');
+    Route::get('hazard', HazardReportPanel::class)->name('hazard');
     Route::get('hazard/form', HazardForm::class)->name('hazard-form');
     Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail');
 });
