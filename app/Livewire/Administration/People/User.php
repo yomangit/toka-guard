@@ -120,7 +120,7 @@ class User extends Component
     public function render()
     {
         return view('livewire.administration.people.user', [
-            'users' => UserProfile::paginate(10),
+            'users' => UserProfile::paginate(20),
             'role' => Role::all()
         ]);
     }

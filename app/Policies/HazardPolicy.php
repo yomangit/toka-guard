@@ -28,9 +28,9 @@ class HazardPolicy
         }
 
         // Penanggung jawab bisa
-        elseif ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
-            return true;
-        }
+        // elseif ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
+        //     return true;
+        // }
 
         // Pelapor bisa
         elseif ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
@@ -43,9 +43,11 @@ class HazardPolicy
             ->where('erm_id', $user->id) // Asumsi user.id adalah yang dicocokkan dengan erm_id
             ->exists()) {
             return true;
-        } elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
-            return true;
-        } else {
+        } 
+        // elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
+        //     return true;
+        // } 
+        else {
             return false;
         }
     }
