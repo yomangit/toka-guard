@@ -150,6 +150,7 @@ class HazardReportPanel extends Component
         } else {
             $this->contractors = [];
             $this->showContractorDropdown = true;
+            $this->filterContractor='';
         }
     }
     public function selectContractor($id, $name)

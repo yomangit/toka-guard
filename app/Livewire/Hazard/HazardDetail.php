@@ -861,6 +861,27 @@ class HazardDetail extends Component
     {
         $this->actionHazards = ActionHazard::with('responsible')->where('hazard_id', $this->hazard->id)->orderByDesc('created_at')->get()->toArray();
     }
+
+    public function deleteHazard(Hazard $hazard)
+    {
+        $hazard->delete();
+
+        // Setelah model dihapus (dan event 'deleting' telah dijalankan),
+        // Anda bisa memberikan feedback kepada pengguna atau redirect.
+        $this->dispatch(
+                'alert',
+                [
+                    'text' => "Laporan hazard berhasil dihapus!",
+                    'duration' => 5000,
+                    'destination' => '/contact',
+                    'newWindow' => true,
+                    'close' => true,
+                    'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
+                ]
+            );
+        
+        return redirect()->route('hazard');
+    }
     public function render()
     {
         $this->setEffectiveRole();

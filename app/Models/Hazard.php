@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\HazardStatus;
+
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
-
+use Illuminate\Support\Facades\Storage;
 class Hazard extends Model
 {
     use LogsActivity;
@@ -38,6 +38,25 @@ class Hazard extends Model
         'likelihood_id',
         'risk_level',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Mendengarkan event 'deleting'
+        static::deleting(function ($hazard) {
+            // Hapus file dokumentasi sesudah perbaikan jika ada
+            if ($hazard->doc_corrective && Storage::disk('public')->exists($hazard->doc_corrective)) {
+                Storage::disk('public')->delete($hazard->doc_corrective);
+            }
+
+            // Jika ada file dokumentasi lainnya, tambahkan logika penghapusan di sini.
+            // Contoh:
+            if ($hazard->doc_deskripsi && Storage::disk('public')->exists($hazard->doc_deskripsi)) {
+                Storage::disk('public')->delete($hazard->doc_deskripsi);
+            }
+        });
+    }
 
     protected static $logOnlyDirty = true;
     protected static $logName = 'hazard_report';
