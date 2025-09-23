@@ -12,7 +12,6 @@
             </svg>
         </a>
     </div>
-    <x-manhours.layout>
         <div class="overflow-auto ">
             <table class="table table-xs border text-sm px-2">
                 <thead>
@@ -58,6 +57,5 @@
                 </tbody>
             </table>
         </div>
-    </x-manhours.layout>
     {{ $reports->links() }}
 </section>
