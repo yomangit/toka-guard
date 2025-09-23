@@ -574,7 +574,7 @@
                             </div>
                             <!-- List Actions -->
                             <div class="divider my-2">Daftar Tindakan</div>
-                            <div class="overflow-x-auto rounded-xl border border-base-200">
+                            <div class="overflow-x-auto ">
                                  <table class="table table-xs border text-sm px-2">
                                     <thead class="bg-base-200">
                                         <tr>
