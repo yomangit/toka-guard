@@ -17,7 +17,7 @@
             <fieldset class="fieldset">
                     <x-form.label label="Tipe Bahaya"  />
                     <select wire:model.live="filterEventType" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden ">
-                        <option value="">-- Pilih --</option>
+                        <option value="">-- Pilih Semua --</option>
                         @foreach ($eventTypes as $et )
                         <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
                         @endforeach
@@ -26,7 +26,7 @@
                 <fieldset class="fieldset">
                     <x-form.label label="Jenis Bahaya"  />
                     <select wire:model.live="filterEventSubType" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
-                        <option value="">-- Pilih --</option>
+                        <option value="">-- Pilih Semua --</option>
                         @if ($filterEventType)
                         @foreach ($subTypes as $et )
                         <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
@@ -99,6 +99,9 @@
                 <tr class="bg-gray-100">
                     <th class="border px-2 py-1">ID</th>
                     <th class="border px-2 py-1">reference</th>
+                    <th class="border px-2 py-1">Tipe Bahaya</th>
+                    <th class="border px-2 py-1">Jenis Bahaya</th>
+                    <th class="border px-2 py-1">Divisi Penanggung Jawab</th>
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Pelapor</th>
                     <th class="border px-2 py-1">Tanggal</th>
@@ -110,6 +113,9 @@
                 <tr class="hover:bg-gray-50">
                     <td class="border px-2 py-1">{{ $report->id }}</td>
                     <td class="border px-2 py-1">{{ $report->no_referensi  ?? '-' }}</td>
+                    <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
+                    <td class="border px-2 py-1">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
+                    <td class="border px-2 py-1">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
                     <td class="border px-2 py-1">
                         <span class="text-xs uppercase px-2 py-1 rounded
                                 @if($report->status == 'submitted') bg-yellow-100 text-yellow-800
