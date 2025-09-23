@@ -175,9 +175,9 @@ class HazardDetail extends Component
     {
         
     
+        $this->authorize('view', $hazard);
         $this->hazard = $hazard;
         $this->hazard_id = $hazard->id;
-
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
 
