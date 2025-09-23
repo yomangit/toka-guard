@@ -30,7 +30,6 @@
                             <th>Department</th>
                             <th>Employee ID</th>
                             <th>Email</th>
-                          
                             <th>Action</th>
                         </tr>
                     </thead>
