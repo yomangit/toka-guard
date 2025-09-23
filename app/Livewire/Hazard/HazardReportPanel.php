@@ -127,6 +127,7 @@ class HazardReportPanel extends Component
         } else {
             $this->departments = [];
             $this->showDropdown = false;
+            $this->filterDepartment='';
         }
     }
     public function selectDepartment($id, $name)
