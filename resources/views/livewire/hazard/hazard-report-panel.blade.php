@@ -96,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div class="overflow-auto mt-4">
+    <div class="overflow-x-auto mt-4">
         <table class="table table-xs border text-sm px-2">
             <thead>
                 <tr class="bg-gray-100">
