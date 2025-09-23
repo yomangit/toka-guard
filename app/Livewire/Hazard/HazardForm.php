@@ -5,7 +5,6 @@ namespace App\Livewire\Hazard;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Hazard;
-use App\Models\Company;
 use Livewire\Component;
 use App\Models\Location;
 use App\Models\EventType;
@@ -16,11 +15,9 @@ use App\Models\Likelihood;
 use App\Helpers\FileHelper;
 use App\Models\ActionHazard;
 use App\Models\EventSubType;
-use App\Models\ErmAssignment;
 use Livewire\WithFileUploads;
 use App\Models\RiskAssessment;
 use App\Models\RiskMatrixCell;
-use App\Events\HazardSubmitted;
 use App\Models\RiskConsequence;
 use App\Models\UnsafeCondition;
 use Livewire\Attributes\Validate;
@@ -28,8 +25,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\RiskAssessmentMatrix;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\DateBeforeOrEqualToday;
-use Illuminate\Support\Facades\Notification;
-use App\Notifications\HazardSubmittedNotification;
+use App\Notifications\HazardReportNotif;
+use Illuminate\Support\Collection;
 
 class HazardForm extends Component
 {
@@ -423,7 +420,7 @@ class HazardForm extends Component
             $lastReport = Hazard::latest('id')->first();
             $nextId = $lastReport ? $lastReport->id + 1 : 1;
             $referenceNumber = 'LH-' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
-            
+
             $docDeskripsiPath = null;
             $docCorrectivePath = null;
 
@@ -487,13 +484,25 @@ class HazardForm extends Component
             }
 
             // 3. Notifikasi
-            $ermUsers = ErmAssignment::where('department_id', $hazard->department_id)
-                ->orWhere('contractor_id', $hazard->contractor_id)
-                ->with('user')
-                ->get()
-                ->pluck('user');
+            // Dapatkan Penanggung Jawab dari relasi
+            $penanggungJawab = $hazard->penanggungJawab;
 
-            Notification::send($ermUsers, new HazardSubmittedNotification($hazard));
+            // Dapatkan semua Assigned Erms dari relasi
+            $assignedErms = $hazard->assignedErms;
+
+            // Gabungkan penanggung jawab dan assigned erms menjadi satu koleksi
+            // Gunakan push() untuk menambahkan satu model
+            // Gunakan merge() jika Anda memiliki lebih dari satu
+            $recipients = new Collection();
+            if ($penanggungJawab) {
+                $recipients->push($penanggungJawab);
+            }
+            $recipients = $recipients->merge($assignedErms);
+
+            // Kirim notifikasi ke setiap penerima yang unik
+            foreach ($recipients->unique() as $recipient) {
+                $recipient->notify(new HazardReportNotif($hazard));
+            }
         });
 
         // 4. Feedback ke user
