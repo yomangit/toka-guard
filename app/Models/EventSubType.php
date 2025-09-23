@@ -18,6 +18,10 @@ class EventSubType extends Model
     {
         static::addGlobalScope(new EnabledEventSubTypeScope);
     }
+    public function EventType()
+    {
+        return $this->belongsTo(EventType::class,'event_type_id');
+    }
     public function scopeSearch($query, $term)
     {
         return $query->where('event_sub_type_name',  'like', '%' . $term . '%');
@@ -26,9 +30,11 @@ class EventSubType extends Model
     {
         return $query->where('event_type_id',  'like', '%' . $term . '%');
     }
-    public function EventType()
-    {
-        return $this->belongsTo(EventType::class,'event_type_id');
+    public function scopeByEventType($q,$t){
+        return $q->whereHas('EventType', function ($q) use ($t) {
+            $q->where('event_type_name', 'like', "%{$t}%");
+        });
     }
+    
 
 }
