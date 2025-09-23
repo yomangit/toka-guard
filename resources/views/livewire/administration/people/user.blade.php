@@ -30,7 +30,7 @@
                             <th>Department</th>
                             <th>Employee ID</th>
                             <th>Email</th>
-                            <th>Date Commenced</th>
+                          
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -46,7 +46,6 @@
                             <td>{{ $user->department_name }}</td>
                             <td>{{ $user->employee_id }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->date_commenced }}</td>
                             <td class="flex gap-2">
                                 <!-- Edit -->
 
