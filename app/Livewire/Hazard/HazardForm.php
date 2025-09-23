@@ -419,8 +419,11 @@ class HazardForm extends Component
     public function submit()
     {
         $this->validate();
-
         DB::transaction(function () {
+            $lastReport = Hazard::latest('id')->first();
+            $nextId = $lastReport ? $lastReport->id + 1 : 1;
+            $referenceNumber = 'LH-' . str_pad($nextId, 5, '0', STR_PAD_LEFT);
+            
             $docDeskripsiPath = null;
             $docCorrectivePath = null;
 
@@ -446,6 +449,7 @@ class HazardForm extends Component
 
             // 1. Simpan hazard
             $hazard = Hazard::create([
+                'no_referensi'           => $referenceNumber,
                 'event_type_id'          => $this->tipe_bahaya,
                 'event_sub_type_id'      => $this->sub_tipe_bahaya,
                 'department_id'          => $this->department_id,
