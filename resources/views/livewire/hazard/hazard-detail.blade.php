@@ -575,7 +575,7 @@
                             <!-- List Actions -->
                             <div class="divider my-2">Daftar Tindakan</div>
                             <div class="overflow-x-auto rounded-xl border border-base-200">
-                                <table class="table table-xs table-zebra w-full">
+                                 <table class="table table-xs border text-sm px-2">
                                     <thead class="bg-base-200">
                                         <tr>
                                             <th class="whitespace-nowrap">Deskripsi</th>
