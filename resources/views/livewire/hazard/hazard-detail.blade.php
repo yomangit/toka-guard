@@ -184,7 +184,7 @@
 
     </div>
     <form wire:submit.prevent="submit">
-        <div class="w-full bg-base-200 p-1 rounded mb-1">
+        <div class="w-full bg-base-200 p-1 rounded">
             <flux:button size="xs" class="{{ $isDisabled ? 'btn btn-disabled cursor-not-allowed' : '' }}" type="submit" icon:trailing="save" variant="primary">Simpan</flux:button>
             <flux:button size="xs" class="{{ $isDisabled ? 'btn btn-disabled cursor-not-allowed' : '' }}" wire:click="deleteHazard({{ $hazard_id }})" wire:confirm="Yakin hapus Laporan ini?" icon:trailing="trash" variant="danger">Hapus</flux:button>
         </div>
