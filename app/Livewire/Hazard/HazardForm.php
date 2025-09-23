@@ -486,22 +486,8 @@ class HazardForm extends Component
             // 3. Notifikasi
             // Dapatkan Penanggung Jawab dari relasi
             $penanggungJawab = $hazard->penanggungJawab;
-
-            // Dapatkan semua Assigned Erms dari relasi
-            $assignedErms = $hazard->assignedErms;
-
-            // Gabungkan penanggung jawab dan assigned erms menjadi satu koleksi
-            // Gunakan push() untuk menambahkan satu model
-            // Gunakan merge() jika Anda memiliki lebih dari satu
-            $recipients = new Collection();
             if ($penanggungJawab) {
-                $recipients->push($penanggungJawab);
-            }
-            $recipients = $recipients->merge($assignedErms);
-
-            // Kirim notifikasi ke setiap penerima yang unik
-            foreach ($recipients->unique() as $recipient) {
-                $recipient->notify(new HazardReportNotif($hazard));
+                $penanggungJawab->notify(new HazardReportNotif($hazard));
             }
         });
 
