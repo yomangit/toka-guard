@@ -14,11 +14,32 @@
             </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+            <fieldset class="fieldset">
+                    <x-form.label label="Tipe Bahaya"  />
+                    <select wire:model.live="filterEventType" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                        <option value="">-- Pilih --</option>
+                        @foreach ($eventTypes as $et )
+                        <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
+                        @endforeach
+                    </select>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <x-form.label label="Jenis Bahaya"  />
+                    <select wire:model.live="filterEventSubType" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                        <option value="">-- Pilih --</option>
+                        @if ($tipe_bahaya)
+                        @foreach ($subTypes as $et )
+                        <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
+                        @endforeach
+                        @endif
+
+                    </select>
+                </fieldset>
             <fieldset>
                 <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
-                <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
+                <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN"  />
                 <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
-                <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
+                <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor"  />
 
                 <div class="hidden peer-checked/department:block ">
                     {{-- Department --}}
@@ -34,7 +55,7 @@
                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                             </div>
                             @foreach($departments as $dept)
-                            <li wire:click="selectDepartment({{ $dept->id }}, '{{ $dept->department_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                            <li wire:click="selectDepartment({{ $dept->id }}, '{{ $dept->department_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200 text-xs">
                                 {{ $dept->department_name }}
                             </li>
                             @endforeach
@@ -58,7 +79,7 @@
                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                             </div>
                             @foreach($contractors as $contractor)
-                            <li wire:click="selectContractor({{ $contractor->id }}, '{{ $contractor->contractor_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                            <li wire:click="selectContractor({{ $contractor->id }}, '{{ $contractor->contractor_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200 text-xs">
                                 {{ $contractor->contractor_name }}
                             </li>
                             @endforeach

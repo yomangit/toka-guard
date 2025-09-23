@@ -4,9 +4,11 @@ namespace App\Livewire\Hazard;
 
 use App\Models\Hazard;
 use Livewire\Component;
+use App\Models\EventType;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Enums\HazardStatus;
+use App\Models\EventSubType;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
@@ -190,7 +192,11 @@ class HazardReportPanel extends Component
             $q->byContractor($this->filterContractor);
         });
         $reports = $query->paginate(30);
-        return view('livewire.hazard.hazard-report-panel', compact('reports'));
+        return view('livewire.hazard.hazard-report-panel',[
+            'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
+            'subTypes' => EventSubType::where('event_type_id', $this->tipe_bahaya)->get(),
+            'reports'=> $reports
+        ]);
     }
     public function paginationView()
     {
