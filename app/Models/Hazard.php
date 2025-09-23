@@ -94,7 +94,6 @@ class Hazard extends Model
     public function location()            { return $this->belongsTo(Location::class); }
     public function consequence()         { return $this->belongsTo(RiskConsequence::class); }
     public function likelihood()          { return $this->belongsTo(Likelihood::class); }
-    public function company()             { return $this->belongsTo(Company::class); }
     public function assignedErms()        { return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id'); }
     public function actionHazards()        { return $this->hasMany(ActionHazard::class, 'hazard_id'); }
 
@@ -102,6 +101,28 @@ class Hazard extends Model
     public function scopeStatus($query, $status)
     {
         return $query->where('status', $status);
+    }
+        public function scopeByEventType($query, $id)
+    {
+         return $query->where('event_type_id', $id);
+    }
+    public function scopeByEventSubType($query, $id)
+    {
+         return $query->where('event_sub_type_id', $id);
+    }
+
+    public function scopeByDepartment($query, $name)
+    {
+        return $query->whereHas('department', function ($q) use ($name) {
+            $q->where('department_name', 'like', "%{$name}%");
+        });
+    }
+
+    public function scopeByContractor($query, $name)
+    {
+        return $query->whereHas('contractor', function ($q) use ($name) {
+            $q->where('contractor_name', 'like', "%{$name}%");
+        });
     }
 
     /** HELPERS */

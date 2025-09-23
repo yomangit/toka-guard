@@ -4,16 +4,30 @@ namespace App\Livewire\Hazard;
 
 use App\Models\Hazard;
 use Livewire\Component;
+use App\Models\Contractor;
+use App\Models\Department;
 use App\Enums\HazardStatus;
-use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class HazardReportPanel extends Component
 {
     use WithPagination;
     public $filterStatus = 'all', $role;
+    public $filterEventType;
+    public $filterEventSubType;
+    public $filterDepartment;
+    public $filterContractor;
     public $openDropdownId = null;
 
+    public $search = '';
+    public $searchContractor = '';
+    public $showDropdown = false;
+    public $showContractorDropdown = false;
+    public $departments = [];
+    public $contractors = [];
+    public $department_id;
+    public $contractor_id;
     public function toggleDropdown($reportId)
     {
 
@@ -84,16 +98,82 @@ class HazardReportPanel extends Component
                 ->when($assignedCompanies->isNotEmpty(), fn($q) => $q->orWhereIn('company_id', $assignedCompanies));
         });
     }
+
+    public function updatedSearch()
+    {
+        if (strlen($this->search) > 1) {
+            $this->departments = Department::where('department_name', 'like', '%' . $this->search . '%')
+                ->orderBy('department_name')
+                ->limit(10)
+                ->get();
+            $this->showDropdown = true;
+        } else {
+            $this->departments = [];
+            $this->showDropdown = false;
+        }
+    }
+    public function selectDepartment($id, $name)
+    {
+        $this->reset('searchContractor', 'contractor_id');
+        $this->department_id = $id;
+        $this->search = $name;
+        $this->filterDepartment = $name;
+        $this->showDropdown = false;
+    }
+    public function updatedSearchContractor()
+    {
+        if (strlen($this->searchContractor) > 1) {
+            $this->contractors = Contractor::query()
+                ->where('contractor_name', 'like', '%' . $this->searchContractor . '%')
+                ->orderBy('contractor_name')
+                ->limit(10)
+                ->get();
+            $this->showContractorDropdown = true;
+        } else {
+            $this->contractors = [];
+            $this->showContractorDropdown = true;
+        }
+    }
+    public function selectContractor($id, $name)
+    {
+        $this->reset('search', 'department_id');
+        $this->contractor_id = $id;
+        $this->searchContractor = $name;
+        $this->filterContractor = $name;
+        $this->showContractorDropdown = false;
+    }
+
+
+
     public function render()
     {
         $query = Hazard::with('pelapor')->latest();
         $this->role = Auth::user()->role;
+
         if ($this->role === 'moderator') {
             $this->filterModeratorReports($query);
         }
-        if ($this->filterStatus !== 'all') {
-            $query->where('status', $this->filterStatus);
-        }
+
+        // Terapkan scope untuk setiap filter
+        $query->when($this->filterStatus !== 'all', function ($q) {
+            $q->status($this->filterStatus);
+        });
+
+        $query->when($this->filterEventType, function ($q) {
+            $q->byEventType($this->filterEventType);
+        });
+
+        $query->when($this->filterEventSubType, function ($q) {
+            $q->byEventSubType($this->filterEventSubType);
+        });
+
+        $query->when($this->filterDepartment, function ($q) {
+            $q->byDepartment($this->filterDepartment);
+        });
+
+        $query->when($this->filterContractor, function ($q) {
+            $q->byContractor($this->filterContractor);
+        });
         $reports = $query->paginate(30);
         return view('livewire.hazard.hazard-report-panel', compact('reports'));
     }
@@ -101,5 +181,4 @@ class HazardReportPanel extends Component
     {
         return 'paginate.pagination';
     }
-
 }
