@@ -15,6 +15,7 @@ class Hazard extends Model
     protected $table = 'hazard_reports';
 
     protected $fillable = [
+        'no_referensi',
         'event_type_id',
         'event_sub_type_id',
         'status',
