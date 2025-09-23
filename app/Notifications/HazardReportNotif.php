@@ -14,10 +14,7 @@ class HazardReportNotif extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Hazard $hazard)
-    {
-        $this->hazard = $hazard;
-    }
+    public function __construct(public Hazard $hazard){}
 
     /**
      * Get the notification's delivery channels.
