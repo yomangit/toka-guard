@@ -19,7 +19,7 @@ class HazardReportPanel extends Component
     public $filterDepartment;
     public $filterContractor;
     public $openDropdownId = null;
-
+    public $deptCont = 'department'; // default departemen
     public $search = '';
     public $searchContractor = '';
     public $showDropdown = false;
@@ -28,6 +28,21 @@ class HazardReportPanel extends Component
     public $contractors = [];
     public $department_id;
     public $contractor_id;
+
+    public function updatedDeptCont($value)
+    {
+        if ($value === 'department') {
+            // Reset kontraktor jika pindah ke departemen
+            $this->resetErrorBag(['contractor_id']);
+            $this->reset(['contractor_id', 'searchContractor', 'contractors']);
+        }
+        if ($value === 'company') {
+            // Reset departemen jika pindah ke kontraktor
+            $this->resetErrorBag(['department_id']);
+            $this->reset(['department_id', 'search', 'departments']);
+        }
+    }
+
     public function toggleDropdown($reportId)
     {
 
