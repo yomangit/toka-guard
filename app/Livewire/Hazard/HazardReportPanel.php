@@ -30,7 +30,9 @@ class HazardReportPanel extends Component
     public $contractors = [];
     public $department_id;
     public $contractor_id;
-
+    public $action_due_date = '';
+    public $start_date;
+    public $end_date;
     public function updatedDeptCont($value)
     {
         if ($value === 'department') {
@@ -44,7 +46,20 @@ class HazardReportPanel extends Component
             $this->reset(['department_id', 'search', 'departments']);
         }
     }
+    public function updatedActionDueDate($value)
+    {
+        // Cek apakah nilai tidak kosong
+        if (!empty($value)) {
+            // Pisahkan string berdasarkan " to "
+            $dates = explode(' to ', $value);
 
+            // Pastikan ada dua tanggal yang valid
+            if (count($dates) === 2) {
+                $this->start_date = $dates[0];
+                $this->end_date = $dates[1];
+            }
+        }
+    }
     public function toggleDropdown($reportId)
     {
 
@@ -127,7 +142,7 @@ class HazardReportPanel extends Component
         } else {
             $this->departments = [];
             $this->showDropdown = false;
-            $this->filterDepartment='';
+            $this->filterDepartment = '';
         }
     }
     public function selectDepartment($id, $name)
@@ -150,7 +165,7 @@ class HazardReportPanel extends Component
         } else {
             $this->contractors = [];
             $this->showContractorDropdown = true;
-            $this->filterContractor='';
+            $this->filterContractor = '';
         }
     }
     public function selectContractor($id, $name)
@@ -193,11 +208,15 @@ class HazardReportPanel extends Component
         $query->when($this->filterContractor, function ($q) {
             $q->byContractor($this->filterContractor);
         });
+        // ⚡️ Tambahkan filter rentang tanggal di sini
+        $query->when($this->start_date && $this->end_date, function ($q) {
+            $q->dateRange($this->start_date, $this->end_date);
+        });
         $reports = $query->paginate(30);
-        return view('livewire.hazard.hazard-report-panel',[
+        return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
-            'reports'=> $reports
+            'reports' => $reports
         ]);
     }
     public function paginationView()

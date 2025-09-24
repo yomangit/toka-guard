@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-
-use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Spatie\Activitylog\LogOptions;
-use Spatie\Activitylog\Models\Activity;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\Models\Activity;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 class Hazard extends Model
 {
     use LogsActivity;
@@ -143,6 +145,16 @@ class Hazard extends Model
             $q->where('contractor_name', 'like', "%{$name}%");
         });
     }
+    public function scopeDateRange(Builder $query, string $startDate, string $endDate): void
+{
+    // Konversi format tanggal dari 'd-m-Y' menjadi 'Y-m-d'
+    // agar kompatibel dengan database
+    $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+    $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+
+    // Filter query berdasarkan rentang tanggal `created_at`
+    $query->whereBetween('created_at', [$startDateFormatted, $endDateFormatted]);
+}
 
     /** HELPERS */
     public function resolveCompanyId()

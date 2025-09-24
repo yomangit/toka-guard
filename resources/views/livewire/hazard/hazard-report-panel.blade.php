@@ -15,6 +15,25 @@
 
         <div class="w-full md:w-auto">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <fieldset class="fieldset md:col-span-1">
+                    <x-form.label label="Batas Waktu Penyelesaian" required />
+                    <div class="relative" wire:ignore x-data="{
+                                fp: null,
+                                initFlatpickr() {
+                                    if (this.fp) this.fp.destroy();
+                                    this.fp = flatpickr(this.$refs.tanggalInput2, {
+                                        disableMobile: true,
+                                        enableTime: false,
+                                        dateFormat: 'd-m-Y',
+                                        mode: 'range', // 👈 Tambahkan opsi ini
+                                        onChange: (dates, str) => $wire.set('action_due_date', str),
+                                    });
+                                }
+                            }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
+                        <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('action_due_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
+                    </div>
+                    <x-label-error :messages="$errors->get('action_due_date')" />
+                </fieldset>
                 <fieldset class="fieldset">
                     <x-form.label label="Tipe Bahaya" />
                     <select wire:model.live="filterEventType" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
