@@ -134,7 +134,7 @@
                                 <x-form.label label="Department" required />
                                 <select wire:model.live="department" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
                                     <option value="">-- Pilih --</option>
-                                    @if($entity_type === "contractor")
+                                    @if($entityType === "contractor")
                                     @foreach ($custodian as $cust)
                                     <option value="{{ $cust->Departemen->department_name }}" @selected($department===$cust->Departemen->department_name)>
                                         {{ $cust->Departemen->department_name }}
