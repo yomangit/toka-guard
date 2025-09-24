@@ -192,11 +192,7 @@ class HazardReportPanel extends Component
             }
         ]);
 
-        $query->withCount([
-            'actionHazards as pending_actual_closes' => function ($query) {
-                $query->whereNull('actual_close_date');
-            }
-        ]);
+       
 
         // Terapkan scope untuk setiap filter
         $query->when($this->filterStatus !== 'all', function ($q) {
