@@ -24,6 +24,8 @@
                                     this.fp = flatpickr(this.$refs.tanggalInput2, {
                                         disableMobile: true,
                                         enableTime: false,
+                                        altInput: true,
+                                        altFormat: 'd-M-Y',
                                         dateFormat: 'd-m-Y',
                                         mode: 'range', // 👈 Tambahkan opsi ini
                                         onChange: (dates, str) => $wire.set('action_due_date', str),
