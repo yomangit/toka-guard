@@ -58,6 +58,8 @@ class HazardReportPanel extends Component
                 $this->start_date = $dates[0];
                 $this->end_date = $dates[1];
             }
+        } else {
+            $this->reset('start_date', 'end_date');
         }
     }
     public function toggleDropdown($reportId)
