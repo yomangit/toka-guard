@@ -191,7 +191,7 @@ class Hazard extends Model
         // Filter jika hanya tanggal awal yang ada
         if (!is_null($startDate) && is_null($endDate)) {
             $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
-            $query->where('tanggal', '>=', $startDateFormatted);
+            $query->where('tanggal', '===', $startDateFormatted);
             return;
         }
 
