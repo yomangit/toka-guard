@@ -13,7 +13,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::hHfXNtYEAlFEH59J',
+            '_route' => 'generated::OzFtPxFKYUL1r1hr',
           ),
           1 => NULL,
           2 => 
@@ -33,7 +33,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::OGAamEWcrDzimOKR',
+            '_route' => 'generated::VEyEwtdAI5CbykLA',
           ),
           1 => NULL,
           2 => 
@@ -53,7 +53,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::y6tZ92c3MS4hs523',
+            '_route' => 'generated::EHPeCaGlArHwhDlY',
           ),
           1 => NULL,
           2 => 
@@ -73,7 +73,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::JrVl5KmxANWu9sT6',
+            '_route' => 'generated::F6w6JhBF8OcUa0EB',
           ),
           1 => NULL,
           2 => 
@@ -93,7 +93,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::EjsZXcXyMsucBXKY',
+            '_route' => 'generated::K9ZAUSRPGGTzHrrp',
           ),
           1 => NULL,
           2 => 
@@ -132,7 +132,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::HL8OyRfHJFB82Hvl',
+            '_route' => 'generated::lC0nVTbDAYIpXTJQ',
           ),
           1 => NULL,
           2 => 
@@ -152,7 +152,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::SXgOMhqBkT293Xfn',
+            '_route' => 'generated::cwZX7VBPl0rgWGHu',
           ),
           1 => NULL,
           2 => 
@@ -191,7 +191,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::tyI9EQ1GWBiD7E6c',
+            '_route' => 'generated::GqmHcS3yIGEy7inW',
           ),
           1 => NULL,
           2 => 
@@ -231,7 +231,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::VelngWfrYHCSocTB',
+            '_route' => 'generated::lwr0iM5MdqGWwaEo',
           ),
           1 => NULL,
           2 => 
@@ -256,7 +256,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::d8SWEXoKaftfRMFt',
+            '_route' => 'generated::nCA0UN4NxviNE8Vn',
           ),
           1 => NULL,
           2 => 
@@ -1192,7 +1192,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::hHfXNtYEAlFEH59J' => 
+    'generated::OzFtPxFKYUL1r1hr' => 
     array (
       'methods' => 
       array (
@@ -1204,7 +1204,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Flux\\AssetManager@fluxJs',
         'controller' => 'Flux\\AssetManager@fluxJs',
-        'as' => 'generated::hHfXNtYEAlFEH59J',
+        'as' => 'generated::OzFtPxFKYUL1r1hr',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1220,7 +1220,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::OGAamEWcrDzimOKR' => 
+    'generated::VEyEwtdAI5CbykLA' => 
     array (
       'methods' => 
       array (
@@ -1232,7 +1232,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Flux\\AssetManager@fluxMinJs',
         'controller' => 'Flux\\AssetManager@fluxMinJs',
-        'as' => 'generated::OGAamEWcrDzimOKR',
+        'as' => 'generated::VEyEwtdAI5CbykLA',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1248,7 +1248,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::y6tZ92c3MS4hs523' => 
+    'generated::EHPeCaGlArHwhDlY' => 
     array (
       'methods' => 
       array (
@@ -1260,7 +1260,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Flux\\AssetManager@editorCss',
         'controller' => 'Flux\\AssetManager@editorCss',
-        'as' => 'generated::y6tZ92c3MS4hs523',
+        'as' => 'generated::EHPeCaGlArHwhDlY',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1276,7 +1276,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::JrVl5KmxANWu9sT6' => 
+    'generated::F6w6JhBF8OcUa0EB' => 
     array (
       'methods' => 
       array (
@@ -1288,7 +1288,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Flux\\AssetManager@editorJs',
         'controller' => 'Flux\\AssetManager@editorJs',
-        'as' => 'generated::JrVl5KmxANWu9sT6',
+        'as' => 'generated::F6w6JhBF8OcUa0EB',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1304,7 +1304,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::EjsZXcXyMsucBXKY' => 
+    'generated::K9ZAUSRPGGTzHrrp' => 
     array (
       'methods' => 
       array (
@@ -1316,7 +1316,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Flux\\AssetManager@editorMinJs',
         'controller' => 'Flux\\AssetManager@editorMinJs',
-        'as' => 'generated::EjsZXcXyMsucBXKY',
+        'as' => 'generated::K9ZAUSRPGGTzHrrp',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1363,7 +1363,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::HL8OyRfHJFB82Hvl' => 
+    'generated::lC0nVTbDAYIpXTJQ' => 
     array (
       'methods' => 
       array (
@@ -1375,7 +1375,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile',
         'controller' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@returnJavaScriptAsFile',
-        'as' => 'generated::HL8OyRfHJFB82Hvl',
+        'as' => 'generated::lC0nVTbDAYIpXTJQ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1391,7 +1391,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::SXgOMhqBkT293Xfn' => 
+    'generated::cwZX7VBPl0rgWGHu' => 
     array (
       'methods' => 
       array (
@@ -1403,7 +1403,7 @@ app('router')->setCompiledRoutes(
       array (
         'uses' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps',
         'controller' => 'Livewire\\Mechanisms\\FrontendAssets\\FrontendAssets@maps',
-        'as' => 'generated::SXgOMhqBkT293Xfn',
+        'as' => 'generated::cwZX7VBPl0rgWGHu',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1474,7 +1474,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::tyI9EQ1GWBiD7E6c' => 
+    'generated::GqmHcS3yIGEy7inW' => 
     array (
       'methods' => 
       array (
@@ -1502,8 +1502,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'D:\\\\project\\\\new Project\\\\my_app\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"000000000000080c0000000000000000";}}',
-        'as' => 'generated::tyI9EQ1GWBiD7E6c',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"00000000000008410000000000000000";}}',
+        'as' => 'generated::GqmHcS3yIGEy7inW',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1566,7 +1566,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::VelngWfrYHCSocTB' => 
+    'generated::lwr0iM5MdqGWwaEo' => 
     array (
       'methods' => 
       array (
@@ -1592,7 +1592,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::VelngWfrYHCSocTB',
+        'as' => 'generated::lwr0iM5MdqGWwaEo',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1610,7 +1610,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::d8SWEXoKaftfRMFt' => 
+    'generated::nCA0UN4NxviNE8Vn' => 
     array (
       'methods' => 
       array (
@@ -1637,7 +1637,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::d8SWEXoKaftfRMFt',
+        'as' => 'generated::nCA0UN4NxviNE8Vn',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1822,8 +1822,8 @@ app('router')->setCompiledRoutes(
           0 => 'web',
           1 => 'auth',
         ),
-        'uses' => 'App\\Livewire\\Hazard\\HazardList@__invoke',
-        'controller' => 'App\\Livewire\\Hazard\\HazardList',
+        'uses' => 'App\\Livewire\\Hazard\\HazardReportPanel@__invoke',
+        'controller' => 'App\\Livewire\\Hazard\\HazardReportPanel',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
@@ -1934,7 +1934,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Companies\\CompanyIndex@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Companies\\CompanyIndex',
@@ -1972,7 +1972,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Departement\\Department@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Departement\\Department',
@@ -2010,7 +2010,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Menu\\ListMenu@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Menu\\ListMenu',
@@ -2048,7 +2048,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Menu\\ListSubMenu@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Menu\\ListSubMenu',
@@ -2086,7 +2086,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Menu\\ExtraSubMenu@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Menu\\ExtraSubMenu',
@@ -2124,7 +2124,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Custodian\\Custodian@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Custodian\\Custodian',
@@ -2162,7 +2162,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\DeptGroup\\DepartmentGroup@__invoke',
         'controller' => 'App\\Livewire\\Administration\\DeptGroup\\DepartmentGroup',
@@ -2200,7 +2200,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\DeptGroup\\Group@__invoke',
         'controller' => 'App\\Livewire\\Administration\\DeptGroup\\Group',
@@ -2238,7 +2238,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Contractor\\Contractors@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Contractor\\Contractors',
@@ -2276,7 +2276,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\BusinessUnit\\BusinessUnits@__invoke',
         'controller' => 'App\\Livewire\\Administration\\BusinessUnit\\BusinessUnits',
@@ -2314,7 +2314,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\EventGeneral\\EventCategory@__invoke',
         'controller' => 'App\\Livewire\\Administration\\EventGeneral\\EventCategory',
@@ -2352,7 +2352,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\EventGeneral\\EventType@__invoke',
         'controller' => 'App\\Livewire\\Administration\\EventGeneral\\EventType',
@@ -2390,7 +2390,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\EventGeneral\\EventSubType@__invoke',
         'controller' => 'App\\Livewire\\Administration\\EventGeneral\\EventSubType',
@@ -2428,7 +2428,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\EventGeneral\\ErmAssignmentManager@__invoke',
         'controller' => 'App\\Livewire\\Administration\\EventGeneral\\ErmAssignmentManager',
@@ -2466,7 +2466,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\EventGeneral\\ModeratorAssignmentManager@__invoke',
         'controller' => 'App\\Livewire\\Administration\\EventGeneral\\ModeratorAssignmentManager',
@@ -2504,7 +2504,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RiskConsequence\\RiskConsequence@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RiskConsequence\\RiskConsequence',
@@ -2542,7 +2542,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RiskLikelihood\\RiskLikelihood@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RiskLikelihood\\RiskLikelihood',
@@ -2580,7 +2580,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RiskAssessment\\Assessement@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RiskAssessment\\Assessement',
@@ -2618,7 +2618,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RiskMatrix\\Grid@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RiskMatrix\\Grid',
@@ -2656,7 +2656,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Locations\\Location@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Locations\\Location',
@@ -2694,7 +2694,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\CauseAnalysis\\Kta@__invoke',
         'controller' => 'App\\Livewire\\Administration\\CauseAnalysis\\Kta',
@@ -2732,7 +2732,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\CauseAnalysis\\Tta@__invoke',
         'controller' => 'App\\Livewire\\Administration\\CauseAnalysis\\Tta',
@@ -2770,7 +2770,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RelasiDeptUser\\DepartmentUserManager@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RelasiDeptUser\\DepartmentUserManager',
@@ -2808,7 +2808,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\RelasiContUser\\ContractorUserManager@__invoke',
         'controller' => 'App\\Livewire\\Administration\\RelasiContUser\\ContractorUserManager',
@@ -2846,7 +2846,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\Roles\\Role@__invoke',
         'controller' => 'App\\Livewire\\Administration\\Roles\\Role',
@@ -2884,7 +2884,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administrator\\UserRoleManager\\UserRole@__invoke',
         'controller' => 'App\\Livewire\\Administrator\\UserRoleManager\\UserRole',
@@ -2922,7 +2922,7 @@ app('router')->setCompiledRoutes(
         'middleware' => 
         array (
           0 => 'web',
-          1 => 'auth',
+          1 => 'role:Administrator',
         ),
         'uses' => 'App\\Livewire\\Administration\\People\\User@__invoke',
         'controller' => 'App\\Livewire\\Administration\\People\\User',
@@ -3267,7 +3267,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"000000000000080f0000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"00000000000008520000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

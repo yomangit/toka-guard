@@ -14,7 +14,7 @@
         </div>
 
         <div class="w-full md:w-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
                 <fieldset class="fieldset md:col-span-1">
                     <x-form.label label="rentang tanggal" required />
                     <div class="relative" wire:ignore x-data="{
