@@ -219,8 +219,8 @@ class HazardReportPanel extends Component
         if ($this->role === 'moderator') {
             $this->filterModeratorReports($query);
         }
+        dd($query->latest()->first());
         $reports = $query->latest()->paginate(30);
-        dd($reports->first());
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
