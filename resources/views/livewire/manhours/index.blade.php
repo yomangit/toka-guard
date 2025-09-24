@@ -112,22 +112,18 @@
                                     <option value="">-- Pilih --</option>
 
                                     {{-- kalau ada owners --}}
-                                    @isset($companies['owners'])
                                     @foreach ($companies['owners'] as $comp)
                                     <option value="{{ $comp->company_name }}" @selected($company===$comp->company_name)>
                                         {{ $comp->company_name }}
                                     </option>
                                     @endforeach
-                                    @endisset
 
                                     {{-- kalau ada contractors --}}
-                                    @isset($companies['contractors'])
                                     @foreach ($companies['contractors'] as $cont)
                                     <option value="{{ $cont->contractor_name }}" @selected($company===$cont->contractor_name)>
                                         {{ $cont->contractor_name }}
                                     </option>
                                     @endforeach
-                                    @endisset
                                 </select>
                                 <x-label-error :messages="$errors->get('company')" />
                             </fieldset>

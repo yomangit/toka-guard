@@ -25,7 +25,7 @@ class Index extends Component
     public $modalOpen;
     public $custodian = [];
     public $deptGroup = [];
-    public $companies;
+    public $companies =[];
     public $selectedId = null;
     public $confirmingDelete = false;
     public $canCreate = false;
