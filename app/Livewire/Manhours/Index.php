@@ -31,7 +31,7 @@ class Index extends Component
     public $canCreate = false;
     // input umum
     public $date;
-    public $entity_type;
+    public $entityType;
     public $company;
     public $department;
     public $dept_group;
@@ -68,7 +68,7 @@ class Index extends Component
     {
         $rules = [
             'date'        => 'required',
-            'entity_type' => 'required|string',
+            'entityType' => 'required|string',
             'company'     => 'required|string',
             'department'  => 'required|string',
         ];
@@ -88,14 +88,14 @@ class Index extends Component
                 'owners' => BusinessUnit::all(),
                 'contractors' => Contractor::all(),
             ];
-        } elseif ($this->entity_type === 'owner') {
+        } elseif ($this->entityType === 'owner') {
             $this->companies = [
                 'owners' => BusinessUnit::all(),
                 'contractors' => collect([]),
             ];
         } else {
             // kalau contractor, ambil hanya contractor yg punya relasi
-            $this->entity_type = 'contractor';
+            $this->entityType = 'contractor';
             $this->companies = [
                 'owners' => collect([]), // kosong
                 'contractors' => auth()->user()->contractors, // relasi dari user
@@ -113,7 +113,7 @@ class Index extends Component
             $data = Manhour::findOrFail($id);
 
             $this->date        = Carbon::parse($data->date)->format('M-Y');
-            $this->entity_type = strtolower($data->company_category) === "contractor" ? "contractor" : "owner";
+            $this->entityType = strtolower($data->company_category) === "contractor" ? "contractor" : "owner";
             $this->company     = $data->company;
             $this->department  = $data->department;
             $this->dept_group  = $data->dept_group;
@@ -151,7 +151,7 @@ class Index extends Component
         // Reset semua input form ke default
         $this->reset([
             'date',
-            'entity_type',
+            'entityType',
             'company',
             'department',
             'dept_group',
@@ -170,10 +170,10 @@ class Index extends Component
     public string $recipient = '';
     public function updatedCompany()
     {
-        if ($this->entity_type === "contractor") {
+        if ($this->entityType === "contractor") {
             $custodian = Contractor::where('contractor_name', 'LIKE', $this->company)->first()->id ?? null;
             $this->custodian = Custodian::where('contractor_id', $custodian)->get();
-        } elseif ($this->entity_type === "owner") {
+        } elseif ($this->entityType === "owner") {
             $this->deptGroup = Department_group::get();
         } else {
             $this->reset('department');
@@ -233,7 +233,7 @@ class Index extends Component
     {
         $this->validate();
 
-        $company_category = $this->entity_type === "contractor"
+        $company_category = $this->entityType === "contractor"
             ? 'Contractor'
             : 'PT. Archi Indonesia';
 

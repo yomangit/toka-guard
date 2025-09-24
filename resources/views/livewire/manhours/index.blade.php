@@ -95,14 +95,14 @@
                             {{-- Kategori Perusahaan --}}
                             <fieldset class="fieldset">
                                 <x-form.label label="Jenis Entitas" required />
-                                <select wire:model.live="entity_type" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
+                                <select wire:model.live="entityType" class="select select-xs md:select-xs select-bordered w-full md:max-w-md focus:ring-1 focus:border-info focus:ring-info focus:outline-none">
                                     <option value="">-- Pilih --</option>
                                     <option value="owner">Perusahaan (Owner)</option>
                                     <option value="contractor">Kontraktor</option>
 
                                 </select>
 
-                                <x-label-error :messages="$errors->get('entity_type')" />
+                                <x-label-error :messages="$errors->get('entityType')" />
                             </fieldset>
 
                             {{-- Perusahaan --}}
