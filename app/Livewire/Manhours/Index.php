@@ -104,7 +104,6 @@ class Index extends Component
             ];
         }
     }
-
     public function open_modal($id = null)
     {
         Gate::authorize('create', Manhour::class);
