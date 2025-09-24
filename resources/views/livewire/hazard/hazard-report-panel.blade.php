@@ -161,7 +161,7 @@
                     </td>
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-                    <td class="border px-2 py-1">
+                    <td class="border px-2 py-1 text-center">
                       {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
                     </td>
                 </tr>
