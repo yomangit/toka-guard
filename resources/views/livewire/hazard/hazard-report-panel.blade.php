@@ -141,7 +141,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center text-gray-500 py-4">Tidak ada laporan ditemukan.</td>
+                    <td colspan="9" class="text-center text-gray-500 py-4">Tidak ada laporan ditemukan.</td>
                 </tr>
                 @endforelse
             </tbody>
