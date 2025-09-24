@@ -187,7 +187,15 @@ class HazardReportPanel extends Component
 
         // Tambahkan withCount untuk menghitung relasi
         $query->withCount([
-            'actionHazards as total_actions_count' // Menghitung total ActionHazard untuk setiap Hazard
+            'actionHazards as total_due_dates' => function ($query) {
+                $query->whereNotNull('due_date');
+            }
+        ]);
+
+        $query->withCount([
+            'actionHazards as pending_actual_closes' => function ($query) {
+                $query->whereNull('actual_close_date');
+            }
         ]);
 
         // Terapkan scope untuk setiap filter
