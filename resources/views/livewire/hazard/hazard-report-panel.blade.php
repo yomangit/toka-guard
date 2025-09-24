@@ -159,8 +159,7 @@
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
                     <td class="border px-2 py-1">
-                        {{ App\Models\ActionHazard::where('hazard_id', $report->id)->count('due_date') }} /
-                        {{ App\Models\ActionHazard::where('hazard_id', $report->id)->whereNull('actual_close_date')->count('actual_close_date') }}
+                         {{ $report->total_due_dates_count }} / {{ $report->pending_actual_closes_count }}
                     </td>
                 </tr>
                 @empty
