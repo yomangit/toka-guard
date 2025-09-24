@@ -185,17 +185,15 @@ class HazardReportPanel extends Component
     {
         $query = Hazard::with('pelapor')->latest();
 
+        // Tambahkan withCount untuk menghitung relasi
         $query->withCount([
-            // Menghitung total due_date yang ada
-            'actionHazards as total_due_dates' => function ($query) {
-                $query->whereNotNull('due_date');
+            'actionHazards as total_due_dates' => function ($q) {
+                $q->whereNotNull('due_date');
             },
-            // Menghitung total yang actual_close_date-nya NULL
-            'actionHazards as pending_actual_closes' => function ($query) {
-                $query->whereNull('actual_close_date');
+            'actionHazards as pending_actual_closes' => function ($q) {
+                $q->whereNull('actual_close_date');
             }
         ]);
-       
 
         // Terapkan scope untuk setiap filter
         $query->when($this->filterStatus !== 'all', function ($q) {
@@ -221,13 +219,13 @@ class HazardReportPanel extends Component
         $query->when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
         });
-         $this->role = Auth::user()->role;
+        $this->role = Auth::user()->role;
 
         if ($this->role === 'moderator') {
             $this->filterModeratorReports($query);
         }
         $reports = $query->paginate(30);
-      
+
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
