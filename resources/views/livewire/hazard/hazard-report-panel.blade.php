@@ -121,7 +121,7 @@
         <table class="table table-xs border text-sm px-2">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border px-2 py-1">ID</th>
+                    <th class="border px-2 py-1">#</th>
                     <th class="border px-2 py-1">reference</th>
                     <th class="border px-2 py-1">Tipe Bahaya</th>
                     <th class="border px-2 py-1">Jenis Bahaya</th>
@@ -133,9 +133,9 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($reports as $report)
+                @forelse ($reports as $no => $report)
                 <tr class="hover:bg-gray-50">
-                    <td class="border px-2 py-1">{{ $report->id }}</td>
+                    <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
                     <td class="border px-2 py-1">{{ $report->no_referensi  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
