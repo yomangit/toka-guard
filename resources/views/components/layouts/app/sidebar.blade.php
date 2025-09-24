@@ -8,9 +8,9 @@
         
         <div class="flex items-center justify-between ">
             <!-- Logo -->
-            {{-- <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
+            <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
                 <x-app-logo />
-            </a> --}}
+            </a>
 
             <!-- Toggle button di lingkaran kuning -->
            <flux:sidebar.toggle class="lg:hidden" icon="chevron-left" />
