@@ -200,32 +200,33 @@ class HazardReportPanel extends Component
             $this->filterModeratorReports($query);
         }
 
-        // Terapkan scope untuk setiap filter
-        $query->when($this->filterStatus !== 'all', function ($q) {
-            $q->status($this->filterStatus);
-        });
+        // // Terapkan scope untuk setiap filter
+        // $query->when($this->filterStatus !== 'all', function ($q) {
+        //     $q->status($this->filterStatus);
+        // });
 
-        $query->when($this->filterEventType, function ($q) {
-            $q->byEventType($this->filterEventType);
-        });
+        // $query->when($this->filterEventType, function ($q) {
+        //     $q->byEventType($this->filterEventType);
+        // });
 
-        $query->when($this->filterEventSubType, function ($q) {
-            $q->byEventSubType($this->filterEventSubType);
-        });
+        // $query->when($this->filterEventSubType, function ($q) {
+        //     $q->byEventSubType($this->filterEventSubType);
+        // });
 
-        $query->when($this->filterDepartment, function ($q) {
-            $q->byDepartment($this->filterDepartment);
-        });
+        // $query->when($this->filterDepartment, function ($q) {
+        //     $q->byDepartment($this->filterDepartment);
+        // });
 
-        $query->when($this->filterContractor, function ($q) {
-            $q->byContractor($this->filterContractor);
-        });
-        // ⚡️ Tambahkan filter rentang tanggal di sini
-        $query->when($this->start_date && $this->end_date, function ($q) {
-            $q->dateRange($this->start_date, $this->end_date);
-        });
+        // $query->when($this->filterContractor, function ($q) {
+        //     $q->byContractor($this->filterContractor);
+        // });
+        // // ⚡️ Tambahkan filter rentang tanggal di sini
+        // $query->when($this->start_date && $this->end_date, function ($q) {
+        //     $q->dateRange($this->start_date, $this->end_date);
+        // });
 
         $reports = $query->paginate(30);
+        dd($reports);
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
