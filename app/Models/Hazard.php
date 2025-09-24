@@ -211,9 +211,12 @@ class Hazard extends Model
 
     public function scopeWithHazardCounts($query)
     {
-        return $query->withCount([
+        $query->withCount([
             'actionHazards as total_due_dates' => function ($q) {
                 $q->whereNotNull('due_date');
+            },
+            'actionHazards as pending_actual_closes' => function ($q) {
+                $q->whereNull('actual_close_date');
             }
         ]);
     }
