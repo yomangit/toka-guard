@@ -129,14 +129,17 @@
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Pelapor</th>
                     <th class="border px-2 py-1">Tanggal</th>
-                    <th class="border px-2 py-1">Details</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($reports as $no => $report)
                 <tr class="hover:bg-gray-50">
                     <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
-                    <td class="border px-2 py-1">{{ $report->no_referensi  ?? '-' }}</td>
+                     @can('view', $report)
+                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
+                        @else
+                        <span class="text-gray-400 text-sm cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
+                        @endcan
                     <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
@@ -152,13 +155,6 @@
                     </td>
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-                    <td>
-                        @can('view', $report)
-                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">Detail</a>
-                        @else
-                        <span class="text-gray-400 text-sm cursor-not-allowed">Detail</span>
-                        @endcan
-                    </td>
                 </tr>
                 @empty
                 <tr>
