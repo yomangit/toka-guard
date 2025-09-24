@@ -137,7 +137,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
                     <td class="border px-2 py-1">
-                         @can('view', $report)
+                        @can('view', $report)
                         <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
                         @else
                         <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
@@ -158,7 +158,10 @@
                     </td>
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-                    <td class="border px-2 py-1"> {{ $report->total_due_dates_count }} / {{ $report->pending_actual_closes_count }}</td>
+                    <td class="border px-2 py-1">
+                        {{ App\Models\ActionHazard::where('hazard_id', $item->id)->count('due_date') }} /
+                        {{ App\Models\ActionHazard::where('hazard_id', $item->id)->whereNull('actual_close_date')->count('actual_close_date') }}
+                    </td>
                 </tr>
                 @empty
                 <tr>
