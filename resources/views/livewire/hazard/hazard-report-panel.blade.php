@@ -129,7 +129,10 @@
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Pelapor</th>
                     <th class="border px-2 py-1">Tanggal</th>
-                    <th class="border px-2 py-1">Aksi</th>
+                   <th class="flex-col border px-2 py-1">
+                        <p>Action</p>
+                        <p>Total/Open</p>
+                    </th>
                 </tr>
             </thead>
             <tbody>
