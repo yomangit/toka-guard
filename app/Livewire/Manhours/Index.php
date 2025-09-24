@@ -83,12 +83,19 @@ class Index extends Component
     public function mount()
     {
         // kalau admin, ambil semua
-        if (auth()->user()->roles()->where('role_id', 1)->exists()) {
+        if (auth()->user()->roles()->where('role_id', 1)->exists() && $this->entity_type = 'owner') {
             $this->companies = [
                 'owners' => BusinessUnit::all(),
                 'contractors' => Contractor::all(),
             ];
-        } else {
+        }
+        elseif($this->entity_type = 'owner'){
+             $this->companies = [
+                'owners' => BusinessUnit::all(),
+                'contractors' => collect([]),
+            ];
+        }
+        else {
             // kalau contractor, ambil hanya contractor yg punya relasi
             $this->entity_type = 'contractor';
             $this->companies = [
