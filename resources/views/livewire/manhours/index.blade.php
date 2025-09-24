@@ -126,7 +126,7 @@
                                         {{ $cont->contractor_name }}
                                     </option>
                                     @endforeach
-                                    @endiss
+                                    @endisset
                                 </select>
                                 <x-label-error :messages="$errors->get('company')" />
                             </fieldset>
