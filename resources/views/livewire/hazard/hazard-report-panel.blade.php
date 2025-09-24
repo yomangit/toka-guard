@@ -135,11 +135,13 @@
                 @forelse ($reports as $no => $report)
                 <tr class="hover:bg-gray-50">
                     <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
-                     @can('view', $report)
+                    <td class="border px-2 py-1">
+                         @can('view', $report)
                         <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
                         @else
                         <span class="text-gray-400 text-sm cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
                         @endcan
+                    </td>
                     <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
                     <td class="border px-2 py-1">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
