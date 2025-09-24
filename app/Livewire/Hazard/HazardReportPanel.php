@@ -183,16 +183,10 @@ class HazardReportPanel extends Component
 
     public function render()
     {
-        $query = Hazard::with('pelapor')->latest();
+        $query = Hazard::with('pelapor')->withHazardCounts()->latest();
 
         // Tambahkan withCount untuk menghitung relasi
-        $query->withCount([
-            'actionHazards as total_due_dates' => function ($query) {
-                $query->whereNotNull('due_date');
-            }
-        ]);
-
-       
+    
 
         // Terapkan scope untuk setiap filter
         $query->when($this->filterStatus !== 'all', function ($q) {

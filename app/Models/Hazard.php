@@ -209,6 +209,18 @@ class Hazard extends Model
         $query->whereBetween('tanggal', [$startDateFormatted, $endDateFormatted]);
     }
 
+    public function scopeWithHazardCounts($query)
+    {
+        return $query->withCount([
+            'actionHazards as total_due_dates' => function ($q) {
+                $q->whereNotNull('due_date');
+            },
+            'actionHazards as pending_actual_closes' => function ($q) {
+                $q->whereNull('actual_close_date');
+            }
+        ]);
+    }
+
     /** HELPERS */
     public function resolveCompanyId()
     {
