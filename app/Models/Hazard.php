@@ -153,15 +153,6 @@ class Hazard extends Model
     {
         return $this->hasMany(ActionHazard::class, 'hazard_id');
     }
-    public function getTotalDueDatesAttribute()
-    {
-        return $this->actionHazards()->whereNotNull('due_date')->count();
-    }
-
-    public function getPendingActualClosesAttribute()
-    {
-        return $this->actionHazards()->whereNull('actual_close_date')->count();
-    }
 
     /** SCOPES */
     public function scopeStatus($query, $status)
