@@ -137,9 +137,9 @@
                     <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
                     <td class="border px-2 py-1">
                          @can('view', $report)
-                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
+                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
                         @else
-                        <span class="text-gray-400 text-sm cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
+                        <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
                         @endcan
                     </td>
                     <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
