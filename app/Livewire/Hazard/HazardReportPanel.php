@@ -226,7 +226,7 @@ class HazardReportPanel extends Component
         // });
 
         $reports = $query->paginate(30);
-        dd($reports);
+        dd($reports->first());
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
