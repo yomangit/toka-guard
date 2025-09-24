@@ -1,5 +1,5 @@
-<div class="flex aspect-square   items-center justify-center rounded-full bg-accent-content text-accent-foreground">
-    <x-app-logo-icon class=" fill-current text-white dark:text-black" />
+<div class="flex aspect-square size-10  items-center justify-center rounded-full bg-accent-content text-accent-foreground">
+    <x-app-logo-icon class="size-9 fill-current text-white dark:text-black" />
 </div>
 <div class="ms-1 grid flex-1 text-start text-sm">
     <span class=" truncate leading-tight font-semibold">Tokasafe</span>
