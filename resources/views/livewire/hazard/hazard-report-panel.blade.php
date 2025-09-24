@@ -159,7 +159,7 @@
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
                     <td class="border px-2 py-1">
-                        {{ $report->total_actions_count }}
+                        {{ $report->total_due_dates }}
                     </td>
                 </tr>
                 @empty
