@@ -129,6 +129,7 @@
                     <th class="border px-2 py-1">Status</th>
                     <th class="border px-2 py-1">Pelapor</th>
                     <th class="border px-2 py-1">Tanggal</th>
+                    <th class="border px-2 py-1">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -157,6 +158,7 @@
                     </td>
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
                     <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
+                    <td class="border px-2 py-1"> {{ $report->total_actions_count }} / {{ $report->closed_actions_count }}</td>
                 </tr>
                 @empty
                 <tr>

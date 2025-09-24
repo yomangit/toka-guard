@@ -214,6 +214,12 @@ class HazardReportPanel extends Component
         $query->when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
         });
+        $query->withCount([
+            'actionHazards as total_actions',
+            'actionHazards as closed_actions' => function ($query) {
+                $query->whereNotNull('actual_close_date');
+            }
+        ]);
         $reports = $query->paginate(30);
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
