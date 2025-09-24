@@ -89,7 +89,7 @@ class Index extends Component
                 'contractors' => Contractor::all(),
             ];
         }
-        elseif($this->entity_type = 'owner'){
+        elseif($this->entity_type === 'owner'){
              $this->companies = [
                 'owners' => BusinessUnit::all(),
                 'contractors' => collect([]),
