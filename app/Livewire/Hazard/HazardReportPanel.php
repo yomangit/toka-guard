@@ -183,7 +183,7 @@ class HazardReportPanel extends Component
 
     public function render()
     {
-        $query = Hazard::with('pelapor', 'actionHazards')->latest();
+        $query = Hazard::with('pelapor');
 
         // Tambahkan withCount untuk menghitung relasi
         $query->withCount([
@@ -219,7 +219,7 @@ class HazardReportPanel extends Component
         if ($this->role === 'moderator') {
             $this->filterModeratorReports($query);
         }
-        $reports = $query->paginate(30);
+        $reports = $query->latest()->paginate(30);
         dd($reports->first());
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
