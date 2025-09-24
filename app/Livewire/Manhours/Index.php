@@ -25,7 +25,7 @@ class Index extends Component
     public $modalOpen;
     public $custodian = [];
     public $deptGroup = [];
-    public $companies = [];
+    public $companies;
     public $selectedId = null;
     public $confirmingDelete = false;
     public $canCreate = false;
@@ -88,14 +88,12 @@ class Index extends Component
                 'owners' => BusinessUnit::all(),
                 'contractors' => Contractor::all(),
             ];
-        }
-        elseif($this->entity_type === 'owner'){
-             $this->companies = [
+        } elseif ($this->entity_type === 'owner') {
+            $this->companies = [
                 'owners' => BusinessUnit::all(),
                 'contractors' => collect([]),
             ];
-        }
-        else {
+        } else {
             // kalau contractor, ambil hanya contractor yg punya relasi
             $this->entity_type = 'contractor';
             $this->companies = [
@@ -104,6 +102,7 @@ class Index extends Component
             ];
         }
     }
+
     public function open_modal($id = null)
     {
         Gate::authorize('create', Manhour::class);
