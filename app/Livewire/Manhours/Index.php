@@ -25,7 +25,7 @@ class Index extends Component
     public $modalOpen;
     public $custodian = [];
     public $deptGroup = [];
-    public $companies =[];
+    public $companies = [];
     public $selectedId = null;
     public $confirmingDelete = false;
     public $canCreate = false;
@@ -82,25 +82,7 @@ class Index extends Component
     }
     public function mount()
     {
-        // kalau admin, ambil semua
-        if (auth()->user()->roles()->where('role_id', 1)->exists()) {
-            $this->companies = [
-                'owners' => BusinessUnit::all(),
-                'contractors' => Contractor::all(),
-            ];
-        } elseif ($this->entityType === 'owner') {
-            $this->companies = [
-                'owners' => BusinessUnit::all(),
-                'contractors' => collect([]),
-            ];
-        } else {
-            // kalau contractor, ambil hanya contractor yg punya relasi
-            $this->entityType = 'contractor';
-            $this->companies = [
-                'owners' => collect([]), // kosong
-                'contractors' => auth()->user()->contractors, // relasi dari user
-            ];
-        }
+        $this->handleCompanyList();
     }
 
     public function open_modal($id = null)
@@ -187,26 +169,46 @@ class Index extends Component
     }
     public function updatedEntityType($value)
     {
+        $this->handleCompanyList($value);
+        $this->company = ''; // reset pilihan company
+    }
+
+    private function handleCompanyList($value = null)
+    {
         $user = Auth::user();
 
-        if ($user->roles()->where('role_id', 1)->exists()) {
-            // 🔹 Admin: bisa lihat semua
+        if ($user->roles()->where('role_id', 1)->exists()) { // Admin
             if ($value === 'owner') {
-                $this->companies = BusinessUnit::pluck('company_name')->toArray();
+                $this->companies = [
+                    'owners' => BusinessUnit::all(),
+                    'contractors' => collect([]),
+                ];
             } elseif ($value === 'contractor') {
-                $this->companies = Contractor::pluck('contractor_name')->toArray();
-            }
-        } else {
-            // 🔹 Contractor user: hanya kontraktor miliknya
-            if ($value === 'contractor') {
-                $this->companies = $user->contractors()->pluck('contractor_name')->toArray();
+                $this->companies = [
+                    'owners' => collect([]),
+                    'contractors' => Contractor::all(),
+                ];
             } else {
-                $this->companies = []; // contractor user nggak boleh pilih owner
+                // Jika tidak ada entity_type yang dipilih, tampilkan keduanya (opsional)
+                $this->companies = [
+                    'owners' => BusinessUnit::all(),
+                    'contractors' => Contractor::all(),
+                ];
+            }
+        } else { // Contractor User
+            if ($value === 'contractor') {
+                $this->companies = [
+                    'owners' => collect([]),
+                    'contractors' => $user->contractors,
+                ];
+            } else {
+                // Jika user contractor mencoba memilih owner, kosongkan keduanya
+                $this->companies = [
+                    'owners' => collect([]),
+                    'contractors' => collect([]),
+                ];
             }
         }
-
-        // reset pilihan company setiap ganti entity_type
-        $this->company = '';
     }
 
     public function render()
