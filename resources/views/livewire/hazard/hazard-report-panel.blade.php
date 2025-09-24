@@ -149,7 +149,7 @@
                         </span>
                     </td>
                     <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
-                    <td class="border px-2 py-1">{{ $report->created_at->format('d M Y') }}</td>
+                    <td class="border px-2 py-1">{{ $report->tanggal->format('d M Y') }}</td>
                     <td>
                         @can('view', $report)
                         <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-sm hover:underline">Detail</a>

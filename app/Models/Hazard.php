@@ -191,14 +191,14 @@ class Hazard extends Model
         // Filter jika hanya tanggal awal yang ada
         if (!is_null($startDate) && is_null($endDate)) {
             $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
-            $query->where('created_at', '>=', $startDateFormatted);
+            $query->where('tanggal', '>=', $startDateFormatted);
             return;
         }
 
         // Filter jika hanya tanggal akhir yang ada
         if (is_null($startDate) && !is_null($endDate)) {
             $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
-            $query->where('created_at', '<=', $endDateFormatted);
+            $query->where('tanggal', '<=', $endDateFormatted);
             return;
         }
 
@@ -206,7 +206,7 @@ class Hazard extends Model
         $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
         $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
 
-        $query->whereBetween('created_at', [$startDateFormatted, $endDateFormatted]);
+        $query->whereBetween('tanggal', [$startDateFormatted, $endDateFormatted]);
     }
 
     /** HELPERS */
