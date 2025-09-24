@@ -105,31 +105,67 @@ class Hazard extends Model
     }
 
     /** RELATIONS */
-    public function activities()          { return $this->morphMany(Activity::class, 'subject'); }
-    public function eventType()           { return $this->belongsTo(EventType::class, 'event_type_id'); }
-    public function eventSubType()        { return $this->belongsTo(EventSubType::class, 'event_sub_type_id'); }
-    public function department()          { return $this->belongsTo(Department::class); }
-    public function contractor()          { return $this->belongsTo(Contractor::class); }
-    public function penanggungJawab()     { return $this->belongsTo(User::class, 'penanggung_jawab_id'); }
-    public function pelapor()             { return $this->belongsTo(User::class, 'pelapor_id'); }
-    public function location()            { return $this->belongsTo(Location::class); }
-    public function consequence()         { return $this->belongsTo(RiskConsequence::class); }
-    public function likelihood()          { return $this->belongsTo(Likelihood::class); }
-    public function assignedErms()        { return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id'); }
-    public function actionHazards()        { return $this->hasMany(ActionHazard::class, 'hazard_id'); }
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+    public function eventType()
+    {
+        return $this->belongsTo(EventType::class, 'event_type_id');
+    }
+    public function eventSubType()
+    {
+        return $this->belongsTo(EventSubType::class, 'event_sub_type_id');
+    }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+    public function contractor()
+    {
+        return $this->belongsTo(Contractor::class);
+    }
+    public function penanggungJawab()
+    {
+        return $this->belongsTo(User::class, 'penanggung_jawab_id');
+    }
+    public function pelapor()
+    {
+        return $this->belongsTo(User::class, 'pelapor_id');
+    }
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+    public function consequence()
+    {
+        return $this->belongsTo(RiskConsequence::class);
+    }
+    public function likelihood()
+    {
+        return $this->belongsTo(Likelihood::class);
+    }
+    public function assignedErms()
+    {
+        return $this->belongsToMany(User::class, 'hazard_erm_assignments', 'hazard_id', 'erm_id');
+    }
+    public function actionHazards()
+    {
+        return $this->hasMany(ActionHazard::class, 'hazard_id');
+    }
 
     /** SCOPES */
     public function scopeStatus($query, $status)
     {
         return $query->where('status', $status);
     }
-        public function scopeByEventType($query, $id)
+    public function scopeByEventType($query, $id)
     {
-         return $query->where('event_type_id', $id);
+        return $query->where('event_type_id', $id);
     }
     public function scopeByEventSubType($query, $id)
     {
-         return $query->where('event_sub_type_id', $id);
+        return $query->where('event_sub_type_id', $id);
     }
 
     public function scopeByDepartment($query, $name)
@@ -146,15 +182,32 @@ class Hazard extends Model
         });
     }
     public function scopeDateRange(Builder $query, string $startDate, string $endDate): void
-{
-    // Konversi format tanggal dari 'd-m-Y' menjadi 'Y-m-d'
-    // agar kompatibel dengan database
-    $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
-    $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+    {
+        // Jika tidak ada tanggal yang dipilih, jangan terapkan filter
+        if (is_null($startDate) && is_null($endDate)) {
+            return;
+        }
 
-    // Filter query berdasarkan rentang tanggal `created_at`
-    $query->whereBetween('created_at', [$startDateFormatted, $endDateFormatted]);
-}
+        // Filter jika hanya tanggal awal yang ada
+        if (!is_null($startDate) && is_null($endDate)) {
+            $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+            $query->where('created_at', '>=', $startDateFormatted);
+            return;
+        }
+
+        // Filter jika hanya tanggal akhir yang ada
+        if (is_null($startDate) && !is_null($endDate)) {
+            $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+            $query->where('created_at', '<=', $endDateFormatted);
+            return;
+        }
+
+        // Filter jika kedua tanggal ada (rentang penuh)
+        $startDateFormatted = Carbon::createFromFormat('d-m-Y', $startDate)->startOfDay();
+        $endDateFormatted = Carbon::createFromFormat('d-m-Y', $endDate)->endOfDay();
+
+        $query->whereBetween('created_at', [$startDateFormatted, $endDateFormatted]);
+    }
 
     /** HELPERS */
     public function resolveCompanyId()
