@@ -1,5 +1,5 @@
 <section class="w-full">
-    {{ $filterStatus }}
+    {{ print_r($filterStatus, true) }}
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.header-hazard')
@@ -167,29 +167,7 @@
                     </th>
                 </tr>
 
-                <tr class="bg-gray-50">
-                    <th class="border px-2 "></th>
-                    <th class="border px-2 ">
-                        <input wire:model.live="searchReference" type="text" placeholder="Cari Ref..." class="w-full text-xs border-gray-300 rounded p-1">
-                    </th>
-
-                    <th class="border px-2 ">
-                        <input wire:model.live="searchType" type="text" placeholder="Cari Tipe..." class="w-full text-xs border-gray-300 rounded p-1">
-                    </th>
-
-                    <th class="border px-2 ">
-                        <input wire:model.live="searchJenis" type="text" placeholder="Cari Jenis..." class="w-full text-xs border-gray-300 rounded p-1">
-                    </th>
-
-                    <th class="border px-2 ">
-                        <input wire:model.live="searchDivisi" type="text" placeholder="Cari Divisi..." class="w-full text-xs border-gray-300 rounded p-1">
-                    </th>
-
-                    <th class="border px-2 "></th>
-                    <th class="border px-2 "></th>
-                    <th class="border px-2 "></th>
-                    <th class="border px-2 "></th>
-                </tr>
+              
             </thead>
             <tbody>
                 @forelse ($reports as $no => $report)
