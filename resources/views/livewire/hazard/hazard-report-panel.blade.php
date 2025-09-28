@@ -129,10 +129,10 @@
                     <th class="border px-2 relative" wire:ignore>
                         <div class="relative inline-block">
                             {{-- Tombol untuk membuka/menutup Dropdown --}}
-                            <button wire:click.prevent="availableStatuses" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
+                            <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
                                 {{-- Ikon Filter akan muncul jika filterStatus ada isinya --}}
-                                <span @if(count($filterStatus)==0) style="display: none;" @endif class="text-blue-600 text-xs">
+                                <span @if(count($availableStatuses)==0) style="display: none;" @endif class="text-blue-600 text-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                         <path d="M2 5h20" />
                                         <path d="M6 12h12" />
