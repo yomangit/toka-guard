@@ -131,7 +131,7 @@
                         <div class="relative inline-block">
                             {{-- Tombol --}}
                             Status
-                            <label class="btn btn-ghost btn-xs" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                            <button class="btn btn-ghost btn-xs" popovertarget="popover-1" style="anchor-name:--anchor-1">
                                 <span class="text-blue-600 text-xs">
                                     {{-- SVG Icon --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
@@ -140,7 +140,7 @@
                                         <path d="M9 19h6" />
                                     </svg>
                                 </span>
-                            </label>
+                            </button>
                             {{-- Dropdown Menu --}}
                             {{-- Dropdown akan muncul jika $isDropdownOpen = true --}}
                             <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="popover-1" style="position-anchor:--anchor-1">
