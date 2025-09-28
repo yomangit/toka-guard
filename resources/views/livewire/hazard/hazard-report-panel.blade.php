@@ -147,7 +147,17 @@
                                 <label class="flex items-center cursor-pointer hover:bg-gray-100 p-1 rounded">
                                     <input type="checkbox" wire:model.live="filterDepartment" value="{{ $dept->id }}" class="form-checkbox text-blue-600 rounded">
 
-                                    <span class="ml-2 text-xs capitalize">{{ $dept->name }}</span>
+                                    <span class="ml-2 text-xs capitalize">{{ $dept->department_name }}</span>
+                                </label>
+                            </li>
+                            @endforeach
+                            {{-- Loop Contractor --}}
+                            @foreach ($filterOptions['Contractors'] as $cont)
+                            <li>
+                                <label class="flex items-center cursor-pointer hover:bg-gray-100 p-1 rounded">
+                                    <input type="checkbox" wire:model.live="filterContractor" value="{{ $cont->id }}" class="form-checkbox text-blue-600 rounded">
+
+                                    <span class="ml-2 text-xs capitalize">{{ $cont->contractor_name }}</span>
                                 </label>
                             </li>
                             @endforeach
