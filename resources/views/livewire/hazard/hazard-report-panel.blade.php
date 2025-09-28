@@ -128,17 +128,11 @@
                     <th class="border">Jenis Bahaya</th>
                     <th class="border">Divisi Penanggung Jawab
                         <button class="btn btn-ghost btn-xs" popovertarget="id-filter-popover" style="anchor-name:--id-anchor">
-
-                            {{-- Ikon Filter: Hanya tampil jika ada filter yang aktif --}}
-                            <span @if(empty($activeFilters)) style="display: none;" @endif class="text-blue-600 text-xs">
-
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                     <path d="M2 5h20" />
                                     <path d="M6 12h12" />
                                     <path d="M9 19h6" />
                                 </svg>
-                            </span>
-                            <span class="ml-1 font-semibold">Filter ID</span>
                         </button>
 
                         {{-- Dropdown Menu --}}
@@ -148,13 +142,13 @@
                             @foreach ($filterOptions as $option)
                             @php
                             // Tentukan nilai contractor (gunakan 'NULL_VALUE' untuk Livewire)
-                            $contractorId = $option->contractor_id ?? 'NULL_VALUE';
+                            $contractorId = $option->contractor->contractor_name ?? 'NULL_VALUE';
                             // Buat nilai gabungan (value unik untuk checkbox)
-                            $filterValue = $option->department_id . '-' . $contractorId;
+                            $filterValue = $option->department->department_name . '-' . $contractorId;
 
                             // Teks tampilan
                             $displayText = 'Dept: ' . $option->department_id .
-                            ' | Contr: ' . ($option->contractor_id ?? 'NULL');
+                            ' | Contr: ' . ($option->contractor->contractor_name ?? 'NULL');
                             @endphp
 
                             <li>
