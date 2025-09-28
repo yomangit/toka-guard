@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class HazardReportPanel extends Component
 {
     use WithPagination;
-    public $filterStatus = [], $role;
+    public $filterStatus = '', $role;
     public $filterEventType;
     public $filterEventSubType;
     public $filterDepartment;
@@ -39,7 +39,7 @@ class HazardReportPanel extends Component
 
     public function toggleDropdownstatus()
     {
-        $this->isDropdownOpen = true;
+        $this->isDropdownOpen = !$this->isDropdownOpen;
     }
     public function updatedDeptCont($value)
     {
