@@ -129,7 +129,7 @@
                     <th class="border px-2 relative" wire:ignore>
                         <div class="relative inline-block">
                             {{-- Tombol untuk membuka/menutup Dropdown --}}
-                            <button wire:click.prevent="toggleDropdown" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
+                            <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
                                 {{-- Ikon Filter akan muncul jika filterStatus ada isinya --}}
                                 <span @if(count($filterStatus)==0) style="display: none;" @endif class="text-blue-600 text-xs">
