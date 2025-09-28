@@ -128,11 +128,12 @@
                     <th class="border px-2 ">Divisi Penanggung Jawab</th>
                     <th class="border px-2 relative" wire:ignore>
                         <div class="relative inline-block">
-                            {{-- Tombol untuk membuka/menutup Dropdown --}}
-                            <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
+                            {{-- Tombol --}}
+                            <button wire:click.prevent="toggleDropdown" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
-                                {{-- Ikon Filter akan muncul jika filterStatus ada isinya --}}
-                                <span @if(count($filterStatus)==0) style="display: none;" @endif class="text-blue-600 text-xs">
+                                {{-- Ikon Filter (Ganti dengan logika count() yang sudah diperbaiki) --}}
+                                <span @if(empty($filterStatus)) style="display: none;" @endif class="text-blue-600 text-xs">
+                                    {{-- SVG Icon --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                         <path d="M2 5h20" />
                                         <path d="M6 12h12" />
@@ -142,16 +143,19 @@
                             </button>
 
                             {{-- Dropdown Menu --}}
-                            {{-- Tampilkan/Sembunyikan berdasarkan properti $isDropdownOpen dari Livewire component --}}
-                            <div  class="@if(!$isDropdownOpen) hidden" @endif absolute z-10 mt-2 p-3 bg-white border border-gray-300 rounded shadow-lg w-48 text-left max-h-60 overflow-y-auto left-0">
+                            {{-- Dropdown akan muncul jika $isDropdownOpen = true --}}
+                            <ul @if(!$isDropdownOpen) style="display: none;" @endif class="absolute z-10 mt-2 w-48 text-left bg-white border border-gray-300 rounded shadow-lg p-3 max-h-60 overflow-y-auto left-0">
 
+                                {{-- Loop Isi Dropdown --}}
                                 @foreach ($availableStatuses as $status)
-                                <label class="flex items-center mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded">
-                                    <input type="checkbox" wire:model.live="filterStatus" value="{{ $status }}" class="form-checkbox text-blue-600 rounded">
-                                    <span class="ml-2 text-xs capitalize">{{ str_replace('_', ' ', $status) }}</span>
-                                </label>
+                                <li>
+                                    <label class="flex items-center mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded">
+                                        <input type="checkbox" wire:model.live="filterStatus" value="{{ $status }}" class="form-checkbox text-blue-600 rounded">
+                                        <span class="ml-2 text-xs capitalize">{{ str_replace('_', ' ', $status) }}</span>
+                                    </label>
+                                </li>
                                 @endforeach
-                            </div>
+                            </ul>
                         </div>
                     </th>
                     <th class="border px-2 ">Pelapor</th>
