@@ -39,7 +39,7 @@ class HazardReportPanel extends Component
 
     public function toggleDropdownstatus()
     {
-        $this->isDropdownOpen = !$this->isDropdownOpen;
+        $this->isDropdownOpen = true;
     }
     public function updatedDeptCont($value)
     {
