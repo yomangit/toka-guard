@@ -143,7 +143,7 @@
 
                             {{-- Dropdown Menu --}}
                             {{-- Tampilkan/Sembunyikan berdasarkan properti $isDropdownOpen dari Livewire component --}}
-                            <div @if(!$isDropdownOpen) style="display: none;" @endif class="absolute z-10 mt-2 p-3 bg-white border border-gray-300 rounded shadow-lg w-48 text-left max-h-60 overflow-y-auto left-0">
+                            <div  class="@if(!$isDropdownOpen) hidden" @endif absolute z-10 mt-2 p-3 bg-white border border-gray-300 rounded shadow-lg w-48 text-left max-h-60 overflow-y-auto left-0">
 
                                 @foreach ($availableStatuses as $status)
                                 <label class="flex items-center mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded">
