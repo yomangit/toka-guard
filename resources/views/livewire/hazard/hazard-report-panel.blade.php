@@ -15,10 +15,9 @@
         </div>
 
         <div class="w-full md:w-auto">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-                <fieldset class="fieldset md:col-span-1">
-                    <x-form.label label="rentang tanggal" required />
-                    <div class="relative" wire:ignore x-data="{
+            <fieldset class="fieldset md:col-span-1">
+                <x-form.label label="rentang tanggal" required />
+                <div class="relative" wire:ignore x-data="{
                                 fp: null,
                                 initFlatpickr() {
                                     if (this.fp) this.fp.destroy();
@@ -33,11 +32,10 @@
                                     });
                                 }
                             }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                        <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('action_due_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
-                    </div>
-                    <x-label-error :messages="$errors->get('action_due_date')" />
-                </fieldset>
-            </div>
+                    <input name="action_due_date" type="text" x-ref="tanggalInput2" wire:model.live="action_due_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('action_due_date') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" readonly />
+                </div>
+                <x-label-error :messages="$errors->get('action_due_date')" />
+            </fieldset>
         </div>
     </div>
     <div class="overflow-x-auto mt-4">
