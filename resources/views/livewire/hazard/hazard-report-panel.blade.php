@@ -126,7 +126,7 @@
                     <th class="border px-2 ">Tipe Bahaya</th>
                     <th class="border px-2 ">Jenis Bahaya</th>
                     <th class="border px-2 ">Divisi Penanggung Jawab</th>
-                    <th class="border px-2 relative" wire:ignore>
+                    <th class="border px-2 relative">
                         <div class="relative inline-block">
                             {{-- Tombol --}}
                             <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
