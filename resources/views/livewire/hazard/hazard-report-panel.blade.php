@@ -1,4 +1,5 @@
 <section class="w-full">
+    {{ $filterStatus }}
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.header-hazard')
