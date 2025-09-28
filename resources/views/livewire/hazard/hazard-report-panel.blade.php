@@ -121,36 +121,60 @@
         <table class="table table-xs border text-sm px-2">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border px-2 py-1">#</th>
-                    <th class="border px-2 py-1">reference</th>
-                    <th class="border px-2 py-1">Tipe Bahaya</th>
-                    <th class="border px-2 py-1">Jenis Bahaya</th>
-                    <th class="border px-2 py-1">Divisi Penanggung Jawab</th>
-                    <th class="border px-2 py-1">Status</th>
-                    <th class="border px-2 py-1">Pelapor</th>
-                    <th class="border px-2 py-1">Tanggal</th>
-                   <th class="flex-col border px-2 py-1 text-center">
+                    <th class="border px-2 ">#</th>
+                    <th class="border px-2 ">reference</th>
+                    <th class="border px-2 ">Tipe Bahaya</th>
+                    <th class="border px-2 ">Jenis Bahaya</th>
+                    <th class="border px-2 ">Divisi Penanggung Jawab</th>
+                    <th class="border px-2 ">Status</th>
+                    <th class="border px-2 ">Pelapor</th>
+                    <th class="border px-2 ">Tanggal</th>
+                    <th class="flex-col border px-2 text-center">
                         <p>Action</p>
                         <p>Total/Open</p>
                     </th>
+                </tr>
+
+                <tr class="bg-gray-50">
+                    <th class="border px-2 "></th>
+                    <th class="border px-2 ">
+                        <input wire:model.live="searchReference" type="text" placeholder="Cari Ref..." class="w-full text-xs border-gray-300 rounded p-1">
+                    </th>
+
+                    <th class="border px-2 ">
+                        <input wire:model.live="searchType" type="text" placeholder="Cari Tipe..." class="w-full text-xs border-gray-300 rounded p-1">
+                    </th>
+
+                    <th class="border px-2 ">
+                        <input wire:model.live="searchJenis" type="text" placeholder="Cari Jenis..." class="w-full text-xs border-gray-300 rounded p-1">
+                    </th>
+
+                    <th class="border px-2 ">
+                        <input wire:model.live="searchDivisi" type="text" placeholder="Cari Divisi..." class="w-full text-xs border-gray-300 rounded p-1">
+                    </th>
+
+                    <th class="border px-2 "></th>
+                    <th class="border px-2 "></th>
+                    <th class="border px-2 "></th>
+                    <th class="border px-2 "></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($reports as $no => $report)
                 <tr class="hover:bg-gray-50">
-                    <td class="border px-2 py-1">{{ $reports->firstItem()+$no }}</td>
-                    <td class="border px-2 py-1">
+                    <td class="border px-2 ">{{ $reports->firstItem()+$no }}</td>
+                    <td class="border px-2 ">
                         @can('view', $report)
                         <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
                         @else
                         <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
                         @endcan
                     </td>
-                    <td class="border px-2 py-1">{{ $report->eventType->event_type_name  ?? '-' }}</td>
-                    <td class="border px-2 py-1">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
-                    <td class="border px-2 py-1">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
-                    <td class="border px-2 py-1">
-                        <span class="text-xs uppercase px-2 py-1 rounded
+                    <td class="border px-2 ">{{ $report->eventType->event_type_name  ?? '-' }}</td>
+                    <td class="border px-2 ">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
+                    <td class="border px-2 ">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
+                    <td class="border px-2 ">
+                        <span class="text-xs uppercase px-2  rounded
                                 @if($report->status == 'submitted') bg-yellow-100 text-yellow-800
                                 @elseif($report->status == 'in_progress') bg-blue-100 text-blue-800
                                 @elseif($report->status == 'pending') bg-orange-100 text-orange-800
@@ -159,10 +183,10 @@
                             {{ str_replace('_', ' ', $report->status) }}
                         </span>
                     </td>
-                    <td class="border px-2 py-1">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
-                    <td class="border px-2 py-1">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-                    <td class="border px-2 py-1 text-center">
-                      {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
+                    <td class="border px-2 ">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
+                    <td class="border px-2 ">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
+                    <td class="border px-2  text-center">
+                        {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
                     </td>
                 </tr>
                 @empty
