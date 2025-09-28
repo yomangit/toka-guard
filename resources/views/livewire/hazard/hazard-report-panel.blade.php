@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <div class="w-full md:w-max-sm">
+        <div class="w-full md:max-w-sm">
             <fieldset class="fieldset ">
                 <x-form.label label="rentang tanggal" required />
                 <div class="relative" wire:ignore x-data="{
