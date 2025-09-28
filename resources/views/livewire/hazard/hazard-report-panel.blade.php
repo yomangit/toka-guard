@@ -144,7 +144,7 @@
                             // Tentukan nilai contractor (gunakan 'NULL_VALUE' untuk Livewire)
                             $contractorId = $option->contractor->contractor_name ?? 'NULL_VALUE';
                             // Buat nilai gabungan (value unik untuk checkbox)
-                            $filterValue = $option->department->department_name . '-' . $contractorId;
+                            $filterValue = $option->department->department_name;
 
                             // Teks tampilan
                             $displayText = 'Dept: ' . $option->department_id .
