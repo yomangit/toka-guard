@@ -45,12 +45,16 @@ class HazardReportPanel extends Component
 
     public function mount()
     {
+        $eventTypes = Hazard::select('event_type_id')
+            ->get()
+            ->pluck('event_type_id')
+            ->toArray();
         // Muat data untuk filter
         $this->filterOptions = [
             'Department' => Department::all(['id', 'department_name']),
             'Contractors' => Contractor::all(['id', 'contractor_name']),
             'EventType' => EventType::all(['id', 'event_type_name']),
-            'EventSubType' => EventSubType::all(['id', 'event_sub_type_name']),
+            'EventSubType' => EventSubType::whereIn('event_type_id',$eventTypes)->get(['id', 'event_sub_type_name']),
         ];
     }
 
