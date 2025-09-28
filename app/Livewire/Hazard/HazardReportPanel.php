@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class HazardReportPanel extends Component
 {
     use WithPagination;
-    public $filterStatus = ['submitted', 'in_progress', 'pending', 'closed'], $role;
+    public $filterStatus = 'all', $role;
     public $filterEventType;
     public $filterEventSubType;
     public $filterDepartment;
