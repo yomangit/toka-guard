@@ -41,6 +41,14 @@ class HazardReportPanel extends Component
     {
         $this->isDropdownOpen = !$this->isDropdownOpen;
     }
+    public function updatedFilterStatus()
+    {
+        // Panggil logika filter data Anda di sini
+        $this->filterData(); 
+        
+        // Opsional: Tutup dropdown setelah filter diterapkan
+        $this->isDropdownOpen = false;
+    }
     public function updatedDeptCont($value)
     {
         if ($value === 'department') {
