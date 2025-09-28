@@ -126,7 +126,8 @@
                     <th class="border">reference</th>
                     <th class="border">Tipe Bahaya</th>
                     <th class="border">Jenis Bahaya
-                        <span class="text-blue-600 text-xs">
+                        <button class="btn btn-ghost btn-xs" popovertarget="eventSubType" style="anchor-name:--eventSubType">
+                            <span class="text-blue-600 text-xs">
                                 @if(empty($filterDepartment) && empty($filterContractor))
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                     <path d="M2 5h20" />
@@ -144,7 +145,7 @@
                                 @endif
                             </span>
                         </button>
-                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-lg p-2 max-h-60 overflow-y-auto" popover id="divisi_dept" style="position-anchor:--divisi_dept; inset-area: bottom span-right;">
+                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-lg p-2 max-h-60 overflow-y-auto" popover id="eventSubType" style="position-anchor:--eventSubType; inset-area: bottom span-right;">
                             {{-- Loop Department --}}
                             @foreach ($filterOptions['EventSubType'] as $event_sub_type)
                             <li>
@@ -154,7 +155,7 @@
                                 </label>
                             </li>
                             @endforeach
-                            
+
                         </ul>
                     </th>
                     <th class="border">Divisi Penanggung Jawab
