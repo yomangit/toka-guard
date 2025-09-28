@@ -127,7 +127,7 @@
                     <th class="border">Tipe Bahaya</th>
                     <th class="border">Jenis Bahaya</th>
                     <th class="border">Divisi Penanggung Jawab
-                        <button class="btn btn-ghost btn-xs" popovertarget="popover-1" style="anchor-name:--anchor-1">
+                        <button class="btn btn-ghost btn-xs" popovertarget="divisi" style="anchor-name:divisi">
                             <span class="text-blue-600 text-xs">
                                 {{-- SVG Icon --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
@@ -138,7 +138,7 @@
                             </span>
                         </button>
                         {{-- Dropdown Menu --}}
-                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="popover-1" style="position-anchor:--anchor-1">
+                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="divisi" style="position-anchor:divisi">
 
                             {{-- Loop Isi Dropdown --}}
                             @foreach ($availableStatuses as $status)
