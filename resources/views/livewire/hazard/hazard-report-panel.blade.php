@@ -127,25 +127,30 @@
                     <th class="border px-2 ">Jenis Bahaya</th>
                     <th class="border px-2 ">Divisi Penanggung Jawab</th>
                     <th class="border px-2 relative" wire:ignore>
-                        <div  x-data="{ open: false }" @click.outside="open = false" class="inline-block">
-
-                            <button @click="open = !open" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
+                        <div class="relative inline-block">
+                            {{-- Tombol untuk membuka/menutup Dropdown --}}
+                            <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
-                                <span x-show="$wire.filterStatus.length > 0" class="text-blue-600 text-xs">
+                                {{-- Ikon Filter akan muncul jika filterStatus ada isinya --}}
+                                <span @if(count($filterStatus)==0) style="display: none;" @endif class="text-blue-600 text-xs">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                         <path d="M2 5h20" />
                                         <path d="M6 12h12" />
-                                        <path d="M9 19h6" /></svg>
+                                        <path d="M9 19h6" />
+                                    </svg>
                                 </span>
                             </button>
 
-                            <div x-show="open" x-transition class="absolute z-10 mt-2 p-3 bg-white border border-gray-300 rounded shadow-lg w-48 text-left max-h-60 overflow-y-auto left-0" style="display: none;"> @foreach ($availableStatuses as $status)
+                            {{-- Dropdown Menu --}}
+                            {{-- Tampilkan/Sembunyikan berdasarkan properti $isDropdownOpen dari Livewire component --}}
+                            <div @if(!$isDropdownOpen) style="display: none;" @endif class="absolute z-10 mt-2 p-3 bg-white border border-gray-300 rounded shadow-lg w-48 text-left max-h-60 overflow-y-auto left-0">
+
+                                @foreach ($availableStatuses as $status)
                                 <label class="flex items-center mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded">
                                     <input type="checkbox" wire:model.live="filterStatus" value="{{ $status }}" class="form-checkbox text-blue-600 rounded">
                                     <span class="ml-2 text-xs capitalize">{{ str_replace('_', ' ', $status) }}</span>
                                 </label>
                                 @endforeach
-
                             </div>
                         </div>
                     </th>

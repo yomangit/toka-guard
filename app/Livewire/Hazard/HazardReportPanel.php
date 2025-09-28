@@ -33,6 +33,14 @@ class HazardReportPanel extends Component
     public $action_due_date = '';
     public $start_date;
     public $end_date;
+    // Properti ini yang akan mengontrol tampilan dropdown
+    public bool $isDropdownOpen = false;
+
+
+    public function toggleDropdownstatus()
+    {
+        $this->isDropdownOpen = !$this->isDropdownOpen;
+    }
     public function updatedDeptCont($value)
     {
         if ($value === 'department') {
