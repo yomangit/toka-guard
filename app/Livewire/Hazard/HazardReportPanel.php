@@ -36,7 +36,21 @@ class HazardReportPanel extends Component
     public $end_date;
     // Properti ini yang akan mengontrol tampilan dropdown
     public bool $isDropdownOpen = false;
+    // Array untuk menampung nilai gabungan yang dicentang, misalnya: ['34-NULL_VALUE', '10-25']
+    public array $activeFilters = [];
 
+    // Properti untuk menampung daftar opsi filter unik (seperti yang dijelaskan sebelumnya)
+    public $filterOptions;
+
+    // Model yang digunakan (ganti dengan nama model Anda)
+    protected $model = Hazard::class;
+    public function mount()
+    {
+        // Mengambil semua kombinasi ID unik dari database
+        $this->filterOptions = $this->model::select('department_id', 'contractor_id')
+            ->groupBy('department_id', 'contractor_id')
+            ->get();
+    }
 
     public function toggleDropdownstatus()
     {
@@ -46,7 +60,7 @@ class HazardReportPanel extends Component
     {
         // Panggil logika filter data Anda di sini
         // $this->filterData(); 
-        
+
         // Opsional: Tutup dropdown setelah filter diterapkan
         // $this->isDropdownOpen = false;
     }
@@ -226,6 +240,31 @@ class HazardReportPanel extends Component
         $query->when($this->filterContractor, function ($q) {
             $q->byContractor($this->filterContractor);
         });
+        // 🚀 Terapkan Filter Kombinasi Department ID dan Contractor ID
+        $query->when(!empty($this->activeFilters), function ($q) {
+            // Gunakan klausa 'where' utama untuk mengelompokkan semua kondisi OR
+            $q->where(function ($subQuery) {
+                foreach ($this->activeFilters as $filter) {
+                    // Memisahkan string filter (misal: '34-NULL_VALUE')
+                    list($depId, $contId) = explode('-', $filter);
+
+                    // Tambahkan klausa OR untuk setiap filter yang dicentang
+                    $subQuery->orWhere(function ($qInner) use ($depId, $contId) {
+
+                        // Kondisi AND untuk kombinasi (Department_id = X AND Contractor_id = Y)
+                        $qInner->where('department_id', $depId);
+
+                        if ($contId === 'NULL_VALUE') {
+                            // Menangani kasus Contractor ID adalah NULL
+                            $qInner->whereNull('contractor_id');
+                        } else {
+                            // Menangani kasus Contractor ID adalah nilai tertentu
+                            $qInner->where('contractor_id', $contId);
+                        }
+                    });
+                }
+            });
+        });
         // ⚡️ Tambahkan filter rentang tanggal di sini
         $query->when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
@@ -241,6 +280,8 @@ class HazardReportPanel extends Component
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
+            'Department'   => Department::all(),
+            'Contractors'  => Contractor::all(),
             'availableStatuses' => $availableStatuses,
             'reports' => $reports
         ]);

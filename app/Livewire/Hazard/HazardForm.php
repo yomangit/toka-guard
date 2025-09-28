@@ -551,9 +551,9 @@ class HazardForm extends Component
         return view('livewire.hazard.hazard-form', [
             'users' => User::limit(10)->get(),
             'Department'   => Department::all(),
+            'Contractors'  => Contractor::all(),
             'likelihoodss' => Likelihood::orderByDesc('level')->get(),
             'consequencess' => RiskConsequence::orderBy('level')->get(),
-            'Contractors'  => Contractor::all(),
             'ktas' => UnsafeCondition::latest()->get(),
             'ttas' => UnsafeAct::latest()->get(),
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),

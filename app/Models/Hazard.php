@@ -172,6 +172,7 @@ class Hazard extends Model
         // 4. Jika $status kosong, jangan lakukan apa-apa (kembalikan $query asli)
         return $query;
     }
+    
     public function scopeByEventType($query, $id)
     {
         return $query->where('event_type_id', $id);
