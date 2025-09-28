@@ -19,7 +19,7 @@ class HazardReportPanel extends Component
     public $role;
     public $filterEventType;
     public $filterEventSubType;
-   
+
     public $openDropdownId = null;
     public $deptCont = 'department'; // default departemen
     public $search = '';
@@ -35,13 +35,13 @@ class HazardReportPanel extends Component
     public $end_date;
     // Properti ini yang akan mengontrol tampilan dropdown
     public bool $isDropdownOpen = false;
-    
+
     // Properties untuk menampung ID yang dicentang
-    public array $filterDepartment = []; 
+    public array $filterDepartment = [];
     public array $filterContractor = [];
 
     // Data filter
-   public $filterOptions = [];
+    public $filterOptions = [];
 
     public function mount()
     {
@@ -233,14 +233,17 @@ class HazardReportPanel extends Component
             $q->byEventSubType($this->filterEventSubType);
         });
 
-        $query->when($this->filterDepartment, function ($q) {
-            $q->byDepartment($this->filterDepartment);
+        $query->when(!empty($this->filterDepartment), function ($q) {
+            // Memfilter berdasarkan array ID Department yang dicentang
+            $q->whereIn('department_id', $this->filterDepartment);
         });
 
-        $query->when($this->filterContractor, function ($q) {
-            $q->byContractor($this->filterContractor);
+        $query->when(!empty($this->filterContractor), function ($q) {
+            // Memfilter berdasarkan array ID Contractor yang dicentang
+            // CATATAN: Ini tidak menangani nilai NULL. Jika perlu, gunakan logika di bawah.
+            $q->whereIn('contractor_id', $this->filterContractor);
         });
-       
+
         // ⚡️ Tambahkan filter rentang tanggal di sini
         $query->when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
@@ -256,7 +259,7 @@ class HazardReportPanel extends Component
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
-            
+
             'availableStatuses' => $availableStatuses,
             'reports' => $reports
         ]);
