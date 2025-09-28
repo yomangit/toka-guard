@@ -47,9 +47,10 @@ class HazardReportPanel extends Component
     public function mount()
     {
         // Mengambil semua kombinasi ID unik dari database
-        $this->filterOptions = $this->model::select('department_id', 'contractor_id')
-            ->groupBy('department_id', 'contractor_id')
-            ->get();
+        $this->filterOptions = Hazard::select('department_id', 'contractor_id')
+        ->with(['department', 'contractor']) // <-- Tambahkan ini
+        ->groupBy('department_id', 'contractor_id')
+        ->get();
     }
 
     public function toggleDropdownstatus()

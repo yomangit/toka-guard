@@ -128,11 +128,11 @@
                     <th class="border">Jenis Bahaya</th>
                     <th class="border">Divisi Penanggung Jawab
                         <button class="btn btn-ghost btn-xs" popovertarget="id-filter-popover" style="anchor-name:--id-anchor">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
-                                    <path d="M2 5h20" />
-                                    <path d="M6 12h12" />
-                                    <path d="M9 19h6" />
-                                </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
+                                <path d="M2 5h20" />
+                                <path d="M6 12h12" />
+                                <path d="M9 19h6" />
+                            </svg>
                         </button>
 
                         {{-- Dropdown Menu --}}
@@ -141,21 +141,27 @@
                             {{-- Loop Isi Dropdown --}}
                             @foreach ($filterOptions as $option)
                             @php
-                            // Tentukan nilai contractor (gunakan 'NULL_VALUE' untuk Livewire)
-                            $contractorId = $option->contractor->contractor_name ?? 'NULL_VALUE';
-                            // Buat nilai gabungan (value unik untuk checkbox)
-                            $filterValue = $option->department->department_name;
+                            // 1. Tentukan nilai Contractor: Gunakan ID jika ada, atau 'NULL_VALUE'
+                            $contractorId = $option->contractor_id ?? 'NULL_VALUE';
 
-                            // Teks tampilan
-                            $displayText = 'Dept: ' . $option->department_id .
-                            ' | Contr: ' . ($option->contractor->contractor_name ?? 'NULL');
+                            // 2. Buat nilai gabungan (value unik untuk checkbox)
+                            $filterValue = $option->department_id . '-' . $contractorId;
+
+                            // 3. Tentukan Nama Department (gunakan operator opsional `?->` untuk keamanan)
+                            $depName = $option->department?->name ?? 'N/A';
+
+                            // 4. Tentukan Nama Contractor (jika NULL, tampilkan 'NULL' atau teks lain)
+                            $contName = $option->contractor?->name ?? 'NULL';
+
+                            // 5. Teks tampilan gabungan
+                            $displayText = 'Dept: ' . $depName . ' | Contr: ' . $contName;
                             @endphp
 
                             <li>
                                 <label class="flex items-center cursor-pointer hover:bg-gray-100 p-1 rounded">
                                     <input type="checkbox" wire:model.live="activeFilters" value="{{ $filterValue }}" class="form-checkbox text-blue-600 rounded">
 
-                                    {{-- Tampilkan Department ID dan Contractor ID --}}
+                                    {{-- Tampilkan Nama Department dan Contractor --}}
                                     <span class="ml-2 text-xs">{{ $displayText }}</span>
                                 </label>
                             </li>
