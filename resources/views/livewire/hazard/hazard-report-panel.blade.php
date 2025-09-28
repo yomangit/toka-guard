@@ -127,12 +127,15 @@
                     <th class="border px-2 ">Jenis Bahaya</th>
                     <th class="border px-2 ">Divisi Penanggung Jawab</th>
                     <th class="border px-2 relative">
-                        <div x-data="{ open: false }" @click.outside="open = false" class="inline-block">
+                        <div wire:ignore x-data="{ open: false }" @click.outside="open = false" class="inline-block">
 
                             <button @click="open = !open" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
                                 <span x-show="$wire.filterStatus.length > 0" class="text-blue-600 text-xs">
-                                    @svg('heroicon-s-adjustments-vertical', 'w-4 h-4')
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
+                                        <path d="M2 5h20" />
+                                        <path d="M6 12h12" />
+                                        <path d="M9 19h6" /></svg>
                                 </span>
                             </button>
 
