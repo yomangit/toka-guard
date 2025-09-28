@@ -157,7 +157,7 @@ class Hazard extends Model
     /** SCOPES */
     public function scopeStatus($query, $status)
     {
-        return $query->where('status', $status);
+        return $query->whereIn('status', [$status]);
     }
     public function scopeByEventType($query, $id)
     {
