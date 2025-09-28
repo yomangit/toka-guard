@@ -129,24 +129,20 @@
                     <th class="border">Divisi Penanggung Jawab
                         <button class="btn btn-ghost btn-xs" popovertarget="divisi_dept" style="anchor-name:--divisi_dept">
                             {{-- Ikon Filter: Tampilkan jika filterDepartment tidak kosong --}}
-                            <span @if(empty($filterDepartment)) style="display: none;" @endif class="text-blue-600 text-xs">
+                            <span class="text-blue-600 text-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                     <path d="M2 5h20" />
                                     <path d="M6 12h12" />
                                     <path d="M9 19h6" />
                                 </svg>
                             </span>
-                            <span class="ml-1 font-semibold">Department</span>
                         </button>
-
                         <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-lg p-2 max-h-60 overflow-y-auto" popover id="divisi_dept" style="position-anchor:--divisi_dept; inset-area: bottom span-right;">
-
                             {{-- Loop Department --}}
                             @foreach ($filterOptions['Department'] as $dept)
                             <li>
                                 <label class="flex items-center cursor-pointer hover:bg-gray-100 p-1 rounded">
                                     <input type="checkbox" wire:model.live="filterDepartment" value="{{ $dept->id }}" class="form-checkbox text-blue-600 rounded">
-
                                     <span class="ml-2 text-xs capitalize">{{ $dept->department_name }}</span>
                                 </label>
                             </li>
