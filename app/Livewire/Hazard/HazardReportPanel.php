@@ -19,8 +19,7 @@ class HazardReportPanel extends Component
     public $role;
     public $filterEventType;
     public $filterEventSubType;
-    public $filterDepartment;
-    public $filterContractor;
+   
     public $openDropdownId = null;
     public $deptCont = 'department'; // default departemen
     public $search = '';
@@ -36,8 +35,22 @@ class HazardReportPanel extends Component
     public $end_date;
     // Properti ini yang akan mengontrol tampilan dropdown
     public bool $isDropdownOpen = false;
-    // Array untuk menampung nilai gabungan yang dicentang, misalnya: ['34-NULL_VALUE', '10-25']
+    
+    // Properties untuk menampung ID yang dicentang
+    public array $filterDepartment = []; 
+    public array $filterContractor = [];
 
+    // Data filter
+   public $filterOptions = [];
+
+    public function mount()
+    {
+        // Muat data untuk filter
+        $this->filterOptions = [
+            'Department' => Department::all(['id', 'name']),
+            'Contractors' => Contractor::all(['id', 'name']),
+        ];
+    }
 
     public function toggleDropdownstatus()
     {
@@ -163,7 +176,7 @@ class HazardReportPanel extends Component
         } else {
             $this->departments = [];
             $this->showDropdown = false;
-            $this->filterDepartment = '';
+            $this->filterDepartment = [];
         }
     }
     public function selectDepartment($id, $name)
@@ -186,7 +199,7 @@ class HazardReportPanel extends Component
         } else {
             $this->contractors = [];
             $this->showContractorDropdown = true;
-            $this->filterContractor = '';
+            $this->filterContractor = [];
         }
     }
     public function selectContractor($id, $name)
@@ -243,8 +256,7 @@ class HazardReportPanel extends Component
         return view('livewire.hazard.hazard-report-panel', [
             'eventTypes' => EventType::where('event_type_name', 'like', '%' . 'hazard' . '%')->get(),
             'subTypes' => EventSubType::where('event_type_id', $this->filterEventType)->get(),
-            'Department'   => Department::all(),
-            'Contractors'  => Contractor::all(),
+            
             'availableStatuses' => $availableStatuses,
             'reports' => $reports
         ]);

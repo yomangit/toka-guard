@@ -127,25 +127,27 @@
                     <th class="border">Tipe Bahaya</th>
                     <th class="border">Jenis Bahaya</th>
                     <th class="border">Divisi Penanggung Jawab
-                        <button class="btn btn-ghost btn-xs" popovertarget="divisi" style="anchor-name:divisi">
-                            <span class="text-blue-600 text-xs">
-                                {{-- SVG Icon --}}
+                        <button class="btn btn-ghost btn-xs" popovertarget="divisi_dept" style="anchor-name:--divisi_dept">
+                            {{-- Ikon Filter: Tampilkan jika filterDepartment tidak kosong --}}
+                            <span @if(empty($filterDepartment)) style="display: none;" @endif class="text-blue-600 text-xs">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                     <path d="M2 5h20" />
                                     <path d="M6 12h12" />
                                     <path d="M9 19h6" />
                                 </svg>
                             </span>
+                            <span class="ml-1 font-semibold">Department</span>
                         </button>
-                        {{-- Dropdown Menu --}}
-                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="divisi" style="position-anchor:divisi">
 
-                            {{-- Loop Isi Dropdown --}}
-                            @foreach ($availableStatuses as $status)
+                        <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-lg p-2 max-h-60 overflow-y-auto" popover id="divisi_dept" style="position-anchor:--divisi_dept; inset-area: bottom span-right;">
+
+                            {{-- Loop Department --}}
+                            @foreach ($filterOptions['Department'] as $dept)
                             <li>
-                                <label class="flex items-center mb-1 cursor-pointer hover:bg-gray-100 p-1 rounded">
-                                    <input type="checkbox" wire:model.live="filterStatus" value="{{ $status }}" class="form-checkbox text-blue-600 rounded">
-                                    <span class="ml-2 text-xs capitalize">{{ str_replace('_', ' ', $status) }}</span>
+                                <label class="flex items-center cursor-pointer hover:bg-gray-100 p-1 rounded">
+                                    <input type="checkbox" wire:model.live="filterDepartment" value="{{ $dept->id }}" class="form-checkbox text-blue-600 rounded">
+
+                                    <span class="ml-2 text-xs capitalize">{{ $dept->name }}</span>
                                 </label>
                             </li>
                             @endforeach
@@ -176,55 +178,55 @@
                             </li>
                             @endforeach
                         </ul>
-    </div>
-    </th>
-    <th class="border">Pelapor</th>
-    <th class="border">Tanggal</th>
-    <th class="flex-col border text-center">
-        <p>Action</p>
-        <p>Total/Open</p>
-    </th>
-    </tr>
+
+                    </th>
+                    <th class="border">Pelapor</th>
+                    <th class="border">Tanggal</th>
+                    <th class="flex-col border text-center">
+                        <p>Action</p>
+                        <p>Total/Open</p>
+                    </th>
+                </tr>
 
 
-    </thead>
-    <tbody>
-        @forelse ($reports as $no => $report)
-        <tr class="hover:bg-gray-50">
-            <td class="border">{{ $reports->firstItem()+$no }}</td>
-            <td class="border">
-                @can('view', $report)
-                <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
-                @else
-                <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
-                @endcan
-            </td>
-            <td class="border">{{ $report->eventType->event_type_name  ?? '-' }}</td>
-            <td class="border">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
-            <td class="border">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
-            <td class="border">
-                <span class="text-xs uppercase px-2  rounded
+            </thead>
+            <tbody>
+                @forelse ($reports as $no => $report)
+                <tr class="hover:bg-gray-50">
+                    <td class="border">{{ $reports->firstItem()+$no }}</td>
+                    <td class="border">
+                        @can('view', $report)
+                        <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
+                        @else
+                        <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
+                        @endcan
+                    </td>
+                    <td class="border">{{ $report->eventType->event_type_name  ?? '-' }}</td>
+                    <td class="border">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
+                    <td class="border">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
+                    <td class="border">
+                        <span class="text-xs uppercase px-2  rounded
                                 @if($report->status == 'submitted') bg-yellow-100 text-yellow-800
                                 @elseif($report->status == 'in_progress') bg-blue-100 text-blue-800
                                 @elseif($report->status == 'pending') bg-orange-100 text-orange-800
                                 @elseif($report->status == 'closed') bg-green-100 text-green-800
                                 @endif">
-                    {{ str_replace('_', ' ', $report->status) }}
-                </span>
-            </td>
-            <td class="border">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
-            <td class="border">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-            <td class="border text-center">
-                {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
-            </td>
-        </tr>
-        @empty
-        <tr>
-            <td colspan="9" class="text-center text-gray-500 py-4">Tidak ada laporan ditemukan.</td>
-        </tr>
-        @endforelse
-    </tbody>
-    </table>
+                            {{ str_replace('_', ' ', $report->status) }}
+                        </span>
+                    </td>
+                    <td class="border">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
+                    <td class="border">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
+                    <td class="border text-center">
+                        {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="9" class="text-center text-gray-500 py-4">Tidak ada laporan ditemukan.</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
     {{ $reports->links() }}
 </section>
