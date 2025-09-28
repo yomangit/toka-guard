@@ -126,8 +126,8 @@
                     <th class="border px-2 ">Tipe Bahaya</th>
                     <th class="border px-2 ">Jenis Bahaya</th>
                     <th class="border px-2 ">Divisi Penanggung Jawab</th>
-                    <th class="border px-2 relative">
-                        <div wire:ignore x-data="{ open: false }" @click.outside="open = false" class="inline-block">
+                    <th class="border px-2 relative" wire:ignore>
+                        <div  x-data="{ open: false }" @click.outside="open = false" class="inline-block">
 
                             <button @click="open = !open" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
                                 <span>Status</span>
