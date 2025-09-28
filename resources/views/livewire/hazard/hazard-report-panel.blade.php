@@ -148,10 +148,10 @@
                             $filterValue = $option->department_id . '-' . $contractorId;
 
                             // 3. Tentukan Nama Department (gunakan operator opsional `?->` untuk keamanan)
-                            $depName = $option->department?->name ?? 'N/A';
+                            $depName = $option->department?->department_name ?? 'N/A';
 
                             // 4. Tentukan Nama Contractor (jika NULL, tampilkan 'NULL' atau teks lain)
-                            $contName = $option->contractor?->name ?? 'NULL';
+                            $contName = $option->contractor?->contractor_name ?? 'NULL';
 
                             // 5. Teks tampilan gabungan
                             $displayText = 'Dept: ' . $depName . ' | Contr: ' . $contName;
