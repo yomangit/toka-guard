@@ -157,11 +157,20 @@ class Hazard extends Model
     /** SCOPES */
     public function scopeStatus($query, $status)
     {
-        if (!is_array($status)) {
-            $status = [$status]; // Tambahkan fallback jika kadang $status hanya string tunggal
+        // 1. Periksa apakah $status adalah array dan apakah array tersebut tidak kosong.
+        if (!empty($status)) {
+
+            // 2. Tambahkan pemeriksaan tambahan jika $status bukan array (hanya untuk keamanan)
+            if (!is_array($status)) {
+                $status = [$status];
+            }
+
+            // 3. Hanya tambahkan whereIn jika ada status yang dipilih
+            return $query->whereIn('status', $status);
         }
 
-        return $query->whereIn('status', $status);
+        // 4. Jika $status kosong, jangan lakukan apa-apa (kembalikan $query asli)
+        return $query;
     }
     public function scopeByEventType($query, $id)
     {
