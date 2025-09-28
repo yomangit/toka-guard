@@ -130,18 +130,19 @@
                         <button class="btn btn-ghost btn-xs" popovertarget="divisi_dept" style="anchor-name:--divisi_dept">
                             {{-- Ikon Filter: Tampilkan jika filterDepartment tidak kosong --}}
                             @if(empty($filterContractor))
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
-                                <path d="M2 5h20" />
-                                <path d="M6 12h12" />
-                                <path d="M9 19h6" />
-                            </svg>
-                            @else
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-down-wide-narrow-icon lucide-arrow-down-wide-narrow">
                                 <path d="m3 16 4 4 4-4" />
                                 <path d="M7 20V4" />
                                 <path d="M11 4h10" />
                                 <path d="M11 8h7" />
-                                <path d="M11 12h4" /></svg>
+                                <path d="M11 12h4" />
+                            </svg>
+                            @else
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
+                                <path d="M2 5h20" />
+                                <path d="M6 12h12" />
+                                <path d="M9 19h6" />
+                            </svg>
                             @endif
                         </button>
                         <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-lg p-2 max-h-60 overflow-y-auto" popover id="divisi_dept" style="position-anchor:--divisi_dept; inset-area: bottom span-right;">
