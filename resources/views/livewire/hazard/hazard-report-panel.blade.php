@@ -159,7 +159,7 @@
                     </th>
                     <th class="border">Pelapor</th>
                     <th class="border">Tanggal</th>
-                    <th class="flex-col bordertext-center">
+                    <th class="flex-col border text-center">
                         <p>Action</p>
                         <p>Total/Open</p>
                     </th>
