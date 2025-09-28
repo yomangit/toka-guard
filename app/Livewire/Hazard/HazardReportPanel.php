@@ -18,7 +18,6 @@ class HazardReportPanel extends Component
     public array $filterStatus = [];
     public $role;
     public $filterEventType;
-    public $filterEventSubType;
 
     public $openDropdownId = null;
     public $deptCont = 'department'; // default departemen
@@ -39,6 +38,7 @@ class HazardReportPanel extends Component
     // Properties untuk menampung ID yang dicentang
     public array $filterDepartment = [];
     public array $filterContractor = [];
+    public array $filterEventSubType = [];
 
     // Data filter
     public $filterOptions = [];
@@ -49,6 +49,8 @@ class HazardReportPanel extends Component
         $this->filterOptions = [
             'Department' => Department::all(['id', 'department_name']),
             'Contractors' => Contractor::all(['id', 'contractor_name']),
+            'EventType' => EventType::all(['id', 'event_type_name']),
+            'EventSubType' => EventSubType::all(['id', 'event_sub_type_name']),
         ];
     }
 
@@ -234,8 +236,9 @@ class HazardReportPanel extends Component
         });
 
         // Terapkan filter Department
-        $query->byDepartments($this->filterDepartment); // Meneruskan array langsung
-
+        $query->when($this->filterEventSubType, function ($q) {
+            $q->byDepartments($this->filterDepartment); // Meneruskan array langsung
+        });
         // Terapkan filter Contractor
         $query->byContractors($this->filterContractor);
 

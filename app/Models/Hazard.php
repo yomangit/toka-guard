@@ -177,11 +177,7 @@ class Hazard extends Model
     {
         return $query->where('event_type_id', $id);
     }
-    public function scopeByEventSubType($query, $id)
-    {
-        return $query->where('event_sub_type_id', $id);
-    }
-
+    
     public function scopeByDepartment($query, $name)
     {
         return $query->whereHas('department', function ($q) use ($name) {
@@ -203,6 +199,15 @@ class Hazard extends Model
         }
 
         return $query->whereIn('department_id', $departmentIds);
+    }
+    public function scopeByEventSubType(Builder $query, array $eventSubType): Builder
+    {
+        // Hanya terapkan whereIn jika array ID tidak kosong.
+        if (empty($eventSubType)) {
+            return $query;
+        }
+
+        return $query->whereIn('event_sub_type_id', $eventSubType);
     }
 
     /**
