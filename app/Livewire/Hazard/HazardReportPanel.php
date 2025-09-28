@@ -47,8 +47,8 @@ class HazardReportPanel extends Component
     {
         // Muat data untuk filter
         $this->filterOptions = [
-            'Department' => Department::all(['id', 'name']),
-            'Contractors' => Contractor::all(['id', 'name']),
+            'Department' => Department::all(['id', 'department_name']),
+            'Contractors' => Contractor::all(['id', 'contractor_name']),
         ];
     }
 
