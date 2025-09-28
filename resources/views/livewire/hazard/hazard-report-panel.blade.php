@@ -1,5 +1,5 @@
 <section class="w-full">
-   
+
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.header-hazard')
@@ -130,10 +130,10 @@
                     <th class="border px-2 relative">
                         <div class="relative inline-block">
                             {{-- Tombol --}}
-                            <button wire:click.prevent="toggleDropdownstatus" type="button" class="flex items-center space-x-1 font-semibold hover:text-blue-600">
+                            <button class="btn btn-xs" popovertarget="popover-1" style="anchor-name:--anchor-1">
                                 <span>Status</span>
                                 {{-- Ikon Filter (Ganti dengan logika count() yang sudah diperbaiki) --}}
-                                <span @if(empty($availableStatuses)) style="display: none;" @endif class="text-blue-600 text-xs">
+                                <span class="text-blue-600 text-xs">
                                     {{-- SVG Icon --}}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list-filter-icon lucide-list-filter">
                                         <path d="M2 5h20" />
@@ -145,7 +145,7 @@
 
                             {{-- Dropdown Menu --}}
                             {{-- Dropdown akan muncul jika $isDropdownOpen = true --}}
-                            <ul @if(!$isDropdownOpen) style="display: none;" @endif class="absolute z-10 mt-2 w-48 text-left bg-white border border-gray-300 rounded shadow-lg p-3 max-h-60 overflow-y-auto left-0">
+                            <ul class="dropdown menu w-52 rounded-box bg-base-100 shadow-sm" popover id="popover-1" style="position-anchor:--anchor-1">
 
                                 {{-- Loop Isi Dropdown --}}
                                 @foreach ($availableStatuses as $status)
@@ -167,7 +167,7 @@
                     </th>
                 </tr>
 
-              
+
             </thead>
             <tbody>
                 @forelse ($reports as $no => $report)
