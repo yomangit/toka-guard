@@ -172,7 +172,7 @@ class Hazard extends Model
         // 4. Jika $status kosong, jangan lakukan apa-apa (kembalikan $query asli)
         return $query;
     }
-    
+
     public function scopeByEventType($query, $id)
     {
         return $query->where('event_type_id', $id);
@@ -194,6 +194,34 @@ class Hazard extends Model
         return $query->whereHas('contractor', function ($q) use ($name) {
             $q->where('contractor_name', 'like', "%{$name}%");
         });
+    }
+    public function scopeByDepartments(Builder $query, array $departmentIds): Builder
+    {
+        // Hanya terapkan whereIn jika array ID tidak kosong.
+        if (empty($departmentIds)) {
+            return $query;
+        }
+
+        return $query->whereIn('department_id', $departmentIds);
+    }
+
+    /**
+     * Scope untuk memfilter berdasarkan Contractor ID yang dipilih.
+     *
+     * @param Builder $query
+     * @param array $contractorIds Array ID Contractor yang dicentang.
+     * @return Builder
+     */
+    public function scopeByContractors(Builder $query, array $contractorIds): Builder
+    {
+        // Hanya terapkan whereIn jika array ID tidak kosong.
+        if (empty($contractorIds)) {
+            return $query;
+        }
+
+        // PENTING: Jika Anda perlu menangani NULL, Anda harus menggunakan logika where yang lebih kompleks
+        // Contoh: $query->where(fn($q) => $q->whereIn('contractor_id', $contractorIds)->orWhereNull('contractor_id'));
+        return $query->whereIn('contractor_id', $contractorIds);
     }
     public function scopeDateRange(Builder $query, string $startDate, string $endDate): void
     {

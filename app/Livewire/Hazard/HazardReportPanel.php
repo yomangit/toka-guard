@@ -233,16 +233,11 @@ class HazardReportPanel extends Component
             $q->byEventSubType($this->filterEventSubType);
         });
 
-        $query->when(!empty($this->filterDepartment), function ($q) {
-            // Memfilter berdasarkan array ID Department yang dicentang
-            $q->whereIn('department_id', $this->filterDepartment);
-        });
+        // Terapkan filter Department
+        $query->byDepartments($this->filterDepartment); // Meneruskan array langsung
 
-        $query->when(!empty($this->filterContractor), function ($q) {
-            // Memfilter berdasarkan array ID Contractor yang dicentang
-            // CATATAN: Ini tidak menangani nilai NULL. Jika perlu, gunakan logika di bawah.
-            $q->whereIn('contractor_id', $this->filterContractor);
-        });
+        // Terapkan filter Contractor
+        $query->byContractors($this->filterContractor);
 
         // ⚡️ Tambahkan filter rentang tanggal di sini
         $query->when($this->start_date && $this->end_date, function ($q) {
