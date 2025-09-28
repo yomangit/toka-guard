@@ -122,12 +122,12 @@
         <table class="table table-xs border text-sm px-2">
             <thead>
                 <tr class="bg-gray-100">
-                    <th class="border px-2 ">#</th>
-                    <th class="border px-2 ">reference</th>
-                    <th class="border px-2 ">Tipe Bahaya</th>
-                    <th class="border px-2 ">Jenis Bahaya</th>
-                    <th class="border px-2 ">Divisi Penanggung Jawab</th>
-                    <th class="border px-2 relative">
+                    <th class="border">#</th>
+                    <th class="border">reference</th>
+                    <th class="border">Tipe Bahaya</th>
+                    <th class="border">Jenis Bahaya</th>
+                    <th class="border">Divisi Penanggung Jawab</th>
+                    <th class="borderrelative">
                         <div class="relative inline-block">
                             {{-- Tombol --}}
                             Status
@@ -157,9 +157,9 @@
                             </ul>
                         </div>
                     </th>
-                    <th class="border px-2 ">Pelapor</th>
-                    <th class="border px-2 ">Tanggal</th>
-                    <th class="flex-col border px-2 text-center">
+                    <th class="border">Pelapor</th>
+                    <th class="border">Tanggal</th>
+                    <th class="flex-col bordertext-center">
                         <p>Action</p>
                         <p>Total/Open</p>
                     </th>
@@ -170,18 +170,18 @@
             <tbody>
                 @forelse ($reports as $no => $report)
                 <tr class="hover:bg-gray-50">
-                    <td class="border px-2 ">{{ $reports->firstItem()+$no }}</td>
-                    <td class="border px-2 ">
+                    <td class="border">{{ $reports->firstItem()+$no }}</td>
+                    <td class="border">
                         @can('view', $report)
                         <a href="{{ route('hazard-detail', $report) }}" class="text-blue-600 text-xs hover:underline">{{ $report->no_referensi  ?? '-' }}</a>
                         @else
                         <span class="text-gray-400 text-xs cursor-not-allowed">{{ $report->no_referensi  ?? '-' }}</span>
                         @endcan
                     </td>
-                    <td class="border px-2 ">{{ $report->eventType->event_type_name  ?? '-' }}</td>
-                    <td class="border px-2 ">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
-                    <td class="border px-2 ">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
-                    <td class="border px-2 ">
+                    <td class="border">{{ $report->eventType->event_type_name  ?? '-' }}</td>
+                    <td class="border">{{ $report->eventSubType->event_sub_type_name  ?? '-' }}</td>
+                    <td class="border">{{ $report->department->department_name ?? $report->contractor->contractor_name }}</td>
+                    <td class="border">
                         <span class="text-xs uppercase px-2  rounded
                                 @if($report->status == 'submitted') bg-yellow-100 text-yellow-800
                                 @elseif($report->status == 'in_progress') bg-blue-100 text-blue-800
@@ -191,9 +191,9 @@
                             {{ str_replace('_', ' ', $report->status) }}
                         </span>
                     </td>
-                    <td class="border px-2 ">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
-                    <td class="border px-2 ">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
-                    <td class="border px-2  text-center">
+                    <td class="border">{{ $report->pelapor->name ?? $report->manualPelaporName }}</td>
+                    <td class="border">{{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}</td>
+                    <td class="border text-center">
                         {{ $report->total_due_dates }} / {{ $report->pending_actual_closes }}
                     </td>
                 </tr>
