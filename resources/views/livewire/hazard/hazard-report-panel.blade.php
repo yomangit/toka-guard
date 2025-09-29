@@ -1,5 +1,4 @@
 <section class="w-full">
-
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.header-hazard')
@@ -13,7 +12,6 @@
                 </a>
             </div>
         </div>
-
         <div class="w-full md:max-w-xs">
             <fieldset class="fieldset ">
                 <x-form.label label="rentang tanggal" required />
@@ -75,7 +73,6 @@
                                 </label>
                             </li>
                             @endforeach
-
                         </ul>
                     </th>
                     <th class="border">Divisi Penanggung Jawab
@@ -156,7 +153,6 @@
                             </li>
                             @endforeach
                         </ul>
-
                     </th>
                     <th class="border">Pelapor</th>
                     <th class="border">Tanggal</th>
@@ -165,8 +161,6 @@
                         <p>Total/Open</p>
                     </th>
                 </tr>
-
-
             </thead>
             <tbody>
                 @forelse ($reports as $no => $report)
