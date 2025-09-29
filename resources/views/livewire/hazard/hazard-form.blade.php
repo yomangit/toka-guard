@@ -30,7 +30,6 @@
                         <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
                         @endforeach
                         @endif
-
                     </select>
                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                 </fieldset>
