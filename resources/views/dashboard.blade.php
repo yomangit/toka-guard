@@ -58,7 +58,7 @@
         {{-- Daftar Laporan Terbaru --}}
         <div class="bg-white p-4 rounded-xl shadow">
             <h3 class="font-semibold mb-4">Laporan Hazard Terbaru</h3>
-            <table class="w-full text-sm border">
+            <table class="table table-xs">
                 <thead class="bg-gray-100">
                     <tr>
                         <th class="px-3 py-2 border">ID</th>
@@ -69,58 +69,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @forelse($latestHazards as $hazard)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-3 py-2 border">{{ $hazard->id }}</td>
-                    <td class="px-3 py-2 border">{{ $hazard->title }}</td>
-                    <td class="px-3 py-2 border">
-                        <span class="px-2 py-1 text-xs rounded bg-gray-200">
-                            {{ $hazard->status }}
-                        </span>
-                    </td>
-                    <td class="px-3 py-2 border">{{ $hazard->pelapor->name ?? '-' }}</td>
-                    <td class="px-3 py-2 border">{{ $hazard->created_at->format('d M Y') }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="5" class="text-center text-gray-500 py-4">Belum ada laporan</td>
-                    </tr>
-                    @endforelse --}}
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
                 </tbody>
             </table>
         </div>
-
     </div>
-
     {{-- Tambahkan ChartJS / ApexCharts --}}
-    @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script>
-        var trendOptions = {
-            chart: {
-                type: 'line'
-                , height: 250
-            }
-            , series: [{
-                name: 'Laporan'
-                , data: @json($trendData ? ? [])
-            }]
-            , xaxis: {
-                categories: @json($trendLabels ? ? [])
-            }
-        };
-        new ApexCharts(document.querySelector("#trendChart"), trendOptions).render();
 
-        var statusOptions = {
-            chart: {
-                type: 'donut'
-                , height: 250
-            }
-            , series: @json($statusSeries ? ? [])
-            , labels: @json($statusLabels ? ? [])
-        };
-        new ApexCharts(document.querySelector("#statusChart"), statusOptions).render();
-
-    </script>
-    @endpush
 </x-layouts.app>
