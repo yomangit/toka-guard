@@ -100,8 +100,8 @@ $classes = Flux::classes()
         6 => 'pe-44',
     })
     ->add(match ($variant) { // Background...
-        'outline' => 'bg-white dark:bg-transparant dark:disabled:bg-white/[7%]',
-        'filled'  => 'bg-zinc-800/5 dark:bg-white/10 dark:disabled:bg-white/[7%]',
+        'outline' => 'bg-white dark:bg-transparant dark:disabled:bg-white/[7%] ring-0 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden',
+        'filled'  => 'bg-zinc-800/5 dark:bg-white/10 dark:disabled:bg-white/[7%] ring-0 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden',
     })
     ->add(match ($variant) { // Text color
         'outline' => 'text-accent disabled:text-zinc-500 placeholder-zinc-400 disabled:placeholder-zinc-400/70 dark:text-accent dark:disabled:text-zinc-400 dark:placeholder-zinc-400 dark:disabled:placeholder-zinc-500',
