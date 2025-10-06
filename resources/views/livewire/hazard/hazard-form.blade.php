@@ -6,7 +6,6 @@
     </div>
     @include('partials.manhours-heading')
     <x-manhours.layout>
-        {{-- <livewire:hazard.hazard-report-panel /> --}}
 
         <form wire:submit.prevent="submit">
 
