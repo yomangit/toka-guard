@@ -849,15 +849,6 @@ class HazardDetail extends Component
             'actual_close_date' => $this->edit_action_actual_close_date ? Carbon::createFromFormat('d-m-Y', $this->edit_action_actual_close_date) : null,
             'responsible_id'    => $this->edit_action_responsible_id,
         ]);
-        $this->dispatch(
-            'alert',
-            [
-                'text' => "Action Hazard berhasil diupdate!",
-                'duration' => 4000,
-                'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
-            ]
-        );
-
         $this->dispatch('close-modal', id: 'editActionModal');
         // Refresh list
         $this->loadActionHazards();
