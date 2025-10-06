@@ -795,7 +795,7 @@
     </form>
     <!-- Modal Edit ActionHazard -->
     <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
-        <div class="modal-box w-11/12 max-w-4xl" @click.outside="open = false">
+        <div class="modal-box w-11/12 max-w-4xl" >
             <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan </h3>
 
             {{-- === Form Update === --}}
