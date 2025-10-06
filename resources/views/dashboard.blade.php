@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="p-6 space-y-6">
+    <div class="p-4 space-y-2">
 
         {{-- Header --}}
         <h1 class="text-2xl font-bold">Hazard Report Dashboard</h1>
