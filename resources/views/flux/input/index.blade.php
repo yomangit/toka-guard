@@ -78,7 +78,7 @@ $inputLoadingClasses = Flux::classes()
     ;
 
 $classes = Flux::classes()
-    ->add('w-full max-w-xs border rounded-xs dark:outline-none block disabled:shadow-none dark:shadow-none ring-0 ')
+    ->add('w-full max-w-sm border rounded-xs dark:outline-none block disabled:shadow-none dark:shadow-none ring-0 ')
     ->add('appearance-none') // Without this, input[type="date"] on mobile doesn't respect w-full...
     ->add(match ($size) {
         default => 'text-accent sm:text-sm py-2 h-10 leading-[1.375rem]', // This makes the height of the input 40px (same as buttons and such...)
