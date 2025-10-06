@@ -10,9 +10,9 @@
 
         <!-- Password -->
         <div class="relative ">
-            <flux:input size="sm" wire:model="password" :label="__('Password')" type="password" required autocomplete="current-password" :placeholder="__('Password')" viewable />
+            <flux:input size="sm" wire:model="password" class="my-2" :label="__('Password')" type="password" required autocomplete="current-password" :placeholder="__('Password')" viewable />
             @if (Route::has('password.request'))
-            <flux:link class="absolute end-0 top-0 text-sm mb-2" :href="route('password.request')" wire:navigate>
+            <flux:link class="absolute end-0 top-0 text-sm " :href="route('password.request')" wire:navigate>
                 {{ __('Forgot your password?') }}
             </flux:link>
             @endif
