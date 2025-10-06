@@ -2,7 +2,7 @@
 <section class="w-full">
     <x-toast />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <div class="flex justify-start mb-2 ">
+    <div class="flex justify-start mb-2 " wire:ignore>
         @if (Breadcrumbs::exists('hazard-detail'))
         {!! Breadcrumbs::render('hazard-detail', $hazard_id) !!}
         @endif
@@ -795,7 +795,7 @@
     </form>
     <!-- Modal Edit ActionHazard -->
     <div x-data="{ open: false }" x-on:open-edit-action.window="open = true" x-show="open" x-transition class="modal modal-open fixed inset-0 z-50 flex items-center justify-center bg-black/50" style="display:none;">
-        <div class="modal-box w-11/12 max-w-4xl" >
+        <div class="modal-box w-11/12 max-w-4xl">
             <h3 class="font-bold text-lg mb-4">Edit Tindakan Lanjutan </h3>
 
             {{-- === Form Update === --}}
