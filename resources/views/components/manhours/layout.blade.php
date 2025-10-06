@@ -3,8 +3,8 @@
         <flux:heading>{{ $heading ?? '' }}</flux:heading>
         <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
 
-        <div class="flex w-full flex-1 flex-col gap-4 rounded-xl 
-             h-[calc(100vh-16rem)] 
+        <div class="flex w-full flex-1 flex-col gap-4 rounded-xl inset-shadow-sm h-full
+            max-h-[calc(100vh-16rem)] 
             sm:max-h-[calc(100vh-10rem)] 
             md:max-h-[calc(100vh-16rem)] 
             lg:max-h-[calc(100vh-10rem)] 
