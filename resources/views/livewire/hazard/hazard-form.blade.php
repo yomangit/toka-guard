@@ -441,7 +441,7 @@
 
                 </fieldset>
             </div>
-            <div class="flex flex-col md:flex-row gap-2">
+            <div class="flex flex-col-reverse md:flex-row gap-2">
 
                 {{-- Kolom Likelihood & Consequence --}}
                 <div class=" space-y-4 md:grow">

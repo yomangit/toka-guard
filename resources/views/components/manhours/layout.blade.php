@@ -8,7 +8,7 @@
             sm:max-h-[calc(100vh-10rem)] 
             md:max-h-[calc(100vh-16rem)] 
             lg:max-h-[calc(100vh-12rem)] 
-            2xl:h-[45rem]">
+            2xl:max-h-[calc(100vh-10rem)]">
             <div class="h-full flex-1 overflow-y-auto overflow-x-hidden rounded-xl border border-neutral-200 dark:border-base-200 p-4">
                 <div class="w-full max-w-full ">
                     {{ $slot }}
