@@ -37,7 +37,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class HazardDetail extends Component
 {
     use WithFileUploads, AuthorizesRequests;
-    public $hazard ;
+    public $hazard;
     public string $proceedTo = '';
     public array $availableTransitions = [];
     public string $effectiveRole = '';
@@ -173,8 +173,8 @@ class HazardDetail extends Component
 
     public function mount(Hazard $hazard)
     {
-        
-    
+
+
         $this->authorize('view', $hazard);
         $this->hazard = $hazard;
         $this->hazard_id = $hazard->id;
@@ -633,6 +633,7 @@ class HazardDetail extends Component
             ->with('user')
             ->get()
             ->pluck('user');
+
         $this->dispatch(
             'alert',
             [
@@ -728,7 +729,10 @@ class HazardDetail extends Component
             'alert',
             [
                 'text' => "Action Hazard berhasil ditambahkan!",
-                'duration' => 4000,
+                'duration' => 5000,
+                'destination' => '/contact',
+                'newWindow' => true,
+                'close' => true,
                 'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
             ]
         );
@@ -853,9 +857,21 @@ class HazardDetail extends Component
                 'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
             ]
         );
+
         $this->dispatch('close-modal', id: 'editActionModal');
         // Refresh list
         $this->loadActionHazards();
+        $this->dispatch(
+            'alert',
+            [
+                'text' => "Action Hazard berhasil diupdate!",
+                'duration' => 5000,
+                'destination' => '/contact',
+                'newWindow' => true,
+                'close' => true,
+                'backgroundColor' => "background: linear-gradient(135deg, #42a5f5, #478ed1);",
+            ]
+        );
     }
     public function loadActionHazards()
     {
@@ -869,17 +885,17 @@ class HazardDetail extends Component
         // Setelah model dihapus (dan event 'deleting' telah dijalankan),
         // Anda bisa memberikan feedback kepada pengguna atau redirect.
         $this->dispatch(
-                'alert',
-                [
-                    'text' => "Laporan hazard berhasil dihapus!",
-                    'duration' => 5000,
-                    'destination' => '/contact',
-                    'newWindow' => true,
-                    'close' => true,
-                    'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
-                ]
-            );
-        
+            'alert',
+            [
+                'text' => "Laporan hazard berhasil dihapus!",
+                'duration' => 5000,
+                'destination' => '/contact',
+                'newWindow' => true,
+                'close' => true,
+                'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
+            ]
+        );
+
         return redirect()->route('hazard');
     }
     public function render()
