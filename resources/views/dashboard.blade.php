@@ -6,7 +6,7 @@
         <p class="text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
 
         {{-- Statistik Ringkas --}}
-        <div class="stats stats-vertical lg:stats-horizontal shadow">
+        <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
             <div class="stat">
                 <div class="stat-figure text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
