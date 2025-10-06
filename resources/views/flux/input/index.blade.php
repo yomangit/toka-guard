@@ -108,7 +108,7 @@ $classes = Flux::classes()
         'filled'  => 'text-zinc-700 placeholder-zinc-500 disabled:placeholder-zinc-400 dark:text-zinc-200 dark:placeholder-white/60 dark:disabled:placeholder-white/40',
     })
     ->add(match ($variant) { // Border...
-        'outline' => $invalid ? 'border-red-500' : 'shadow-xs  disabled:border-b-zinc-200  dark:disabled:border-white/5',
+        'outline' => $invalid ? 'border-red-500' : 'shadow-xs ',
         'filled'  => $invalid ? 'border-red-500' : 'border-0',
     })
     ->add($attributes->pluck('class:input'))
