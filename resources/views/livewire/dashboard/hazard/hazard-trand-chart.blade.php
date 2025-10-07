@@ -1,4 +1,4 @@
-    <div wire:ignore id="hazardTrend" style="height: 250px;" class="w-full"></div>
+    <div wire:ignore id="hazardTrend" style="height: 350px;" class="w-full"></div>
     @push('scripts')
     <!-- Load ECharts dari CDN -->
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
