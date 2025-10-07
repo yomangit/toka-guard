@@ -17,6 +17,7 @@
 
     function renderHazardTrendChart() {
         const chartDom = document.getElementById('hazardTrend');
+        var chart = echarts.init(chartDom);
         const months = JSON.parse('<?php echo $months ?>');
         const counts =JSON.parse('<?php echo $counts ?>');
         console.log(months);
