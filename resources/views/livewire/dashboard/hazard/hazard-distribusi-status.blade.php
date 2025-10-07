@@ -14,7 +14,7 @@
             });
 
             // 🧠 Ambil data dari Livewire (JSON string → object JS)
-            const chartData = JSON.parse(@this.statusChart);
+            const chartData = JSON.parse('<?php echo $statusChart ?>');
             const labels = chartData.labels;
             const values = chartData.values;
 
