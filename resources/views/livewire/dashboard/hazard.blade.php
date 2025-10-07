@@ -54,7 +54,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white p-4 rounded-xl shadow">
                 <h3 class="font-semibold mb-2">Trend Laporan per Bulan</h3>
-                <div id="trendChart" class="h-64"></div>
+                <div id="trendChart" class="h-64">
+                    <livewire:dashboard.hazard.hazard-trand-chart />
+                </div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
                 <h3 class="font-semibold mb-2">Distribusi Berdasarkan Status</h3>
