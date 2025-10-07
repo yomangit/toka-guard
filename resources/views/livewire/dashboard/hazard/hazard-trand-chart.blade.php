@@ -4,8 +4,8 @@
 
 @push('scripts')
 <!-- Load ECharts dari CDN -->
-  <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
-   <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
+<script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
+<script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
 <script>
     document.addEventListener('livewire:load', () => {
@@ -19,10 +19,10 @@
     function renderHazardTrendChart() {
         const chartDom = document.getElementById('hazardTrend');
         var chart = echarts.init(chartDom);
-        const months = JSON.parse('<?php echo $months ?>');
-        const counts =JSON.parse('<?php echo $counts ?>');
+        const months = @json($months);
+        const counts = @json($counts);
         console.log(months);
-        
+
         const option = {
             title: {
                 text: 'Tren Laporan Hazard per Bulan'
