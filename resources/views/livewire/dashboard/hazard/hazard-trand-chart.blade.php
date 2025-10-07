@@ -100,7 +100,7 @@
                 name: 'Jumlah Laporan'
                 , data: data.counts
                 , type: 'line'
-                , smooth: true
+                , smooth: false
                 , lineStyle: {
                     width: 3
                 }
@@ -109,10 +109,7 @@
                 , itemStyle: {
                     color: '#3B82F6'
                 }
-                , areaStyle: {
-                    opacity: 0.1
-                    , color: '#3B82F6'
-                }
+                
             }]
         };
 
