@@ -17,18 +17,10 @@
 
     function renderHazardTrendChart() {
         const chartDom = document.getElementById('hazardTrend');
-        if (!chartDom) return;
-
-        // Hapus instance lama jika sudah ada
-        if (echarts.getInstanceByDom(chartDom)) {
-            echarts.dispose(chartDom);
-        }
-
-        const chart = echarts.init(chartDom);
-
         const months = JSON.parse('<?php echo $months ?>');
         const counts =JSON.parse('<?php echo $counts ?>');
-
+        console.log(months);
+        
         const option = {
             title: {
                 text: 'Tren Laporan Hazard per Bulan'
