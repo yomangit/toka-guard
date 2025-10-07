@@ -22,6 +22,7 @@
             , series: [{
                 data: data.counts
                 , type: 'line'
+                , smooth: true
             }]
         };
 
