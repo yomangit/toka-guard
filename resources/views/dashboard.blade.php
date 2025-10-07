@@ -38,18 +38,15 @@
                 <div class="stat-value text-secondary">2.6M</div>
                 <div class="stat-desc">21% more than last month</div>
             </div>
-
             <div class="stat">
                 <div class="stat-figure text-secondary">
-                    <div class="avatar avatar-online">
-                        <div class="w-16 rounded-full">
-                            <img src="https://img.daisyui.com/images/profile/demo/anakeen@192.webp" />
-                        </div>
-                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
                 </div>
-                <div class="stat-value">86%</div>
-                <div class="stat-title">Selesai (Closed)</div>
-                <div class="stat-desc text-secondary">31 tasks remaining</div>
+                <div class="stat-title">Overdue</div>
+                <div class="stat-value text-secondary">2.6M</div>
+                <div class="stat-desc">21% more than last month</div>
             </div>
         </div>
 
