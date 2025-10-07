@@ -22,7 +22,8 @@
             name: label
             , value: values[i]
         }));
-
+            console.log(seriesData);
+            
         var option = {
             title: {
                 text: 'Distribusi Berdasarkan Status'
