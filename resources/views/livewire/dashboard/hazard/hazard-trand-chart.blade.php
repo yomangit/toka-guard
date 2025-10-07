@@ -11,13 +11,7 @@
     const data = JSON.parse('<?php echo $data ?>');
     console.log(data);
     var dom = document.getElementById('hazardTrend');
-    var myChart = echarts.init(dom, null, {
-        renderer: 'canvas'
-        , useDirtyRect: false
-    });
-    var app = {};
-
-
+    var myChart = echarts.init(dom);
     var option;
 
     option = {
