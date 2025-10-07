@@ -9,8 +9,6 @@
 
 <script>
     const months = @json($months);
-    console.log(months);
-    
     const counts = @json($counts);
     var dom = document.getElementById('hazardTrend');
     var myChart = echarts.init(dom, null, {
@@ -25,13 +23,13 @@
     option = {
         xAxis: {
             type: 'category'
-            , data: months,
+            , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         }
         , yAxis: {
             type: 'value'
         }
         , series: [{
-             data: counts,
+            data: [150, 230, 224, 218, 135, 147, 260]
             , type: 'line'
         }]
     };
