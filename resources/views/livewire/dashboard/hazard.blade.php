@@ -46,8 +46,7 @@
                 <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-                <h3 class="font-semibold mb-2">Distribusi Berdasarkan Status</h3>
-                <div id="statusChart" class="h-64"></div>
+                <livewire:dashboard.hazard.hazard-distribusi-status />
             </div>
         </div>
 
