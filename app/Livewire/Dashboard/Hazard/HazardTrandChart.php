@@ -20,7 +20,6 @@ class HazardTrandChart extends Component
         $this->months = $data->pluck('month')->map(function ($m) {
             return Carbon::create()->month($m)->format('M');
         });
-        dd($this->months);
         $this->counts = $data->pluck('total');
     }
     public function render()
