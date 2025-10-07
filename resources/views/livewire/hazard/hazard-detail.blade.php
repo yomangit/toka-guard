@@ -374,7 +374,6 @@
                                     disableMobile: true,
                                     enableTime: true,
                                     defaultDate: this.$wire.entangle('tanggal').defer,
-                                    dateFormat: 'd-m-Y H:i',
                                     clickOpens: true,
                                     
                                     appendTo: this.$refs.wrapper,
