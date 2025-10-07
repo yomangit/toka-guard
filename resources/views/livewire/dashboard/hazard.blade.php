@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Dashboard')">
+<section>
     <div class="p-4 space-y-2">
 
         {{-- Header --}}
@@ -89,4 +89,4 @@
     </div>
     {{-- Tambahkan ChartJS / ApexCharts --}}
 
-</x-layouts.app>
+</section>
