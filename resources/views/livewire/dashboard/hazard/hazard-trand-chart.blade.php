@@ -25,7 +25,7 @@
                 , subtext: 'Data laporan berdasarkan bulan berjalan'
                 , subtextStyle: {
                     fontFamily: 'Microsoft YaHei'
-                    , fontSize: 12
+                    , fontSize: 8
                     , color: '#666'
                 }
             }
