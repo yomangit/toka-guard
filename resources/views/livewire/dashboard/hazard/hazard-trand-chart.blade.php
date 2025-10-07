@@ -1,5 +1,5 @@
 <div x-data="hazardTrendChart(@js($months), @js($counts))" x-init="renderChart()" class="w-full bg-white p-4 rounded-lg shadow">
-    <div id="hazardTrend" class="h-50 w-full"></div>
+    <div id="hazardTrend" class="h-48 w-full"></div>
 </div>
 
 @script
