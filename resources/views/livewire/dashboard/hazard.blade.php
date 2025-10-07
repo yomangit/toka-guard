@@ -37,7 +37,7 @@
                 <div class="stat-value text-secondary">2.6M</div>
                 <div class="stat-desc">21% more than last month</div>
             </div>
-            
+
         </div>
 
         {{-- Grafik --}}
@@ -46,7 +46,7 @@
                 <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-                <livewire:dashboard.hazard.hazard-distribusi-status />
+                {{-- <livewire:dashboard.hazard.hazard-distribusi-status /> --}}
             </div>
         </div>
 
