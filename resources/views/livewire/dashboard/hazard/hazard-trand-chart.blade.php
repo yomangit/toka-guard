@@ -8,10 +8,10 @@
 <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
 <script>
-    const months = JSON.parse('<?php echo $months ?>');
+    const months = @json($months);
     console.log(months);
     
-    const counts =JSON.parse('<?php echo $counts ?>');
+    const counts = @json($counts);
     var dom = document.getElementById('hazardTrend');
     var myChart = echarts.init(dom, null, {
         renderer: 'canvas'
