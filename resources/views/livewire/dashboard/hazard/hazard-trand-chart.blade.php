@@ -19,6 +19,12 @@
             , yAxis: {
                 type: 'value'
             }
+            , textStyle: {
+                fontFamily: Microsoft YaHei
+                fontSize: 12,
+                fontStyle: normal,
+                fontWeight: normal
+            }
             , series: [{
                 data: data.counts
                 , type: 'line'
