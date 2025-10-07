@@ -36,6 +36,6 @@ class Hazard extends Component
             $labels[] = $label;
             $values[] = $data[$num] ?? 0;
         }
-        return view('livewire.dashboard.hazard'compact('labels', 'values', 'year'));
+        return view('livewire.dashboard.hazard',compact('labels', 'values', 'year'));
     }
 }
