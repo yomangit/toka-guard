@@ -22,41 +22,30 @@
             name: label
             , value: values[i]
         }));
-            console.log(seriesData);
-            
-        var option = {
-            title: {
-                text: 'Distribusi Berdasarkan Status'
-                , subtext: 'Data laporan hazard'
-                , left: 'center'
+        console.log(seriesData);
+
+        var option;
+
+        option = {
+            xAxis: {
+                type: 'category'
+                , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             }
-            , tooltip: {
-                trigger: 'item'
-                , formatter: '{b}: {c} laporan ({d}%)'
-            }
-            , legend: {
-                orient: 'vertical'
-                , left: 'left'
+            , yAxis: {
+                type: 'value'
             }
             , series: [{
-                name: 'Status'
-                , type: 'pie'
-                , radius: '50%'
-                , data: seriesData
-                , emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10
-                        , shadowOffsetX: 0
-                        , shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
+                data: [150, 230, 224, 218, 135, 147, 260]
+                , type: 'line'
             }]
         };
+
+
 
         if (option && typeof option === 'object') {
             myChart.setOption(option);
         }
 
-        window.addEventListener('resize', () => myChart.resize());
+        window.addEventListener('resize', myChart.resize);
 
     </script>
