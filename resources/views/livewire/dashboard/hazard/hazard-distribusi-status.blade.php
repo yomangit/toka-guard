@@ -5,6 +5,15 @@
     <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
     <script>
         var dom_status = document.getElementById('chart-container');
+        // 🧠 Ambil data dari Livewire (JSON string → object JS)
+        const chartData = JSON.parse('<?php echo $statusChart ?>');
+        const labels = chartData.labels;
+        const values = chartData.values;
+        // 🔥 Masukkan data Livewire ke format yang ECharts butuh
+        const seriesData = labels.map((label, i) => ({
+            name: label
+            , value: values[i]
+        }));
         var myChart_status = echarts.init(dom_status, null, {
             renderer: 'canvas'
             , useDirtyRect: false
@@ -29,27 +38,7 @@
                 name: 'Access From'
                 , type: 'pie'
                 , radius: '50%'
-                , data: [{
-                        value: 1048
-                        , name: 'Search Engine'
-                    }
-                    , {
-                        value: 735
-                        , name: 'Direct'
-                    }
-                    , {
-                        value: 580
-                        , name: 'Email'
-                    }
-                    , {
-                        value: 484
-                        , name: 'Union Ads'
-                    }
-                    , {
-                        value: 300
-                        , name: 'Video Ads'
-                    }
-                ]
+                , data: seriesData
                 , emphasis: {
                     itemStyle: {
                         shadowBlur: 10
