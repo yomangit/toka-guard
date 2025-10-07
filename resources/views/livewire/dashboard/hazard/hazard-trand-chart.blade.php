@@ -12,7 +12,23 @@
         var option;
 
         option = {
-            textStyle: {
+            title: {
+                text: 'Stacked Line'
+            }
+            , tooltip: {
+                trigger: 'axis'
+            }
+            , legend: {
+                 data: data.months
+            }
+            , grid: {
+                left: '3%'
+                , right: '4%'
+                , bottom: '3%'
+                , containLabel: true
+            }
+            , 
+            , textStyle: {
                 fontFamily: 'Microsoft YaHei'
                 , fontSize: 12
                 , fontStyle: 'normal'

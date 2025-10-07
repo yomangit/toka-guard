@@ -43,7 +43,6 @@
         {{-- Grafik --}}
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white rounded-xl shadow">
-                <h3 class="font-semibold mb-1">Trend Laporan per Bulan</h3>
                 <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
