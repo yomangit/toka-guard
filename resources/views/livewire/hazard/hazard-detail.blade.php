@@ -373,8 +373,8 @@
                                 this.fp = flatpickr(this.$refs.tanggalInput, {
                                     disableMobile: true,
                                     enableTime: true,
-                                    
                                     defaultDate: this.$wire.entangle('tanggal').defer,
+                                    dateFormat: 'd-m-Y',
                                     clickOpens: true,
                                     
                                     appendTo: this.$refs.wrapper,
