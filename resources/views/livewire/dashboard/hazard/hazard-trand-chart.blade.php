@@ -18,52 +18,26 @@
 
     function renderHazardTrendChart() {
         const chartDom = document.getElementById('hazardTrend');
-        var chart = echarts.init(chartDom);
+        var myChart = echarts.init(chartDom);
         const months = @json($months);
         const counts = @json($counts);
         console.log(months);
 
-        const option = {
-            title: {
-                text: 'Tren Laporan Hazard per Bulan'
-                , left: 'center'
-            }
-            , tooltip: {
-                trigger: 'axis'
-            }
-            , xAxis: {
+        option = {
+            xAxis: {
                 type: 'category'
-                , data: months
-                , axisLine: {
-                    lineStyle: {
-                        color: '#888'
-                    }
-                }
+                , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             }
             , yAxis: {
                 type: 'value'
-                , name: 'Jumlah Laporan'
             }
             , series: [{
-                name: 'Laporan'
+                data: [150, 230, 224, 218, 135, 147, 260]
                 , type: 'line'
-                , data: counts
-                , smooth: true
-                , symbol: 'circle'
-                , symbolSize: 8
-                , lineStyle: {
-                    width: 3
-                }
-                , itemStyle: {
-                    color: '#007bff'
-                }
-                , areaStyle: {
-                    color: 'rgba(0, 123, 255, 0.2)'
-                }
             }]
         };
 
-        chart.setOption(option);
+        option && myChart.setOption(option);
         window.addEventListener('resize', () => chart.resize());
     }
 
