@@ -46,7 +46,7 @@
                 <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-                {{-- <livewire:dashboard.hazard.hazard-distribusi-status /> --}}
+                <livewire:dashboard.hazard.hazard-distribusi-status />
             </div>
         </div>
 
