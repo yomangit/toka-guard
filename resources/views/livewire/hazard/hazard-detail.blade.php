@@ -374,8 +374,8 @@
                                     disableMobile: true,
                                     enableTime: true,
                                     defaultDate: this.$wire.entangle('tanggal').defer,
+                                    dateFormat: 'd-m-Y H:i',
                                     clickOpens: true,
-                                    
                                     appendTo: this.$refs.wrapper,
                                     onChange: (selectedDates, dateStr) => {
                                         this.$wire.set('tanggal', dateStr);
