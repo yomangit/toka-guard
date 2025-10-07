@@ -181,7 +181,7 @@ class HazardDetail extends Component
         $this->likelihoods = Likelihood::orderByDesc('level')->get();
         $this->consequences = RiskConsequence::orderBy('level')->get();
 
-        $this->tanggal = Carbon::createFromFormat('Y-m-d H:i', $this->hazard->tanggal)->format('d-m-Y H:i');
+        $this->tanggal = $this->hazard->tanggal;
         $this->tipe_bahaya = $this->hazard->event_type_id;
         $this->sub_tipe_bahaya = $this->hazard->event_sub_type_id;
         $this->status = $this->hazard->status;
