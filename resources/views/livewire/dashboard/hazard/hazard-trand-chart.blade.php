@@ -1,4 +1,4 @@
-<div x-data="hazardTrendChart(@js($months), @js($counts))" x-init="renderChart()" class="w-full bg-white p-4 rounded-lg shadow">
+<div class="w-full bg-white p-4 rounded-lg shadow">
     <div wire:ignore id="hazardTrend" style="height: 400px;" class="w-full"></div>
 </div>
 
@@ -8,6 +8,8 @@
 <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
 <script>
+    const months = @json($months);
+    const counts = @json($counts);
     var dom = document.getElementById('hazardTrend');
     var myChart = echarts.init(dom, null, {
         renderer: 'canvas'
@@ -21,13 +23,13 @@
     option = {
         xAxis: {
             type: 'category'
-            , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            , data: months,
         }
         , yAxis: {
             type: 'value'
         }
         , series: [{
-            data: [150, 230, 224, 218, 135, 147, 260]
+             data: counts,
             , type: 'line'
         }]
     };
