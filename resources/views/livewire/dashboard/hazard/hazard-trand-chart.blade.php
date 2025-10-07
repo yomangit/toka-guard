@@ -8,15 +8,6 @@
 <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
 <script>
-    document.addEventListener('livewire:load', () => {
-        renderHazardTrendChart();
-    });
-
-    document.addEventListener('livewire:update', () => {
-        renderHazardTrendChart();
-    });
-
-    function renderHazardTrendChart() {
         const chartDom = document.getElementById('hazardTrend');
         var myChart = echarts.init(chartDom);
         const months = @json($months);
@@ -39,7 +30,5 @@
 
         option && myChart.setOption(option);
         window.addEventListener('resize', () => chart.resize());
-    }
-
 </script>
 @endpush
