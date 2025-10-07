@@ -1,5 +1,5 @@
 <div class=" bg-white p-4 rounded-lg shadow">
-    <div wire:ignore id="hazardTrend" style="height: 500px;" class="w-full"></div>
+    <div wire:ignore id="hazardTrend" style="height: 250px;" class="w-full"></div>
 </div>
 
 @push('scripts')
