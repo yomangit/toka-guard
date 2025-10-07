@@ -59,3 +59,5 @@
 
             window.addEventListener('resize', () => myChart.resize());
         });
+
+    </script>
