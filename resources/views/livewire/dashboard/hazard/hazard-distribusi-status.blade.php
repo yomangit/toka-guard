@@ -23,8 +23,7 @@
 
         option_status = {
             title: {
-                text: 'Referer of a Website'
-                , subtext: 'Fake Data'
+                text: 'Distribusi Status'
                 , left: 'center'
             }
             , tooltip: {
@@ -35,10 +34,13 @@
                 , left: 'left'
             }
             , series: [{
-                name: 'Access From'
+                name: 'Status'
                 , type: 'pie'
                 , radius: '50%'
                 , data: seriesData
+                , label: {
+                    formatter: '{d}%' // menampilkan persentase
+                }
                 , emphasis: {
                     itemStyle: {
                         shadowBlur: 10
