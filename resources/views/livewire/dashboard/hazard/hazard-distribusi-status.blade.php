@@ -5,7 +5,7 @@
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
     <script>
         var dom_status = document.getElementById('chart-container');
-        var myChart = echarts.init(dom_status, null, {
+        var myChart_status = echarts.init(dom_status, null, {
             renderer: 'canvas'
             , useDirtyRect: false
         });
@@ -62,9 +62,9 @@
             }]
         };
         if (option_status && typeof option_status === 'object') {
-            myChart.setOption(option_status);
+            myChart_status.setOption(option_status);
         }
-        window.addEventListener('resize', myChart.resize);
+        window.addEventListener('resize', myChart_status.resize);
 
     </script>
     @endpush
