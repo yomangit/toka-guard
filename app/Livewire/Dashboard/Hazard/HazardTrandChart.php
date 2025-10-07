@@ -5,9 +5,10 @@ namespace App\Livewire\Dashboard\Hazard;
 use Livewire\Component;
 use App\Models\Hazard as ModelsHazard;
 use Carbon\Carbon;
+
 class HazardTrandChart extends Component
 {
-     public $months = [];
+    public $months = [];
     public $counts = [];
 
     public function mount()
