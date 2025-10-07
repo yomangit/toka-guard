@@ -565,7 +565,7 @@ class HazardDetail extends Component
         $docDeskripsiPath = null;
         $docCorrectivePath = null;
         // Convert tanggal ke format Y-m-d H:i:s
-        $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i:s');
+        $tanggal = Carbon::createFromFormat('d-m-Y H:i', $this->tanggal)->format('Y-m-d H:i');
         // Update file sebelum perbaikan
         if ($this->new_doc_deskripsi) {
             // Hapus file lama (opsional)
