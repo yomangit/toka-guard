@@ -1,7 +1,7 @@
 <section>
     {{-- Header --}}
-    <h1 class="text-2xl font-bold">Hazard Report Dashboard</h1>
-    <p class="text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
+    <h1 class="text-xl font-bold">Hazard Report Dashboard</h1>
+    <p class="text-xs text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
     <x-tabs-dashboard.layout>
 
         {{-- Statistik Ringkas --}}
