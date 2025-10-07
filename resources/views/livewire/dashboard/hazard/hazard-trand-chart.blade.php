@@ -8,27 +8,37 @@
 <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
 <script>
-        const chartDom = document.getElementById('hazardTrend');
-        var myChart = echarts.init(chartDom);
-        const months = @json($months);
-        const counts = @json($counts);
-        console.log(months);
+    var dom = document.getElementById('hazardTrend');
+    var myChart = echarts.init(dom, null, {
+        renderer: 'canvas'
+        , useDirtyRect: false
+    });
+    var app = {};
 
-        option = {
-            xAxis: {
-                type: 'category'
-                , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            }
-            , yAxis: {
-                type: 'value'
-            }
-            , series: [{
-                data: [150, 230, 224, 218, 135, 147, 260]
-                , type: 'line'
-            }]
-        };
 
-        option && myChart.setOption(option);
-        window.addEventListener('resize', () => chart.resize());
+    var option;
+
+    option = {
+        xAxis: {
+            type: 'category'
+            , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        }
+        , yAxis: {
+            type: 'value'
+        }
+        , series: [{
+            data: [150, 230, 224, 218, 135, 147, 260]
+            , type: 'line'
+        }]
+    };
+
+
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+
 </script>
 @endpush
