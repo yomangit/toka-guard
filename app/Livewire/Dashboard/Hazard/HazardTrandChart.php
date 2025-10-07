@@ -8,8 +8,7 @@ use Carbon\Carbon;
 
 class HazardTrandChart extends Component
 {
-    public $months = [];
-    public $counts = [];
+    public $data;
     public function mount()
     {
         $data = ModelsHazard::selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
@@ -17,10 +16,13 @@ class HazardTrandChart extends Component
             ->groupBy('month')
             ->orderBy('month')
             ->get();
-        $this->months = $data->pluck('month')->map(function ($m) {
-            return Carbon::create()->month($m)->format('M');
-        });
-        $this->counts = $data->pluck('total');
+        $data = [
+           'months' => $data->pluck('month')->map(function ($m) {
+                return Carbon::create()->month($m)->format('M');
+            })->toArray(),
+            'counts' => $data->pluck('total')->toArray()
+        ];
+         $this->data = json_encode($data);
     }
     public function render()
     {
