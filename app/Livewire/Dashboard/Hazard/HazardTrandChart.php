@@ -12,7 +12,7 @@ class HazardTrandChart extends Component
     public $counts = [];
     public function mount()
     {
-        $data = ModelsHazard::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+        $data = ModelsHazard::selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('month')
             ->orderBy('month')
@@ -20,6 +20,7 @@ class HazardTrandChart extends Component
         $this->months = $data->pluck('month')->map(function ($m) {
             return Carbon::create()->month($m)->format('M');
         });
+        dd($this->months);
         $this->counts = $data->pluck('total');
     }
     public function render()
