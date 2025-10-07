@@ -15,10 +15,10 @@
             name: label
             , value: values[i]
         }));
-        var dom = document.getElementById('chart-container');
-        var myChart = echarts.init(dom);
-        var option;
-        option = {
+        var dom_pie = document.getElementById('chart-container');
+        var myChart = echarts.init(dom_pie);
+        var option_pie;
+        option_pie = {
             xAxis: {
                 type: 'category'
                 , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -34,8 +34,8 @@
 
 
 
-        if (option && typeof option === 'object') {
-            myChart.setOption(option);
+        if (option_pie && typeof option_pie === 'object') {
+            myChart.setOption(option_pie);
         }
 
         window.addEventListener('resize', myChart.resize);
