@@ -18,7 +18,7 @@
         var dom_pie = document.getElementById('chart-container');
         var myChart = echarts.init(dom_pie);
         var option_pie;
-        option = {
+        option_pie = {
             title: {
                 text: 'Referer of a Website'
                 , subtext: 'Fake Data'
@@ -66,8 +66,8 @@
             }]
         };
 
-        if (option && typeof option === 'object') {
-            myChart.setOption(option);
+        if (option_pie && typeof option_pie === 'object') {
+            myChart.setOption(option_pie);
         }
 
         window.addEventListener('resize', myChart.resize);
