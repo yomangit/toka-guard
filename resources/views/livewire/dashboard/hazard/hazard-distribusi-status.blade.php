@@ -1,8 +1,8 @@
     <div wire:ignore id="chart-container" style="height: 320px;" class="w-full"></div>
-
     @push('scripts')
     <!-- Load ECharts dari CDN -->
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
+    <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
     <script>
         var dom_status = document.getElementById('chart-container');
         var myChart_status = echarts.init(dom_status, null, {
