@@ -18,24 +18,56 @@
         var dom_pie = document.getElementById('chart-container');
         var myChart = echarts.init(dom_pie);
         var option_pie;
-        option_pie = {
-            xAxis: {
-                type: 'category'
-                , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        option = {
+            title: {
+                text: 'Referer of a Website'
+                , subtext: 'Fake Data'
+                , left: 'center'
             }
-            , yAxis: {
-                type: 'value'
+            , tooltip: {
+                trigger: 'item'
+            }
+            , legend: {
+                orient: 'vertical'
+                , left: 'left'
             }
             , series: [{
-                data: [150, 230, 224, 218, 135, 147, 260]
-                , type: 'line'
+                name: 'Access From'
+                , type: 'pie'
+                , radius: '50%'
+                , data: [{
+                        value: 1048
+                        , name: 'Search Engine'
+                    }
+                    , {
+                        value: 735
+                        , name: 'Direct'
+                    }
+                    , {
+                        value: 580
+                        , name: 'Email'
+                    }
+                    , {
+                        value: 484
+                        , name: 'Union Ads'
+                    }
+                    , {
+                        value: 300
+                        , name: 'Video Ads'
+                    }
+                ]
+                , emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10
+                        , shadowOffsetX: 0
+                        , shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
             }]
         };
 
-
-
-        if (option_pie && typeof option_pie === 'object') {
-            myChart.setOption(option_pie);
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
         }
 
         window.addEventListener('resize', myChart.resize);
