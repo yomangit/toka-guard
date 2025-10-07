@@ -27,7 +27,8 @@
                 , left: 'center'
             }
             , tooltip: {
-                trigger: 'item'
+                trigger: 'item',
+                 formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
             }
             , legend: {
                 orient: 'vertical'
@@ -39,7 +40,7 @@
                 , radius: '50%'
                 , data: seriesData
                 , label: {
-                    formatter: '{d}%' // menampilkan persentase
+                   formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
                 }
                 , emphasis: {
                     itemStyle: {
