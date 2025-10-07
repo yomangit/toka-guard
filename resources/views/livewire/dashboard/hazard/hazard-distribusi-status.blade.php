@@ -6,26 +6,18 @@
     <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
     <script>
-        var dom = document.getElementById('chart-container');
-        var myChart = echarts.init(dom, null, {
-            renderer: 'canvas'
-            , useDirtyRect: false
-        })
-
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
         const chartData = JSON.parse('<?php echo $statusChart ?>');
         const labels = chartData.labels;
         const values = chartData.values;
-
         // 🔥 Masukkan data Livewire ke format yang ECharts butuh
         const seriesData = labels.map((label, i) => ({
             name: label
             , value: values[i]
         }));
-        console.log(seriesData);
-
+        var dom = document.getElementById('chart-container');
+        var myChart = echarts.init(dom);
         var option;
-
         option = {
             xAxis: {
                 type: 'category'
