@@ -3,22 +3,18 @@
     @push('scripts')
     <!-- Load ECharts dari CDN -->
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
-    <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
-
     <script>
-        // 🧠 Ambil data dari Livewire (JSON string → object JS)
-        const chartData = JSON.parse('<?php echo $statusChart ?>');
-        const labels = chartData.labels;
-        const values = chartData.values;
-        // 🔥 Masukkan data Livewire ke format yang ECharts butuh
-        const seriesData = labels.map((label, i) => ({
-            name: label
-            , value: values[i]
-        }));
-        var dom_pie = document.getElementById('chart-container');
-        var myChart = echarts.init(dom_pie);
-        var option_pie;
-        option_pie = {
+        var dom = document.getElementById('chart-container');
+        var myChart = echarts.init(dom, null, {
+            renderer: 'canvas'
+            , useDirtyRect: false
+        });
+        var app = {};
+
+
+        var option;
+
+        option = {
             title: {
                 text: 'Referer of a Website'
                 , subtext: 'Fake Data'
@@ -66,10 +62,11 @@
             }]
         };
 
-        if (option_pie && typeof option_pie === 'object') {
-            myChart.setOption(option_pie);
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
         }
 
         window.addEventListener('resize', myChart.resize);
 
     </script>
+    @endpush
