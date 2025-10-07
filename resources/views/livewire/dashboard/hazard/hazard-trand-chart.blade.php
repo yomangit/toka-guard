@@ -10,8 +10,6 @@
 <script>
     const data = JSON.parse('<?php echo $data ?>');
     console.log(data);
-    
-    const counts = @json($counts);
     var dom = document.getElementById('hazardTrend');
     var myChart = echarts.init(dom, null, {
         renderer: 'canvas'
