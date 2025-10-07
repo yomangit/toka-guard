@@ -41,7 +41,7 @@
         </div>
 
         {{-- Grafik --}}
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-2">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 my-2">
             <div class="bg-white rounded-xl shadow">
                 <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
