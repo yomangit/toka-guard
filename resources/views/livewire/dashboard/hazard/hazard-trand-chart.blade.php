@@ -9,6 +9,8 @@
 
 <script>
     const months = JSON.parse('<?php echo $months ?>');
+    console.log(months);
+    
     const counts =JSON.parse('<?php echo $counts ?>');
     var dom = document.getElementById('hazardTrend');
     var myChart = echarts.init(dom, null, {
