@@ -12,14 +12,31 @@
         var option;
 
         option = {
-            textStyle: {
+            title: {
+                text: 'Jumlah Laporan Hazard per Bulan'
+                , left: 'center'
+                , top: 5
+                , textStyle: {
+                    fontFamily: 'Microsoft YaHei'
+                    , fontSize: 14
+                    , fontWeight: 'bold'
+                    , color: '#333'
+                }
+                , subtext: 'Data laporan berdasarkan bulan berjalan'
+                , subtextStyle: {
+                    fontFamily: 'Microsoft YaHei'
+                    , fontSize: 12
+                    , color: '#666'
+                }
+            }
+            , textStyle: {
                 fontFamily: 'Microsoft YaHei'
                 , fontSize: 12
                 , fontStyle: 'normal'
                 , fontWeight: 'normal'
             , }
             , grid: {
-                top: 50
+                top: 90
                 , right: 30
                 , bottom: 50
                 , left: 50
@@ -37,7 +54,7 @@
             }
             , legend: {
                 data: ['Jumlah Laporan']
-                , top: 10
+                , top: 50
                 , left: 'center'
                 , textStyle: {
                     fontFamily: 'Microsoft YaHei'
@@ -102,6 +119,7 @@
         if (option && typeof option === 'object') {
             myChart.setOption(option);
         }
+
 
 
         window.addEventListener('resize', myChart.resize);
