@@ -1,4 +1,4 @@
-<div class="w-full bg-white p-4 rounded-lg shadow">
+<div class=" bg-white p-4 rounded-lg shadow">
     <div wire:ignore id="hazardTrend" style="height: 200px;" class="w-full"></div>
 </div>
 
