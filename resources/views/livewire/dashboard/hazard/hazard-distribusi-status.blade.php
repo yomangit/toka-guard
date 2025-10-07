@@ -10,8 +10,6 @@
             , useDirtyRect: false
         });
         var app = {};
-
-
         var option_status;
 
         option_status = {
