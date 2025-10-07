@@ -25,7 +25,7 @@
     option = {
         xAxis: {
             type: 'category'
-            , data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            , data: data.months
         }
         , yAxis: {
             type: 'value'
