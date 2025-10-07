@@ -12,36 +12,43 @@
         var option;
 
         option = {
-                textStyle: {
+            textStyle: {
+                fontFamily: 'Microsoft YaHei'
+                , fontSize: 12
+                , fontStyle: 'normal'
+                , fontWeight: 'normal'
+            , }
+            , xAxis: {
+                type: 'category'
+                , data: data.months
+                , axisLabel: {
                     fontFamily: 'Microsoft YaHei'
                     , fontSize: 12
                     , fontStyle: 'normal'
                     , fontWeight: 'normal'
                 , }
-                , xAxis: {
-                    type: 'category'
-                    , data: data.months
-                    , axisLabel: {
-                        fontFamily: 'Microsoft YaHei'
-                        , fontSize: 12
-                        , fontStyle: 'normal'
-                        , fontWeight: 'normal'
-                    , }
-                    , yAxis: {
-                        type: 'value'
-                    }
-                    , series: [{
-                        data: data.counts
-                        , type: 'line'
-                        , smooth: true
-                    }]
-                };
+            }
+            , yAxis: {
+                type: 'value'
+                , axisLabel: {
+                    fontFamily: 'Microsoft YaHei'
+                    , fontSize: 12
+                    , fontStyle: 'normal'
+                    , fontWeight: 'normal'
+                , }
+            }
+            , series: [{
+                data: data.counts
+                , type: 'line'
+                , smooth: true
+            }]
+        };
 
-                if (option && typeof option === 'object') {
-                    myChart.setOption(option);
-                }
+        if (option && typeof option === 'object') {
+            myChart.setOption(option);
+        }
 
-                window.addEventListener('resize', myChart.resize);
+        window.addEventListener('resize', myChart.resize);
 
     </script>
     @endpush
