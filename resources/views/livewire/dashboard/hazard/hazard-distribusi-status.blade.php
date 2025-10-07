@@ -4,17 +4,17 @@
     <!-- Load ECharts dari CDN -->
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
     <script>
-        var dom = document.getElementById('chart-container');
-        var myChart = echarts.init(dom, null, {
+        var dom_status = document.getElementById('chart-container');
+        var myChart = echarts.init(dom_status, null, {
             renderer: 'canvas'
             , useDirtyRect: false
         });
         var app = {};
 
 
-        var option;
+        var option_status;
 
-        option = {
+        option_status = {
             title: {
                 text: 'Referer of a Website'
                 , subtext: 'Fake Data'
@@ -61,11 +61,9 @@
                 }
             }]
         };
-
-        if (option && typeof option === 'object') {
-            myChart.setOption(option);
+        if (option_status && typeof option_status === 'object') {
+            myChart.setOption(option_status);
         }
-
         window.addEventListener('resize', myChart.resize);
 
     </script>
