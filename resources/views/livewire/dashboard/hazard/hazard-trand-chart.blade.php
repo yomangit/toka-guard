@@ -26,8 +26,8 @@
 
         const chart = echarts.init(chartDom);
 
-        const months = @json($months);
-        const counts = @json($counts);
+        const months = JSON.parse('<?php echo $months ?>');
+        const counts =JSON.parse('<?php echo $counts ?>');
 
         const option = {
             title: {
