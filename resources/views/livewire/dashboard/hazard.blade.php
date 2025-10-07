@@ -1,8 +1,8 @@
 <section>
+    {{-- Header --}}
+    <h1 class="text-2xl font-bold">Hazard Report Dashboard</h1>
+    <p class="text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
     <x-tabs-dashboard.layout>
-        {{-- Header --}}
-        <h1 class="text-2xl font-bold">Hazard Report Dashboard</h1>
-        <p class="text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
 
         {{-- Statistik Ringkas --}}
         <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
@@ -53,7 +53,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white p-4 rounded-xl shadow">
                 <h3 class="font-semibold mb-2">Trend Laporan per Bulan</h3>
-                    <livewire:dashboard.hazard.hazard-trand-chart />
+                <livewire:dashboard.hazard.hazard-trand-chart />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
                 <h3 class="font-semibold mb-2">Distribusi Berdasarkan Status</h3>
