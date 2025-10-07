@@ -33,15 +33,14 @@ use App\Livewire\Administration\RelasiDeptUser\DepartmentUserManager;
 use App\Livewire\Administration\RiskAssessment\Assessement;
 use App\Livewire\Administration\Roles\Role;
 use App\Livewire\Administrator\UserRoleManager\UserRole;
+use App\Livewire\Dashboard\Hazard;
 use App\Livewire\Hazard\HazardForm;
 use App\Livewire\Hazard\HazardReportPanel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('dashboard',Hazard::class )->middleware(['auth', 'verified'])->name('dashboard');
 Route::redirect('/', 'dashboard');
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
