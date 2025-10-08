@@ -43,6 +43,7 @@
         , yAxis: {
             type: 'category'
             , data: categories.label
+            ,inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
         }
         , series: [{
             name: categories.year // ✅ ambil dari data Livewire
