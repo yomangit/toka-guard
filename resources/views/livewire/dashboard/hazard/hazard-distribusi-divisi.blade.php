@@ -36,7 +36,6 @@
                 return `<b>${name}</b><br/>Jumlah: ${value}`;
             }
         }
-        , 
         , legend: {}
         , xAxis: {
             type: 'value'
