@@ -4,6 +4,8 @@
 <script type="text/javascript">
     var dom = document.getElementById('container');
      const data = JSON.parse('<?php echo $categories ?>');
+     console.log(data);
+     
     var myChart = echarts.init(dom, null, {
         renderer: 'canvas'
         , useDirtyRect: false
