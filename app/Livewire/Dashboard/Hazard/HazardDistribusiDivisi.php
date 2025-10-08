@@ -28,14 +28,16 @@ class HazardDistribusiDivisi extends Component
             }
         });
 
+        // Hitung jumlah per kategori dan urutkan dari terbesar ke terkecil
+        $counts = $grouped->map->count()->sortDesc();
         // Hitung jumlah per kategori
         $value = [
             'year' => $year,
-            'label' => $grouped->keys()->toArray(),
-            'counts' => $grouped->map->count()->values()->toArray(),
-           
+            'label'  => $counts->keys()->values()->toArray(),   // urutan label mengikuti sortDesc()
+            'counts' => $counts->values()->toArray(),            // urutan data sesuai label
+
         ];
-         $this->categories = json_encode($value);
+        $this->categories = json_encode($value);
     }
     public function render()
     {
