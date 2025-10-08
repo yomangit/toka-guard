@@ -10,8 +10,10 @@
             {{-- Total Laporan --}}
             <div class="stat">
                 <div class="stat-figure text-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-bar-big-icon lucide-chart-bar-big">
+                        <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+                        <rect x="7" y="13" width="9" height="4" rx="1" />
+                        <rect x="7" y="5" width="12" height="4" rx="1" />
                     </svg>
                 </div>
                 <div class="stat-title">Total Laporan</div>
