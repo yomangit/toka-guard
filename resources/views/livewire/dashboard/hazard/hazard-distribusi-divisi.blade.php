@@ -41,7 +41,7 @@
     };
 
     if (option_divis && typeof option_divis === 'object') {
-        myChart_divis.setOption(optio_divisn);
+        myChart_divis.setOption(option_divis);
     }
 
     window.addEventListener('resize', myChart_divis.resize);
