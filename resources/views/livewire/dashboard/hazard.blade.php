@@ -91,24 +91,26 @@
         {{-- Daftar Laporan Terbaru --}}
         <div class="bg-white p-4 rounded-xl shadow">
             <h3 class="font-semibold mb-4">Laporan Hazard Terbaru</h3>
-            <table class="table table-xs">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-3 py-2 border">ID</th>
-                        <th class="px-3 py-2 border">Judul</th>
-                        <th class="px-3 py-2 border">Status</th>
-                        <th class="px-3 py-2 border">Pelapor</th>
-                        <th class="px-3 py-2 border">Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                </tbody>
-            </table>
+           <div class="overflow-x-auto ">
+               <table class="table table-xs">
+                   <thead class="bg-gray-100">
+                       <tr>
+                           <th class="px-3 py-2 border">ID</th>
+                           <th class="px-3 py-2 border">Judul</th>
+                           <th class="px-3 py-2 border">Status</th>
+                           <th class="px-3 py-2 border">Pelapor</th>
+                           <th class="px-3 py-2 border">Tanggal</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <td>1</td>
+                       <td>2</td>
+                       <td>3</td>
+                       <td>4</td>
+                       <td>5</td>
+                   </tbody>
+               </table>
+           </div>
         </div>
     </x-tabs-dashboard.layout>
 </section>
