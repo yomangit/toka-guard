@@ -12,9 +12,9 @@
     });
     // 🎨 Fungsi untuk menghasilkan warna berbeda-beda otomatis
     function generateColor(index, total) {
-        // Gunakan lingkaran warna (HSL)
-        const hue = (index * (360 / total)) % 360; // bagi rata keliling 360°
-        return `hsl(${hue}, 65%, 50%)`; // saturasi & lightness agar tetap cerah
+        const seed = Math.sin(index + 1) * 10000;
+        const hue = (seed - Math.floor(seed)) * 360;
+        return `hsl(${hue}, 70%, 55%)`;
     }
 
     var option_reportBy;
@@ -43,7 +43,7 @@
         , yAxis: {
             type: 'category'
             , data: pelapor.label
-            ,inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
+            , inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
         }
         , series: [{
             name: pelapor.year // ✅ ambil dari data Livewire
