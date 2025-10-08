@@ -3,6 +3,7 @@
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
     var dom = document.getElementById('container');
+     const data = JSON.parse('<?php echo $categories ?>');
     var myChart = echarts.init(dom, null, {
         renderer: 'canvas'
         , useDirtyRect: false
@@ -28,12 +29,12 @@
         }
         , yAxis: {
             type: 'category'
-            , data: ['Brazil', 'Indonesia', 'USA', 'India', 'China', 'World']
+            , data: data.label
         }
         , series: [{
             name: '2011'
             , type: 'bar'
-            , data: [18203, 23489, 29034, 104970, 131744, 630230]
+            , data: data.counts
         }]
     };
 
