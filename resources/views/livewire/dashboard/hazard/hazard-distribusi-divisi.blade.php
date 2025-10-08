@@ -4,13 +4,18 @@
 <script type="text/javascript">
     var dom_divis = document.getElementById('container');
     const categories = JSON.parse('<?php echo $categories ?>');
-    console.log(categories);
+
 
     var myChart_divis = echarts.init(dom_divis, null, {
         renderer: 'canvas'
         , useDirtyRect: false
     });
-    var app = {};
+     // 🎨 Fungsi untuk menghasilkan warna berbeda-beda otomatis
+    function generateColor(index, total) {
+        // Gunakan lingkaran warna (HSL)
+        const hue = (index * (360 / total)) % 360; // bagi rata keliling 360°
+        return `hsl(${hue}, 65%, 55%)`; // saturasi & lightness agar tetap cerah
+    }
 
     var option_divis;
 
@@ -43,6 +48,13 @@
             name: '2011'
             , type: 'bar'
             , data: categories.counts
+            ,itemStyle: {
+                color: function(params) {
+                    // Gunakan warna dinamis berdasarkan posisi bar
+                    return generateColor(params.dataIndex, categories.counts.length);
+                },
+                borderRadius: [0, 6, 6, 0]
+            }
         }]
     };
 
