@@ -14,7 +14,7 @@
     function generateColor(index, total) {
         // Gunakan lingkaran warna (HSL)
         const hue = (index * (360 / total)) % 360; // bagi rata keliling 360°
-        return `hsl(${hue}, 65%, 55%)`; // saturasi & lightness agar tetap cerah
+        return `hsl(${hue}, 65%, 50%)`; // saturasi & lightness agar tetap cerah
     }
 
     var option_reportBy;
