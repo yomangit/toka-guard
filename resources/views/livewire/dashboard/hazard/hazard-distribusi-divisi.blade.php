@@ -3,9 +3,9 @@
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
     var dom_divis = document.getElementById('container');
-     const categories = JSON.parse('<?php echo $categories ?>');
-     console.log(categories);
-     
+    const categories = JSON.parse('<?php echo $categories ?>');
+    console.log(categories);
+
     var myChart_divis = echarts.init(dom_divis, null, {
         renderer: 'canvas'
         , useDirtyRect: false
@@ -17,6 +17,12 @@
     option_divis = {
         title: {
             text: 'World Population'
+        }
+        , grid: {
+            top: 50
+            , left: 180
+            , right: 30
+            , bottom: 60
         }
         , tooltip: {
             trigger: 'axis'
