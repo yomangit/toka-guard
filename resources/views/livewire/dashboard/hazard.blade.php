@@ -84,7 +84,7 @@
                 <livewire:dashboard.hazard.hazard-distribusi-divisi />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-
+                 <livewire:dashboard.hazard.hazard-user-report />
             </div>
         </div>
 
