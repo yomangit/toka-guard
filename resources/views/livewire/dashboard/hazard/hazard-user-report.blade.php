@@ -1,5 +1,5 @@
 <div>
-   <div id="chartdiv"></div>
+   <div style="height: 320px;" id="chartdiv"></div>
 </div>
 @push('scripts')
 <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
