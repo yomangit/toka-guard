@@ -25,7 +25,7 @@
         }
         , grid: {
             top: 50
-            , left: 180
+            , left: 120
             , right: 30
             , bottom: 60
         }
