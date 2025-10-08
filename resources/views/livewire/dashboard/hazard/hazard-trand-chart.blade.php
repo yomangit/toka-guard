@@ -6,7 +6,6 @@
 
     <script>
         const data = JSON.parse('<?php echo $data ?>');
-        console.log(data);
         var dom = document.getElementById('hazardTrend');
         var myChart = echarts.init(dom);
         var option;

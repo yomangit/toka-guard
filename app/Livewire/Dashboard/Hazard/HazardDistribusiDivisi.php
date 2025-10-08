@@ -18,9 +18,9 @@ class HazardDistribusiDivisi extends Component
         // Kumpulkan kategori (nama department jika ada, kalau kosong pakai contractor)
         $grouped = $hazards->groupBy(function ($hazard) {
             if ($hazard->department) {
-                return $hazard->department->name;
+                return $hazard->department->department_name;
             } elseif ($hazard->contractor) {
-                return $hazard->contractor->name;
+                return $hazard->contractor->contractor_name;
             } else {
                 return 'Tidak Diketahui';
             }
