@@ -10,7 +10,7 @@
         renderer: 'canvas'
         , useDirtyRect: false
     });
-     // 🎨 Fungsi untuk menghasilkan warna berbeda-beda otomatis
+    // 🎨 Fungsi untuk menghasilkan warna berbeda-beda otomatis
     function generateColor(index, total) {
         // Gunakan lingkaran warna (HSL)
         const hue = (index * (360 / total)) % 360; // bagi rata keliling 360°
@@ -21,7 +21,7 @@
 
     option_divis = {
         title: {
-            text: 'World Population'
+            text: 'Jumlah Laporan'
         }
         , grid: {
             top: 50
@@ -45,15 +45,15 @@
             , data: categories.label
         }
         , series: [{
-            name: '2011'
+            name: `${categories.year}`, // ✅ ambil dari data Livewire
             , type: 'bar'
             , data: categories.counts
-            ,itemStyle: {
+            , itemStyle: {
                 color: function(params) {
                     // Gunakan warna dinamis berdasarkan posisi bar
                     return generateColor(params.dataIndex, categories.counts.length);
-                },
-                borderRadius: [0, 6, 6, 0]
+                }
+                , borderRadius: [0, 6, 6, 0]
             }
         }]
     };

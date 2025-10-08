@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dashboard\Hazard;
 
+use Carbon\Carbon;
 use App\Models\Hazard;
 use Livewire\Component;
 
@@ -13,7 +14,8 @@ class HazardDistribusiDivisi extends Component
     public function mount()
     {
         // Ambil semua hazard beserta relasi
-        $hazards = Hazard::with(['department', 'contractor'])->get();
+        $year = Carbon::now()->year;
+        $hazards = Hazard::with(['department', 'contractor'])->whereYear('tanggal', Carbon::now()->year)->get();
 
         // Kumpulkan kategori (nama department jika ada, kalau kosong pakai contractor)
         $grouped = $hazards->groupBy(function ($hazard) {
@@ -28,8 +30,10 @@ class HazardDistribusiDivisi extends Component
 
         // Hitung jumlah per kategori
         $value = [
+            'year' => $year,
             'label' => $grouped->keys()->toArray(),
-            'counts' => $grouped->map->count()->values()->toArray()
+            'counts' => $grouped->map->count()->values()->toArray(),
+           
         ];
          $this->categories = json_encode($value);
     }
