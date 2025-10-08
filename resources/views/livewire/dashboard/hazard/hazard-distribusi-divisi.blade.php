@@ -3,9 +3,9 @@
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
     var dom_divis = document.getElementById('container');
-    const categories = JSON.parse('<?php echo $categories ?>');
-    console.log(categories);
-
+     const categories = JSON.parse('<?php echo $categories ?>');
+     console.log(categories);
+     
     var myChart_divis = echarts.init(dom_divis, null, {
         renderer: 'canvas'
         , useDirtyRect: false
@@ -16,24 +16,12 @@
 
     option_divis = {
         title: {
-            text: 'Distribusi Berdasarkan Departemen/Kontraktor'
-            , left: 'center'
-        }
-        , grid: {
-            top: 50
-            , left: 180
-            , right: 30
-            , bottom: 60
+            text: 'World Population'
         }
         , tooltip: {
             trigger: 'axis'
             , axisPointer: {
                 type: 'shadow'
-            }
-            , formatter: function(params) {
-                const name = params[0].name;
-                const value = params[0].value;
-                return `<b>${name}</b><br/>Jumlah: ${value}`;
             }
         }
         , legend: {}
@@ -43,13 +31,7 @@
         }
         , yAxis: {
             type: 'category'
-            , data: fixedLabels
-            , axisLabel: {
-                interval: 0, // tampilkan semua label
-                formatter: function(value) {
-                    return value.length > 20 ? value.substring(0, 20) + '…' : value;
-                }
-            }
+            , data: categories.label
         }
         , series: [{
             name: '2011'
