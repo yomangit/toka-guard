@@ -18,7 +18,13 @@ class HazardUserReport extends Component
         $hazards = Hazard::with('pelapor')->whereYear('tanggal', Carbon::now()->year)->get();
 
         // Kumpulkan kategori (nama department jika ada, kalau kosong pakai contractor)
-        $grouped = $hazards->pelapor->name;
+        $grouped = $hazards->groupBy(function ($hazard) {
+            if ($hazard->pelapor) {
+                return $hazard->pelapor->name;
+            }  else {
+                return 'Tidak Diketahui';
+            }
+        });
         // Hitung jumlah per kategori dan urutkan dari terbesar ke terkecil
         $counts = $grouped->map->count()->sortDesc();
         // Hitung jumlah per kategori
