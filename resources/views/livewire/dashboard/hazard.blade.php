@@ -6,39 +6,63 @@
 
         {{-- Statistik Ringkas --}}
         <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
-            <div class="stat ">
+
+            {{-- Total Laporan --}}
+            <div class="stat">
                 <div class="stat-figure text-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                 </div>
                 <div class="stat-title">Total Laporan</div>
-                <div class="stat-value text-primary">25.6K</div>
-                <div class="stat-desc">21% more than last month</div>
+                <div class="stat-value text-primary">{{ $totalHazard }}</div>
+                <div class="stat-desc">Semua laporan hazard</div>
             </div>
 
-            <div class="stat ">
+            {{-- Sedang Diproses --}}
+            <div class="stat">
                 <div class="stat-figure text-secondary">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
                 <div class="stat-title">Sedang Diproses</div>
-                <div class="stat-value text-secondary">2.6M</div>
-                <div class="stat-desc">21% more than last month</div>
+                <div class="stat-value text-secondary">
+                    {{ $hazardByStatus['in_progress'] ?? 0 }}
+                </div>
+                <div class="stat-desc">Laporan aktif</div>
             </div>
-            <div class="stat ">
-                <div class="stat-figure text-secondary">
+
+            {{-- Submitted --}}
+            <div class="stat">
+                <div class="stat-figure text-info">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
-                <div class="stat-title">Overdue</div>
-                <div class="stat-value text-secondary">2.6M</div>
-                <div class="stat-desc">21% more than last month</div>
+                <div class="stat-title">Submitted</div>
+                <div class="stat-value text-info">
+                    {{ $hazardByStatus['submitted'] ?? 0 }}
+                </div>
+                <div class="stat-desc">Menunggu diproses</div>
+            </div>
+
+            {{-- Closed --}}
+            <div class="stat">
+                <div class="stat-figure text-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <div class="stat-title">Selesai</div>
+                <div class="stat-value text-success">
+                    {{ $hazardByStatus['closed'] ?? 0 }}
+                </div>
+                <div class="stat-desc">Laporan selesai</div>
             </div>
 
         </div>
+
 
         {{-- Grafik --}}
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 my-2">
@@ -54,7 +78,7 @@
                 <livewire:dashboard.hazard.hazard-distribusi-divisi />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-               
+
             </div>
         </div>
 
