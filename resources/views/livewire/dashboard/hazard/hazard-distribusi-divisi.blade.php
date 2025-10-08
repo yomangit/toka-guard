@@ -45,7 +45,7 @@
             , data: categories.label
         }
         , series: [{
-            name: `${categories.year}`, // ✅ ambil dari data Livewire
+            name: categories.year, // ✅ ambil dari data Livewire
             , type: 'bar'
             , data: categories.counts
             , itemStyle: {
