@@ -49,6 +49,14 @@
                 <livewire:dashboard.hazard.hazard-distribusi-status />
             </div>
         </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 my-2">
+            <div class="bg-white rounded-xl shadow">
+                <livewire:dashboard.hazard.hazard-distribusi-divisi />
+            </div>
+            <div class="bg-white p-4 rounded-xl shadow">
+               
+            </div>
+        </div>
 
         {{-- Daftar Laporan Terbaru --}}
         <div class="bg-white p-4 rounded-xl shadow">
