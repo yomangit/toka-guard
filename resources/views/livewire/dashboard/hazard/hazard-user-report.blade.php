@@ -21,7 +21,7 @@
 
     option_reportBy = {
         title: {
-            text: 'Jumlah Laporan'
+            text: 'Top Kontributor'
         }
         , grid: {
             top: 50
