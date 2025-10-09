@@ -3,7 +3,28 @@
     <h1 class="text-xl font-bold">Hazard Report Dashboard</h1>
     <p class="text-xs text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
     <x-tabs-dashboard.layout>
-
+        <div class="w-full md:max-w-xs">
+            <fieldset class="fieldset ">
+                <x-form.label label="rentang tanggal" required />
+                <div class="relative" wire:ignore x-data="{
+                                fp: null,
+                                initFlatpickr() {
+                                    if (this.fp) this.fp.destroy();
+                                    this.fp = flatpickr(this.$refs.tanggalInput2, {
+                                        disableMobile: true,
+                                        enableTime: false,
+                                        altInput: true,
+                                        altFormat: 'd-M-Y',
+                                        dateFormat: 'd-m-Y',
+                                        mode: 'range', // 👈 Tambahkan opsi ini
+                                        onChange: (dates, str) => $wire.set('range_date', str),
+                                    });
+                                }
+                            }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
+                    <input name="range_date" type="text" x-ref="tanggalInput2" wire:model.live="range_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " readonly />
+                </div>
+            </fieldset>
+        </div>
         {{-- Statistik Ringkas --}}
         <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
 
@@ -84,33 +105,33 @@
                 <livewire:dashboard.hazard.hazard-distribusi-divisi />
             </div>
             <div class="bg-white p-4 rounded-xl shadow">
-                 <livewire:dashboard.hazard.hazard-user-report />
+                <livewire:dashboard.hazard.hazard-user-report />
             </div>
         </div>
 
         {{-- Daftar Laporan Terbaru --}}
         <div class="bg-white p-4 rounded-xl shadow">
             <h3 class="font-semibold mb-4">Laporan Hazard Terbaru</h3>
-           <div class="overflow-x-auto ">
-               <table class="table table-xs">
-                   <thead class="bg-gray-100">
-                       <tr>
-                           <th class="px-3 py-2 border">ID</th>
-                           <th class="px-3 py-2 border">Judul</th>
-                           <th class="px-3 py-2 border">Status</th>
-                           <th class="px-3 py-2 border">Pelapor</th>
-                           <th class="px-3 py-2 border">Tanggal</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <td>1</td>
-                       <td>2</td>
-                       <td>3</td>
-                       <td>4</td>
-                       <td>5</td>
-                   </tbody>
-               </table>
-           </div>
+            <div class="overflow-x-auto ">
+                <table class="table table-xs">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-3 py-2 border">ID</th>
+                            <th class="px-3 py-2 border">Judul</th>
+                            <th class="px-3 py-2 border">Status</th>
+                            <th class="px-3 py-2 border">Pelapor</th>
+                            <th class="px-3 py-2 border">Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>5</td>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </x-tabs-dashboard.layout>
 </section>

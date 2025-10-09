@@ -1,6 +1,5 @@
 <section class="w-full">
     <x-toast />
-    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.header-hazard')
     <div class="flex flex-col md:flex-row md:justify-between items-start md:items-center">
         <div class="mb-4 md:mb-0 z-30">
