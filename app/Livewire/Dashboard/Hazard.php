@@ -38,7 +38,9 @@ class Hazard extends Component
     }
     public function render()
     {
-        $totalHazard = ModelsHazard::count();
+        $totalHazard = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
+            $q->dateRange($this->start_date, $this->end_date);
+        })->count();
 
         $hazardByStatus = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
