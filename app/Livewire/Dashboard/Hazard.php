@@ -36,6 +36,9 @@ class Hazard extends Component
             ]);
         }
     }
+    public function clearFilter(){
+        $this->reset('range_date','start_date','end_date');
+    }
     public function render()
     {
         $totalHazard = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
