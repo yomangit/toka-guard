@@ -1,8 +1,10 @@
 <section>
     {{-- Header --}}
-    <h1 class="text-xl font-bold">Hazard Report Dashboard</h1>
-    <p class="text-xs text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
-    <x-tabs-dashboard.layout>
+    <div class="flex justify-between">
+        <div>
+            <h1 class="text-xl font-bold">Hazard Report Dashboard</h1>
+            <p class="text-xs text-gray-600">Ringkasan kondisi laporan hazard terkini</p>
+        </div>
         <div class="w-full md:max-w-xs">
             <fieldset class="fieldset ">
                 <x-form.label label="rentang tanggal" required />
@@ -25,6 +27,9 @@
                 </div>
             </fieldset>
         </div>
+    </div>
+
+    <x-tabs-dashboard.layout>
         {{-- Statistik Ringkas --}}
         <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
 
