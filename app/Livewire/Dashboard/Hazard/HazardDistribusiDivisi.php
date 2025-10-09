@@ -21,7 +21,7 @@ class HazardDistribusiDivisi extends Component
         $this->loadData();
     }
     #[On('dateDivisiUpdated')]
-    public function dataLoad()
+    public function loadData()
     {
         // Ambil semua hazard beserta relasi
         $year = Carbon::now()->year;
@@ -51,7 +51,7 @@ class HazardDistribusiDivisi extends Component
     }
     public function render()
     {
-        $this->dataLoad();
+        $this->loadData();
         return view('livewire.dashboard.hazard.hazard-distribusi-divisi');
     }
 }
