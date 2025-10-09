@@ -119,35 +119,10 @@
                 let payload_trand = JSON.parse(event);
                 myChart.setOption({
                     xAxis: {
-                        type: 'category'
-                        , data: payload_trand.months
-                        , axisLine: {
-                            lineStyle: {
-                                color: '#888'
-                            }
-                        }
-                        , axisLabel: {
-                            fontFamily: 'Microsoft YaHei'
-                            , fontSize: 12
-                        }
-                        , axisTick: {
-                            show: false
-                        }
+                        data: payload_trand.months
                     }
                     , series: [{
-                        name: 'Jumlah Laporan'
-                        , data: payload_trand.counts
-                        , type: 'line'
-                        , smooth: false
-                        , lineStyle: {
-                            width: 3
-                        }
-                        , symbol: 'circle'
-                        , symbolSize: 6
-                        , itemStyle: {
-                            color: '#3B82F6'
-                        }
-
+                        data: payload_trand.counts
                     }]
 
                 });
