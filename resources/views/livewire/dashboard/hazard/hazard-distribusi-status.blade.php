@@ -4,6 +4,7 @@
     <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
     <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
     <script>
+        setInterval(() => Livewire.dispatch('chartUpdated'), 1000);
         var dom_status = document.getElementById('chart-container');
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
         const chartData = JSON.parse('<?php echo $statusChart ?>');
@@ -27,8 +28,8 @@
                 , left: 'center'
             }
             , tooltip: {
-                trigger: 'item',
-                 formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
+                trigger: 'item'
+                , formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
             }
             , legend: {
                 orient: 'vertical'
@@ -40,7 +41,7 @@
                 , radius: '50%'
                 , data: seriesData
                 , label: {
-                   formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
+                    formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
                 }
                 , emphasis: {
                     itemStyle: {
@@ -53,6 +54,26 @@
         };
         if (option_status && typeof option_status === 'object') {
             myChart_status.setOption(option_status);
+            Livewire.on('berhasilUpdateDistribusiStatus', event => {
+                let payload_status = JSON.parse(event); // ini parse JSON dari PHP
+                const labels = payload_status.labels;
+                const values = payload_status.values;
+
+                // Bentuk ulang data untuk series chart
+                const seriesData = labels.map((label, i) => ({
+                    name: label
+                    , value: values[i]
+                }));
+
+                myChart_status.setOption({
+                    legend: {
+                        data: labels // update label legend juga
+                    }
+                    , series: [{
+                        data: seriesData // update data pie-nya
+                    }]
+                });
+            });
         }
         window.addEventListener('resize', myChart_status.resize);
 

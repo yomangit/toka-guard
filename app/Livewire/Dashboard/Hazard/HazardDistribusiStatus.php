@@ -4,24 +4,42 @@ namespace App\Livewire\Dashboard\Hazard;
 
 use App\Models\Hazard;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
 
 class HazardDistribusiStatus extends Component
 {
     public $statusChart;
+    public $start_date;
+    public $end_date;
 
     public function mount()
     {
-        $data = Hazard::select('status', DB::raw('COUNT(*) as total'))
-            ->groupBy('status')
-            ->orderBy('status')
-            ->get();
+        $this->loadData();
+    }
+    #[On('dateRangeUpdated')]
+    public function updateDateRange($data)
+    {
+        $this->start_date = $data['start'];
+        $this->end_date   = $data['end'];
+
+        // 🔁 Misalnya langsung panggil refresh data
+        $this->loadData();
+    }
+    #[On('chartUpdated')]
+    public function loadData()
+    {
+        $dataHazard = Hazard::when($this->start_date && $this->end_date, function ($q) {
+            $q->dateRange($this->start_date, $this->end_date);
+        });
+          $data = $dataHazard->select('status', DB::raw('COUNT(*) as total'))->groupBy('status')->orderBy('status')->get();
 
         $value = [
             'labels' => $data->pluck('status')->toArray(),
             'values' => $data->pluck('total')->toArray(),
         ];
-         $this->statusChart = json_encode($value);
+        $this->statusChart = json_encode($value);
+         $this->dispatch('berhasilUpdateDistribusiStatus', $this->statusChart);
     }
     public function render()
     {
