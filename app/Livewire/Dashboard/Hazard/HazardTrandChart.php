@@ -12,11 +12,12 @@ class HazardTrandChart extends Component
     public $data;
     public $start_date;
     public $end_date;
-    #[On('dateRangeUpdated')]
+
     public function mount()
     {
         $this->loadData();
     }
+    #[On('dateRangeUpdated')]
     public function updateDateRange($data)
     {
         $this->start_date = $data['start'];
