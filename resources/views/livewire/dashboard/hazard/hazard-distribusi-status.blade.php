@@ -52,27 +52,37 @@
                 }
             }]
         };
-            myChart_status.setOption(option_status);
-            Livewire.on('berhasilUpdateDistribusiStatus', event => {
-                let payload_status = JSON.parse(event); // ini parse JSON dari PHP
-                const labels = payload_status.labels;
-                const values = payload_status.values;
+        myChart_status.setOption(option_status);
+        Livewire.on('berhasilUpdateDistribusiStatus', event => {
+            let payload_status = JSON.parse(event); // ini parse JSON dari PHP
+            const labels = payload_status.labels;
+            const values = payload_status.values;
 
-                // Bentuk ulang data untuk series chart
-                const seriesData = labels.map((label, i) => ({
-                    name: label
-                    , value: values[i]
-                }));
+            // Bentuk ulang data untuk series chart
+            const seriesData = labels.map((label, i) => ({
+                name: label
+                , value: values[i]
+            }));
 
-                myChart_status.setOption({
-                    legend: {
-                        data: labels // update label legend juga
+            myChart_status.setOption({
+                series: [{
+                    name: 'Status'
+                    , type: 'pie'
+                    , radius: '50%'
+                    , data: seriesData
+                    , label: {
+                        formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
                     }
-                    , series: [{
-                        data: seriesData // update data pie-nya
-                    }]
-                });
+                    , emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10
+                            , shadowOffsetX: 0
+                            , shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
             });
+        });
         window.addEventListener('resize', myChart_status.resize);
 
     </script>
