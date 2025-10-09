@@ -51,7 +51,7 @@
             , series: [{
                 name: 'Nightingale Chart'
                 , type: 'pie'
-                , radius: [50, 250]
+                , radius: [50, 50]
                 , center: ['50%', '50%']
                 , roseType: 'area'
                 , itemStyle: {
@@ -79,7 +79,7 @@
                     series: [{
                         name: 'Nightingale Chart'
                         , type: 'pie'
-                        , radius: [50, 250]
+                        , radius: [50, 50]
                         , center: ['50%', '50%']
                         , roseType: 'area'
                         , itemStyle: {
