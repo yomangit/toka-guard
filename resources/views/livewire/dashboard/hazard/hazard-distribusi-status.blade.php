@@ -52,7 +52,6 @@
                 }
             }]
         };
-        if (option_status && typeof option_status === 'object') {
             myChart_status.setOption(option_status);
             Livewire.on('berhasilUpdateDistribusiStatus', event => {
                 let payload_status = JSON.parse(event); // ini parse JSON dari PHP
@@ -74,7 +73,6 @@
                     }]
                 });
             });
-        }
         window.addEventListener('resize', myChart_status.resize);
 
     </script>
