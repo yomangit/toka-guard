@@ -25,7 +25,7 @@ class HazardTrandChart extends Component
         // 🔁 Misalnya langsung panggil refresh data
         $this->loadData();
     }
-    #[On('chartUpdated')]
+    #[On('chartTrandUpdated')]
     public function loadData()
     {
         $data = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {

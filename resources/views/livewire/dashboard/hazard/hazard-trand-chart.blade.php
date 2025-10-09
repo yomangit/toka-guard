@@ -5,7 +5,7 @@
     <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
 
     <script>
-        setInterval(() => Livewire.dispatch('chartUpdated'), 1000);
+        setInterval(() => Livewire.dispatch('chartTrandUpdated'), 1000);
         const data = JSON.parse('<?php echo $data ?>');
         var dom = document.getElementById('hazardTrend');
         var myChart = echarts.init(dom);
