@@ -22,7 +22,7 @@
         var app = {};
         var option_status;
 
-        
+
 
         option_status = {
             title: {
@@ -34,8 +34,8 @@
                 , formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
             }
             , legend: {
-                orient: 'vertical'
-                , left: 'left'
+                top: '5%'
+                , left: 'center'
             }
             , series: [{
                 name: 'Status'
