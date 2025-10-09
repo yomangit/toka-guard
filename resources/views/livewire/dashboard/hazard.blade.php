@@ -8,7 +8,7 @@
         <div class="w-full md:max-w-xs">
             <fieldset class="fieldset ">
                 <x-form.label label="rentang tanggal" required />
-                <div class="relative" wire:ignore x-data="{
+                <div class="join" wire:ignore x-data="{
                                 fp: null,
                                 initFlatpickr() {
                                     if (this.fp) this.fp.destroy();
@@ -23,7 +23,8 @@
                                     });
                                 }
                             }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
-                    <input name="range_date" type="text" x-ref="tanggalInput2" wire:model.live="range_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " readonly />
+                    <input name="range_date" type="text" x-ref="tanggalInput2" wire:model.live="range_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs join-item" readonly />
+                    <button class="btn btn-xs btn-neutral join-item">Join</button>
                 </div>
             </fieldset>
         </div>
