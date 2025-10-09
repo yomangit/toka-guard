@@ -28,7 +28,9 @@ class HazardTrandChart extends Component
     #[On('chartUpdated')]
     public function loadData()
     {
-        $data = ModelsHazard::selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
+        $data = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
+            $q->dateRange($this->start_date, $this->end_date);
+        })->selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
             ->whereYear('tanggal', Carbon::now()->year)
             ->groupBy('month')
             ->orderBy('month')
