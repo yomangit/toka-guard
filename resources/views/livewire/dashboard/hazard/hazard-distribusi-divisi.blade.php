@@ -61,31 +61,31 @@
     if (option_divis && typeof option_divis === 'object') {
         myChart_divis.setOption(option_divis);
         Livewire.on('distribusiDivisi', event => {
-            const payload = JSON.parse(event);
+            const payload_divisi = JSON.parse(event);
 
             // Bentuk ulang warna berdasarkan jumlah bar baru
-            const seriesData = payload.counts.map((count, index) => ({
+            const seriesData = payload_divisi.counts.map((count, index) => ({
                 value: count
                 , itemStyle: {
-                    color: generateColor(index, payload.counts.length)
+                    color: generateColor(index, payload_divisi.counts.length)
                 }
             }));
 
             // Update chart tanpa re-init
             myChart_divis.setOption({
                 title: {
-                    text: 'Jumlah Laporan ' + payload.year
+                    text: 'Jumlah Laporan ' + payload_divisi.year
                 }
                 , yAxis: {
-                    data: payload.label
+                    data: payload_divisi.label
                     , inverse: true // biar tetap urut dari atas ke bawah
                 }
                 , series: [{
-                    name: payload.year
-                    , data: payload.counts
+                    name: payload_divisi.year
+                    , data: payload_divisi.counts
                     , itemStyle: {
                         color: function(params) {
-                            return generateColor(params.dataIndex, payload.counts.length);
+                            return generateColor(params.dataIndex, payload_divisi.counts.length);
                         }
                         , borderRadius: [0, 6, 6, 0]
                     }
