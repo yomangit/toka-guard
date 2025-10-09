@@ -47,7 +47,7 @@ class HazardUserReport extends Component
 
         ];
         $this->pelapor = json_encode($value);
-        $this->dispatch('distribusiPelapor', $this->categories);
+        $this->dispatch('distribusiPelapor', $this->pelapor);
     }
     public function render()
     {
