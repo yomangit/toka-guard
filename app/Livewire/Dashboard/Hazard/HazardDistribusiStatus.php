@@ -44,6 +44,7 @@ class HazardDistribusiStatus extends Component
     }
     public function render()
     {
+        $this->loadData();
         return view('livewire.dashboard.hazard.hazard-distribusi-status');
     }
 }
