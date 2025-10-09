@@ -53,7 +53,7 @@
             }]
         };
         myChart_status.setOption(option_status);
-        Livewire.on('berhasilUpdateDistribusiStatus', event => {
+        Livewire.on('distribusiStatus', event => {
             let payload_status = JSON.parse(event); // ini parse JSON dari PHP
             const labels = payload_status.labels;
             const values = payload_status.values;

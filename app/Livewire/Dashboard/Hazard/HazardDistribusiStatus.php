@@ -39,7 +39,7 @@ class HazardDistribusiStatus extends Component
             'values' => $data->pluck('total')->toArray(),
         ];
         $this->statusChart = json_encode($value);
-         $this->dispatch('berhasilUpdateDistribusiStatus', $this->statusChart);
+         $this->dispatch('distribusiStatus', $this->statusChart);
     }
     public function render()
     {
