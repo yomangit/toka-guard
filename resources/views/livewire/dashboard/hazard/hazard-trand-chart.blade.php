@@ -108,16 +108,50 @@
                 , itemStyle: {
                     color: '#3B82F6'
                 }
-                
+
             }]
         };
 
         if (option && typeof option === 'object') {
             myChart.setOption(option);
+            Livewire.on('trandChart', event => {
+                let payload_trand = JSON.parse(event);
+                myChart.setOption({
+                    xAxis: {
+                        type: 'category'
+                        , data: data.months
+                        , axisLine: {
+                            lineStyle: {
+                                color: '#888'
+                            }
+                        }
+                        , axisLabel: {
+                            fontFamily: 'Microsoft YaHei'
+                            , fontSize: 12
+                        }
+                        , axisTick: {
+                            show: false
+                        }
+                    }
+                    , series: [{
+                        name: 'Jumlah Laporan'
+                        , data: data.counts
+                        , type: 'line'
+                        , smooth: false
+                        , lineStyle: {
+                            width: 3
+                        }
+                        , symbol: 'circle'
+                        , symbolSize: 6
+                        , itemStyle: {
+                            color: '#3B82F6'
+                        }
+
+                    }]
+
+                });
+            });
         }
-
-
-
         window.addEventListener('resize', myChart.resize);
 
     </script>
