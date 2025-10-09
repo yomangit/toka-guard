@@ -25,7 +25,9 @@ class HazardDistribusiDivisi extends Component
     {
         // Ambil semua hazard beserta relasi
         $year = Carbon::now()->year;
-        $hazards = Hazard::with(['department', 'contractor'])->whereYear('tanggal', Carbon::now()->year)->get();
+        $hazards = Hazard::with(['department', 'contractor'])->when($this->start_date && $this->end_date, function ($q) {
+            $q->dateRange($this->start_date, $this->end_date);
+        })->whereYear('tanggal', Carbon::now()->year)->get();
 
         // Kumpulkan kategori (nama department jika ada, kalau kosong pakai contractor)
         $grouped = $hazards->groupBy(function ($hazard) {
