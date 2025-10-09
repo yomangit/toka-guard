@@ -2,6 +2,7 @@
 @push('scripts')
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
+setInterval(() => Livewire.dispatch('datePelaporUpdated'), 1000);
     var dom_reportBy = document.getElementById('container_reportby');
     const pelapor = JSON.parse('<?php echo $pelapor ?>');
 
@@ -61,6 +62,38 @@
 
     if (option_reportBy && typeof option_reportBy === 'object') {
         myChart_reportBy.setOption(option_reportBy);
+        Livewire.on('distribusiPelapor', event => {
+            const payload_pelapor = JSON.parse(event);
+
+            // Bentuk ulang warna berdasarkan jumlah bar baru
+            const seriesData = payload_pelapor.counts.map((count, index) => ({
+                value: count
+                , itemStyle: {
+                    color: generateColor(index, payload_pelapor.counts.length)
+                }
+            }));
+
+            // Update chart tanpa re-init
+            myChart_reportBy.setOption({
+                title: {
+                    text: 'Top Kontributor ' + payload_pelapor.year
+                }
+                , yAxis: {
+                    data: payload_pelapor.label
+                    , inverse: true // biar tetap urut dari atas ke bawah
+                }
+                , series: [{
+                    name: payload_pelapor.year
+                    , data: payload_pelapor.counts
+                    , itemStyle: {
+                        color: function(params) {
+                            return generateColor(params.dataIndex, payload_pelapor.counts.length);
+                        }
+                        , borderRadius: [0, 6, 6, 0]
+                    }
+                }]
+            });
+        });
     }
 
     window.addEventListener('resize', myChart_reportBy.resize);
