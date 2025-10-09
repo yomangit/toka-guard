@@ -2,10 +2,9 @@
 @push('scripts')
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
+    setInterval(() => Livewire.dispatch('dateDivisiUpdated'), 1000);
     var dom_divis = document.getElementById('container');
     const categories = JSON.parse('<?php echo $categories ?>');
-
-
     var myChart_divis = echarts.init(dom_divis, null, {
         renderer: 'canvas'
         , useDirtyRect: false
@@ -43,7 +42,7 @@
         , yAxis: {
             type: 'category'
             , data: categories.label
-            ,inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
+            , inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
         }
         , series: [{
             name: categories.year // ✅ ambil dari data Livewire
@@ -61,6 +60,38 @@
 
     if (option_divis && typeof option_divis === 'object') {
         myChart_divis.setOption(option_divis);
+        Livewire.on('distribusiDivisi', event => {
+            const payload = JSON.parse(event);
+
+            // Bentuk ulang warna berdasarkan jumlah bar baru
+            const seriesData = payload.counts.map((count, index) => ({
+                value: count
+                , itemStyle: {
+                    color: generateColor(index, payload.counts.length)
+                }
+            }));
+
+            // Update chart tanpa re-init
+            myChart_divis.setOption({
+                title: {
+                    text: 'Jumlah Laporan ' + payload.year
+                }
+                , yAxis: {
+                    data: payload.label
+                    , inverse: true // biar tetap urut dari atas ke bawah
+                }
+                , series: [{
+                    name: payload.year
+                    , data: payload.counts
+                    , itemStyle: {
+                        color: function(params) {
+                            return generateColor(params.dataIndex, payload.counts.length);
+                        }
+                        , borderRadius: [0, 6, 6, 0]
+                    }
+                }]
+            });
+        });
     }
 
     window.addEventListener('resize', myChart_divis.resize);

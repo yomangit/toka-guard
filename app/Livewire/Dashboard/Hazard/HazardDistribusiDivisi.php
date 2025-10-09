@@ -5,13 +5,23 @@ namespace App\Livewire\Dashboard\Hazard;
 use Carbon\Carbon;
 use App\Models\Hazard;
 use Livewire\Component;
+use Livewire\Attributes\On;
 
 class HazardDistribusiDivisi extends Component
 {
     public $categories; // nama department atau contractor
-
-
-    public function mount()
+    public $start_date;
+    public $end_date;
+     #[On('dateRangeUpdated')]
+    public function updateDateRange($data)
+    {
+        $this->start_date = $data['start'];
+        $this->end_date   = $data['end'];
+        // 🔁 Misalnya langsung panggil refresh data
+        $this->loadData();
+    }
+    #[On('dateDivisiUpdated')]
+    public function dataLoad()
     {
         // Ambil semua hazard beserta relasi
         $year = Carbon::now()->year;
@@ -27,7 +37,6 @@ class HazardDistribusiDivisi extends Component
                 return 'Tidak Diketahui';
             }
         });
-
         // Hitung jumlah per kategori dan urutkan dari terbesar ke terkecil
         $counts = $grouped->map->count()->sortDesc();
         // Hitung jumlah per kategori
@@ -38,9 +47,11 @@ class HazardDistribusiDivisi extends Component
 
         ];
         $this->categories = json_encode($value);
+        $this->dispatch('distribusiDivisi', $this->categories);
     }
     public function render()
     {
+        $this->dataLoad();
         return view('livewire.dashboard.hazard.hazard-distribusi-divisi');
     }
 }
