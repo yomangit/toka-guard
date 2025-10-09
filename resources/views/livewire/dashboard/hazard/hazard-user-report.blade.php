@@ -2,7 +2,7 @@
 @push('scripts')
 <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
-setInterval(() => Livewire.dispatch('datePelaporUpdated'), 1000);
+    setInterval(() => Livewire.dispatch('datePelaporUpdated'), 1000);
     var dom_reportBy = document.getElementById('container_reportby');
     const pelapor = JSON.parse('<?php echo $pelapor ?>');
 
@@ -44,7 +44,16 @@ setInterval(() => Livewire.dispatch('datePelaporUpdated'), 1000);
         , yAxis: {
             type: 'category'
             , data: pelapor.label
-            , inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
+            , inverse: true
+            , axisLabel: {
+                color: '#333', // warna teks
+                fontSize: 9, // ukuran font
+                fontWeight: 'bold', // ketebalan font (normal | bold | bolder | lighter)
+                fontFamily: 'Poppins, sans-serif', // jenis font
+                overflow: 'truncate', // potong teks jika terlalu panjang
+                width: 150, // batas lebar teks (bisa disesuaikan)
+                align: 'right' // posisi teks relatif ke sumbu
+            }, // ⬅️ urutkan dari atas ke bawah sesuai urutan data
         }
         , series: [{
             name: pelapor.year // ✅ ambil dari data Livewire
