@@ -1,6 +1,6 @@
 <section>
     {{-- Header --}}
-    <div class="flex md:justify-between">
+    <div class="flex flex-col md:flex-row md:justify-between">
         <div>
             <h1 class="text-xl font-bold">Hazard Report Dashboard</h1>
             <p class="text-xs text-gray-600">Ringkasan kondisi laporan hazard terkini</p>

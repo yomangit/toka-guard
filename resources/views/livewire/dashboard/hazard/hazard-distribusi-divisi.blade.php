@@ -24,7 +24,7 @@
         }
         , grid: {
             top: 50
-            , left: 180
+            , left: 110
             , right: 30
             , bottom: 60
         }
@@ -42,7 +42,16 @@
         , yAxis: {
             type: 'category'
             , data: categories.label
-            , inverse: true // ⬅️ urutkan dari atas ke bawah sesuai urutan data
+            , inverse: true
+            , axisLabel: {
+                color: '#333', // warna teks
+                fontSize: 8, // ukuran font
+                fontWeight: 'bold', // ketebalan font (normal | bold | bolder | lighter)
+                fontFamily: 'Poppins, sans-serif', // jenis font
+                overflow: 'truncate', // potong teks jika terlalu panjang
+                width: 150, // batas lebar teks (bisa disesuaikan)
+                align: 'right' // posisi teks relatif ke sumbu
+            }, // ⬅️ urutkan dari atas ke bawah sesuai urutan data // ⬅️ urutkan dari atas ke bawah sesuai urutan data
         }
         , series: [{
             name: categories.year // ✅ ambil dari data Livewire
