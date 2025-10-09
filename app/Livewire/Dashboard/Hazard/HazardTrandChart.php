@@ -28,18 +28,19 @@ class HazardTrandChart extends Component
     #[On('chartTrandUpdated')]
     public function loadData()
     {
-        $data = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
+        $dataHazard = ModelsHazard::when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
-        })->selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
+        });
+        $dataHazard->selectRaw('MONTH(tanggal) as month, COUNT(*) as total')
             ->whereYear('tanggal', Carbon::now()->year)
             ->groupBy('month')
             ->orderBy('month')
             ->get();
         $data = [
-            'months' => $data->pluck('month')->map(function ($m) {
+            'months' => $dataHazard->pluck('month')->map(function ($m) {
                 return Carbon::create()->month($m)->format('M');
             })->toArray(),
-            'counts' => $data->pluck('total')->toArray()
+            'counts' => $dataHazard->pluck('total')->toArray()
         ];
         $this->data = json_encode($data);
         $this->dispatch('trandChart', $this->data);
