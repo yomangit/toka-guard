@@ -27,31 +27,41 @@
                 text: 'Distribusi Status'
                 , left: 'center'
             }
-            , tooltip: {
-                trigger: 'item'
-                , formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
-            }
             , legend: {
-                orient: 'vertical'
-                , left: 'left'
+                top: 'bottom'
             }
-            , series: [{
-                name: 'Status'
-                , type: 'pie'
-                , radius: '50%'
-                , data: seriesData
-                , label: {
-                    formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
-                }
-                , emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10
-                        , shadowOffsetX: 0
-                        , shadowColor: 'rgba(0, 0, 0, 0.5)'
+            , toolbox: {
+                show: true
+                , feature: {
+                    mark: {
+                        show: true
+                    }
+                    , dataView: {
+                        show: true
+                        , readOnly: false
+                    }
+                    , restore: {
+                        show: true
+                    }
+                    , saveAsImage: {
+                        show: true
                     }
                 }
+            }
+            , series: [{
+                name: 'Nightingale Chart'
+                , type: 'pie'
+                , radius: [50, 250]
+                , center: ['50%', '50%']
+                , roseType: 'area'
+                , itemStyle: {
+                    borderRadius: 8
+                }
+                , data: seriesData
             }]
         };
+
+
         if (option_status && typeof option_status === 'object') {
             myChart_status.setOption(option_status);
             Livewire.on('distribusiStatus', event => {
@@ -67,20 +77,15 @@
 
                 myChart_status.setOption({
                     series: [{
-                        name: 'Status'
+                        name: 'Nightingale Chart'
                         , type: 'pie'
-                        , radius: '50%'
+                        , radius: [50, 250]
+                        , center: ['50%', '50%']
+                        , roseType: 'area'
+                        , itemStyle: {
+                            borderRadius: 8
+                        }
                         , data: seriesData
-                        , label: {
-                            formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
-                        }
-                        , emphasis: {
-                            itemStyle: {
-                                shadowBlur: 10
-                                , shadowOffsetX: 0
-                                , shadowColor: 'rgba(0, 0, 0, 0.5)'
-                            }
-                        }
                     }]
                 });
             });
