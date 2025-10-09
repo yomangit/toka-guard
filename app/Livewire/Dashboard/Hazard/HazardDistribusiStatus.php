@@ -21,7 +21,6 @@ class HazardDistribusiStatus extends Component
     public function updateDateRange($data)
     {
         $this->start_date = $data['start'];
-        dd($this->start_date);
         $this->end_date   = $data['end'];
 
         // 🔁 Misalnya langsung panggil refresh data
