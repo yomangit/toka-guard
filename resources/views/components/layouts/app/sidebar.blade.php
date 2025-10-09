@@ -134,7 +134,8 @@
    
     {{ $slot }}
 
-    @stack('scripts')
     @fluxScripts
+    @livewireScripts
+    @stack('scripts')
 </body>
 </html>
