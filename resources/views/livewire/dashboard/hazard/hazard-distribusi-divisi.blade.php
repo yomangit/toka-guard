@@ -45,7 +45,7 @@
             , inverse: true
             , axisLabel: {
                 color: '#333', // warna teks
-                fontSize: 8, // ukuran font
+                fontSize: 7, // ukuran font
                 fontWeight: 'bold', // ketebalan font (normal | bold | bolder | lighter)
                 fontFamily: 'Poppins, sans-serif', // jenis font
                 overflow: 'truncate', // potong teks jika terlalu panjang
