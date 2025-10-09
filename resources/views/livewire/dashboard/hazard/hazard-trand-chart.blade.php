@@ -120,7 +120,7 @@
                 myChart.setOption({
                     xAxis: {
                         type: 'category'
-                        , data: data.months
+                        , data: payload_trand.months
                         , axisLine: {
                             lineStyle: {
                                 color: '#888'
@@ -136,7 +136,7 @@
                     }
                     , series: [{
                         name: 'Jumlah Laporan'
-                        , data: data.counts
+                        , data: payload_trand.counts
                         , type: 'line'
                         , smooth: false
                         , lineStyle: {
