@@ -36,6 +36,12 @@
             , legend: {
                 top: 'bottom'
                 , left: 'center'
+                , textStyle: {
+                    fontSize: 8, // 🔹 Ukuran teks legend
+                    fontWeight: 'normal', // opsional: 'bold', 'bolder', dll
+                    color: '#333', // opsional: warna teks legend
+                    fontFamily: 'Arial' // opsional: jenis font
+                }
             }
             , series: [{
                 name: 'Status'
