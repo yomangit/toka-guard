@@ -37,7 +37,7 @@
                                     </select>
                                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                                 </fieldset>
-                                <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
+                                <div class="grid grid-cols-1  gap-4 mb-4 border border-gray-300 p-4 rounded">
                                     {{-- KEY WORD --}}
                                     <fieldset>
                                         <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
