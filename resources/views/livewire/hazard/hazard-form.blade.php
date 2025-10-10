@@ -119,10 +119,10 @@
                                 <x-form.label label="Lokasi" required />
                                 <div class="relative">
                                     <!-- Input Search -->
-                                    <input name="searchLocation" type="text" wire:focus="$set('dropdownVisible', true)" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                    <input name="searchLocation" type="text" wire:focus="$set('showLocationDropdown', true)" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                     <!-- Dropdown hasil search -->
                                     @push('dropdowns')
-                                    @if ($dropdownVisible && count($locations) > 0)
+                                    @if ($showLocationDropdown && count($locations) > 0)
                                     <ul class="absolute  bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
                                         <!-- Spinner ketika klik -->
                                         <div wire:loading wire:target="selectLocation" class="p-2 text-center">
