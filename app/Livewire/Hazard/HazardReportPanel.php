@@ -9,6 +9,7 @@ use App\Models\Contractor;
 use App\Models\Department;
 use App\Enums\HazardStatus;
 use App\Models\EventSubType;
+use App\Models\User;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,11 +23,15 @@ class HazardReportPanel extends Component
     public $openDropdownId = null;
     public $deptCont = 'department'; // default departemen
     public $search = '';
+    public $searchPelapor = '';
     public $searchContractor = '';
     public $showDropdown = false;
     public $showContractorDropdown = false;
+    public $showPelaporDropdown = false;
+    public $pelapors = [];
     public $departments = [];
     public $contractors = [];
+    public $pelapor_id;
     public $department_id;
     public $contractor_id;
     public $action_due_date = '';
@@ -217,7 +222,25 @@ class HazardReportPanel extends Component
         $this->showContractorDropdown = false;
     }
 
-
+    public function updatedSearchLocation()
+    {
+        if (strlen($this->searchLocation) > 1) {
+            $this->pelapors = User::where('name', 'like', '%' . $this->searchPelapor . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+            $this->showPelaporDropdown = true;
+        } else {
+            $this->pelapors = [];
+            $this->showPelaporDropdown = false;
+        }
+    }
+    public function selectPelapor($id, $name)
+    {
+        $this->pelapor_id = $id;
+        $this->searchPelapor = $name;
+        $this->showPelaporDropdown = false;
+    }
 
     public function render()
     {
