@@ -191,6 +191,12 @@ class Hazard extends Model
             $q->where('contractor_name', 'like', "%{$name}%");
         });
     }
+    public function scopeByPelapor($query, $name)
+    {
+        return $query->whereHas('pelapor', function ($q) use ($name) {
+            $q->where('name', 'like', "%{$name}%");
+        });
+    }
     public function scopeByDepartments(Builder $query, array $departmentIds): Builder
     {
         // Hanya terapkan whereIn jika array ID tidak kosong.

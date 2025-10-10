@@ -266,6 +266,9 @@ class HazardReportPanel extends Component
         $query->when($this->filterEventSubType, function ($q) {
             $q->byDepartments($this->filterDepartment); // Meneruskan array langsung
         });
+        $query->when($this->searchPelapor, function ($q) {
+            $q->byPelapor($this->searchPelapor); // Meneruskan array langsung
+        });
         // Terapkan filter Contractor
         $query->byContractors($this->filterContractor);
 
