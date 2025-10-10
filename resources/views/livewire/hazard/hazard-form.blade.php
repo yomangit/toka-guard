@@ -9,7 +9,6 @@
 
         <form wire:submit.prevent="submit">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <div class="join join-vertical bg-base-100">
                     <div class="collapse collapse-arrow join-item border-base-300 border">
                         <input type="radio" name="my-accordion-4" checked="checked" />
@@ -85,7 +84,6 @@
                         <div class="collapse-content text-sm">Go to "My Account" settings and select "Edit Profile" to make changes.</div>
                     </div>
                 </div>
-
                 <fieldset class="fieldset">
                     <x-form.label label="Dilaporkan Oleh" required />
                     <div class="relative">
@@ -259,7 +257,7 @@
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
-            </div>
+           
             <fieldset class="fieldset mb-4">
                 <x-form.label label="Deskripsi" required />
                 <div wire:ignore>
