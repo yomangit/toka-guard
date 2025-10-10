@@ -74,16 +74,16 @@
                     <input type="radio" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
-                        <fieldset class="fieldset mb-4">
-                            <x-form.label label="Deskripsi" required />
-                            <div wire:ignore>
-                                <textarea id="ckeditor-description"></textarea>
-                            </div>
-                            <!-- Hidden input untuk binding Livewire -->
-                            <input name="description" type="hidden" wire:model.live="description" id="description">
-                            <x-label-error :messages="$errors->get('description')" />
-                        </fieldset>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
+                            <fieldset class="fieldset mb-4 col-span-2">
+                                <x-form.label label="Deskripsi" required />
+                                <div wire:ignore>
+                                    <textarea id="ckeditor-description"></textarea>
+                                </div>
+                                <!-- Hidden input untuk binding Livewire -->
+                                <input name="description" type="hidden" wire:model.live="description" id="description">
+                                <x-label-error :messages="$errors->get('description')" />
+                            </fieldset>
                             <fieldset class=" fieldset">
                                 <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
                                 <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
@@ -96,6 +96,8 @@
                                         Belum ada file
                                     </span>
                                 </label>
+                                <!-- Input asli (disembunyikan) -->
+                                <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
                                 @if ($doc_deskripsi)
                                 @if (in_array($doc_deskripsi->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
                                 <img src="{{ $doc_deskripsi->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
@@ -104,8 +106,6 @@
                                     {{ $doc_deskripsi->getClientOriginalName() }}</p>
                                 @endif
                                 @endif
-                                <!-- Input asli (disembunyikan) -->
-                                <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
                                 <x-label-error :messages="$errors->get('doc_deskripsi')" />
                             </fieldset>
                         </div>
