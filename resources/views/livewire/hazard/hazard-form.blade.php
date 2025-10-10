@@ -9,7 +9,7 @@
 
         <form wire:submit.prevent="submit">
 
-                <div class="join join-vertical bg-base-100">
+                <div class="join join-vertical bg-base-100 w-full">
                     <div class="collapse collapse-arrow join-item border-base-300 border">
                         <input type="radio" name="my-accordion-4" checked="checked" />
                         <div class="collapse-title font-semibold">Apa bahaya atau kondisi tidak aman yang ditemukan?</div>
