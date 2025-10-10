@@ -123,7 +123,7 @@
                                     <!-- Dropdown hasil search -->
                                     @push('dropdowns')
                                     @if ($showLocationDropdown && count($locations) > 0)
-                                    <ul class="absolute  bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                                    <ul class="absolute z-[9999] bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow " style="top: 120px; left: 200px;">
                                         <!-- Spinner ketika klik -->
                                         <div wire:loading wire:target="selectLocation" class="p-2 text-center">
                                             <span class="loading loading-spinner loading-sm text-secondary"></span>
