@@ -34,7 +34,7 @@
                 , formatter: '{b}: {c} laporan ({d}%)' // tooltip tetap bisa tampil dua-duanya
             }
             , legend: {
-                top: '5%'
+                top: 'bottom'
                 , left: 'center'
             }
             , series: [{
