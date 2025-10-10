@@ -6,7 +6,8 @@
         var dom_status = document.getElementById('chart-container');
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
         // const chartData = JSON.parse('<?php echo $statusChart ?>');
-        const chartData = @json($statusChart);
+        const chartData = JSON.parse(@json($statusChart));
+
         console.log(chartData);
         
         const labels = chartData.labels;
