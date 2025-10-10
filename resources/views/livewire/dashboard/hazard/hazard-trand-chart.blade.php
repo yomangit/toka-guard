@@ -1,9 +1,6 @@
     <div wire:ignore id="hazardTrend" style="height: 320px;" class="w-full"></div>
     @push('scripts')
     <!-- Load ECharts dari CDN -->
-    <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
-    <script src="https://echarts.apache.org/en/js/vendors/echarts-gl/dist/echarts-gl.min.js"></script>
-
     <script>
         setInterval(() => Livewire.dispatch('chartTrandUpdated'), 1000);
         const data = JSON.parse('<?php echo $data ?>');

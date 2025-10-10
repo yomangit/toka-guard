@@ -1,6 +1,5 @@
 <div wire:ignore id="container" style="height: 320px"></div>
 @push('scripts')
-<script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <script type="text/javascript">
     setInterval(() => Livewire.dispatch('dateDivisiUpdated'), 1000);
     var dom_divis = document.getElementById('container');
