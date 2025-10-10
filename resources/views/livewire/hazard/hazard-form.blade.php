@@ -115,26 +115,27 @@
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <fieldset class="fieldset z-[10000]">
+                            <fieldset class="fieldset ">
                                 <x-form.label label="Lokasi" required />
-                                <div class="relative">
-                                    <!-- Input Search -->
-                                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                                    <!-- Dropdown hasil search -->
-                                    @if ($showLocationDropdown && count($locations) > 0)
-                                    <ul class="absolute  bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
-                                        <!-- Spinner ketika klik -->
-                                        <div wire:loading wire:target="selectLocation" class="p-2 text-center">
-                                            <span class="loading loading-spinner loading-sm text-secondary"></span>
+                                <div x-data="{ open: false, position: {} }" class="relative">
+                                    <input type="text" wire:model.live="search" @focus="open = true" @blur="setTimeout(() => open = false, 200)" class="input input-bordered input-xs w-full" />
+
+                                    <template x-if="open">
+                                        <div x-teleport="body">
+                                            <ul class="absolute z-[9999] bg-base-100 border rounded-md w-64 mt-1 max-h-60 overflow-auto shadow" x-bind:style="`top:${$el.getBoundingClientRect().top + window.scrollY + 24}px; left:${$el.getBoundingClientRect().left}px;`">
+                                                <div wire:loading wire:target="selectLocation" class="p-2 text-center">
+                                                    <span class="loading loading-spinner loading-sm text-secondary"></span>
+                                                </div>
+                                                @foreach ($locations as $loc)
+                                                <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                                    {{ $loc->name }}
+                                                </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
-                                        @foreach ($locations as $loc)
-                                        <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                            {{ $loc->name }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                    @endif
+                                    </template>
                                 </div>
+
                                 <x-label-error :messages="$errors->get('location_id')" />
                             </fieldset>
                             {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
