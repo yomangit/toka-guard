@@ -11,7 +11,7 @@
                 </a>
             </div>
         </div>
-        <div class="w-full flex flex-col md:flex-row md:max-w-md bg-red-300 gap-4">
+        <div class="w-full flex flex-col md:flex-row md:max-w-md  gap-4">
             <fieldset class="fieldset w-full">
                 <x-form.label label="Cari Pelapor" required />
                 <div class="relative">
