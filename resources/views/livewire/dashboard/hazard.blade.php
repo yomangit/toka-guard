@@ -20,7 +20,6 @@
                                 dateFormat: 'd-m-Y',
                                 mode: 'range',
                                 locale:{
-                                Indonesian,
                                 rangeSeparator: ' sampai '
                                 },
                                 onChange: (dates, str) => $wire.set('range_date', str),
