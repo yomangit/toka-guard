@@ -1,13 +1,12 @@
     <div wire:ignore id="chart-container" style="height: 320px;" class="w-full"></div>
     @push('scripts')
     <!-- Load ECharts dari CDN -->
-    <script src="https://echarts.apache.org/en/js/vendors/echarts/dist/echarts.min.js"></script>
-
-    <script>
+     <script type="module">
         setInterval(() => Livewire.dispatch('chartUpdated'), 1000);
         var dom_status = document.getElementById('chart-container');
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
-        const chartData = JSON.parse('<?php echo $statusChart ?>');
+        // const chartData = JSON.parse('<?php echo $statusChart ?>');
+        const chartData = @json($pelapor);
         const labels = chartData.labels;
         const values = chartData.values;
         // 🔥 Masukkan data Livewire ke format yang ECharts butuh
