@@ -11,5 +11,6 @@
 
 <link rel="preconnect" href="https://fonts.bunny.net">
 @stack('styles')
+@stack('dropdowns')
 @fluxAppearance
 @vite(['resources/css/app.css', 'resources/js/app.js'])
