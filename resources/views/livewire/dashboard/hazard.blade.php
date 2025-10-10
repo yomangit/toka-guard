@@ -9,24 +9,24 @@
             <fieldset class="fieldset">
                 <x-form.label label="Rentang Tanggal" required />
                 <div class="join" wire:ignore x-data="{
-            fp: null,
-            initFlatpickr() {
-                if (this.fp) this.fp.destroy();
-                this.fp = flatpickr(this.$refs.tanggalInput2, {
-                    disableMobile: true,
-                    enableTime: false,
-                    altInput: true,
-                    altFormat: 'd-M-Y',
-                    dateFormat: 'd-m-Y',
-                    mode: 'range',
-                    onChange: (dates, str) => $wire.set('range_date', str),
-                });
-            },
-            clearDate() {
-                if (this.fp) this.fp.clear(); // 🔥 kosongkan input di flatpickr
-                $wire.set('range_date', null); // 🔥 kosongkan properti Livewire
-            }
-        }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
+                        fp: null,
+                        initFlatpickr() {
+                            if (this.fp) this.fp.destroy();
+                            this.fp = flatpickr(this.$refs.tanggalInput2, {
+                                disableMobile: true,
+                                enableTime: false,
+                                altInput: true,
+                                altFormat: 'd-M-Y',
+                                dateFormat: 'd-m-Y',
+                                mode: 'range',
+                                onChange: (dates, str) => $wire.set('range_date', str),
+                            });
+                        },
+                        clearDate() {
+                            if (this.fp) this.fp.clear(); // 🔥 kosongkan input di flatpickr
+                            $wire.set('range_date', null); // 🔥 kosongkan properti Livewire
+                        }
+                    }" x-init="initFlatpickr(); Livewire.hook('message.processed', () => initFlatpickr());" x-ref="wrapper">
 
                     <input name="range_date" type="text" x-ref="tanggalInput2" wire:model.live="range_date" placeholder="Pilih Tanggal" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs join-item" readonly />
 
@@ -39,7 +39,6 @@
                     </label>
                 </div>
             </fieldset>
-
         </div>
     </div>
 

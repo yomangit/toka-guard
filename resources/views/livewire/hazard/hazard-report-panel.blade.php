@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="overflow-x-auto mt-4">
-        <table class="table table-xs border text-sm px-2">
+        <table class="table table-xs border text-xs px-2">
             <thead>
                 <tr class="bg-gray-100">
                     <th class="border">#</th>
