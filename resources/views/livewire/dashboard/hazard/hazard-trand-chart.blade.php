@@ -1,7 +1,7 @@
     <div wire:ignore id="hazardTrend" style="height: 320px;" class="w-full"></div>
     @push('scripts')
     <!-- Load ECharts dari CDN -->
-    <script>
+    <script type="module">
         setInterval(() => Livewire.dispatch('chartTrandUpdated'), 1000);
         const data = @json($data);
         var dom = document.getElementById('hazardTrend');
