@@ -17,7 +17,7 @@ class Hazard extends Component
         // Cek apakah nilai tidak kosong
         if (!empty($value)) {
             // Pisahkan string berdasarkan " to "
-            $dates = explode(' to ', $value);
+            $dates = explode(' ke ', $value);
 
             // Pastikan ada dua tanggal yang valid
             if (count($dates) === 2) {
