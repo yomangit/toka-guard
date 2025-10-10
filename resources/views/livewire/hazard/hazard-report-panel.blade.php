@@ -12,28 +12,28 @@
             </div>
         </div>
         <div class="w-full flex flex-col md:flex-row md:max-w-md bg-red-300 gap-4">
-            <fieldset class="fieldset ">
-                    <x-form.label label="Cari Pelapor" required />
-                    <div class="relative">
-                        <!-- Input Search -->
-                        <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                        <!-- Dropdown hasil search -->
-                        @if($showPelaporDropdown && count($pelapors) > 0)
-                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
-                            <!-- Spinner ketika klik -->
-                            <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
-                                <span class="loading loading-spinner loading-sm text-secondary"></span>
-                            </div>
-                            @foreach($pelapors as $user)
-                            <li wire:click="selectPelapor({{ $user->id }}, '{{ $user->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                {{ $user->name }}
-                            </li>
-                            @endforeach
-                        </ul>
-                        @endif
-                    </div>
-                </fieldset>
-            <fieldset class="fieldset ">
+            <fieldset class="fieldset w-full">
+                <x-form.label label="Cari Pelapor" required />
+                <div class="relative">
+                    <!-- Input Search -->
+                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                    <!-- Dropdown hasil search -->
+                    @if($showPelaporDropdown && count($pelapors) > 0)
+                    <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                        <!-- Spinner ketika klik -->
+                        <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
+                            <span class="loading loading-spinner loading-sm text-secondary"></span>
+                        </div>
+                        @foreach($pelapors as $user)
+                        <li wire:click="selectPelapor({{ $user->id }}, '{{ $user->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                            {{ $user->name }}
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </div>
+            </fieldset>
+            <fieldset class="fieldset w-full">
                 <x-form.label label="rentang tanggal" required />
                 <div class="relative" wire:ignore x-data="{
                                 fp: null,
