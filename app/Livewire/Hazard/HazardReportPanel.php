@@ -222,9 +222,9 @@ class HazardReportPanel extends Component
         $this->showContractorDropdown = false;
     }
 
-    public function updatedSearchLocation()
+    public function updatedSearchPelapor()
     {
-        if (strlen($this->searchLocation) > 1) {
+        if (strlen($this->searchPelapor) > 1) {
             $this->pelapors = User::where('name', 'like', '%' . $this->searchPelapor . '%')
                 ->orderBy('name')
                 ->limit(10)
