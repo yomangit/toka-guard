@@ -85,7 +85,7 @@
                                 <x-label-error :messages="$errors->get('description')" />
                             </fieldset>
                             <fieldset class=" fieldset">
-                                <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
+                                <x-form.label label="Lampirkan foto atau dokumentasi (optional)" />
                                 <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                                     <!-- Tombol custom -->
                                     <span class="btn btn-info btn-xs">
