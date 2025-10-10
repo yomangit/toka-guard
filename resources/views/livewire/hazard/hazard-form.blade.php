@@ -115,7 +115,7 @@
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <fieldset class="fieldset ">
+                            <fieldset class="fieldset z-10">
                                 <x-form.label label="Lokasi" required />
                                 <div class="relative">
                                     <!-- Input Search -->
