@@ -46,7 +46,7 @@
             , series: [{
                 name: 'Status'
                 , type: 'pie'
-                , radius: '40%'
+                , radius: '50%'
                 , data: seriesData
                 , label: {
                     formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
@@ -77,7 +77,7 @@
                     series: [{
                         name: 'Status'
                         , type: 'pie'
-                        , radius: '40%'
+                        , radius: '50%'
                         , data: seriesData
                         , label: {
                             formatter: '{c}' // 🔥 tampilkan total value (jumlah laporan)
