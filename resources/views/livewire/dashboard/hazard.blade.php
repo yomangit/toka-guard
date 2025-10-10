@@ -20,7 +20,7 @@
                                 dateFormat: 'd-m-Y',
                                 mode: 'range',
                                 onChange: (dates, str) => $wire.set('range_date', str),
-                                locale:{ rangeSeparator: ' ke '},
+                                locale:{ rangeSeparator: ' Ke '},
                             });
                         },
                         clearDate() {
