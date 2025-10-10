@@ -37,8 +37,6 @@
                                     </select>
                                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                                 </fieldset>
-                                <div class="grid grid-cols-1  gap-4 mb-4 border border-gray-300 p-4 rounded">
-                                    {{-- KEY WORD --}}
                                     <fieldset>
                                         <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                                         <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
@@ -67,9 +65,7 @@
                                         @if($keyWord === 'tta')
                                         <x-label-error :messages="$errors->get('tindakan_tidak_aman')" />
                                         @endif
-    
                                     </fieldset>
-                                </div>
                             </div>
                         </div>
                     </div>
