@@ -3,6 +3,5 @@ import Toastify from "toastify-js";
 window.Toastify = Toastify
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
-
 import * as echarts from 'echarts';
-window.echarts = echarts;
+window.echarts = echarts
