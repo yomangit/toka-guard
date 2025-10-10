@@ -12,8 +12,7 @@
             <div class="join join-vertical bg-base-100 w-full">
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input type="radio" name="my-accordion-4" checked="checked" />
-                    <div class="collapse-title font-semibold">Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?
-                    </div>
+                    <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                             <fieldset class="fieldset">
@@ -72,7 +71,7 @@
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input type="radio" name="my-accordion-4" />
-                    <div class="collapse-title font-semibold">Mengapa hal itu bisa terjadi?</div>
+                    <div class="collapse-title font-semibold">Why (Mengapa) Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                             <fieldset class="fieldset mb-4 col-span-2">
@@ -108,6 +107,44 @@
                                 @endif
                                 <x-label-error :messages="$errors->get('doc_deskripsi')" />
                             </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse collapse-arrow join-item border-base-300 border">
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
+                    <div class="collapse-content text-sm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <fieldset class="fieldset ">
+                                <x-form.label label="Lokasi" required />
+                                <div class="relative">
+                                    <!-- Input Search -->
+                                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                    <!-- Dropdown hasil search -->
+                                    @if ($showLocationDropdown && count($locations) > 0)
+                                    <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                                        <!-- Spinner ketika klik -->
+                                        <div wire:loading wire:target="selectLocation" class="p-2 text-center">
+                                            <span class="loading loading-spinner loading-sm text-secondary"></span>
+                                        </div>
+                                        @foreach ($locations as $loc)
+                                        <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                            {{ $loc->name }}
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </div>
+                                <x-label-error :messages="$errors->get('location_id')" />
+                            </fieldset>
+                            {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
+                            @if ($location_id)
+                            <fieldset class="fieldset">
+                                <x-form.label label="Lokasi Spesifik" required />
+                                <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_specific') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                <x-label-error :messages="$errors->get('location_specific')" />
+                            </fieldset>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -233,36 +270,7 @@
                 </select>
                 <x-label-error :messages="$errors->get('penanggungJawab')" />
             </fieldset>
-            <fieldset class="fieldset ">
-                <x-form.label label="Lokasi" required />
-                <div class="relative">
-                    <!-- Input Search -->
-                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                    <!-- Dropdown hasil search -->
-                    @if ($showLocationDropdown && count($locations) > 0)
-                    <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
-                        <!-- Spinner ketika klik -->
-                        <div wire:loading wire:target="selectLocation" class="p-2 text-center">
-                            <span class="loading loading-spinner loading-sm text-secondary"></span>
-                        </div>
-                        @foreach ($locations as $loc)
-                        <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                            {{ $loc->name }}
-                        </li>
-                        @endforeach
-                    </ul>
-                    @endif
-                </div>
-                <x-label-error :messages="$errors->get('location_id')" />
-            </fieldset>
-            {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
-            @if ($location_id)
-            <fieldset class="fieldset">
-                <x-form.label label="Lokasi Spesifik" required />
-                <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_specific') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                <x-label-error :messages="$errors->get('location_specific')" />
-            </fieldset>
-            @endif
+
             <fieldset class="fieldset relative">
                 <x-form.label label="Tanggal & Waktu" required />
                 <div class="relative" wire:ignore x-data="{
