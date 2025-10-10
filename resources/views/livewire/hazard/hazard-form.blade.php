@@ -122,7 +122,7 @@
                                     <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                     <!-- Dropdown hasil search -->
                                     @if ($showLocationDropdown && count($locations) > 0)
-                                    <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                                    <ul class="absolute z-50 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
                                         <!-- Spinner ketika klik -->
                                         <div wire:loading wire:target="selectLocation" class="p-2 text-center">
                                             <span class="loading loading-spinner loading-sm text-secondary"></span>
