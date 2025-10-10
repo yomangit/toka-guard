@@ -1,7 +1,7 @@
 <section class="w-full">
     <x-toast />
-   {{-- Breadcrumb di sebelah kanan --}}
-      <div class="flex justify-start mb-2 " wire:ignore>
+    {{-- Breadcrumb di sebelah kanan --}}
+    <div class="flex justify-start mb-2 " wire:ignore>
         {{ Breadcrumbs::render('hazard-form') }}
     </div>
     @include('partials.manhours-heading')
@@ -10,28 +10,81 @@
         <form wire:submit.prevent="submit">
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                <fieldset class="fieldset">
-                    <x-form.label label="Tipe Bahaya" required />
-                    <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
-                        <option value="">-- Pilih --</option>
-                        @foreach ($eventTypes as $et )
-                        <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
-                        @endforeach
-                    </select>
-                    <x-label-error :messages="$errors->get('tipe_bahaya')" />
-                </fieldset>
-                <fieldset class="fieldset">
-                    <x-form.label label="Jenis Bahaya" required />
-                    <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
-                        <option value="">-- Pilih --</option>
-                        @if ($tipe_bahaya)
-                        @foreach ($subTypes as $et )
-                        <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                    <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
-                </fieldset>
+                <div class="join join-vertical bg-base-100">
+                    <div class="collapse collapse-arrow join-item border-base-300 border">
+                        <input type="radio" name="my-accordion-4" checked="checked" />
+                        <div class="collapse-title font-semibold">Apa bahaya atau kondisi tidak aman yang ditemukan?</div>
+                        <div class="collapse-content text-sm">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                                <fieldset class="fieldset">
+                                    <x-form.label label="Tipe Bahaya" required />
+                                    <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                                        <option value="">-- Pilih --</option>
+                                        @foreach ($eventTypes as $et )
+                                        <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-label-error :messages="$errors->get('tipe_bahaya')" />
+                                </fieldset>
+                                <fieldset class="fieldset">
+                                    <x-form.label label="Jenis Bahaya" required />
+                                    <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                                        <option value="">-- Pilih --</option>
+                                        @if ($tipe_bahaya)
+                                        @foreach ($subTypes as $et )
+                                        <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
+                                    <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
+                                </fieldset>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
+                                {{-- KEY WORD --}}
+                                <fieldset>
+                                    <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
+                                    <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
+                                    <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
+                                    <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
+                                    <div class="hidden peer-checked/kta:block mt-1">
+                                        <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                                            <option value="">-- Pilih Kondisi Tidak Aman --</option>
+                                            @foreach ($ktas as $kta)
+                                            <option value="{{ $kta->id }}">{{ $kta->name }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+                                    <div class="hidden peer-checked/tta:block mt-1">
+                                        <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                                            <option value="">-- Pilih Tidakan Tidak Aman --</option>
+                                            @foreach ($ttas as $tta)
+                                            <option value="{{ $tta->id }}">{{ $tta->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @if($keyWord === 'kta')
+                                    <x-label-error :messages="$errors->get('kondisi_tidak_aman')" />
+                                    @endif
+                                    @if($keyWord === 'tta')
+                                    <x-label-error :messages="$errors->get('tindakan_tidak_aman')" />
+                                    @endif
+
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse collapse-arrow join-item border-base-300 border">
+                        <input type="radio" name="my-accordion-4" />
+                        <div class="collapse-title font-semibold">I forgot my password. What should I do?</div>
+                        <div class="collapse-content text-sm">Click on "Forgot Password" on the login page and follow the instructions sent to your email.</div>
+                    </div>
+                    <div class="collapse collapse-arrow join-item border-base-300 border">
+                        <input type="radio" name="my-accordion-4" />
+                        <div class="collapse-title font-semibold">How do I update my profile information?</div>
+                        <div class="collapse-content text-sm">Go to "My Account" settings and select "Edit Profile" to make changes.</div>
+                    </div>
+                </div>
 
                 <fieldset class="fieldset">
                     <x-form.label label="Dilaporkan Oleh" required />
@@ -84,9 +137,9 @@
                     @endif
                 </fieldset>
                 <fieldset>
-                    <input  id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
+                    <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                     <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
-                    <input  id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
+                    <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
                     <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
 
                     <div class="hidden peer-checked/department:block ">
@@ -149,7 +202,6 @@
                     </select>
                     <x-label-error :messages="$errors->get('penanggungJawab')" />
                 </fieldset>
-
                 <fieldset class="fieldset ">
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
@@ -172,7 +224,6 @@
                     </div>
                     <x-label-error :messages="$errors->get('location_id')" />
                 </fieldset>
-
                 {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                 @if($location_id)
                 <fieldset class="fieldset">
@@ -411,9 +462,9 @@
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 border border-gray-300 p-4 rounded">
                 {{-- KEY WORD --}}
                 <fieldset>
-                    <input  id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
+                    <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
-                    <input  id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
+                    <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
                     <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
                     <div class="hidden peer-checked/kta:block mt-1">
                         <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
@@ -592,8 +643,8 @@
 
         ClassicEditor
             .create(el, {
-                toolbar: ['bold','italic','bulletedList','numberedList','|','undo','redo'],
-                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
+                toolbar: ['bold', 'italic', 'bulletedList', 'numberedList', '|', 'undo', 'redo']
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
                 editors[livewireProperty] = editor;
@@ -619,7 +670,7 @@
 
     // Satu listener global untuk reset
     window.addEventListener('reset-ckeditor', (ev) => {
-        const field = ev.detail?.field ?? 'action_description';
+        const field = ev.detail ? .field ? ? 'action_description';
         const editor = editors[field];
         if (editor) {
             editor.setData('');
@@ -627,6 +678,7 @@
             console.warn('Editor belum ditemukan untuk field:', field);
         }
     });
+
 </script>
 
 
