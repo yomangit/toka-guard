@@ -71,11 +71,6 @@
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input type="radio" name="my-accordion-4" />
-                    <div class="collapse-title font-semibold">I forgot my password. What should I do?</div>
-                    <div class="collapse-content text-sm">Click on "Forgot Password" on the login page and follow the instructions sent to your email.</div>
-                </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset mb-4">
@@ -113,6 +108,11 @@
                             </fieldset>
                         </div>
                     </div>
+                </div>
+                <div class="collapse collapse-arrow join-item border-base-300 border">
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">I forgot my password. What should I do?</div>
+                    <div class="collapse-content text-sm">Click on "Forgot Password" on the login page and follow the instructions sent to your email.</div>
                 </div>
             </div>
             <fieldset class="fieldset">
