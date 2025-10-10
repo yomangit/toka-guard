@@ -1,11 +1,9 @@
 <div wire:ignore id="container_reportby" style="height: 320px"></div>
 @push('scripts')
-<script type="text/javascript">
+<script type="module">
     setInterval(() => Livewire.dispatch('datePelaporUpdated'), 1000);
-
     var dom_reportBy = document.getElementById('container_reportby');
-    const pelapor = JSON.parse('<?php echo $pelapor ?>');
-
+    const pelapor = @json($pelapor);
     var myChart_reportBy = echarts.init(dom_reportBy, null, {
         renderer: 'canvas',
         useDirtyRect: false
