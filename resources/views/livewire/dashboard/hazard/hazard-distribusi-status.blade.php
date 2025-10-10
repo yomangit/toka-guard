@@ -1,13 +1,11 @@
     <div wire:ignore id="chart-container" style="height: 320px;" class="w-full"></div>
     @push('scripts')
     <!-- Load ECharts dari CDN -->
-    <script type="module">
+    <script >
         setInterval(() => Livewire.dispatch('chartUpdated'), 1000);
         var dom_status = document.getElementById('chart-container');
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
-        const chartData = @json($statusChart);
-        console.log(chartData);
-        
+        const chartData = @json($statusChart);      
         const labels = chartData.labels;
         const values = chartData.values;
         // 🔥 Masukkan data Livewire ke format yang ECharts butuh
