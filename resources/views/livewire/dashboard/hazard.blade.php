@@ -19,8 +19,8 @@
                                 altFormat: 'd-M-Y',
                                 dateFormat: 'd-m-Y',
                                 mode: 'range',
-                                locale:{ rangeSeparator: ' ke '},
                                 onChange: (dates, str) => $wire.set('range_date', str),
+                                locale:{ rangeSeparator: ' ke '},
                             });
                         },
                         clearDate() {
