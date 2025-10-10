@@ -19,9 +19,7 @@
                                 altFormat: 'd-M-Y',
                                 dateFormat: 'd-m-Y',
                                 mode: 'range',
-                                locale:{
-                                rangeSeparator: ' sampai '
-                                },
+                                
                                 onChange: (dates, str) => $wire.set('range_date', str),
                             });
                         },
