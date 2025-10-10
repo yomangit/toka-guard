@@ -730,19 +730,6 @@
             })
             .then(editor => {
                 // Set awal read-only jika isDisabled true
-                if (isDisabled) {
-                    editor.enableReadOnlyMode('hazard-action_description');
-                }
-                Livewire.on('hazardStatusChanged', event => {
-                    data = event[0];
-                    const bekukan = data.isDisabled;
-                    if (bekukan === true) {
-                        editor.enableReadOnlyMode('hazard-action_description');
-                    } else {
-                        editor.disableReadOnlyMode('hazard-action_description');
-                    }
-
-                });
 
                 editor.model.document.on('change:data', () => {
                     // Update ke hidden input
