@@ -6,6 +6,8 @@
         var dom_status = document.getElementById('chart-container');
         // 🧠 Ambil data dari Livewire (JSON string → object JS)
         const chartData = @json($statusChart);
+        console.log(chartData);
+        
         const labels = chartData.labels;
         const values = chartData.values;
         // 🔥 Masukkan data Livewire ke format yang ECharts butuh
