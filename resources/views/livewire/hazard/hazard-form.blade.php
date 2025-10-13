@@ -114,46 +114,57 @@
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm ">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
-                            <fieldset class="fieldset ">
+                            <fieldset class="fieldset">
                                 <x-form.label label="Lokasi" required />
-                                <div class="relative ">
-                                    <!-- Input Search -->
-                                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                                    <!-- Dropdown hasil search -->
-                                    @if ($showLocationDropdown)
-                                    <template x-teleport="body">
-                                    <ul x-data x-init="
-                                            // Posisikan dropdown tepat di bawah input
-                                            $el.style.position = 'absolute';
-                                            const rect = $refs.searchLocation.getBoundingClientRect();
-                                            $el.style.top = rect.bottom + 'px';
-                                            $el.style.left = rect.left + 'px';
-                                            $el.style.width = rect.width + 'px';
-                                            $el.style.zIndex = 9999;
-                                        " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
-                                        <div wire:loading wire:target="selectLocation" class="p-2 text-center">
-                                            <span class="loading loading-spinner loading-sm text-secondary"></span>
-                                        </div>
-                                        @foreach ($locations as $loc)
-                                        <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                            {{ $loc->name }}
-                                        </li>
-                                        @endforeach
-                                    </ul>
-                                    @endif
 
+                                <div class="relative" x-data="{
+                                        fp: null,
+                                        open: false,
+                                        init() {
+                                            // tutup dropdown kalau klik di luar
+                                            document.addEventListener('click', (e) => {
+                                                if (!this.$root.contains(e.target)) this.open = false;
+                                            });
+                                        }
+                                    }" x-init="init()">
+
+                                    <!-- Input Search -->
+                                    <input name="searchLocation" type="text" x-ref="searchInput" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." @focus="open = true" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+
+                                    <x-label-error :messages="$errors->get('location_id')" />
+
+                                    <!-- Teleport dropdown ke body agar tidak terpotong -->
+                                    <template x-teleport="body">
+                                        <ul x-show="open && @js($showLocationDropdown) && @js(count($locations) > 0)" x-transition x-data x-init="
+                                                    const rect = $refs.searchInput.getBoundingClientRect();
+                                                    $el.style.position = 'absolute';
+                                                    $el.style.top = rect.bottom + 'px';
+                                                    $el.style.left = rect.left + 'px';
+                                                    $el.style.width = rect.width + 'px';
+                                                    $el.style.zIndex = 9999;
+                                                " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow" @click.away="open = false">
+                                            <!-- Spinner ketika klik -->
+                                            <div wire:loading wire:target="selectLocation" class="p-2 text-center">
+                                                <span class="loading loading-spinner loading-sm text-secondary"></span>
+                                            </div>
+
+                                            @foreach ($locations as $loc)
+                                            <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200" @click="open = false">
+                                                {{ $loc->name }}
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </template>
                                 </div>
-                                <x-label-error :messages="$errors->get('location_id')" />
                             </fieldset>
+
                             {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
-                            @if (count($pelapors) > 0)
                             @if ($location_id)
                             <fieldset class="fieldset">
                                 <x-form.label label="Lokasi Spesifik" required />
                                 <input name="location_specific" type="text" wire:model.live="location_specific" placeholder="Masukkan detail lokasi spesifik..." class=" input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_specific') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                 <x-label-error :messages="$errors->get('location_specific')" />
                             </fieldset>
-                            @endif
                             @endif
                         </div>
                     </div>
