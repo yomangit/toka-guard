@@ -114,39 +114,38 @@
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm ">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
-                            <fieldset class="fieldset" x-data="{ open: false }">
+                            <fieldset class="fieldset z-50" x-data="{ openDropdown: false, inputRef: null }">
                                 <x-form.label label="Lokasi" required />
-
-                                <div class="relative">
+                                <div class="relative" x-ref="wrapper">
                                     <!-- Input Search -->
-                                    <input name="searchLocation" type="text" x-ref="searchInput" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." @focus="open = true" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                    <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs
+                {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" @focus="openDropdown = true" @click.outside="openDropdown = false" x-ref="inputRef" />
 
-                                    <x-label-error :messages="$errors->get('location_id')" />
-
-                                    <!-- Dropdown hasil search menggunakan teleport -->
+                                    <!-- Teleport Dropdown -->
                                     <template x-teleport="body">
-                                        <ul x-show="open && @js($showLocationDropdown) && @js(count($locations) > 0)" x-transition x-data x-init="
-                    const rect = $refs.searchInput.getBoundingClientRect();
-                    $el.style.position = 'absolute';
-                    $el.style.top = rect.bottom + 'px';
-                    $el.style.left = rect.left + 'px';
-                    $el.style.width = rect.width + 'px';
-                    $el.style.zIndex = 9999;
-                " @click.away="open = false" class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
+                                        <div x-show="openDropdown && $wire.showLocationDropdown && {{ count($locations) > 0 ? 'true' : 'false' }}" x-transition @click.outside="openDropdown = false" class="absolute bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow z-[9999]" :style="{
+                    position: 'absolute',
+                    width: `${$refs.wrapper.offsetWidth}px`,
+                    top: `${$refs.wrapper.getBoundingClientRect().bottom + window.scrollY}px`,
+                    left: `${$refs.wrapper.getBoundingClientRect().left}px`
+                }">
                                             <!-- Spinner ketika klik -->
                                             <div wire:loading wire:target="selectLocation" class="p-2 text-center">
                                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                                             </div>
 
                                             @foreach ($locations as $loc)
-                                            <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200" @click="open = false">
+                                            <div wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200" @click="openDropdown = false">
                                                 {{ $loc->name }}
-                                            </li>
+                                            </div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     </template>
                                 </div>
+
+                                <x-label-error :messages="$errors->get('location_id')" />
                             </fieldset>
+
 
                             {{-- Lokasi spesifik muncul hanya jika lokasi utama sudah dipilih --}}
                             @if ($location_id)
