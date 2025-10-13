@@ -242,37 +242,40 @@
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                             <fieldset class="fieldset mb-4">
-                                <x-form.label label="Deskripsi" required />
+                                <label class="block"></label>
+                                <x-form.label label="Tindakan perbaikan langsung" required />
                                 <div wire:ignore>
-                                    <textarea id="ckeditor-description"></textarea>
+                                    <textarea id="ckeditor-immediate_corrective_action"></textarea>
                                 </div>
                                 <!-- Hidden input untuk binding Livewire -->
-                                <input name="description" type="hidden" wire:model.live="description" id="description">
-                                <x-label-error :messages="$errors->get('description')" />
-                            </fieldset>
+                                <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
+                                <x-label-error :messages="$errors->get('immediate_corrective_action')" />
+                        </fieldset>
+
                             <fieldset class=" fieldset">
-                                <x-form.label label="Dokumentasi Sebelum Tindakan perbaikan langsung" />
-                                <label wire:ignore for="upload-deskripsi" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
+                                <x-form.label label="Dokumentasi Sesudah Tindakan perbaikan langsung" />
+                                <label class="block"></label>
+                                <label wire:ignore for="upload-corrective" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                                     <!-- Tombol custom -->
                                     <span class="btn btn-info btn-xs">
                                         Pilih file atau gambar
                                     </span>
                                     <!-- Nama file -->
-                                    <span id="file-name" class="text-xs text-gray-500">
+                                    <span id="file-name-corrective" class="text-xs text-gray-500">
                                         Belum ada file
                                     </span>
                                 </label>
-                                @if ($doc_deskripsi)
-                                @if (in_array($doc_deskripsi->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
-                                <img src="{{ $doc_deskripsi->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
+                                @if ($doc_corrective)
+                                @if (in_array($doc_corrective->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
+                                <img src="{{ $doc_corrective->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
                                 @else
-                                <p class="mt-2 text-sm text-gray-600">File: {{ $doc_deskripsi->getClientOriginalName() }}
+                                <p class="mt-2 text-sm text-gray-600">File: {{ $doc_corrective->getClientOriginalName() }}
                                 </p>
                                 @endif
                                 @endif
                                 <!-- Input asli (disembunyikan) -->
-                                <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
-                                <x-label-error :messages="$errors->get('doc_deskripsi')" />
+                                <input name="doc_corrective" id="upload-corrective" wire:model.live='doc_corrective' type="file" class="hidden" onchange="document.getElementById('file-name-corrective').textContent = this.files[0]?.name ?? 'Belum ada file'" />
+                                <x-label-error :messages="$errors->get('doc_corrective')" />
                             </fieldset>
                         </div>
                     </div>
