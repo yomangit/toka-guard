@@ -307,7 +307,7 @@
                                 <x-label-error :messages="$errors->get('doc_corrective')" />
                             </fieldset>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
+                        <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 ">
                             <fieldset class="fieldset">
                                 <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                                 <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
