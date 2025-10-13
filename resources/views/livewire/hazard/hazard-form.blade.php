@@ -379,49 +379,6 @@
                 </div>
             </div>
 
-
-
-
-
-
-            <fieldset class="fieldset mb-4">
-                <label class="block"></label>
-                <x-form.label label="Tindakan perbaikan langsung" required />
-                <div wire:ignore>
-                    <textarea id="ckeditor-immediate_corrective_action"></textarea>
-                </div>
-                <!-- Hidden input untuk binding Livewire -->
-                <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
-                <x-label-error :messages="$errors->get('immediate_corrective_action')" />
-            </fieldset>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
-
-                <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi Sesudah Tindakan perbaikan langsung" />
-                    <label class="block"></label>
-                    <label wire:ignore for="upload-corrective" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
-                        <!-- Tombol custom -->
-                        <span class="btn btn-info btn-xs">
-                            Pilih file atau gambar
-                        </span>
-                        <!-- Nama file -->
-                        <span id="file-name-corrective" class="text-xs text-gray-500">
-                            Belum ada file
-                        </span>
-                    </label>
-                    @if ($doc_corrective)
-                    @if (in_array($doc_corrective->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
-                    <img src="{{ $doc_corrective->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
-                    @else
-                    <p class="mt-2 text-sm text-gray-600">File: {{ $doc_corrective->getClientOriginalName() }}
-                    </p>
-                    @endif
-                    @endif
-                    <!-- Input asli (disembunyikan) -->
-                    <input name="doc_corrective" id="upload-corrective" wire:model.live='doc_corrective' type="file" class="hidden" onchange="document.getElementById('file-name-corrective').textContent = this.files[0]?.name ?? 'Belum ada file'" />
-                    <x-label-error :messages="$errors->get('doc_corrective')" />
-                </fieldset>
-            </div>
             <div class=" mx-auto mb-4">
                 <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                     <legend class="card-title text-sm font-semibold ">Tambah Tindakan Lanjutan</legend>
