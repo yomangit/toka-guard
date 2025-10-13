@@ -74,7 +74,7 @@
                     <div class="collapse-title font-semibold">Why (Mengapa) Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
-                            <fieldset class="fieldset mb-4 col-span-2">
+                            <fieldset class="fieldset mb-4 lg:col-span-2">
                                 <x-form.label label="Deskripsi" required />
                                 <div wire:ignore>
                                     <textarea id="ckeditor-description"></textarea>
@@ -240,8 +240,8 @@
                     <input type="radio" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">How (Bagaimana) Bagaimana kondisi atau tindakan yang sudah/akan dilakukan?</div>
                     <div class="collapse-content text-sm">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
-                            <fieldset class="fieldset mb-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4 ">
+                            <fieldset class="fieldset mb-4 lg:col-span-2">
                                 <label class="block"></label>
                                 <x-form.label label="Tindakan perbaikan langsung" required />
                                 <div wire:ignore>
