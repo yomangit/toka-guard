@@ -186,46 +186,57 @@
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset z-50">
                             <x-form.label label="Dilaporkan Oleh" required />
-                            <div class="relative ">
+                            <div class="relative">
                                 <!-- Input Search -->
-                                <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                                <!-- Dropdown hasil search -->
+                                <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchInput" />
+
+                                <!-- Dropdown hasil search (teleport keluar collapse) -->
                                 @if ($showPelaporDropdown)
-                                <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
-                                    <!-- Spinner ketika klik -->
-                                    <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
-                                        <span class="loading loading-spinner loading-sm text-secondary"></span>
-                                    </div>
-                                    @if (count($pelapors) > 0)
-                                    @foreach ($pelapors as $pelapor)
-                                    <li wire:click="selectPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                        {{ $pelapor->name }}
-                                    </li>
-                                    @endforeach
-                                    @else
-                                    <!-- Jika tidak ada hasil & belum mode manual -->
-                                    @if (!$manualPelaporMode)
-                                    <li wire:click="enableManualPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
-                                        Tidak ditemukan, tambah pelapor manual
-                                    </li>
-                                    @endif
-                                    @endif
-                                    <!-- Input manual jika mode manual aktif -->
-                                    @if ($manualPelaporMode)
-                                    <li class="p-2">
-                                        <div class="relative w-full">
-                                            <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                                            <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
-                                                <flux:button size="xs" wire:click="addPelaporManual" icon="plus" variant="primary">
-                                                    Tambah
-                                                </flux:button>
-                                            </div>
+                                <template x-teleport="body">
+                                    <ul x-data x-init="
+                    // Posisikan dropdown tepat di bawah input
+                    $el.style.position = 'absolute';
+                    const rect = $refs.searchInput.getBoundingClientRect();
+                    $el.style.top = rect.bottom + 'px';
+                    $el.style.left = rect.left + 'px';
+                    $el.style.width = rect.width + 'px';
+                    $el.style.zIndex = 9999;
+                " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
+                                        <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
+                                            <span class="loading loading-spinner loading-sm text-secondary"></span>
                                         </div>
-                                    </li>
-                                    @endif
-                                </ul>
+
+                                        @if (count($pelapors) > 0)
+                                        @foreach ($pelapors as $pelapor)
+                                        <li wire:click="selectPelapor({{ $pelapor->id }}, '{{ $pelapor->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                            {{ $pelapor->name }}
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        @if (!$manualPelaporMode)
+                                        <li wire:click="enableManualPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
+                                            Tidak ditemukan, tambah pelapor manual
+                                        </li>
+                                        @endif
+                                        @endif
+
+                                        @if ($manualPelaporMode)
+                                        <li class="p-2">
+                                            <div class="relative w-full">
+                                                <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                                                <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
+                                                    <flux:button size="xs" wire:click="addPelaporManual" icon="plus" variant="primary">
+                                                        Tambah
+                                                    </flux:button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @endif
+                                    </ul>
+                                </template>
                                 @endif
                             </div>
+
                             <!-- Error Message -->
                             @if ($manualPelaporMode)
                             <x-label-error :messages="$errors->get('manualPelaporName')" />
@@ -249,7 +260,7 @@
                                 <!-- Hidden input untuk binding Livewire -->
                                 <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
                                 <x-label-error :messages="$errors->get('immediate_corrective_action')" />
-                        </fieldset>
+                            </fieldset>
 
                             <fieldset class=" fieldset">
                                 <x-form.label label="Dokumentasi Sesudah Tindakan perbaikan langsung" />
