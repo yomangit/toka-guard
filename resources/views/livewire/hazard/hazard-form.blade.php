@@ -308,7 +308,7 @@
                             </fieldset>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 ">
-                            <fieldset class="fieldset">
+                            <fieldset >
                                 <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                                 <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
                                 <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
