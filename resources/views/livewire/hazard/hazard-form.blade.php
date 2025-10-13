@@ -241,7 +241,7 @@
                     <div class="collapse-title font-semibold">How (Bagaimana) Bagaimana kondisi atau tindakan yang sudah/akan dilakukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4 ">
-                            <fieldset class="fieldset mb-4 lg:col-span-2">
+                            <fieldset class="fieldset mb-4 md:col-span-2">
                                 <label class="block"></label>
                                 <x-form.label label="Tindakan perbaikan langsung" required />
                                 <div wire:ignore>
