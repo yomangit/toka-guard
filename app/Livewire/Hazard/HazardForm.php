@@ -264,7 +264,7 @@ class HazardForm extends Component
     }
     public function updatedSearchLocation()
     {
-        if (strlen($this->searchLocation) > 1) {
+        if (strlen($this->searchLocation) > 2) {
             $this->locations = Location::where('name', 'like', '%' . $this->searchLocation . '%')
                 ->orderBy('name')
                 ->limit(10)
