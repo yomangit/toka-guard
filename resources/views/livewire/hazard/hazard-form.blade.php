@@ -122,7 +122,7 @@
                                     <!-- Dropdown hasil search -->
 
                                     @if ($showLocationDropdown && count($locations) > 0)
-                                    <template x-teleport="#contenLoc">
+                                    <template x-teleport="collapse-content">
                                         <ul x-data x-init="
                                             // Posisikan dropdown tepat di bawah input
                                             $el.style.position = 'absolute';
