@@ -114,35 +114,25 @@
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm ">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
-                            <fieldset class="fieldset">
+                            <fieldset class="fieldset" x-data="{ open: false }">
                                 <x-form.label label="Lokasi" required />
 
-                                <div class="relative" x-data="{
-                                        fp: null,
-                                        open: false,
-                                        init() {
-                                            // tutup dropdown kalau klik di luar
-                                            document.addEventListener('click', (e) => {
-                                                if (!this.$root.contains(e.target)) this.open = false;
-                                            });
-                                        }
-                                    }" x-init="init()">
-
+                                <div class="relative">
                                     <!-- Input Search -->
                                     <input name="searchLocation" type="text" x-ref="searchInput" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." @focus="open = true" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
 
                                     <x-label-error :messages="$errors->get('location_id')" />
 
-                                    <!-- Teleport dropdown ke body agar tidak terpotong -->
+                                    <!-- Dropdown hasil search menggunakan teleport -->
                                     <template x-teleport="body">
                                         <ul x-show="open && @js($showLocationDropdown) && @js(count($locations) > 0)" x-transition x-data x-init="
-                                                    const rect = $refs.searchInput.getBoundingClientRect();
-                                                    $el.style.position = 'absolute';
-                                                    $el.style.top = rect.bottom + 'px';
-                                                    $el.style.left = rect.left + 'px';
-                                                    $el.style.width = rect.width + 'px';
-                                                    $el.style.zIndex = 9999;
-                                                " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow" @click.away="open = false">
+                    const rect = $refs.searchInput.getBoundingClientRect();
+                    $el.style.position = 'absolute';
+                    $el.style.top = rect.bottom + 'px';
+                    $el.style.left = rect.left + 'px';
+                    $el.style.width = rect.width + 'px';
+                    $el.style.zIndex = 9999;
+                " @click.away="open = false" class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
                                             <!-- Spinner ketika klik -->
                                             <div wire:loading wire:target="selectLocation" class="p-2 text-center">
                                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
