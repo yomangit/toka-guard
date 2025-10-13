@@ -185,9 +185,9 @@
                     <input type="radio" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan atau terlibat?</div>
                     <div class="collapse-content text-sm">
-                        <fieldset class="fieldset ">
+                        <fieldset class="fieldset z-50">
                             <x-form.label label="Dilaporkan Oleh" required />
-                            <div class="relative z-50">
+                            <div class="relative ">
                                 <!-- Input Search -->
                                 <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                 <!-- Dropdown hasil search -->
