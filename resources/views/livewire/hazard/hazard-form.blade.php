@@ -200,7 +200,7 @@
 
                                 <!-- Dropdown hasil search (teleport keluar collapse) -->
                                 @if ($showPelaporDropdown)
-                                <template x-teleport="body">
+                                <template wire:ignore x-teleport="body">
                                     <ul x-data x-init="
                                             // Posisikan dropdown tepat di bawah input
                                             $el.style.position = 'absolute';
