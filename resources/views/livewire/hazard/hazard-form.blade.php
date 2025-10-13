@@ -309,7 +309,7 @@
                         </div>
                         <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                             <legend class="card-title text-sm font-semibold ">DiLaporkan ke</legend>
-                            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4 ">
+                            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 lg:mb-4 ">
                                 <fieldset>
                                     <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                                     <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
