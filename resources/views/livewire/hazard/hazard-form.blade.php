@@ -112,17 +112,17 @@
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input type="radio" name="my-accordion-4" />
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
-                    <div class="collapse-content text-sm ">
+                    <div class="collapse-content text-sm " id="contenLoc">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
                             <fieldset class="fieldset ">
                                 <x-form.label label="Lokasi" required />
                                 <div class="relative">
                                     <!-- Input Search -->
-                                    <input name="searchLocation" type="text" wire:model.live="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchLocation" />
+                                    <input name="searchLocation"  type="text" wire:model.live="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchLocation" />
                                     <!-- Dropdown hasil search -->
 
                                     @if ($showLocationDropdown && count($locations) > 0)
-                                    <template x-teleport="collapse-content">
+                                    <template x-teleport="#contenLoc">
                                         <ul x-data x-init="
                                             // Posisikan dropdown tepat di bawah input
                                             $el.style.position = 'absolute';
