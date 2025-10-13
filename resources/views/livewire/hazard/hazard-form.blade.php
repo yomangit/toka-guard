@@ -121,7 +121,7 @@
                                     <!-- Input Search -->
                                     <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                     <!-- Dropdown hasil search -->
-                                    
+
                                     @if ($showLocationDropdown && count($locations) > 0)
                                     <ul class="absolute z-[9999] bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow ">
                                         <!-- Spinner ketika klik -->
@@ -135,7 +135,7 @@
                                         @endforeach
                                     </ul>
                                     @endif
-                                   
+
                                 </div>
                                 <x-label-error :messages="$errors->get('location_id')" />
                             </fieldset>
@@ -148,6 +148,37 @@
                             </fieldset>
                             @endif
                         </div>
+                    </div>
+                </div>
+                <div class="collapse collapse-arrow join-item border-base-300 border">
+                    <input type="radio" name="my-accordion-4" />
+                    <div class="collapse-title font-semibold">When (Kapan) Kapan hazard ditemukan?</div>
+                    <div class="collapse-content text-sm">
+                        <fieldset class="fieldset relative">
+                            <x-form.label label="Tanggal & Waktu" required />
+                            <div class="relative" wire:ignore x-data="{
+                                fp: null,
+                                initFlatpickr() {
+                                    if (this.fp) this.fp.destroy();
+                                    this.fp = flatpickr(this.$refs.tanggalInput, {
+                                        disableMobile: true,
+                                        enableTime: true,
+                                        dateFormat: 'd-m-Y H:i',
+                                        clickOpens: true,
+                                        appendTo: this.$refs.wrapper,
+                                        onChange: (selectedDates, dateStr) => {
+                                            this.$wire.set('tanggal', dateStr);
+                                        }
+                                    });
+                                }
+                            }" x-ref="wrapper" x-init="initFlatpickr();
+                            Livewire.hook('message.processed', () => {
+                                initFlatpickr();
+                            });">
+                                <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                            </div>
+                            <x-label-error :messages="$errors->get('tanggal')" />
+                        </fieldset>
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border">
@@ -273,31 +304,7 @@
                 <x-label-error :messages="$errors->get('penanggungJawab')" />
             </fieldset>
 
-            <fieldset class="fieldset relative">
-                <x-form.label label="Tanggal & Waktu" required />
-                <div class="relative" wire:ignore x-data="{
-                    fp: null,
-                    initFlatpickr() {
-                        if (this.fp) this.fp.destroy();
-                        this.fp = flatpickr(this.$refs.tanggalInput, {
-                            disableMobile: true,
-                            enableTime: true,
-                            dateFormat: 'd-m-Y H:i',
-                            clickOpens: true,
-                            appendTo: this.$refs.wrapper,
-                            onChange: (selectedDates, dateStr) => {
-                                this.$wire.set('tanggal', dateStr);
-                            }
-                        });
-                    }
-                }" x-ref="wrapper" x-init="initFlatpickr();
-                Livewire.hook('message.processed', () => {
-                    initFlatpickr();
-                });">
-                    <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-                </div>
-                <x-label-error :messages="$errors->get('tanggal')" />
-            </fieldset>
+
 
             <fieldset class="fieldset mb-4">
                 <x-form.label label="Deskripsi" required />
