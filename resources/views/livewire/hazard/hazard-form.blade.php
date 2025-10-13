@@ -121,7 +121,7 @@
                                     <input name="searchLocation" type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchLocation" />
                                     <!-- Dropdown hasil search -->
 
-                                    @if ($showLocationDropdown)
+                                    @if ($showLocationDropdown && count($locations) > 0)
                                     <template x-teleport="body">
                                         <ul x-data x-init="
                                             // Posisikan dropdown tepat di bawah input
@@ -135,13 +135,11 @@
                                             <div wire:loading wire:target="selectLocation" class="p-2 text-center">
                                                 <span class="loading loading-spinner loading-sm text-secondary"></span>
                                             </div>
-                                            @if (count($locations) > 0)
                                             @foreach ($locations as $loc)
                                             <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
                                                 {{ $loc->name }}
                                             </li>
                                             @endforeach
-                                            @endif
                                         </ul>
                                     </template>
                                     @endif
