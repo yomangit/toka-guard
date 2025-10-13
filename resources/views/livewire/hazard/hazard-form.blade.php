@@ -125,7 +125,7 @@
                                     <ul x-data x-init="
                                             // Posisikan dropdown tepat di bawah input
                                             $el.style.position = 'absolute';
-                                            const rect = $refs.searchInput.getBoundingClientRect();
+                                            const rect = $refs.searchLocation.getBoundingClientRect();
                                             $el.style.top = rect.bottom + 'px';
                                             $el.style.left = rect.left + 'px';
                                             $el.style.width = rect.width + 'px';
