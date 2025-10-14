@@ -26,7 +26,7 @@
                             </fieldset>
                             <fieldset class="fieldset">
                                 <x-form.label label="Jenis Bahaya" required />
-                                <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden">
+                                <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('sub_tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}"">
                                     <option value="">-- Pilih --</option>
                                     @if ($tipe_bahaya)
                                     @foreach ($subTypes as $et)
