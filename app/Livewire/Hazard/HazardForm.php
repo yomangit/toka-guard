@@ -148,12 +148,29 @@ class HazardForm extends Component
         'doc_corrective.max'   => 'Ukuran file tindakan perbaikan maksimal 2 MB.',
     ];
     public function getHasWhatErrorProperty()
-{
-    return $this->getErrorBag()->has('tipe_bahaya')
-        || $this->getErrorBag()->has('sub_tipe_bahaya')
-        || ($this->keyWord === 'kta' && $this->getErrorBag()->has('kondisi_tidak_aman'))
-        || ($this->keyWord === 'tta' && $this->getErrorBag()->has('tindakan_tidak_aman'));
-}
+    {
+        return $this->getErrorBag()->has('tipe_bahaya') || $this->getErrorBag()->has('sub_tipe_bahaya') || ($this->keyWord === 'kta' && $this->getErrorBag()->has('kondisi_tidak_aman')) || ($this->keyWord === 'tta' && $this->getErrorBag()->has('tindakan_tidak_aman'));
+    }
+    public function getHasHowErrorProperty()
+    {
+        return $this->getErrorBag()->has('immediate_corrective_action') || $this->getErrorBag()->has('penanggungJawab') || ($this->deptCont === 'department' && $this->getErrorBag()->has('department_id')) || ($this->deptCont === 'company' && $this->getErrorBag()->has('contractor_id'));
+    }
+    public function getHasWhereErrorProperty()
+    {
+        return $this->getErrorBag()->has('location_id') || $this->getErrorBag()->has('location_specific');
+    }
+    public function getHasWhyErrorProperty()
+    {
+        return $this->getErrorBag()->has('description');
+    }
+    public function getHasWhenErrorProperty()
+    {
+        return $this->getErrorBag()->has('tanggal');
+    }
+    public function getHasWhoErrorProperty()
+    {
+        return $this->getErrorBag()->has('pelapor_id');
+    }
     public function mount()
     {
         if (Auth::check()) {
