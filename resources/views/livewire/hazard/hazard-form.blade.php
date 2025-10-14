@@ -68,8 +68,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('description')) collapse-open @endif">
+                    <input type="radio" name="my-accordion-4"@if($errors->has('description')) checked @endif/>
                     <div class="collapse-title font-semibold">Why (Mengapa) Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
@@ -109,8 +109,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('location_id') || $errors->has('location_specific')) collapse-open @endif">
+                    <input type="radio" name="my-accordion-4" @if($errors->has('location_id') || $errors->has('location_specific') ) checked @endif/>
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm " id="contenLoc">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
@@ -157,8 +157,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('tanggal')) collapse-open @endif">
+                    <input type="radio" name="my-accordion-4" @if($errors->has('tanggal') ) checked @endif/>
                     <div class="collapse-title font-semibold">When (Kapan) Kapan hazard ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset relative">
@@ -192,15 +192,15 @@
                                     Livewire.hook('message.processed', () => initFlatpickr());
                                 ">
                                 <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full max-w-sm focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs 
-                {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus-border-rose-500' : '' }}" />
+                                    {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus-border-rose-500' : '' }}" />
                             </div>
                             <x-label-error :messages="$errors->get('tanggal')" />
                         </fieldset>
 
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('pelapor_id'))  @else  collapse-open @endif">
+                    <input type="radio" name="my-accordion-4" @if($errors->has('pelapor_id') ) checked @endif/>
                     <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset z-50">
@@ -265,8 +265,8 @@
                         </fieldset>
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('immediate_corrective_action') || $errors->has('department_id') || $errors->has('contractor_id') || $errors->has('penanggungJawab')) collapse-open @endif">
+                    <input type="radio" name="my-accordion-4" @if($errors->has('immediate_corrective_action') || $errors->has('department_id') || $errors->has('contractor_id') || $errors->has('penanggungJawab')) checked @endif/>
                     <div class="collapse-title font-semibold">How (Bagaimana) Bagaimana kondisi atau tindakan yang sudah/akan dilakukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
