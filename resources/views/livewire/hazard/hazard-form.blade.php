@@ -191,7 +191,7 @@
                                     initFlatpickr();
                                     Livewire.hook('message.processed', () => initFlatpickr());
                                 ">
-                                <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." class="input input-bordered cursor-pointer w-full max-w-sm focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus-border-rose-500' : '' }}" />
+                                <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full max-w-sm focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus-border-rose-500' : '' }}" />
                             </div>
                             <x-label-error :messages="$errors->get('tanggal')" />
                         </fieldset>
