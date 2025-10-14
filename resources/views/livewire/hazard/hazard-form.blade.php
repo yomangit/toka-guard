@@ -8,7 +8,7 @@
     <x-manhours.layout>
 
         <form wire:submit.prevent="submit">
-            <div class="join join-vertical bg-base-100 w-full">
+            <div class="join join-vertical bg-base-100 w-full mb-4">
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhatError ? 'collapse-open' : '' }}">
                     <input type="radio" name="my-accordion-4" {{ $this->hasWhatError ? 'checked' : '' }}/>
                     <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
