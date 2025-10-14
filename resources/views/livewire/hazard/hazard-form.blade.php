@@ -6,7 +6,6 @@
     </div>
     @include('partials.manhours-heading')
     <x-manhours.layout>
-
         <form wire:submit.prevent="submit">
             <div class="join join-vertical bg-base-100 w-full mb-4">
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhatError ? 'collapse-open' : '' }}">
@@ -507,9 +506,7 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex flex-col-reverse md:flex-row gap-2 mt-2">
-
                 {{-- Kolom Likelihood & Consequence --}}
                 <div class=" space-y-4 md:grow">
                     {{-- Consequence --}}
@@ -559,7 +556,6 @@
 
 
                 </div>
-
                 {{-- Kolom Risk Matrix --}}
                 <div class="overflow-x-auto  flex-none ">
                     <div role="tablist" class="flex">
