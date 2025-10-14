@@ -379,8 +379,8 @@
                             </div>
                         </fieldset>
                         <div class=" mx-auto mb-4">
-                            <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
-                                <legend class="card-title text-sm font-semibold ">Tambah Tindakan Lanjutan</legend>
+                            <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3 mt-2">
+                                <legend class="card-title text-sm font-semibold "> Tindakan Lanjutan</legend>
                                 <div class="card-body ">
             
                                     <!-- Deskripsi Tindakan -->
@@ -511,7 +511,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col-reverse md:flex-row gap-2">
+            <div class="flex flex-col-reverse md:flex-row gap-2 mt-2">
 
                 {{-- Kolom Likelihood & Consequence --}}
                 <div class=" space-y-4 md:grow">
