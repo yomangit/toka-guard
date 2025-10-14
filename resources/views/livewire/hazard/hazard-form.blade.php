@@ -9,8 +9,8 @@
 
         <form wire:submit.prevent="submit">
             <div class="join join-vertical bg-base-100 w-full">
-                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('tipe_bahaya') || $errors->has('sub_tipe_bahaya') || $errors->has('kondisi_tidak_aman') || $errors->has('tindakan_tidak_aman')) collapse-open @endif">
-                    <input type="radio" name="my-accordion-4" @if($errors->has('tipe_bahaya') || $errors->has('sub_tipe_bahaya') ||$errors->has('kondisi_tidak_aman') ||$errors->has('tindakan_tidak_aman')) checked @endif/>
+                <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhatError ? 'collapse-open' : '' }}">
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhatError ? 'checked' : '' }}/>
                     <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
@@ -195,7 +195,6 @@
                             </div>
                             <x-label-error :messages="$errors->get('tanggal')" />
                         </fieldset>
-
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('pelapor_id')) collapse-open @endif">
@@ -207,7 +206,6 @@
                             <div class="relative">
                                 <!-- Input Search -->
                                 <input name="searchPelapor" type="text" wire:model.live.debounce.300ms="searchPelapor" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full max-w-sm focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchInput" />
-
                                 <!-- Dropdown hasil search (teleport keluar collapse) -->
                                 @if ($showPelaporDropdown)
                                 <template wire:ignore x-teleport="body">
