@@ -10,7 +10,7 @@
         <form wire:submit.prevent="submit">
             <div class="join join-vertical bg-base-100 w-full mb-4">
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhatError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4" {{ $this->hasWhatError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhatError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
@@ -30,7 +30,7 @@
                                     <option value="">-- Pilih --</option>
                                     @if ($tipe_bahaya)
                                     @foreach ($subTypes as $et)
-                                    <option value="{{ $et->id }}">{{ $et->event_sub_type_name }}</option>
+                                    <option value=" {{ $et->id }}">{{ $et->event_sub_type_name }}</option>
                                     @endforeach
                                     @endif
                                 </select>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border  {{ $this->hasWhyError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4" {{ $this->hasWhyError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhyError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">Why (Mengapa) Mengapa hal itu bisa terjadi?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhereError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4" {{ $this->hasWhereError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhereError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">Where (Di mana) Di mana lokasi hazard ditemukan?</div>
                     <div class="collapse-content text-sm " id="contenLoc">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 ">
@@ -158,7 +158,7 @@
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border  {{ $this->hasWhenError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4" {{ $this->hasWhenError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhenError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">When (Kapan) Kapan hazard ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset relative">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhoError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4"  {{ $this->hasWhoError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasWhoError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset z-50">
@@ -263,7 +263,7 @@
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasHowError ? 'collapse-open' : '' }}">
-                    <input type="radio" name="my-accordion-4" {{ $this->hasHowError ? 'checked' : '' }}/>
+                    <input type="radio" name="my-accordion-4" {{ $this->hasHowError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">How (Bagaimana) Bagaimana kondisi atau tindakan yang sudah/akan dilakukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
