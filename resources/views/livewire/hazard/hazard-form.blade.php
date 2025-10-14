@@ -9,8 +9,8 @@
 
         <form wire:submit.prevent="submit">
             <div class="join join-vertical bg-base-100 w-full">
-                <div class="collapse collapse-arrow join-item border-base-300 border">
-                    <input type="radio" name="my-accordion-4" checked="checked" />
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('tipe_bahaya') || $errors->has('sub_tipe_bahaya') || $errors->has('kondisi_tidak_aman') || $errors->has('tindakan_tidak_aman')) collapse-open @endif">
+                    <input type="radio" name="my-accordion-4" @if($errors->has('tipe_bahaya') || $errors->has('sub_tipe_bahaya') ||$errors->has('kondisi_tidak_aman') ||$errors->has('tindakan_tidak_aman')) checked @endif/>
                     <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
                     <div class="collapse-content text-sm">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
@@ -366,7 +366,7 @@
                                         @endif
                                     </div>
                                 </fieldset>
-                                <fieldset >
+                                <fieldset>
                                     <x-form.label label="Penanggung Jawab Area" required />
                                     <select wire:model.live="penanggungJawab" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('penanggungJawab') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                                         <option value="">-- Pilih --</option>
@@ -382,7 +382,7 @@
                             <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3 mt-2">
                                 <legend class="card-title text-sm font-semibold "> Tindakan Lanjutan</legend>
                                 <div class="card-body ">
-            
+
                                     <!-- Deskripsi Tindakan -->
                                     <fieldset class="fieldset md:col-span-1">
                                         <x-form.label label="Deskripsi Tindakan" required />
@@ -437,7 +437,7 @@
                                             <x-form.label label="Dilaporkan Oleh" required />
                                             <div class="relative">
                                                 <input name="searchActResponsibility" type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
-            
+
                                                 <!-- Dropdown hasil search -->
                                                 @if ($showActPelaporDropdown)
                                                 <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -457,7 +457,7 @@
                                                     </li>
                                                     @endif
                                                     @endif
-            
+
                                                     @if ($manualActPelaporMode)
                                                     <li class="p-2">
                                                         <div class="relative w-full">
@@ -480,7 +480,7 @@
                                             @endif
                                         </fieldset>
                                     </div>
-            
+
                                     <!-- Tombol Tambah -->
                                     <div class=" flex justify-end">
                                         <flux:button size="xs" wire:click="addAction" icon:trailing="add-icon" variant="primary">Tambah</flux:button>
