@@ -198,7 +198,7 @@
 
                     </div>
                 </div>
-                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('pelapor_id'))  @else  collapse-open @endif">
+                <div class="collapse collapse-arrow join-item border-base-300 border @if($errors->has('pelapor_id')) collapse-open @endif">
                     <input type="radio" name="my-accordion-4" @if($errors->has('pelapor_id') ) checked @endif/>
                     <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan?</div>
                     <div class="collapse-content text-sm">
