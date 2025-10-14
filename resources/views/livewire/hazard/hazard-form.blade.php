@@ -201,7 +201,7 @@
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border">
                     <input type="radio" name="my-accordion-4" />
-                    <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan atau terlibat?</div>
+                    <div class="collapse-title font-semibold">Who (Siapa) Siapa yang menemukan?</div>
                     <div class="collapse-content text-sm">
                         <fieldset class="fieldset z-50">
                             <x-form.label label="Dilaporkan Oleh" required />
