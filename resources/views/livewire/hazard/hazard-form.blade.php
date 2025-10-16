@@ -605,6 +605,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 <script>
+     let ckAction_description = null;
     document.addEventListener('livewire:navigated', () => {
         ClassicEditor
             .create(document.querySelector('#ckeditor-action_description'), {
@@ -615,20 +616,34 @@
                 , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
+                ckAction_description = editor;
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     document.querySelector('#ckeditor-action_description').value = data;
                     @this.set('action_description', data);
+                    if (data.trim() !== '') {
+                        editor.ui.view.editable.element.classList.remove('error');
+                    }
                 });
             })
             .catch(error => {
                 console.error(error);
             });
     });
-
+    Livewire.on('validateCkEditor', event => {
+        if (ckAction_description) {
+            const data = ckAction_description.getData().trim();
+            if (data === '') {
+                ckAction_description.ui.view.editable.element.classList.add('error');
+                return false; // cegah submit
+            }
+        }
+        return true;
+    });
 </script>
 
 <script>
+     let ckImmediate_corrective_action = null;
     document.addEventListener('livewire:navigated', () => {
         ClassicEditor
             .create(document.querySelector('#ckeditor-immediate_corrective_action'), {
@@ -639,17 +654,30 @@
                 , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
             })
             .then(editor => {
+                ckImmediate_corrective_action = editor;
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     document.querySelector('#ckeditor-immediate_corrective_action').value = data;
                     @this.set('immediate_corrective_action', data);
+                    if (data.trim() !== '') {
+                        editor.ui.view.editable.element.classList.remove('error');
+                    }
                 });
             })
             .catch(error => {
                 console.error(error);
             });
     });
-
+    Livewire.on('validateCkEditor', event => {
+        if (ckImmediate_corrective_action) {
+            const data = ckImmediate_corrective_action.getData().trim();
+            if (data === '') {
+                ckImmediate_corrective_action.ui.view.editable.element.classList.add('error');
+                return false; // cegah submit
+            }
+        }
+        return true;
+    });
 </script>
 
 <script>
