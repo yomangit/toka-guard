@@ -7,7 +7,7 @@
     @include('partials.manhours-heading')
     <x-manhours.layout>
         <form wire:submit.prevent="submit">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                 <fieldset class="fieldset">
                     <x-form.label label="Tipe Bahaya" required />
                     <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
@@ -60,7 +60,7 @@
                     @endif
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  ">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                 <fieldset class="fieldset mb-4 lg:col-span-2">
                     <x-form.label label="Deskripsi" required />
                     <div wire:ignore>
@@ -95,7 +95,7 @@
                     <x-label-error :messages="$errors->get('doc_deskripsi')" />
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3  ">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 mb-4 ">
                 <fieldset class="fieldset ">
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
@@ -150,12 +150,12 @@
                             initFlatpickr();
                         });
                     ">
-                        <input type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                        <input  type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1  gap-4   ">
+            <div class="grid grid-cols-1  gap-4  mb-4 ">
                 <fieldset class="fieldset ">
                     <x-form.label label="Dilaporkan Oleh" required />
                     <div class="relative">
@@ -216,7 +216,7 @@
                     @endif
                 </fieldset>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4  ">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4 ">
                 <fieldset class="fieldset mb-4 md:col-span-2">
                     <label class="block"></label>
                     <x-form.label label="kondisi atau tindakan yang sudah dilakukan" required />
@@ -325,7 +325,7 @@
                     </fieldset>
                 </div>
             </fieldset>
-            <div class=" mx-auto ">
+            <div class=" mx-auto mb-4">
                 <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                     <legend class="card-title text-sm font-semibold "> Tindakan Lanjutan</legend>
                     <div class="card-body ">
