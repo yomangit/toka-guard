@@ -315,7 +315,7 @@
                             @endif
                         </div>
                     </fieldset>
-                    <fieldset>
+                    <fieldset class="fieldset">
                         <x-form.label label="Penanggung Jawab Area" required />
                         <select wire:model.live="penanggungJawab" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('penanggungJawab') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih --</option>
