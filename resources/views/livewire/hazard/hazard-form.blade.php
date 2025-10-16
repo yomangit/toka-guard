@@ -86,7 +86,7 @@
                     <input name="doc_deskripsi" id="upload-deskripsi" wire:model.live='doc_deskripsi' type="file" class="hidden" onchange="document.getElementById('file-name').textContent = this.files[0]?.name ?? 'Belum ada file'" />
                     @if ($doc_deskripsi)
                     @if (in_array($doc_deskripsi->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
-                    <img src="{{ $doc_deskripsi->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
+                    <img src="{{ $doc_deskripsi->temporaryUrl() }}" class="mt-2 {{ $doc_deskripsi ? 'w-40' : '' }} h-auto rounded border" />
                     @else
                     <p class="mt-2 text-sm text-gray-600">File:
                         {{ $doc_deskripsi->getClientOriginalName() }}</p>
