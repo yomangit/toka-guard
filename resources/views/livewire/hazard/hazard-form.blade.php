@@ -30,12 +30,12 @@
                     </select>
                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                 </fieldset>
-                <fieldset class="fieldset">
+                <fieldset >
                     <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
                     <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
                     <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
-                    <div class="hidden peer-checked/kta:block mt-1.5">
+                    <div class="hidden peer-checked/kta:block ">
                         <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih Kondisi Tidak Aman --</option>
                             @foreach ($ktas as $kta)
@@ -44,7 +44,7 @@
                         </select>
 
                     </div>
-                    <div class="hidden peer-checked/tta:block mt-1.5">
+                    <div class="hidden peer-checked/tta:block ">
                         <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                             <option value="">-- Pilih Tidakan Tidak Aman --</option>
                             @foreach ($ttas as $tta)
