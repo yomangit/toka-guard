@@ -676,7 +676,7 @@
             .catch(error => console.error(error));
     });
     // 🔴 Fungsi untuk validasi CKEditor sebelum submit
-    function validateDescription() {
+    Livewire.on('validateCkEditor', event => {
         if (ckDescription) {
             const data = ckDescription.getData().trim();
             if (data === '') {
@@ -685,7 +685,7 @@
             }
         }
         return true;
-    }
+    });
 
 </script>
 @endpush

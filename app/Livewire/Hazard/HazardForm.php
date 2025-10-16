@@ -439,6 +439,7 @@ class HazardForm extends Component
     }
     public function submit()
     {
+        $this->dispatch('validateCkEditor');
         $this->validate();
         DB::transaction(function () {
             $lastReport = Hazard::latest('id')->first();
