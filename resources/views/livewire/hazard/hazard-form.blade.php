@@ -7,64 +7,64 @@
     @include('partials.manhours-heading')
     <x-manhours.layout>
         <form wire:submit.prevent="submit">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                <fieldset class="fieldset">
+                    <x-form.label label="Tipe Bahaya" required />
+                    <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                        <option value="">-- Pilih --</option>
+                        @foreach ($eventTypes as $et)
+                        <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
+                        @endforeach
+                    </select>
+                    <x-label-error :messages="$errors->get('tipe_bahaya')" />
+                </fieldset>
+                <fieldset class="fieldset">
+                    <x-form.label label="Jenis Bahaya" required />
+                    <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('sub_tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}"">
+                        <option value="">-- Pilih --</option>
+                        @if ($tipe_bahaya)
+                        @foreach ($subTypes as $et)
+                        <option value=" {{ $et->id }}">{{ $et->event_sub_type_name }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
+                </fieldset>
+                <fieldset>
+                    <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
+                    <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
+                    <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
+                    <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
+                    <div class="hidden peer-checked/kta:block mt-1.5">
+                        <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                            <option value="">-- Pilih Kondisi Tidak Aman --</option>
+                            @foreach ($ktas as $kta)
+                            <option value="{{ $kta->id }}">{{ $kta->name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                    <div class="hidden peer-checked/tta:block mt-1.5">
+                        <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                            <option value="">-- Pilih Tidakan Tidak Aman --</option>
+                            @foreach ($ttas as $tta)
+                            <option value="{{ $tta->id }}">{{ $tta->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @if ($keyWord === 'kta')
+                    <x-label-error :messages="$errors->get('kondisi_tidak_aman')" />
+                    @endif
+                    @if ($keyWord === 'tta')
+                    <x-label-error :messages="$errors->get('tindakan_tidak_aman')" />
+                    @endif
+                </fieldset>
+            </div>
             <div class="join join-vertical bg-base-100 w-full mb-4">
                 <div class="collapse collapse-arrow join-item border-base-300 border {{ $this->hasWhatError ? 'collapse-open' : '' }}">
                     <input type="radio" name="my-accordion-4" {{ $this->hasWhatError ? 'checked' : '' }} />
                     <div class="collapse-title font-semibold">What (Apa) Apa bahaya atau kondisi/tindakan tidak aman yang ditemukan?</div>
                     <div class="collapse-content text-sm">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                            <fieldset class="fieldset">
-                                <x-form.label label="Tipe Bahaya" required />
-                                <select wire:model.live="tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
-                                    <option value="">-- Pilih --</option>
-                                    @foreach ($eventTypes as $et)
-                                    <option value="{{ $et->id }}">{{ $et->event_type_name }}</option>
-                                    @endforeach
-                                </select>
-                                <x-label-error :messages="$errors->get('tipe_bahaya')" />
-                            </fieldset>
-                            <fieldset class="fieldset">
-                                <x-form.label label="Jenis Bahaya" required />
-                                <select wire:model.live="sub_tipe_bahaya" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('sub_tipe_bahaya') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}"">
-                                    <option value="">-- Pilih --</option>
-                                    @if ($tipe_bahaya)
-                                    @foreach ($subTypes as $et)
-                                    <option value=" {{ $et->id }}">{{ $et->event_sub_type_name }}</option>
-                                    @endforeach
-                                    @endif
-                                </select>
-                                <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
-                            </fieldset>
-                            <fieldset>
-                                <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
-                                <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
-                                <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
-                                <x-form.label for="tta" class="peer-checked/tta:text-primary text-[10px]" label="Tindakan Tidak Aman" required />
-                                <div class="hidden peer-checked/kta:block mt-1.5">
-                                    <select wire:model.live="kondisi_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('kondisi_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
-                                        <option value="">-- Pilih Kondisi Tidak Aman --</option>
-                                        @foreach ($ktas as $kta)
-                                        <option value="{{ $kta->id }}">{{ $kta->name }}</option>
-                                        @endforeach
-                                    </select>
-
-                                </div>
-                                <div class="hidden peer-checked/tta:block mt-1.5">
-                                    <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
-                                        <option value="">-- Pilih Tidakan Tidak Aman --</option>
-                                        @foreach ($ttas as $tta)
-                                        <option value="{{ $tta->id }}">{{ $tta->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                @if ($keyWord === 'kta')
-                                <x-label-error :messages="$errors->get('kondisi_tidak_aman')" />
-                                @endif
-                                @if ($keyWord === 'tta')
-                                <x-label-error :messages="$errors->get('tindakan_tidak_aman')" />
-                                @endif
-                            </fieldset>
-                        </div>
                     </div>
                 </div>
                 <div class="collapse collapse-arrow join-item border-base-300 border  {{ $this->hasWhyError ? 'collapse-open' : '' }}">
