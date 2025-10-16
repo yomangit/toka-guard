@@ -100,7 +100,7 @@
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <input type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                         <!-- Dropdown hasil search -->
                         @if($showLocationDropdown && count($locations) > 0)
                         <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
@@ -129,34 +129,28 @@
                 <fieldset class="fieldset relative">
                     <x-form.label label="Tanggal & Waktu" required />
                     <div class="relative" wire:ignore x-data="{
-                            fp: null,
-                            initFlatpickr() {
-                                if (this.fp) this.fp.destroy();
-                                this.fp = flatpickr(this.$refs.tanggalInput, {
-                                    disableMobile: true,
-                                    enableTime: true,
-                                    dateFormat: 'd-m-Y H:i',
-                                    clickOpens: true,
-                                    appendTo: document.body, // ✅ popup ditempel langsung ke body
-                                    onChange: (selectedDates, dateStr) => {
-                                        this.$wire.set('tanggal', dateStr);
-                                    },
-                                    onOpen: () => {
-                                        // Geser posisi popup agar tetap di bawah input
-                                        const rect = this.$refs.tanggalInput.getBoundingClientRect();
-                                        const calendar = this.fp.calendarContainer;
-                                        calendar.style.position = 'absolute';
-                                        calendar.style.top = `${rect.bottom + window.scrollY}px`;
-                                        calendar.style.left = `${rect.left + window.scrollX}px`;
-                                        calendar.style.zIndex = 9999; // pastikan di atas collapse
-                                    }
-                                });
-                            }
-                        }" x-init="
+                        fp: null,
+                        initFlatpickr() {
+                            if (this.fp) this.fp.destroy();
+                            this.fp = flatpickr(this.$refs.tanggalInput, {
+                                disableMobile: true,
+                                enableTime: true,
+                                defaultDate: this.$wire.entangle('tanggal').defer,
+                                dateFormat: 'd-m-Y H:i',
+                                clickOpens: true,
+                                appendTo: this.$refs.wrapper,
+                                onChange: (selectedDates, dateStr) => {
+                                    this.$wire.set('tanggal', dateStr);
+                                }
+                            });
+                        }
+                    }" x-ref="wrapper" x-init="
+                        initFlatpickr();
+                        Livewire.hook('message.processed', () => {
                             initFlatpickr();
-                            Livewire.hook('message.processed', () => initFlatpickr());
-                        ">
-                        <input name="tanggal" type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full max-w-sm focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus-border-rose-500' : '' }}" />
+                        });
+                    ">
+                        <input  type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
