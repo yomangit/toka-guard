@@ -326,7 +326,7 @@
                 </div>
             </fieldset>
             <div class=" mx-auto mb-4">
-                <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3 mt-2">
+                <fieldset class="fieldset card bg-base-100 shadow-md border border-gray-200 p-3">
                     <legend class="card-title text-sm font-semibold "> Tindakan Lanjutan</legend>
                     <div class="card-body ">
 
