@@ -30,7 +30,7 @@
                     </select>
                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                 </fieldset>
-                <fieldset>
+                <fieldset class="fieldset">
                     <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
                     <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
