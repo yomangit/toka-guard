@@ -128,7 +128,8 @@
                 @endif
                 <fieldset class="fieldset relative">
                     <x-form.label label="Tanggal & Waktu" required />
-                    <div class="relative {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}"  x-data="{
+                    <div class="{{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500 rounded' : '' }}">
+                        <div class="relative " wire:ignore x-data="{
                         fp: null,
                         initFlatpickr() {
                             if (this.fp) this.fp.destroy();
@@ -150,7 +151,8 @@
                             initFlatpickr();
                         });
                     ">
-                        <input  type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                            <input type="text" x-ref="tanggalInput" wire:model.live='tanggal' placeholder="Pilih Tanggal dan Waktu..." readonly class="input input-bordered cursor-pointer w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
+                        </div>
                     </div>
                     <x-label-error :messages="$errors->get('tanggal')" />
                 </fieldset>
