@@ -231,7 +231,7 @@
                 </fieldset>
 
                 <fieldset class=" fieldset">
-                    <x-form.label label="Dokumentasi" />
+                    <x-form.label label="Lampirkan foto atau dokumentasi (optional)" />
                     <label class="block"></label>
                     <label wire:ignore for="upload-corrective" class="flex items-center gap-2 cursor-pointer border border-info rounded  hover:ring-1 hover:border-info hover:ring-info hover:outline-hidden">
                         <!-- Tombol custom -->
