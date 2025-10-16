@@ -630,7 +630,7 @@
                 console.error(error);
             });
     });
-    Livewire.on('validateCkEditor', event => {
+    Livewire.on('validateCkEditorAddAction', event => {
         if (ckAction_description) {
             const data = ckAction_description.getData().trim();
             if (data === '') {

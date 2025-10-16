@@ -396,6 +396,7 @@ class HazardForm extends Component
     }
     public function addAction()
     {
+        $this->dispatch('validateCkEditorAddAction');
         $this->validate([
             'action_description' => 'required|string',
             'action_due_date' => 'required|date',
@@ -439,6 +440,7 @@ class HazardForm extends Component
     }
     public function submit()
     {
+      
         $this->dispatch('validateCkEditor');
         $this->validate();
         DB::transaction(function () {
