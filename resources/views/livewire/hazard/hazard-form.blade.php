@@ -245,7 +245,7 @@
                     </label>
                     @if ($doc_corrective)
                     @if (in_array($doc_corrective->getClientOriginalExtension(), ['jpg', 'jpeg', 'png']))
-                    <img src="{{ $doc_corrective->temporaryUrl() }}" class="mt-2 w-40 h-auto rounded border" />
+                    <img src="{{ $doc_corrective->temporaryUrl() }}" class="mt-2 {{ $doc_corrective ? 'w-40' : '' }} h-auto rounded border" />
                     @else
                     <p class="mt-2 text-sm text-gray-600">File: {{ $doc_corrective->getClientOriginalName() }}
                     </p>
