@@ -128,7 +128,7 @@
                 @endif
                 <fieldset class="fieldset relative">
                     <x-form.label label="Tanggal & Waktu" required />
-                    <div class="relative {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" wire:ignore x-data="{
+                    <div class="relative {{ $errors->has('tanggal') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}"  x-data="{
                         fp: null,
                         initFlatpickr() {
                             if (this.fp) this.fp.destroy();
