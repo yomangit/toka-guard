@@ -100,30 +100,20 @@
                     <x-form.label label="Lokasi" required />
                     <div class="relative">
                         <!-- Input Search -->
-                        <input name="searchLocation" type="text" wire:model.live="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('location_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-ref="searchLocation" />
+                        <input type="text" wire:model.live.debounce.300ms="searchLocation" placeholder="Cari Lokasi..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                         <!-- Dropdown hasil search -->
-
-                        @if ($showLocationDropdown && count($locations) > 0)
-                        <template wire:ignore x-teleport="body">
-                            <ul x-data x-init="
-                                // Posisikan dropdown tepat di bawah input
-                                $el.style.position = 'absolute';
-                                const rect = $refs.searchLocation.getBoundingClientRect();
-                                $el.style.top = rect.bottom + 'px';
-                                $el.style.left = rect.left + 'px';
-                                $el.style.width = rect.width + 'px';
-                                $el.style.zIndex = 9999;
-                            " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
-                                <div wire:loading wire:target="selectLocation" class="p-2 text-center">
-                                    <span class="loading loading-spinner loading-sm text-secondary"></span>
-                                </div>
-                                @foreach ($locations as $loc)
-                                <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
-                                    {{ $loc->name }}
-                                </li>
-                                @endforeach
-                            </ul>
-                        </template>
+                        @if($showLocationDropdown && count($locations) > 0)
+                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                            <!-- Spinner ketika klik -->
+                            <div wire:loading wire:target="selectLocation" class="p-2 text-center">
+                                <span class="loading loading-spinner loading-sm text-secondary"></span>
+                            </div>
+                            @foreach($locations as $loc)
+                            <li wire:click="selectLocation({{ $loc->id }}, '{{ $loc->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                {{ $loc->name }}
+                            </li>
+                            @endforeach
+                        </ul>
                         @endif
                     </div>
                     <x-label-error :messages="$errors->get('location_id')" />
