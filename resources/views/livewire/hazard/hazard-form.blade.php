@@ -30,7 +30,7 @@
                     </select>
                     <x-label-error :messages="$errors->get('sub_tipe_bahaya')" />
                 </fieldset>
-                <fieldset >
+                <fieldset>
                     <input id="kta" value="kta" wire:model.live="keyWord" class="peer/kta radio radio-xs radio-accent" type="radio" name="keyWord" checked />
                     <x-form.label for="kta" class="peer-checked/kta:text-accent text-[10px]" label="Kondisi Tidak Aman" required />
                     <input id="tta" value="tta" wire:model.live="keyWord" class="peer/tta radio radio-xs radio-primary" type="radio" name="keyWord" />
@@ -598,6 +598,9 @@
         </form>
     </x-manhours.layout>
 </section>
+
+
+
 @push('scripts')
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
@@ -648,7 +651,9 @@
     });
 
 </script>
+
 <script>
+    let ckDescription = null;
     document.addEventListener('livewire:navigated', () => {
         ClassicEditor
             .create(document.querySelector('#ckeditor-description'), {
@@ -656,15 +661,31 @@
                 , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
+                ckDescription = editor;
                 // Update hidden input dan Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     document.querySelector('#description').value = data;
                     @this.set('description', data);
+                    // Hapus error jika sudah diisi
+                    if (data.trim() !== '') {
+                        editor.ui.view.editable.element.classList.remove('error');
+                    }
                 });
             })
             .catch(error => console.error(error));
     });
+    // 🔴 Fungsi untuk validasi CKEditor sebelum submit
+    function validateDescription() {
+        if (ckDescription) {
+            const data = ckDescription.getData().trim();
+            if (data === '') {
+                ckDescription.ui.view.editable.element.classList.add('error');
+                return false; // cegah submit
+            }
+        }
+        return true;
+    }
 
 </script>
 @endpush
