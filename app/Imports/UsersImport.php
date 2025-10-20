@@ -41,7 +41,7 @@ class UsersImport implements ToModel, WithHeadingRow
     // }
         return new User([
             'name'              => $row['name'],
-            'email'             => $row['email'],
+            'email'             => $row['email']?? null,
             'gender'            => $row['gender'] ?? null,
             'date_birth'        => $this->parseDate($row['date_birth'] ?? null),
             'username'          => $row['username'] ?? null,
