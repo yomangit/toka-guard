@@ -30,7 +30,15 @@ class UsersImport implements ToModel, WithHeadingRow
     }
     public function model(array $row)
     {
-      
+        // skip kalau salah satu key utama kosong
+       
+    //      if (
+    //     User::where('email', $row['email'])->exists() ||
+    //     User::where('username', $row['username'])->exists() ||
+    //     User::where('employee_id', $row['employee_id'])->exists()
+    // ) {
+    //     return null; // skip baris
+    // }
         return new User([
             'name'              => $row['name'],
             'email'             => $row['email'],
