@@ -17,7 +17,7 @@ class UsersImport implements ToModel, WithHeadingRow
     {
         return [
             'name' => ['nullable'],
-            'email ' => ['nullable'],
+            'email' => ['nullable', 'email'], // pastikan tidak ada spasi
             'gender' => ['nullable'],
             'date_birth' => ['nullable'],
             'username' => ['nullable'],
@@ -31,17 +31,17 @@ class UsersImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // skip kalau salah satu key utama kosong
-       
-    //      if (
-    //     User::where('email', $row['email'])->exists() ||
-    //     User::where('username', $row['username'])->exists() ||
-    //     User::where('employee_id', $row['employee_id'])->exists()
-    // ) {
-    //     return null; // skip baris
-    // }
+
+        //      if (
+        //     User::where('email', $row['email'])->exists() ||
+        //     User::where('username', $row['username'])->exists() ||
+        //     User::where('employee_id', $row['employee_id'])->exists()
+        // ) {
+        //     return null; // skip baris
+        // }
         return new User([
             'name'              => $row['name'],
-            'email'             => $row['email']?? null,
+            'email'             => $row['email'] ?? null,
             'gender'            => $row['gender'] ?? null,
             'date_birth'        => $this->parseDate($row['date_birth'] ?? null),
             'username'          => $row['username'] ?? null,
