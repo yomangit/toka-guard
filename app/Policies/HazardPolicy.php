@@ -21,30 +21,40 @@ class HazardPolicy
      */
     public function view(User $user, Hazard $hazard): bool
     {
-        // Admin selalu bisa
+        // ✅ Admin (role_id = 1) selalu bisa mengakses
         if ($user->roles()->where('role_id', 1)->exists()) {
             return true;
         }
 
-        // Penanggung jawab bisa
-        elseif ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
+        // ✅ Penanggung jawab bisa melihat
+        if ($hazard->penanggungJawab && $user->id === $hazard->penanggungJawab->id) {
             return true;
         }
 
-        // Pelapor bisa
-        elseif ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
+        // ✅ Pelapor bisa melihat
+        if ($hazard->pelapor && $user->id === $hazard->pelapor->id) {
             return true;
         }
 
-        // Assigned ERM atau moderator sesuai event_type
-        elseif ($hazard->assignedErms()->wherePivot('erm_id', $user->id)->exists()) {
+        // ✅ Assigned ERM bisa melihat (berdasarkan hazard_erm_assignments)
+        if ($hazard->assignedErms()->wherePivot('erm_id', $user->id)->exists()) {
             return true;
-        } elseif ($user->moderatorAssignments()->where('event_type_id', $hazard->event_type_id)->exists()) {
-            return true;
-        } else {
-            return false;
         }
+
+        // ✅ Moderator hanya bisa akses hazard berdasarkan event_type_id yang ditugaskan
+        //    Pastikan tabel moderator_assignments memiliki field event_type_id
+        $isAssignedModerator = $user->moderatorAssignments()
+            ->where('event_type_id', $hazard->event_type_id)
+            ->exists();
+
+        if ($isAssignedModerator) {
+            return true;
+        }
+
+        // ❌ Jika tidak memenuhi semua kondisi di atas, akses ditolak
+        return false;
     }
+
 
     /**
      * Determine whether the user can create models.
