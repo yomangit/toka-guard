@@ -509,7 +509,6 @@ class HazardForm extends Component
                     'responsible_id' => $act['responsible_id'],
                 ]);
             }
-
             // 3. Notifikasi
             // Dapatkan Penanggung Jawab dari relasi
             $penanggungJawab = $hazard->penanggungJawab;
@@ -517,7 +516,6 @@ class HazardForm extends Component
                 $penanggungJawab->notify(new HazardReportNotif($hazard));
             }
         });
-
         // 4. Feedback ke user
         $this->dispatch('alert', [
             'text' => "Laporan berhasil dikirim!",
@@ -527,7 +525,6 @@ class HazardForm extends Component
             'close' => true,
             'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
         ]);
-
         $this->resetForm();
     }
     public function edit($likelihoodId, $consequenceId)

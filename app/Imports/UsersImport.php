@@ -13,16 +13,25 @@ class UsersImport implements ToModel, WithHeadingRow
      *
      * @return \Illuminate\Database\Eloquent\Model|null
      */
+    public function rules(): array
+    {
+        return [
+            'name' => ['nullable'],
+            'email ' => ['nullable'],
+            'gender' => ['nullable'],
+            'date_birth' => ['nullable'],
+            'username' => ['nullable'],
+            'department_name' => ['nullable'],
+            'employee_id' => ['nullable'],
+            'date_birth' => ['nullable'],
+            'date_commenced' => ['nullable'],
+            'role_id' => ['nullable'],
+        ];
+    }
     public function model(array $row)
     {
         // skip kalau salah satu key utama kosong
-        if (
-            empty($row['email']) || strtoupper($row['email']) === 'NULL' ||
-            empty($row['username']) || strtoupper($row['username']) === 'NULL' ||
-            empty($row['employee_id']) || strtoupper($row['employee_id']) === 'NULL'
-        ) {
-            return null; // 👈 skip baris ini
-        }
+       
          if (
         User::where('email', $row['email'])->exists() ||
         User::where('username', $row['username'])->exists() ||
