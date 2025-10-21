@@ -239,9 +239,11 @@ class HazardDetail extends Component
             $this->deptCont = 'company';
             $this->searchContractor = Contractor::find($this->contractor_id)?->contractor_name ?? '';
         }
+       if (!empty($this->likelihood_id) && !empty($this->consequence_id)) {
         $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
         $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
         $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
+       }
 
         $this->loadActionHazards();
     }
