@@ -32,3 +32,10 @@
                 </x-flux:button>
 
                 <x-flux:button variant="primary" wire:click="import" wire:loading.attr="disabled">
+                    <span wire:loading.remove>Import</span>
+                    <span wire:loading>Memproses...</span>
+                </x-flux:button>
+            </div>
+        </x-slot>
+    </x-flux:modal>
+</div>
