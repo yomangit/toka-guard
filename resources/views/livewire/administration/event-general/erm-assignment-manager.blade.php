@@ -47,7 +47,7 @@
                     @endforeach
 
                 </tbody>
-                
+
             </table>
         </div>
         <flux:modal name="ERM-Asign">
@@ -74,7 +74,7 @@
                             {{-- Company --}}
                             {{-- <x-label-req>{{ __('Company') }} </x-label-req> --}}
                             <flux:select size="xs" wire:model.live="selectedCompany" placeholder="Pilih Kontraktor...">
-                                 @foreach ($contractors as $contractor)
+                                @foreach ($contractors as $contractor)
                                 <flux:select.option value="{{ $contractor->id }}">{{ $contractor->contractor_name }}
                                 </flux:select.option>
                                 @endforeach
@@ -91,11 +91,14 @@
                                 <flux:input size='xs' icon="magnifying-glass" placeholder="Cari user..." wire:model.live='search_user' />
                             </div>
                         </div>
-                        <flux:select size="xs" wire:model.live="selectedUsers" multiple class="h-32 overflow-y-scroll">
+                        <div class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border p-2 rounded">
                             @foreach ($users as $user)
-                            <flux:select.option value="{{ $user->id }}">{{ $user->name }}</flux:select.option>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" wire:model.live="selectedUsers" value="{{ $user->id }}" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
+                                <span>{{ $user->name }}</span>
+                            </label>
                             @endforeach
-                        </flux:select>
+                        </div>
                         <x-label-error :messages="$errors->get('selectedUsers')" />
                     </fieldset>
                 </fieldset>
