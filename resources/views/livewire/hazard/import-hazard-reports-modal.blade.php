@@ -26,8 +26,8 @@
                 </flux:button>
 
                 <flux:button variant="primary" wire:click="import" wire:loading.attr="disabled">
-                    <span wire:loading.remove >Import</span>
-                    <span wire:loading>Memproses...</span>
+                    <span  wire:loading.remove >Import</span>
+                    <span class="hidden" wire:loading.class.remove="hidden">Memproses...</span>
                 </flux:button>
             </div>
         </div>
