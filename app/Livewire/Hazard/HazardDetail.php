@@ -311,8 +311,6 @@ class HazardDetail extends Component
         }
 
         $isMod = $isGlobalMod || $isModQuery->exists();
-
-
         // --- Cek role yang diizinkan berdasarkan workflow
         $currentStatus = $this->hazard->status;
         $roles = [];
