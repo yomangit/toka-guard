@@ -13,9 +13,9 @@ use App\Models\ModeratorAssignment;
 
 class ModeratorAssignmentManager extends Component
 {
-    #[Validate('required_without:contractor_id')]
+    #[Validate('nullable')]
     public $department_id;
-    #[Validate('required_without:department_id')]
+    #[Validate('nullable')]
     public $contractor_id;
     public  $event_type_id;
     public $assignments, $search = '';
@@ -27,10 +27,8 @@ class ModeratorAssignmentManager extends Component
     public $user_id;
     protected $messages =
     [
-        'user_id.required'               => 'Nama Moderator wajib diisi.',
-        'event_type_id.required'               => 'Tipe Bahaya wajib diisi.',
-        'department_id.required_without' => 'Departemen wajib dipilih jika kontraktor tidak diisi.',
-        'contractor_id.required_without' => 'Kontraktor wajib dipilih jika departemen tidak diisi.',
+        'user_id.required'                => 'Nama Moderator wajib diisi.',
+        'event_type_id.required'          => 'Tipe Bahaya wajib diisi.',
     ];
     public function mount()
     {
