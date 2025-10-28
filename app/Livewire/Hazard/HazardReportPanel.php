@@ -242,6 +242,8 @@ class HazardReportPanel extends Component
         $this->showPelaporDropdown = false;
     }
 
+    
+
     public function render()
     {
         $query = Hazard::with('pelapor')->withHazardCounts()->latest();
