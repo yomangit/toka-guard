@@ -27,7 +27,7 @@ class HazardUserReport extends Component
         $year = Carbon::now()->year;
         $hazards = Hazard::with('pelapor')->when($this->start_date && $this->end_date, function ($q) {
             $q->dateRange($this->start_date, $this->end_date);
-        })->whereYear('tanggal', Carbon::now()->year)->get();
+        })->whereYear('tanggal', Carbon::now()->year)->take(10)->get();
 
         // Kumpulkan kategori (nama department jika ada, kalau kosong pakai contractor)
         $grouped = $hazards->groupBy(function ($hazard) {
