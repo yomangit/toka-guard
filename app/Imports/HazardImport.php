@@ -12,19 +12,26 @@ use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class HazardImport implements ToModel, WithHeadingRow, SkipsOnError, WithChunkReading
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+   protected int $startId;
+
+    public function __construct()
+    {
+        // Ambil ID terakhir saat import dimulai
+        $last = Hazard::latest('id')->first();
+        $this->startId = $last ? $last->id + 1 : 1;
+    }
+
     public function model(array $row)
     {
-        // Jika semua kolom kosong, baru skip barisnya (untuk mencegah baris kosong total masuk)
-        if (count(array_filter($row, fn($value) => !is_null($value) && $value !== '')) === 0) {
+        // Skip baris kosong total
+        if (count(array_filter($row, fn($v) => !is_null($v) && $v !== '')) === 0) {
             return null;
         }
 
-        // Parsing tanggal: contoh "2025-08-01 : 12:00"
+        // Buat nomor referensi otomatis
+        $referenceNumber = 'LH-' . str_pad($this->startId++, 5, '0', STR_PAD_LEFT);
+
+        // Parsing tanggal
         $tanggal = null;
         if (!empty($row['tanggal'])) {
             $tanggal = str_replace([' : ', '–'], [' ', '-'], $row['tanggal']);
@@ -36,7 +43,7 @@ class HazardImport implements ToModel, WithHeadingRow, SkipsOnError, WithChunkRe
         }
 
         return new Hazard([
-            'no_referensi'                => $row['no_referensi'] ?? null,
+            'no_referensi'                => $referenceNumber,
             'event_type_id'               => $row['event_type_id'] ?? null,
             'event_sub_type_id'           => $row['event_sub_type_id'] ?? null,
             'status'                      => $row['status'] ?? 'submitted',
@@ -63,11 +70,11 @@ class HazardImport implements ToModel, WithHeadingRow, SkipsOnError, WithChunkRe
 
     public function chunkSize(): int
     {
-        return 500; // proses per 500 baris untuk efisiensi
+        return 500;
     }
 
     public function onError(Throwable $error)
     {
-        // Abaikan error per baris agar import tidak berhenti
+        // Lewatkan error per baris
     }
 }
