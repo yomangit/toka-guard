@@ -38,7 +38,7 @@ class HazardUserReport extends Component
             }
         });
         // Hitung jumlah per kategori dan urutkan dari terbesar ke terkecil
-        $counts = $grouped->map->count()->sortDesc();
+        $counts = $grouped->map->count()->sortDesc() ->take(10);
         // Hitung jumlah per kategori
         $value = [
             'year' => $year,
