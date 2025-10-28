@@ -1,6 +1,6 @@
 <div>
     <!-- Tombol buka modal -->
-    <flux:button icon="upload" variant="primary" wire:click="openModal">
+    <flux:button icon="upload" variant="primary" size='xs' wire:click="openModal">
         Import Excel
     </flux:button>
 
@@ -13,7 +13,7 @@
                 <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
 
-                <div wire:loading wire:target="file" class="text-sm text-blue-500 mt-2">
+                <div wire:loading.class.remove='hidden' wire:target="file" class="text-sm text-blue-500 mt-2 hidden">
                     Mengunggah file...
                 </div>
             </div>
