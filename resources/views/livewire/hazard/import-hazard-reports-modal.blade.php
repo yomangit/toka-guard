@@ -1,18 +1,20 @@
 <div>
-    <!-- Tombol untuk membuka modal -->
-    <flux:button icon="upload" wire:click="$set('showModal', true)" class="btn-primary">
+    <!-- Tombol buka modal -->
+    <flux:button icon="upload" variant="primary" wire:click="openModal">
         Import Excel
     </flux:button>
 
     <!-- Modal -->
-    <flux:modal wire:model="showModal" title="Import Data Hazard Reports" size="md">
+    <flux:modal wire:model="open" title="Import Data Hazard Reports" size="md">
         <div class="space-y-4">
             <p class="text-sm text-gray-600">
                 Unggah file Excel (.xlsx / .csv) sesuai format header hazard report.
             </p>
 
             <div>
-                <input type="file" wire:model="file" accept=".xlsx,.xls,.csv"
+                <input type="file"
+                       wire:model="file"
+                       accept=".xlsx,.xls,.csv"
                        class="file-input file-input-bordered w-full border-gray-300" />
 
                 @error('file')
@@ -27,7 +29,7 @@
 
         <x-slot name="footer">
             <div class="flex justify-end gap-2">
-                <flux:button variant="ghost" wire:click="$set('showModal', false)">
+                <flux:button variant="ghost" wire:click="closeModal">
                     Batal
                 </flux:button>
 
