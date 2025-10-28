@@ -3,7 +3,7 @@
 namespace App\Livewire\Hazard;
 
 use Livewire\Component;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\HazardImport;
 use Livewire\WithFileUploads;
 
