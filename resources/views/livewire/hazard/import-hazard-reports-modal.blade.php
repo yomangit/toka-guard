@@ -1,6 +1,6 @@
 <div>
     <!-- Tombol buka modal -->
-    <flux:button icon="upload" variant="primary" size='xs' wire:click="openModal">
+    <flux:button icon="upload" variant="primary" class="hidden" size='xs' wire:click="openModal">
         Import Excel
     </flux:button>
 
