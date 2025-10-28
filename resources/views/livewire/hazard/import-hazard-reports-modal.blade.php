@@ -5,7 +5,7 @@
     </x-button>
 
     <!-- Modal Upload -->
-    <x-modal wire:model="open" size="md">
+    <flux:modal wire:model="open" size="md">
         <x-slot name="title">
             Import Data Hazard Reports
         </x-slot>
@@ -39,5 +39,5 @@
                 <span wire:loading>Memproses...</span>
             </x-button>
         </x-slot>
-    </x-modal>
+    </flux:modal>
 </div>
