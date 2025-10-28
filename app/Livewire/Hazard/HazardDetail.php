@@ -239,11 +239,11 @@ class HazardDetail extends Component
             $this->deptCont = 'company';
             $this->searchContractor = Contractor::find($this->contractor_id)?->contractor_name ?? '';
         }
-       if (!empty($this->likelihood_id) && !empty($this->consequence_id)) {
-        $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
-        $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
-        $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
-       }
+        if (!empty($this->likelihood_id) && !empty($this->consequence_id)) {
+            $id_table = RiskMatrixCell::where('likelihood_id', $this->likelihood_id)->where('risk_consequence_id', $this->consequence_id)->first()->id;
+            $risk_assessment_id = RiskAssessmentMatrix::where('risk_matrix_cell_id', $id_table)->first()->risk_assessment_id;
+            $this->RiskAssessment = RiskAssessment::whereId($risk_assessment_id)->first();
+        }
 
         $this->loadActionHazards();
     }
@@ -253,58 +253,81 @@ class HazardDetail extends Component
         $dept   = $this->hazard->department_id;
         $cont   = $this->hazard->contractor_id;
         $comp   = null;
-        // Ambil dari relasi departemen
+
+        // Ambil company_id dari departemen atau kontraktor (jika ada)
         if ($dept) {
             $comp = DB::table('departments')->where('id', $dept)->value('company_id');
         }
-        // Kalau tidak ada di department, cek contractor
+
         if (!$comp && $cont) {
             $comp = DB::table('contractors')->where('id', $cont)->value('company_id');
         }
-        // Cek apakah user ditugaskan sebagai ERM
-        $isErm = DB::table('erm_assignments')
-            ->where('user_id', $userId)
-            ->where(function ($q) use ($dept, $cont) {
+
+        /**
+         * 🔹 Cek apakah user adalah ERM
+         * Jika dept/contractor kosong → cek role global tanpa filter
+         */
+        $isErmQuery = DB::table('erm_assignments')->where('user_id', $userId);
+        if ($dept || $cont) {
+            $isErmQuery->where(function ($q) use ($dept, $cont) {
                 if ($dept) {
                     $q->orWhere('department_id', $dept);
                 }
                 if ($cont) {
                     $q->orWhere('contractor_id', $cont);
                 }
-            })
-            ->exists();
-        // Cek apakah user ditugaskan sebagai Moderator
-        $isMod = DB::table('moderator_assignments')
-            ->where('user_id', $userId)
-            ->where(function ($q) use ($dept, $cont, $comp) {
-                if ($dept) {
-                    $q->orWhere('department_id', $dept);
-                }
-                if ($cont) {
-                    $q->orWhere('contractor_id', $cont);
-                }
-                if ($comp) {
-                    $q->orWhere('company_id', $comp);
-                }
-            })
-            ->exists();
-        // --- Perubahan di sini ---
-        $currentStatus = $this->hazard->status; // contoh: 'in_progress'
-        // Kumpulkan semua role user
+            });
+        }
+        $isErm = $isErmQuery->exists();
+
+        /**
+         * 🔹 Cek apakah user adalah Moderator
+         *  - Moderator Global  => bisa akses semua
+         *  - Moderator Lokal   => hanya akses jika dept/contractor cocok
+         */
+        $isModQuery = DB::table('moderator_assignments')->where('user_id', $userId);
+
+        // Cek apakah user adalah moderator global
+        $isGlobalMod = (clone $isModQuery)->where('is_global', true)->exists();
+
+        // Jika bukan global, cek berdasarkan dept/contractor/company
+        if (! $isGlobalMod) {
+            if ($dept || $cont || $comp) {
+                $isModQuery->where(function ($q) use ($dept, $cont, $comp) {
+                    if ($dept) {
+                        $q->orWhere('department_id', $dept);
+                    }
+                    if ($cont) {
+                        $q->orWhere('contractor_id', $cont);
+                    }
+                    if ($comp) {
+                        $q->orWhere('company_id', $comp);
+                    }
+                });
+            }
+        }
+
+        $isMod = $isGlobalMod || $isModQuery->exists();
+
+
+        // --- Cek role yang diizinkan berdasarkan workflow
+        $currentStatus = $this->hazard->status;
         $roles = [];
         if ($isMod) $roles[] = 'moderator';
         if ($isErm) $roles[] = 'erm';
-        // Cek di tabel workflow: role mana yang boleh transisi dari current status
+
         $allowedRole = DB::table('hazard_workflows')
             ->whereIn('role', $roles)
             ->where('from_status', $currentStatus)
             ->pluck('role')
             ->first();
+
         // Set effectiveRole
         $this->effectiveRole = $allowedRole ?? '';
         $this->asModerator   = $this->effectiveRole === 'moderator';
         $this->asErm         = $this->effectiveRole === 'erm';
     }
+
     protected function loadAvailableTransitions(): void
     {
         $this->availableTransitions = HazardWorkflow::getAvailableTransitions(
