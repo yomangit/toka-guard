@@ -1,11 +1,11 @@
 <div>
     <!-- Tombol untuk membuka modal -->
-    <x-flux:button icon="upload" wire:click="$set('showModal', true)" class="btn-primary">
+    <flux:button icon="upload" wire:click="$set('showModal', true)" class="btn-primary">
         Import Excel
-    </x-flux:button>
+    </flux:button>
 
     <!-- Modal -->
-    <x-flux:modal wire:model="showModal" title="Import Data Hazard Reports" size="md">
+    <flux:modal wire:model="showModal" title="Import Data Hazard Reports" size="md">
         <div class="space-y-4">
             <p class="text-sm text-gray-600">
                 Unggah file Excel (.xlsx / .csv) sesuai format header hazard report.
@@ -27,15 +27,15 @@
 
         <x-slot name="footer">
             <div class="flex justify-end gap-2">
-                <x-flux:button variant="ghost" wire:click="$set('showModal', false)">
+                <flux:button variant="ghost" wire:click="$set('showModal', false)">
                     Batal
-                </x-flux:button>
+                </flux:button>
 
-                <x-flux:button variant="primary" wire:click="import" wire:loading.attr="disabled">
+                <flux:button variant="primary" wire:click="import" wire:loading.attr="disabled">
                     <span wire:loading.remove>Import</span>
                     <span wire:loading>Memproses...</span>
-                </x-flux:button>
+                </flux:button>
             </div>
         </x-slot>
-    </x-flux:modal>
+    </flux:modal>
 </div>
