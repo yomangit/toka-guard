@@ -288,7 +288,10 @@ class HazardDetail extends Component
         $isModQuery = DB::table('moderator_assignments')->where('user_id', $userId);
 
         // Cek apakah user adalah moderator global
-        $isGlobalMod = (clone $isModQuery)->where('is_global', true)->exists();
+        $isGlobalMod = (clone $isModQuery)
+            ->whereNull('department_id')
+            ->whereNull('contractor_id')
+            ->exists();
 
         // Jika bukan global, cek berdasarkan dept/contractor/company
         if (! $isGlobalMod) {
