@@ -7,13 +7,8 @@
     <!-- Modal -->
     <flux:modal wire:model="open" title="Import Data Hazard Reports" size="md">
         <div class="space-y-4">
-            <p class="text-sm text-gray-600">
-                Unggah file Excel (.xlsx / .csv) sesuai format header hazard report.
-            </p>
-
             <div>
-                <input type="file" wire:model="file" accept=".xlsx,.xls,.csv" class="file-input file-input-bordered w-full border-gray-300" />
-
+                <flux:input type="file" wire:model="file" label="Unggah file Excel (.xlsx / .csv) sesuai format header hazard report."/>
                 @error('file')
                 <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
@@ -31,7 +26,7 @@
                 </flux:button>
 
                 <flux:button variant="primary" wire:click="import" wire:loading.attr="disabled">
-                    <span wire:loading.remove>Import</span>
+                    <span wire:loading.remove >Import</span>
                     <span wire:loading>Memproses...</span>
                 </flux:button>
             </div>
