@@ -94,7 +94,7 @@
                         <div class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto border p-2 rounded">
                             @foreach ($users as $user)
                             <label class="flex items-center space-x-2">
-                                <input type="checkbox" wire:model.live="selectedUsers" value="{{ $user->id }}" class="rounded border-gray-300 text-green-600 focus:ring-green-500">
+                                <input type="checkbox" wire:model.live="selectedUsers" value="{{ $user->id }}" class="rounded  border-gray-300 text-green-600 focus:ring-green-500">
                                 <span>{{ $user->name }}</span>
                             </label>
                             @endforeach

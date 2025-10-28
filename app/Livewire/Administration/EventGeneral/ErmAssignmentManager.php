@@ -114,7 +114,7 @@ class ErmAssignmentManager extends Component
         return view('livewire.administration.event-general.erm-assignment-manager', [
             'departments' => Department::all(),
             'contractors' => Contractor::all(),
-            'users' => User::search(trim($this->search_user))->get(),
+            'users' => User::search(trim($this->search_user))->limit(50)->get(),
             'ErmAssignment' => ErmAssignment::paginate(20)
         ]);
     }
