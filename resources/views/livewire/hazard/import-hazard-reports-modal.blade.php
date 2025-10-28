@@ -12,13 +12,10 @@
             </p>
 
             <div>
-                <input type="file"
-                       wire:model="file"
-                       accept=".xlsx,.xls,.csv"
-                       class="file-input file-input-bordered w-full border-gray-300" />
+                <input type="file" wire:model="file" accept=".xlsx,.xls,.csv" class="file-input file-input-bordered w-full border-gray-300" />
 
                 @error('file')
-                    <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
                 @enderror
 
                 <div wire:loading wire:target="file" class="text-sm text-blue-500 mt-2">
@@ -27,7 +24,7 @@
             </div>
         </div>
 
-        <x-slot name="footer">
+        <div class="flex">
             <div class="flex justify-end gap-2">
                 <flux:button variant="ghost" wire:click="closeModal">
                     Batal
@@ -38,6 +35,6 @@
                     <span wire:loading>Memproses...</span>
                 </flux:button>
             </div>
-        </x-slot>
+        </div>
     </flux:modal>
 </div>
