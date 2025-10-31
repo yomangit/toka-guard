@@ -3,7 +3,7 @@
     <x-tabs-relation.layout>
 
         <fieldset class="mb-4 fieldset">
-            <label class="block ">Departemen</label>
+            <label class="block ">Kontraktor</label>
             <div class="relative" x-data @click.outside="$wire.set('showContractorDropdown', false)">
                 <!-- Input pencarian -->
                 <input type="text" wire:model.live="searchContractor" placeholder="Cari Contractor..." class="input input-bordered w-full input-xs focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden" wire:focus="$set('showContractorDropdown', true)" />
