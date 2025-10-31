@@ -13,7 +13,6 @@ class DepartmentUserManager extends Component
     public $department_id;
     public $user_id;
     public $departments = [];
-    public $users = [];
     public $selectedUsers = [];
 
     public $searchDepartment = '';
