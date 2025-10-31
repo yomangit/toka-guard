@@ -80,7 +80,7 @@ class DepartmentUserManager extends Component
             });
         }
 
-        $users = $query->paginate(100);
+        $users = $query->orderBy('name','ASC')->paginate(100);
         return view('livewire.administration.relasi-dept-user.department-user-manager',[
                     'users' => $users,
         ]);
