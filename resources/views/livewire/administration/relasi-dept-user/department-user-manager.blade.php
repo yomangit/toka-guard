@@ -1,7 +1,6 @@
 <section class="w-full">
     <x-toast />
     <x-tabs-relation.layout>
-
         <fieldset class="mb-4 fieldset">
             <label class="block ">Departemen</label>
             <div class="relative" x-data @click.outside="$wire.set('showDepartmentDropdown', false)">
