@@ -28,7 +28,8 @@ class ContractorUserManager extends Component
             ->orderBy('contractor_name')
             ->limit(10)
             ->get();
-            $this->reset('searchUser');
+               $this->showContractorDropdown = true;
+            $this->reset('searchUser','selectedUsers');
     }
 
     public function selectContractor($id, $name)
