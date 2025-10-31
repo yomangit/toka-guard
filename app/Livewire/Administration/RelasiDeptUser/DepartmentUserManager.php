@@ -13,6 +13,7 @@ class DepartmentUserManager extends Component
     public $department_id;
     public $user_id;
     public $departments = [];
+    public $users = [];
     public $selectedUsers = [];
 
     public $searchDepartment = '';
@@ -40,7 +41,9 @@ class DepartmentUserManager extends Component
     }
     public function updatedSearchUser()
     {
-        $this->resetPage();
+        if ($this->department_id) {
+            $this->resetPage();
+        }
     }
     // Toggle user di selectedUsers
     public function toggleUser($id)
@@ -84,8 +87,8 @@ class DepartmentUserManager extends Component
         }
 
         $users = $query->paginate(100);
-        return view('livewire.administration.relasi-dept-user.department-user-manager', [
-            'users' => $users,
+        return view('livewire.administration.relasi-dept-user.department-user-manager',[
+                    'users' => $users,
         ]);
     }
     public function paginationView()
