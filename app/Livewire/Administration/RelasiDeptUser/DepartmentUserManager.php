@@ -28,6 +28,7 @@ class DepartmentUserManager extends Component
             ->orderBy('department_name')
             ->limit(10)
             ->get();
+            $this->reset('searchUser');
     }
     public function selectDepartment($id, $name)
     {
