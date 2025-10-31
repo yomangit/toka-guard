@@ -40,7 +40,7 @@ class DepartmentUserManager extends Component
     public function updateSearchUser()
     {
         if ($this->department_id) {
-            $this->users = User::search(trim($this->searchUser))->get();
+            $this->users = User::search(trim($this->searchUser))->take(100)->get();
         }
     }
     // Toggle user di selectedUsers
