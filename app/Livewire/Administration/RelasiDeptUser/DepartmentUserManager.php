@@ -70,7 +70,6 @@ class DepartmentUserManager extends Component
     }
     public function render()
     {
-        $this->updateSearchUser();
         $query = User::query();
 
         if ($this->department_id) {
