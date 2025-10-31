@@ -74,11 +74,6 @@ class DepartmentUserManager extends Component
     public function render()
     {
         $query = User::query();
-
-        if ($this->department_id) {
-            $query->where('department_id', $this->department_id);
-        }
-
         if ($this->searchUser) {
             $query->where(function ($q) {
                 $q->where('name', 'like', '%' . trim($this->searchUser) . '%')
