@@ -5,13 +5,14 @@ namespace App\Livewire\Administration\RelasiContUser;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Contractor;
+use Livewire\WithPagination;
 
 class ContractorUserManager extends Component
 {
-     public $contractor_id;
+    use WithPagination;
+    public $contractor_id;
     public $user_id;
     public $contractors = [];
-    public $users = [];
     public $selectedUsers = [];
 
     public $searchContractor = '';
@@ -43,7 +44,7 @@ class ContractorUserManager extends Component
     public function updatedSearchUser()
     {
         if ($this->contractor_id) {
-            $this->users = User::search(trim($this->searchUser))->get();
+            $this->resetPage();
         }
     }
 
@@ -69,7 +70,28 @@ class ContractorUserManager extends Component
     }
     public function render()
     {
-        $this->updatedSearchUser();
-        return view('livewire.administration.relasi-cont-user.contractor-user-manager');
+        // Jika "Hanya Terpilih" aktif dan ada user terpilih
+        if ($this->showOnlySelected && count($this->selectedUsers) > 0) {
+            $query = User::whereIn('id', $this->selectedUsers)
+                ->orderBy('name', 'ASC');
+
+            // tanpa paginate agar semua tampil
+            $users = $query->get();
+        } else {
+            // default mode dengan pencarian dan pagination
+            $query = User::query();
+
+            if ($this->searchUser) {
+                $query->where(function ($q) {
+                    $q->where('name', 'like', '%' . trim($this->searchUser) . '%')
+                        ->orWhere('username', 'like', '%' . trim($this->searchUser) . '%');
+                });
+            }
+
+            $users = $query->orderBy('name', 'ASC')->paginate(100);
+        }
+        return view('livewire.administration.relasi-cont-user.contractor-user-manager', [
+            'users' => $users,
+        ]);
     }
 }
