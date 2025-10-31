@@ -49,7 +49,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
                 @foreach($users as $user)
                 @if(!$showOnlySelected || in_array($user->id, $selectedUsers))
-                <label class="flex items-center space-x-2">
+                <label class="flex items-center space-x-2" wire:key="user-{{ $user->id }}">
                     <input type="checkbox" wire:click="toggleUser({{ $user->id }})" @if(in_array($user->id, $selectedUsers)) checked @endif
                     class="checkbox checkbox-xs">
                     <span>{{ $user->name }}</span>
