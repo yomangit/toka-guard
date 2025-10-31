@@ -72,17 +72,29 @@ class DepartmentUserManager extends Component
     }
     public function render()
     {
-        $query = User::query();
-        if ($this->searchUser) {
-            $query->where(function ($q) {
-                $q->where('name', 'like', '%' . trim($this->searchUser) . '%')
-                    ->orWhere('username', 'like', '%' . trim($this->searchUser) . '%');
-            });
+        // Jika "Hanya Terpilih" aktif dan ada user terpilih
+        if ($this->showOnlySelected && count($this->selectedUsers) > 0) {
+            $query = User::whereIn('id', $this->selectedUsers)
+                ->orderBy('name', 'ASC');
+
+            // tanpa paginate agar semua tampil
+            $users = $query->get();
+        } else {
+            // default mode dengan pencarian dan pagination
+            $query = User::query();
+
+            if ($this->searchUser) {
+                $query->where(function ($q) {
+                    $q->where('name', 'like', '%' . trim($this->searchUser) . '%')
+                        ->orWhere('username', 'like', '%' . trim($this->searchUser) . '%');
+                });
+            }
+
+            $users = $query->orderBy('name', 'ASC')->paginate(100);
         }
 
-        $users = $query->orderBy('name','ASC')->paginate(100);
-        return view('livewire.administration.relasi-dept-user.department-user-manager',[
-                    'users' => $users,
+        return view('livewire.administration.relasi-dept-user.department-user-manager', [
+            'users' => $users,
         ]);
     }
     public function paginationView()
