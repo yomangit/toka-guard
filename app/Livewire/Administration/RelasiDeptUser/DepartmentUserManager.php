@@ -13,7 +13,6 @@ class DepartmentUserManager extends Component
     public $department_id;
     public $user_id;
     public $departments = [];
-    public $users = [];
     public $selectedUsers = [];
 
     public $searchDepartment = '';
@@ -39,12 +38,9 @@ class DepartmentUserManager extends Component
         // Pilih department → load user yang sudah terkait
         $this->selectedUsers = Department::find($id)->users()->pluck('user_id')->toArray();
     }
-    public function updateSearchUser()
+    public function updatedSearchUser()
     {
-        if ($this->department_id) {
-            $this->users = User::search(trim($this->searchUser))->paginate(100);
-            $this->resetPage();
-        }
+        $this->resetPage();
     }
     // Toggle user di selectedUsers
     public function toggleUser($id)
@@ -75,7 +71,23 @@ class DepartmentUserManager extends Component
     public function render()
     {
         $this->updateSearchUser();
-        return view('livewire.administration.relasi-dept-user.department-user-manager');
+        $query = User::query();
+
+        if ($this->department_id) {
+            $query->where('department_id', $this->department_id);
+        }
+
+        if ($this->searchUser) {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . trim($this->searchUser) . '%')
+                    ->orWhere('username', 'like', '%' . trim($this->searchUser) . '%');
+            });
+        }
+
+        $users = $query->paginate(100);
+        return view('livewire.administration.relasi-dept-user.department-user-manager', [
+            'users' => $users,
+        ]);
     }
     public function paginationView()
     {
