@@ -5,9 +5,11 @@ namespace App\Livewire\Administration\RelasiDeptUser;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Department;
+use Livewire\WithPagination;
 
 class DepartmentUserManager extends Component
 {
+    use WithPagination;
     public $department_id;
     public $user_id;
     public $departments = [];
@@ -40,7 +42,8 @@ class DepartmentUserManager extends Component
     public function updateSearchUser()
     {
         if ($this->department_id) {
-            $this->users = User::search(trim($this->searchUser))->take(100)->get();
+            $this->users = User::search(trim($this->searchUser))->paginate(100);
+            $this->resetPage();
         }
     }
     // Toggle user di selectedUsers
@@ -73,5 +76,9 @@ class DepartmentUserManager extends Component
     {
         $this->updateSearchUser();
         return view('livewire.administration.relasi-dept-user.department-user-manager');
+    }
+    public function paginationView()
+    {
+        return 'paginate.pagination';
     }
 }

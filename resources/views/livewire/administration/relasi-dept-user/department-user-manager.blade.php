@@ -53,6 +53,7 @@
                 @endif
                 @endforeach
             </div>
+              <div class="mt-4">{{ $users->links() }}</div>
         </fieldset>
 
         <button wire:click="save" class="btn btn-sm btn-success">Simpan Relasi</button>
