@@ -41,11 +41,7 @@
                     <span class="text-xs">Hanya terpilih</span>
                 </label>
             </div>
-            <ul>
-                @foreach ($selectedUsers as $userId)
-                <li>{{ \App\Models\User::find($userId)?->name }}</li>
-                @endforeach
-            </ul>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-1">
                 @foreach($users as $user)
                 @if(!$showOnlySelected || in_array($user->id, $selectedUsers))
