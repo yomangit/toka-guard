@@ -28,6 +28,7 @@ class User extends Authenticatable
         'employee_id',
         'date_commenced',
         'email',
+        'pilih_divisi',
         'role_id',
         'password'
 

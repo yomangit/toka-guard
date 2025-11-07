@@ -216,6 +216,7 @@ class User extends Component
                 'username' => $this->username,
                 'role_id' => $this->role_id,
                 'department_name' => $this->dep_cont,
+                'pilih_divisi' => $this->deptCont,
                 'employee_id' => $this->employee_id,
                 'date_commenced' => $this->date_commenced,
                 'email' => $this->email,
