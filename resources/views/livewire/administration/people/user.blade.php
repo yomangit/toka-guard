@@ -112,7 +112,7 @@
                     <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
                     <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
 
-                    <div class="hidden peer-checked/department:block ">
+                    <div class="hidden peer-checked/department:block mt-1">
                         {{-- Department --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
@@ -136,7 +136,7 @@
                         <x-label-error :messages="$errors->get('department_id')" />
                         @endif
                     </div>
-                    <div class="hidden peer-checked/company:block ">
+                    <div class="hidden peer-checked/company:block mt-1">
                         {{-- Contractor --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
