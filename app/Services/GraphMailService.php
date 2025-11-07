@@ -14,7 +14,7 @@ use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
 {
-
+    protected  $graphClient;
 
 
 
