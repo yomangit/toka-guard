@@ -287,6 +287,6 @@ class User extends Component
 
     private function resetInput()
     {
-        $this->reset(['userId', 'name', 'gender', 'date_birth', 'username', 'role_id', 'department_name', 'employee_id', 'date_commenced', 'email']);
+        $this->reset(['userId', 'name', 'gender', 'date_birth', 'username', 'role_id', 'department_name', 'employee_id', 'date_commenced', 'email','dep_cont','deptCont']);
     }
 }
