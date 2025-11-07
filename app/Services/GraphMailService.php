@@ -14,22 +14,9 @@ use Microsoft\Graph\Core\Authentication\GraphPhpLeagueAuthenticationProvider;
 
 class GraphMailService
 {
-    protected GraphServiceClient $graphClient;
 
-    public function __construct()
-    {
-        $tenantId     = env('MSGRAPH_TENANT_ID');
-        $clientId     = env('MSGRAPH_CLIENT_ID');
-        $clientSecret = env('MSGRAPH_CLIENT_SECRET');
 
-        // Context untuk Client Credentials Flow
-        $tokenRequestContext = new ClientCredentialContext(
-            $tenantId,
-            $clientId,
-            $clientSecret
-        );
-        $this->graphClient = new GraphServiceClient($tokenRequestContext);
-    }
+
 
     /**
      * Kirim email via Microsoft Graph API
