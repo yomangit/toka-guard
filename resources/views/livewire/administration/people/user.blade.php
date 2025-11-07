@@ -79,13 +79,13 @@
             <div class="grid grid-cols-2 gap-4 mt-4">
 
                 <fieldset class="fieldset">
-                    <label class="block">Nama</label>
+                     <x-form.label label="Nama" required />
                     <input type="text" wire:model.live="name" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <x-label-error :messages="$errors->get('name')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Jenis Kelamin</label>
+                    <x-form.label label="Jenis Kelamin" required />
                     <select wire:model.live="gender" class="select select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
                         <option value="">-- Pilih --</option>
                         <option value="L">Laki - laki</option>
@@ -95,13 +95,13 @@
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Tanggal Lahir</label>
+                   <x-form.label label="Tanggal Lahir" required />
                     <input type="text" readonly id="date_birth" wire:model="date_birth" class=" cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih tanggal lahir" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
                     <x-label-error :messages="$errors->get('date_birth')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Username</label>
+                    <x-form.label label="Username" required />
                     <input type="text" wire:model.live="username" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <x-label-error :messages="$errors->get('username')" />
                 </fieldset>
@@ -163,24 +163,24 @@
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Employee ID</label>
+                    <x-form.label label="Employee ID" required />
                     <input type="text" wire:model.live="employee_id" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <x-label-error :messages="$errors->get('employee_id')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Tanggal Masuk</label>
+                     <x-form.label label="Tanggal masuk" required />
                     <input type="text" readonly id="date_commenced" wire:model="date_commenced" class="cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih tanggal masuk" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
                     <x-label-error :messages="$errors->get('date_commenced')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
-                    <label class="block">Email</label>
+                     <x-form.label label="Email" required />
                     <input type="email" wire:model.live="email" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <x-label-error :messages="$errors->get('email')" />
                 </fieldset>
                 <fieldset class="fieldset">
-                    <label class="block">Jenis Kelamin</label>
+                     <x-form.label label="Pilih Peran" required />
                     <select wire:model.live="role_id" class="select select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
                         <option value="">-- Pilih --</option>
                         @foreach ($role as $role )
