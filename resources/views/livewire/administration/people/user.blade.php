@@ -80,7 +80,7 @@
 
                 <fieldset class="fieldset">
                      <x-form.label label="Nama" required />
-                    <input type="text" wire:model.live="name" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input type="text" wire:model.live="name" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     <x-label-error :messages="$errors->get('name')" />
                 </fieldset>
 
@@ -96,7 +96,7 @@
 
                 <fieldset class="fieldset">
                    <x-form.label label="Tanggal Lahir" required />
-                    <input type="text" readonly id="date_birth" wire:model="date_birth" class=" cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih tanggal lahir" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
+                    <input type="text" readonly id="date_birth" wire:model="date_birth" class=" cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih tanggal lahir {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
                     <x-label-error :messages="$errors->get('date_birth')" />
                 </fieldset>
 
@@ -164,24 +164,24 @@
 
                 <fieldset class="fieldset">
                     <x-form.label label="Employee ID" required />
-                    <input type="text" wire:model.live="employee_id" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input type="text" wire:model.live="employee_id" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     <x-label-error :messages="$errors->get('employee_id')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
                      <x-form.label label="Tanggal masuk" required />
-                    <input type="text" readonly id="date_commenced" wire:model="date_commenced" class="cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" placeholder="Pilih tanggal masuk" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
+                    <input type="text" readonly id="date_commenced" wire:model="date_commenced" class="cursor-pointer input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" placeholder="Pilih tanggal masuk" x-data x-init="flatpickr($refs.input, {dateFormat: 'Y-m-d'})" x-ref="input" />
                     <x-label-error :messages="$errors->get('date_commenced')" />
                 </fieldset>
 
                 <fieldset class="fieldset">
                      <x-form.label label="Email" required />
-                    <input type="email" wire:model.live="email" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input type="email" wire:model.live="email" class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                     <x-label-error :messages="$errors->get('email')" />
                 </fieldset>
                 <fieldset class="fieldset">
                      <x-form.label label="Pilih Peran" required />
-                    <select wire:model.live="role_id" class="select select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs">
+                    <select wire:model.live="role_id" class="select select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs{{ $errors->has('department_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                         <option value="">-- Pilih --</option>
                         @foreach ($role as $role )
                         <option value="{{ $role->id }}">{{$role->name}}</option>
