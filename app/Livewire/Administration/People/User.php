@@ -4,9 +4,12 @@ namespace App\Livewire\Administration\People;
 
 use App\Models\Role;
 use Livewire\Component;
+use App\Models\Contractor;
+use App\Models\Department;
 use App\Imports\UsersImport;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
 use App\Models\User as UserProfile;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -28,6 +31,17 @@ class User extends Component
     public $showBulkUpdateModal = false;
     public $bulkRole;
     public $roles;
+
+    public $search = '';
+    public $departments = [];
+    public $contractors = [];
+    public $showDropdown = false;
+    public $searchContractor = '';
+    public $showContractorDropdown = false;
+    #[Validate('required_without:contractor_id')]
+    public $department_id;
+    #[Validate('required_without:department_id')]
+    public $contractor_id;
     protected function rules()
     {
         return [
@@ -58,9 +72,9 @@ class User extends Component
         ];
     }
     public function mount()
-{
-    $this->roles = Role::all(); // pakai model role kamu
-}
+    {
+        $this->roles = Role::all(); // pakai model role kamu
+    }
     // 🔹 Jalankan validasi realtime
     public function updated($propertyName)
     {
@@ -116,6 +130,50 @@ class User extends Component
         );
     }
 
+    public function updatedSearch()
+    {
+        if (strlen($this->search) > 1) {
+            $this->departments = Department::where('department_name', 'like', '%' . $this->search . '%')
+                ->orderBy('department_name')
+                ->limit(10)
+                ->get();
+            $this->showDropdown = true;
+        } else {
+            $this->departments = [];
+            $this->showDropdown = false;
+        }
+    }
+    public function selectDepartment($id, $name)
+    {
+        $this->reset('searchContractor', 'contractor_id');
+        $this->department_id = $id;
+        $this->search = $name;
+        $this->showDropdown = false;
+        $this->validateOnly('department_id');
+    }
+    public function updatedSearchContractor()
+    {
+        if (strlen($this->searchContractor) > 1) {
+            $this->contractors = Contractor::query()
+                ->where('contractor_name', 'like', '%' . $this->searchContractor . '%')
+                ->orderBy('contractor_name')
+                ->limit(10)
+                ->get();
+            $this->showContractorDropdown = true;
+        } else {
+            $this->contractors = [];
+            $this->showContractorDropdown = true;
+        }
+    }
+    public function selectContractor($id, $name)
+    {
+        $this->reset('search', 'department_id');
+        $this->contractor_id = $id;
+        $this->searchContractor = $name;
+        $this->showContractorDropdown = false;
+        $this->validateOnly('contractor_id');
+    }
+
 
     public function render()
     {
@@ -126,7 +184,7 @@ class User extends Component
     }
     public function paginationView()
     {
-       return 'paginate.pagination';
+        return 'paginate.pagination';
     }
     public function create()
     {
@@ -226,5 +284,4 @@ class User extends Component
     {
         $this->reset(['userId', 'name', 'gender', 'date_birth', 'username', 'role_id', 'department_name', 'employee_id', 'date_commenced', 'email']);
     }
-    
 }
