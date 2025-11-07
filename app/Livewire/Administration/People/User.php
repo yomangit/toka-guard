@@ -18,7 +18,7 @@ class User extends Component
     use WithPagination, WithFileUploads;
 
     public $userId;
-    public $name, $gender, $date_birth, $username, $department_name, $employee_id, $date_commenced, $email, $role_id;
+    public $name, $gender, $date_birth, $username, $dep_cont, $employee_id, $date_commenced, $email, $role_id;
     public $showModal = false;
     public $showDeleteModal = false;
     public $showImportModal = false; // 🔹 untuk modal import
@@ -50,7 +50,7 @@ class User extends Component
             'date_birth' => 'nullable|date',
             'role_id' => 'nullable',
             'username' => 'required|string|max:255|unique:users,username,' . $this->userId,
-            'department_name' => 'nullable|string|max:255',
+            'dep_cont' => 'nullable|string|max:255',
             'employee_id' => 'required|string|max:255|unique:users,employee_id,' . $this->userId,
             'date_commenced' => 'nullable|date',
             'email' => 'required|email|max:255|unique:users,email,' . $this->userId,
@@ -60,6 +60,8 @@ class User extends Component
     {
         return [
             'name.required' => 'Nama wajib diisi.',
+            'department_id.required_without' => 'Departemen wajib dipilih jika kontraktor tidak diisi.',
+            'contractor_id.required_without' => 'Kontraktor wajib dipilih jika departemen tidak diisi.',
             'username.required' => 'Username wajib diisi.',
             'username.unique' => 'Username sudah digunakan.',
             'employee_id.required' => 'Employee ID wajib diisi.',
@@ -148,6 +150,7 @@ class User extends Component
         $this->reset('searchContractor', 'contractor_id');
         $this->department_id = $id;
         $this->search = $name;
+        $this->dep_cont = $name;
         $this->showDropdown = false;
         $this->validateOnly('department_id');
     }
@@ -170,6 +173,7 @@ class User extends Component
         $this->reset('search', 'department_id');
         $this->contractor_id = $id;
         $this->searchContractor = $name;
+        $this->dep_cont = $name;
         $this->showContractorDropdown = false;
         $this->validateOnly('contractor_id');
     }
@@ -211,7 +215,7 @@ class User extends Component
                 'date_birth' => $this->date_birth,
                 'username' => $this->username,
                 'role_id' => $this->role_id,
-                'department_name' => $this->department_name,
+                'department_name' => $this->dep_cont,
                 'employee_id' => $this->employee_id,
                 'date_commenced' => $this->date_commenced,
                 'email' => $this->email,

@@ -109,8 +109,8 @@
                 <fieldset >
                     <input id="department" value="department" wire:model="deptCont" class="peer/department radio radio-xs radio-accent" type="radio" name="deptCont" checked />
                     <x-form.label for="department" class="peer-checked/department:text-accent text-[10px]" label="PT. MSM & PT. TTN" required />
-                    <input id="company" value="company" wire:model="deptCont" class="peer/company radio radio-xs radio-primary" type="radio" name="deptCont" />
-                    <x-form.label for="company" class="peer-checked/company:text-primary" label="Kontraktor" required />
+                    <input id="contractor" value="contractor" wire:model="deptCont" class="peer/contractor radio radio-xs radio-primary" type="radio" name="deptCont" />
+                    <x-form.label for="contractor" class="peer-checked/contractor:text-primary" label="Kontraktor" required />
 
                     <div class="hidden peer-checked/department:block mt-0.5">
                         {{-- Department --}}
@@ -136,7 +136,7 @@
                         <x-label-error :messages="$errors->get('department_id')" />
                         @endif
                     </div>
-                    <div class="hidden peer-checked/company:block mt-0.5">
+                    <div class="hidden peer-checked/contractor:block mt-0.5">
                         {{-- Contractor --}}
                         <div class="relative mb-1">
                             <!-- Input Search -->
@@ -156,7 +156,7 @@
                             </ul>
                             @endif
                         </div>
-                        @if ($deptCont === 'company')
+                        @if ($deptCont === 'contractor')
                         <x-label-error :messages="$errors->get('contractor_id')" />
                         @endif
                     </div>
