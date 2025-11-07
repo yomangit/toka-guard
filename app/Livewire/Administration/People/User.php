@@ -31,7 +31,7 @@ class User extends Component
     public $showBulkUpdateModal = false;
     public $bulkRole;
     public $roles;
-
+    public $deptCont = 'department';
     public $search = '';
     public $departments = [];
     public $contractors = [];
