@@ -42,12 +42,7 @@ class GraphMailService
         $sendMailBody->setSaveToSentItems(true);
 
      
-            $this->graphClient
-                ->users()
-                ->byUserId($fromUserId)
-                ->sendMail()
-                ->post($sendMailBody)
-                ->wait();
+           
        
     }
 }
