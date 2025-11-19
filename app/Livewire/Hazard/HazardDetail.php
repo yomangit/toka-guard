@@ -198,8 +198,8 @@ class HazardDetail extends Component
         $this->keyWord = $this->hazard->key_word;
         $this->kondisi_tidak_aman = $this->hazard->kondisi_tidak_aman_id;
         $this->tindakan_tidak_aman = $this->hazard->tindakan_tidak_aman_id;
-        $this->consequence_id = (!empty($this->hazard->consequence_id)) ? null : !empty($this->hazard->consequence_id);
-        $this->likelihood_id =  (!empty($this->hazard->likelihood_id)) ? null : !empty($this->hazard->likelihood_id);
+        $this->consequence_id = $this->hazard->consequence_id;
+        $this->likelihood_id = $this->hazard->likelihood_id;
         // ✅ Load nama untuk ditampilkan di search input
         if ($this->pelapor_id) {
             // ✅ Jika pelapor_id ada → ambil nama user
