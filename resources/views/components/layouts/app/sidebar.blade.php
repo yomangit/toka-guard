@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html data-theme="corporate" lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="forest">
 <head>
+     {{-- @laravelPWA --}}
     @include('partials.head')
 </head>
 <body class="min-h-screen " x-data="{ sidebarHidden: false }">
