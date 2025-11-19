@@ -539,7 +539,7 @@ class HazardForm extends Component
                         'title'         => 'Notifikasi Laporan Hazard',
                         'messageText'   => "Telah dibuat laporan hazard baru.\nSilakan lakukan pemeriksaan.",
                         'additionalInfo' => "Nomor Laporan: $hazard->no_referensi\nStatus:  $hazard->status",
-                        'actionUrl'     => route('hazard.show', 41)
+                        'actionUrl'     => route('hazard-detail', $hazard->id)
                     ]
                 );
             }
