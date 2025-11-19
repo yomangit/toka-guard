@@ -11,7 +11,7 @@
 
         <div class="grid grid-cols-4 gap-2">
             <fieldset class="fieldset ">
-                <label class="block">Pilih Moderator</label>
+                <label class="block">Pilih ERM</label>
                 <div class="relative">
                     <!-- Input Search -->
                     <input type="text" wire:model.live.debounce.300ms="searchModerator" placeholder="Pilih Moderator..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
@@ -35,10 +35,10 @@
 
             <fieldset>
                 <input id="department" value="department" wire:model="status" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked />
-                <label for="department" class="peer-checked/department:text-accent">Departemen</label>
+                <label for="department" class="peer-checked/department:text-accent">Departemen @if($status ==="departement") <span class="text-red-500 font-bold">*</span> @endif</label>
 
                 <input id="company" value="company" wire:model="status" class="peer/company radio radio-xs radio-primary" type="radio" name="status" />
-                <label for="company" class="peer-checked/company:text-primary">Kontraktor</label>
+                <label for="company" class="peer-checked/company:text-primary">Kontraktor @if($status ==="company") <span class="text-red-500 font-bold">*</span> @endif</label>
 
                 <div class="hidden peer-checked/department:block mt-0.5">
                     {{-- Department --}}
@@ -91,7 +91,7 @@
             </fieldset>
 
             <fieldset class="fieldset">
-                <x-form.label label="Tipe Bahaya" required />
+                <x-form.label label="Tipe Bahaya"  />
                 <select wire:model.live="event_type_id" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('event_type_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
                     <option value="">-- Pilih --</option>
                     @foreach($eventType as $co)
