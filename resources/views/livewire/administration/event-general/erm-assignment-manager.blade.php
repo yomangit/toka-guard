@@ -104,7 +104,6 @@
                     <th class="border px-2 py-1">User</th>
                     <th class="border px-2 py-1">Dept</th>
                     <th class="border px-2 py-1">Contractor</th>
-                    <th class="border px-2 py-1">Tipe Bahaya</th>
                     <th class="border px-2 py-1">Aksi</th>
                 </tr>
             </thead>
