@@ -93,11 +93,11 @@
 
         <div class="mt-2">
             <flux:button size="xs" wire:click="assign" icon:trailing="add-icon" variant="primary">
-                Tambah Moderator
+                Tambah ERM
             </flux:button>
         </div>
         <hr class="my-4">
-        <input type="text" wire:model.live="search" placeholder="Cari nama moderator..." class="px-3 py-1 border rounded text-sm w-1/2 mb-2">
+        <input type="text" wire:model.live="search" placeholder="Cari nama ERM..." class="px-3 py-1 border rounded text-sm w-1/2 mb-2">
         <table class="table-auto w-full text-sm border">
             <thead>
                 <tr class="bg-gray-100">
