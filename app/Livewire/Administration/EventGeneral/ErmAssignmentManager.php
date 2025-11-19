@@ -168,8 +168,8 @@ class ErmAssignmentManager extends Component
     public function render()
     {
         return view('livewire.administration.event-general.erm-assignment-manager', [
-             'eventType' => EventType::all(),
-            'contractors' => Contractor::all(),
+             'eventType' => EventType::get(),
+            'contractors' => Contractor::get(),
         ]);
     }
 }
