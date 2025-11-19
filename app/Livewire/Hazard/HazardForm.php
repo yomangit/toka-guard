@@ -528,12 +528,12 @@ class HazardForm extends Component
             }
             // 3. Notifikasi
             // Dapatkan Penanggung Jawab dari relasi
-            $penanggungJawab = $hazard->penanggungJawab;
+            $penanggungJawab = $hazard->penanggung_jawab_id;
             if ($penanggungJawab) {
                 MailHelper::sendToUserId(
                     $penanggungJawab,
                     'Notifikasi Laporan Hazard',
-                  'emails.notification',
+                    'emails.notification',
                     [
                         'subject'       => 'Laporan Hazard Baru',
                         'title'         => 'Notifikasi Laporan Hazard',
