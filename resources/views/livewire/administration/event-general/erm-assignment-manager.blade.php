@@ -2,188 +2,139 @@
     <x-toast />
     <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     @include('partials.event-general-head')
+    @push('styles')
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+    @endpush
     <!-- name of each tab group should be unique -->
     <x-tabs-event.layout>
-        <div class="flex justify-between">
-            <div>
-                <flux:tooltip content="tambah data" position="top">
-                    <flux:button size="xs" wire:click='open_modal' icon="add-icon" variant="primary"></flux:button>
-                </flux:tooltip>
 
-            </div>
-            <div>
-                <flux:input size='xs' icon="magnifying-glass" wire:model.live='search_event_category' placeholder="cari erm..." />
-            </div>
-        </div>
-        <div class="overflow-x-auto ">
-            <table class="table table-xs">
-                <thead class="text-center">
-                    <tr>
-                        <th>#</th>
-                        <th>{{ __('Nama ERM ') }}</th>
-                        <th>{{ __('Departement') }}</th>
-                        <th>{{ __('Company') }}</th>
-                        <th>{{ __('Action') }}</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    @foreach ($ErmAssignment as $no => $erm)
-                    <tr>
-                        <th>{{ $ErmAssignment->firstItem() + $no }}</th>
-                        <th>{{ $erm->user->name }}</th>
-                        <th>{{ $erm->department_id? $erm->department->department_name:'-'  }}</th>
-                        <th>{{ $erm->company_id? $erm->company->company_name:'-'  }}</th>
-                        <th class='flex justify-center flex-row gap-2'>
-                            <flux:tooltip content="edit" position="top">
-                                <flux:button wire:click="open_modal_edit({{ $erm->id }})" size="xs" icon="pencil-square" variant="subtle"></flux:button>
-                            </flux:tooltip>
-                            <flux:modal.trigger name="delete-company">
-                                <flux:tooltip content="hapus" position="top">
-                                    <flux:button wire:click="showDelete({{ $erm->id }})" size="xs" icon="trash" variant="danger"></flux:button>
-                                </flux:tooltip>
-                            </flux:modal.trigger>
-                        </th>
-                    </tr>
+
+        <div class="grid grid-cols-4 gap-2">
+            <fieldset class="fieldset ">
+                <label class="block">Pilih PIC</label>
+                <div class="relative">
+                    <!-- Input Search -->
+                    <input type="text" wire:model.live.debounce.300ms="searchModerator" placeholder="Pilih Moderator..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <!-- Dropdown hasil search -->
+                    @if($showMpderatorDropdown && count($users) > 0)
+                    <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                        <!-- Spinner ketika klik -->
+                        <div wire:loading wire:target="selectModerator" class="p-2 text-center">
+                            <span class="loading loading-spinner loading-sm text-secondary"></span>
+                        </div>
+                        @foreach($users as $user)
+                        <li wire:click="selectModerator({{ $user->id }}, '{{ $user->name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                            {{ $user->name }}
+                        </li>
+                        @endforeach
+                    </ul>
+                    @endif
+                </div>
+                <x-label-error :messages="$errors->get('user_id')" />
+            </fieldset>
+
+            <fieldset>
+                <input id="department" value="department" wire:model="status" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked />
+                <label for="department" class="peer-checked/department:text-accent">Departemen</label>
+
+                <input id="company" value="company" wire:model="status" class="peer/company radio radio-xs radio-primary" type="radio" name="status" />
+                <label for="company" class="peer-checked/company:text-primary">Kontraktor</label>
+
+                <div class="hidden peer-checked/department:block mt-0.5">
+                    {{-- Department --}}
+                    <div class="relative mb-1">
+                        <!-- Input Search -->
+                        <input type="text" wire:model.live.debounce.300ms="searchDepartemen" placeholder="Cari departemen..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs " />
+                        <!-- Dropdown hasil search -->
+                        @if($showDepartemenDropdown && count($departments) > 0)
+                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                            <!-- Spinner ketika klik salah satu -->
+                            <div wire:loading wire:target="selectDepartment" class="p-2 text-center">
+                                <span class="loading loading-spinner loading-sm text-secondary"></span>
+                            </div>
+                            @foreach($departments as $dept)
+                            <li wire:click="selectDepartment({{ $dept->id }}, '{{ $dept->department_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                {{ $dept->department_name }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </div>
+                    @if($status === 'department')
+                    <x-label-error :messages="$errors->get('department_id')" />
+                    @endif
+                </div>
+                <div class="hidden peer-checked/company:block mt-0.5">
+                    {{-- Contractor --}}
+                    <div class="relative mb-1">
+                        <!-- Input Search -->
+                        <input type="text" wire:model.live.debounce.300ms="searchContractor" placeholder="Cari kontraktor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                        <!-- Dropdown hasil search -->
+                        @if($showContractorDropdown && count($contractors) > 0)
+                        <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
+                            <!-- Spinner ketika klik -->
+                            <div wire:loading wire:target="selectContractor" class="p-2 text-center">
+                                <span class="loading loading-spinner loading-sm text-secondary"></span>
+                            </div>
+                            @foreach($contractors as $contractor)
+                            <li wire:click="selectContractor({{ $contractor->id }}, '{{ $contractor->contractor_name }}')" class="px-3 py-2 cursor-pointer hover:bg-base-200">
+                                {{ $contractor->contractor_name }}
+                            </li>
+                            @endforeach
+                        </ul>
+                        @endif
+                    </div>
+                    @if($status === 'company')
+                    <x-label-error :messages="$errors->get('contractor_id')" />
+                    @endif
+                </div>
+            </fieldset>
+
+            <fieldset class="fieldset">
+                <x-form.label label="Tipe Bahaya" required />
+                <select wire:model.live="event_type_id" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('event_type_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
+                    <option value="">-- Pilih --</option>
+                    @foreach($eventType as $co)
+                    <option value="{{ $co->id }}">{{ $co->event_type_name }}</option>
                     @endforeach
-
-                </tbody>
-
-            </table>
+                </select>
+                <x-label-error :messages="$errors->get('event_type_id')" />
+            </fieldset>
         </div>
-        <flux:modal name="ERM-Asign">
-            <form wire:submit.prevent='assign' class='grid justify-items-stretch'>
-                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs sm:w-sm border p-4 sm:justify-self-center">
-                    <legend class="fieldset-legend">ERM Register</legend>
 
-                    <fieldset>
-
-                        <input id="department" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked /> <label for="department" class="peer-checked/department:text-accent">Departemen</label>
-                        <input id="company" class="peer/company radio radio-xs radio-primary" type="radio" name="status" /> <label for="company" class="peer-checked/company:text-primary">Kontraktor</label>
-                        <div class="hidden peer-checked/department:block mt-1">
-                            {{-- Department --}}
-                            {{-- <x-label-no-req>{{ __('Department') }} </x-label-no-req> --}}
-                            <flux:select size="xs" wire:model.live="selectedDepartment" placeholder="Pilih Departemen...">
-                                @foreach ($departments as $dept)
-                                <flux:select.option value="{{ $dept->id }}">{{ $dept->department_name }}
-                                </flux:select.option>
-                                @endforeach
-                            </flux:select>
-                            <x-label-error :messages="$errors->get('selectedDepartment')" />
-                        </div>
-                        <div class="hidden peer-checked/company:block mt-1">
-                            {{-- Company --}}
-                            {{-- <x-label-req>{{ __('Company') }} </x-label-req> --}}
-                            <flux:select size="xs" wire:model.live="selectedCompany" placeholder="Pilih Kontraktor...">
-                                @foreach ($contractors as $contractor)
-                                <flux:select.option value="{{ $contractor->id }}">{{ $contractor->contractor_name }}
-                                </flux:select.option>
-                                @endforeach
-                            </flux:select>
-                            <x-label-error :messages="$errors->get('selectedCompany')" />
-                        </div>
-                    </fieldset>
-                    {{-- User --}}
-                    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs sm:w-sm border px-2 sm:justify-self-center">
-                        <legend class="fieldset-legend after:-ml-1 after:-mt-2 after:text-[9px] after:text-rose-500 after:content-['*']">
-                            Pilih User sebagai ERM</legend>
-                        <div class=" w-full grid justify-items-stretch">
-                            <div class="justify-self-end w-40">
-                                <flux:input size='xs' icon="magnifying-glass" placeholder="Cari user..." wire:model.live='search_user' />
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 max-h-56 overflow-y-auto border p-2 rounded">
-                            @foreach ($users as $user)
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" wire:model.live="selectedUsers" value="{{ $user->id }}" class="rounded  border-gray-300 ">
-                                <span class="text-xs">{{ $user->name }}</span>
-                            </label>
-                            @endforeach
-                        </div>
-                        <x-label-error :messages="$errors->get('selectedUsers')" />
-                    </fieldset>
-                </fieldset>
-                <div class="modal-action">
-                    <flux:button size="xs" type="submit" icon="save-icon" variant="primary">Save</flux:button>
-                    <flux:button size="xs" wire:click='close_modal' icon="close-icon" variant="danger">Close
-                    </flux:button>
-                </div>
-            </form>
-        </flux:modal>
-        <flux:modal name="ERM-edit">
-            <form wire:submit.prevent='update' class='grid justify-items-stretch'>
-                <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs sm:w-sm border p-4 sm:justify-self-center">
-                    <legend class="fieldset-legend">Edit ERM</legend>
-
-                    <fieldset>
-
-                        <input id="department" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked /> <label for="department" class="peer-checked/department:text-accent">Department</label>
-                        <input id="company" class="peer/company radio radio-xs radio-primary" type="radio" name="status" /> <label for="company" class="peer-checked/company:text-primary">Company</label>
-                        <div class="hidden peer-checked/department:block mt-1">
-                            {{-- Department --}}
-                            {{-- <x-label-no-req>{{ __('Department') }} </x-label-no-req> --}}
-                            <flux:select size="xs" wire:model.live="selectedDepartment" placeholder="Choose Department...">
-                                @foreach ($departments as $dept)
-                                <flux:select.option value="{{ $dept->id }}">{{ $dept->department_name }}
-                                </flux:select.option>
-                                @endforeach
-                            </flux:select>
-                            <x-label-error :messages="$errors->get('selectedDepartment')" />
-                        </div>
-                        <div class="hidden peer-checked/company:block mt-1">
-                            {{-- Company --}}
-                            {{-- <x-label-req>{{ __('Company') }} </x-label-req> --}}
-                            <flux:select size="xs" wire:model.live="selectedCompany" placeholder="Choose Company...">
-                                @foreach ($contractors as $contractor)
-                                <flux:select.option value="{{ $contractor->id }}">{{ $contractor->contractor_name }}
-                                </flux:select.option>
-                                @endforeach
-                            </flux:select>
-                            <x-label-error :messages="$errors->get('selectedCompany')" />
-                        </div>
-                    </fieldset>
-                    {{-- User --}}
-                    <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs sm:w-sm border px-2 sm:justify-self-center">
-                        <legend class="fieldset-legend after:-ml-1 after:-mt-2 after:text-[9px] after:text-rose-500 after:content-['*']">
-                            Pilih User sebagai ERM</legend>
-                        <div class=" w-full grid justify-items-stretch">
-                            <div class="justify-self-end w-40">
-                                <flux:input size='xs' icon="magnifying-glass" placeholder="Cari user..." wire:model.live='search_user' />
-                            </div>
-                        </div>
-                        <flux:select size="xs" wire:model.live="user_id" class=" overflow-y-scroll">
-                            @foreach ($users as $user)
-                            <flux:select.option value="{{ $user->id }}">{{ $user->name }}</flux:select.option>
-                            @endforeach
-                        </flux:select>
-                        <x-label-error :messages="$errors->get('user_id')" />
-                    </fieldset>
-                </fieldset>
-                <div class="modal-action">
-                    <flux:button size="xs" type="submit" icon="save-icon" variant="primary">Save</flux:button>
-                    <flux:button size="xs" wire:click='close_modal' icon="close-icon" variant="danger">Close
-                    </flux:button>
-                </div>
-            </form>
-        </flux:modal>
-        <flux:modal name="delete-erm" class="min-w-[22rem]">
-            <div class="space-y-6">
-                <div>
-                    <flux:heading size="lg">Delete project?</flux:heading>
-                    <flux:text class="mt-2">
-                        <p>You're about to delete this {{ $name }}.</p>
-                        <p>This action cannot be reversed.</p>
-                    </flux:text>
-                </div>
-                <div class="flex gap-2">
-                    <flux:spacer />
-                    <flux:modal.close>
-                        <flux:button variant="ghost">Cancel</flux:button>
-                    </flux:modal.close>
-                    <flux:button wire:click='delete' size='xs' variant="danger">Delete </flux:button>
-                </div>
-            </div>
-        </flux:modal>
-
+        <div class="mt-2">
+            <flux:button size="xs" wire:click="assign" icon:trailing="add-icon" variant="primary">
+                Tambah Moderator
+            </flux:button>
+        </div>
+        <hr class="my-4">
+        <input type="text" wire:model.live="search" placeholder="Cari nama moderator..." class="px-3 py-1 border rounded text-sm w-1/2 mb-2">
+        <table class="table-auto w-full text-sm border">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border px-2 py-1">User</th>
+                    <th class="border px-2 py-1">Dept</th>
+                    <th class="border px-2 py-1">Contractor</th>
+                    <th class="border px-2 py-1">Tipe Bahaya</th>
+                    <th class="border px-2 py-1">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($assignments as $mod)
+                <tr>
+                    <td class="border px-2">{{ $mod->user->name }}</td>
+                    <td class="border px-2">{{ $mod->department->department_name ?? '-' }}</td>
+                    <td class="border px-2">{{ $mod->contractor->contractor_name ?? '-' }}</td>
+                    <td class="border px-2">{{ $mod->eventType->event_type_name ?? '-' }}</td>
+                    <td class="border px-2">
+                        <button wire:click="delete({{ $mod->id }})" class="text-red-500 hover:underline text-xs">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </x-tabs-event.layout>
 
 

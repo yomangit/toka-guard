@@ -13,6 +13,7 @@ use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\Likelihood;
 use App\Helpers\FileHelper;
+use App\Helpers\MailHelper;
 use App\Models\ActionHazard;
 use App\Models\EventSubType;
 use Livewire\WithFileUploads;
@@ -21,12 +22,12 @@ use App\Models\RiskMatrixCell;
 use App\Models\RiskConsequence;
 use App\Models\UnsafeCondition;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use App\Models\RiskAssessmentMatrix;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\DateBeforeOrEqualToday;
 use App\Notifications\HazardReportNotif;
-use Illuminate\Support\Collection;
 
 class HazardForm extends Component
 {
@@ -418,7 +419,7 @@ class HazardForm extends Component
             'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
         ]);
         // reset input sementara
-        $this->reset(['action_description', 'action_due_date', 'action_responsible_id','actual_close_date','searchActResponsibility']);
+        $this->reset(['action_description', 'action_due_date', 'action_responsible_id', 'actual_close_date', 'searchActResponsibility']);
         $this->dispatch('reset-ckeditor');
     }
 
@@ -529,7 +530,18 @@ class HazardForm extends Component
             // Dapatkan Penanggung Jawab dari relasi
             $penanggungJawab = $hazard->penanggungJawab;
             if ($penanggungJawab) {
-                $penanggungJawab->notify(new HazardReportNotif($hazard));
+                MailHelper::sendToUserId(
+                    $penanggungJawab,
+                    'Notifikasi Laporan Hazard',
+                  'emails.notification',
+                    [
+                        'subject'       => 'Laporan Hazard Baru',
+                        'title'         => 'Notifikasi Laporan Hazard',
+                        'messageText'   => "Telah dibuat laporan hazard baru.\nSilakan lakukan pemeriksaan.",
+                        'additionalInfo' => "Nomor Laporan: $hazard->no_referensi\nStatus:  $hazard->status",
+                        'actionUrl'     => route('hazard.show', 41)
+                    ]
+                );
             }
         });
         // 4. Feedback ke user

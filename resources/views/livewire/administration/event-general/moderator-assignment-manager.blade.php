@@ -8,11 +8,6 @@
     <!-- name of each tab group should be unique -->
     <x-tabs-event.layout>
 
-        @if (session()->has('message'))
-        <div class="text-green-600">{{ session('message') }}</div>
-        @elseif (session()->has('error'))
-        <div class="text-red-600">{{ session('error') }}</div>
-        @endif
 
         <div class="grid grid-cols-4 gap-2">
             <fieldset class="fieldset ">
