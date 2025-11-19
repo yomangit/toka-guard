@@ -399,9 +399,9 @@ class HazardForm extends Component
         $this->dispatch('validateCkEditorAddAction');
         $this->validate([
             'action_description' => 'required|string',
-            'action_due_date' => 'required|date',
-            'actual_close_date' => 'required|date',
-            'action_responsible_id' => 'required|exists:users,id',
+            'action_due_date' => 'nullable|date',
+            'actual_close_date' => 'nullable|date',
+            'action_responsible_id' => 'nullable|exists:users,id',
         ]);
         $this->actions[] = [
             'description' => $this->action_description,
