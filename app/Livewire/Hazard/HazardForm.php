@@ -418,7 +418,7 @@ class HazardForm extends Component
             'backgroundColor' => "background: linear-gradient(135deg, #00c853, #00bfa5);",
         ]);
         // reset input sementara
-        $this->reset(['action_description', 'action_due_date', 'action_responsible_id', 'searchActResponsibility']);
+        $this->reset(['action_description', 'action_due_date', 'action_responsible_id','actual_close_date','searchActResponsibility']);
         $this->dispatch('reset-ckeditor');
     }
 
