@@ -34,10 +34,10 @@
             </fieldset>
 
             <fieldset>
-                <input id="department" value="department" wire:model="status" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked />
+                <input id="department" value="department" wire:model.live="status" class="peer/department radio radio-xs radio-accent" type="radio" name="status" checked />
                 <label for="department" class="peer-checked/department:text-accent">Departemen @if($status ==="departement") <span class="text-red-500 font-bold">*</span> @endif</label>
 
-                <input id="company" value="company" wire:model="status" class="peer/company radio radio-xs radio-primary" type="radio" name="status" />
+                <input id="company" value="company" wire:model.live="status" class="peer/company radio radio-xs radio-primary" type="radio" name="status" />
                 <label for="company" class="peer-checked/company:text-primary">Kontraktor @if($status ==="company") <span class="text-red-500 font-bold">*</span> @endif</label>
 
                 <div class="hidden peer-checked/department:block mt-0.5">
