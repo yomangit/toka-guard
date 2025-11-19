@@ -6,6 +6,7 @@ use Flux\Flux;
 use App\Models\User;
 use App\Models\Company;
 use Livewire\Component;
+use App\Models\EventType;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\ErmAssignment;
@@ -14,7 +15,7 @@ use App\Models\ModeratorAssignment;
 
 class ErmAssignmentManager extends Component
 {
-   #[Validate('nullable')]
+    #[Validate('nullable')]
     public $department_id;
     #[Validate('nullable')]
     public $contractor_id;
@@ -168,7 +169,7 @@ class ErmAssignmentManager extends Component
     public function render()
     {
         return view('livewire.administration.event-general.erm-assignment-manager', [
-             'eventType' => EventType::all(),
+            'eventType' => EventType::all(),
             'contractors' => Contractor::all(),
         ]);
     }
