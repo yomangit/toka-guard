@@ -11,7 +11,7 @@
 
         <div class="grid grid-cols-4 gap-2">
             <fieldset class="fieldset ">
-                <label class="block">Pilih ERM</label>
+                 <x-form.label label="Pilih ERM<" required />
                 <div class="relative">
                     <!-- Input Search -->
                     <input type="text" wire:model.live.debounce.300ms="searchModerator" placeholder="Pilih Moderator..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
@@ -89,17 +89,6 @@
                     @endif
                 </div>
             </fieldset>
-
-            <fieldset class="fieldset">
-                <x-form.label label="Tipe Bahaya"  />
-                <select wire:model.live="event_type_id" class="select select-xs select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('event_type_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
-                    <option value="">-- Pilih --</option>
-                    @foreach($eventType as $co)
-                    <option value="{{ $co->id }}">{{ $co->event_type_name }}</option>
-                    @endforeach
-                </select>
-                <x-label-error :messages="$errors->get('event_type_id')" />
-            </fieldset>
         </div>
 
         <div class="mt-2">
@@ -125,7 +114,6 @@
                     <td class="border px-2">{{ $mod->user->name }}</td>
                     <td class="border px-2">{{ $mod->department->department_name ?? '-' }}</td>
                     <td class="border px-2">{{ $mod->contractor->contractor_name ?? '-' }}</td>
-                    <td class="border px-2">{{ $mod->eventType->event_type_name ?? '-' }}</td>
                     <td class="border px-2">
                         <button wire:click="delete({{ $mod->id }})" class="text-red-500 hover:underline text-xs">
                             Hapus

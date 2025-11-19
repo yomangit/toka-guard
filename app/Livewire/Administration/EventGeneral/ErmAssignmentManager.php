@@ -15,11 +15,10 @@ use App\Models\ModeratorAssignment;
 
 class ErmAssignmentManager extends Component
 {
-    #[Validate('nullable')]
+    #[Validate('required_without:contractor_id')]
     public $department_id;
-    #[Validate('nullable')]
+    #[Validate('required_without:department_id')]
     public $contractor_id;
-    public  $event_type_id;
     public $assignments, $search = '';
     public $status = 'department'; // default departemen
     public $users = [], $showMpderatorDropdown = false, $searchModerator = '';
@@ -30,7 +29,8 @@ class ErmAssignmentManager extends Component
     protected $messages =
     [
         'user_id.required'                => 'Nama Moderator wajib diisi.',
-        'event_type_id.required'          => 'Tipe Bahaya wajib diisi.',
+        'department_id.required_without' => 'Departemen wajib dipilih jika kontraktor tidak diisi.',
+        'contractor_id.required_without' => 'Kontraktor wajib dipilih jika departemen tidak diisi.',
     ];
     public function mount()
     {
@@ -42,7 +42,7 @@ class ErmAssignmentManager extends Component
     }
     public function loadAssignments()
     {
-        $query  = ModeratorAssignment::with(['user', 'department', 'contractor', 'eventType']);
+        $query  = ErmAssignment::with(['user', 'department', 'contractor']);
         if ($this->search) {
             $query->whereHas('user', function ($q) {
                 $q->where('name', 'like', '%' . $this->search . '%');
@@ -130,29 +130,37 @@ class ErmAssignmentManager extends Component
     {
         $this->validate();
         // Cegah duplikasi per level
-        $exists = ModeratorAssignment::where('user_id', $this->user_id)
+        $exists = ErmAssignment::where('user_id', $this->user_id)
             ->where(function ($q) {
                 $q->where('department_id', $this->department_id)
-                    ->orWhere('contractor_id', $this->contractor_id)
-                    ->orWhere('event_type_id', $this->event_type_id);
+                    ->orWhere('contractor_id', $this->contractor_id);
             })->exists();
 
         if ($exists) {
-            session()->flash('error', 'User sudah ditetapkan sebagai moderator di level ini.');
+             $this->dispatch(
+            'alert',
+            [
+                'text'            => 'User sudah ditetapkan sebagai moderator di level ini',
+                'duration'        => 5000,
+                'destination'     => '/contact',
+                'newWindow'       => true,
+                'close'           => true,
+                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+            ]
+        );
             return;
         }
-        ModeratorAssignment::create([
+        ErmAssignment::create([
             'user_id' => $this->user_id,
             'department_id' => $this->department_id,
             'contractor_id' => $this->contractor_id,
-            'event_type_id' => $this->event_type_id,
         ]);
-        $this->reset(['user_id', 'department_id', 'contractor_id', 'event_type_id']);
+        $this->reset(['user_id', 'department_id', 'contractor_id', ]);
         $this->loadAssignments();
         $this->dispatch(
             'alert',
             [
-                'text'            => 'Moderator berhasil ditetapkan.',
+                'text'            => 'ERM berhasil ditetapkan.',
                 'duration'        => 5000,
                 'destination'     => '/contact',
                 'newWindow'       => true,
@@ -163,13 +171,12 @@ class ErmAssignmentManager extends Component
     }
     public function delete($id)
     {
-        ModeratorAssignment::findOrFail($id)->delete();
+        ErmAssignment::findOrFail($id)->delete();
         $this->loadAssignments();
     }
     public function render()
     {
         return view('livewire.administration.event-general.erm-assignment-manager', [
-            'eventType' => EventType::all(),
             'contractors' => Contractor::all(),
         ]);
     }
