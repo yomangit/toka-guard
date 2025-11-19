@@ -440,9 +440,25 @@ class HazardForm extends Component
     }
     public function submit()
     {
-      
+
         $this->dispatch('validateCkEditor');
         $this->validate();
+        // Cek apakah form tindak lanjut terisi tapi belum ditambahkan
+        $hasPartialAction =
+            !empty($this->action_description) ||
+            !empty($this->action_due_date) ||
+            !empty($this->actual_close_date) ||
+            !empty($this->action_responsible_id);
+
+        if ($hasPartialAction) {
+            $this->dispatch('alert', [
+                'text' => "Anda sudah mengisi Tindakan Lanjutan tetapi belum mengklik tombol TAMBAH!",
+                'duration' => 6000,
+                'close' => true,
+                'backgroundColor' => "linear-gradient(to right, #ff3333, #ff6666)",
+            ]);
+            return;
+        }
         DB::transaction(function () {
             $lastReport = Hazard::latest('id')->first();
             $nextId = $lastReport ? $lastReport->id + 1 : 1;
