@@ -254,6 +254,7 @@ class Index extends Component
                 $query->delete();
                 continue;
             }
+
             // 🔹 Kalau create → buat baru
             if ($mode === 'create') {
                 Manhour::create([
@@ -266,7 +267,22 @@ class Index extends Component
                     'manhours'         => $this->manhours[$key],
                     'manpower'         => $this->manpower[$key],
                 ]);
+
+                // 🔹 Kirim Email setelah save
+                MailHelper::sendNotification(
+                    Auth::user()->email,
+                    'Notifikasi Laporan Manhours',
+                    'emails.notification',
+                    [
+                        'subject'       => 'Laporan Manhours',
+                        'title'         => 'Notifikasi Laporan Manhours',
+                        'messageText'   => "Telah dibuat laporan Manhours baru.\nSilakan lakukan pemeriksaan.",
+                        'additionalInfo' => "Nomor Laporan: HZ-2025-0041\nStatus: Submitted",
+                        'actionUrl'     => route('manhours')
+                    ]
+                );
             }
+
             // 🔹 Kalau update → updateOrCreate
             if ($mode === 'update') {
                 Manhour::updateOrCreate(
@@ -289,19 +305,16 @@ class Index extends Component
         }
 
 
-        // 🔹 Kirim Email setelah save
-        MailHelper::sendNotification(
-            Auth::user()->email,
-            'Notifikasi Laporan Manhours',
-             'emails.notification',
-            [
-                'subject'       => 'Laporan Manhours',
-                'title'         => 'Notifikasi Laporan Manhours',
-                'messageText'   => "Telah dibuat laporan Manhours baru.\nSilakan lakukan pemeriksaan.",
-                'additionalInfo' => "Nomor Laporan: HZ-2025-0041\nStatus: Submitted",
-                'actionUrl'     => route('manhours')
-            ]
-        );
+
+
+        $this->dispatch('alert', [
+            'text'            => $mode === 'create' ? "Data berhasil di input!!!" : "Data berhasil diperbarui!!!",
+            'duration'        => 5000,
+            'destination'     => '/contact',
+            'newWindow'       => true,
+            'close'           => true,
+            'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
+        ]);
     }
 
     public function store()
