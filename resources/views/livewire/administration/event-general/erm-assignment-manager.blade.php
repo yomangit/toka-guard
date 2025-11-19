@@ -14,7 +14,7 @@
                  <x-form.label label="Pilih ERM" required />
                 <div class="relative">
                     <!-- Input Search -->
-                    <input type="text" wire:model.live.debounce.300ms="searchModerator" placeholder="Pilih Moderator..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
+                    <input type="text" wire:model.live.debounce.300ms="searchModerator" placeholder="Pilih ERM..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs" />
                     <!-- Dropdown hasil search -->
                     @if($showMpderatorDropdown && count($users) > 0)
                     <ul class="absolute z-10 bg-base-100 border rounded-md w-full mt-1 max-h-60 overflow-auto shadow">
