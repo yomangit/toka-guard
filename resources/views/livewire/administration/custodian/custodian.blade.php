@@ -93,6 +93,7 @@
             </table>
         </div>
     </x-manhours.layout>
+     <div class="mt-1">{{ $Departments->links() }}</div>
     <flux:modal name="custodian">
         <form wire:submit='store' class='grid justify-items-stretch'>
             @csrf
