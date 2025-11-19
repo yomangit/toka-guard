@@ -10,6 +10,7 @@ use Livewire\Component;
 use App\Models\Custodian;
 use App\Models\Contractor;
 use App\Models\Department;
+use App\Helpers\MailHelper;
 use App\Models\BusinessUnit;
 use Livewire\WithPagination;
 use App\Models\Department_group;
@@ -253,7 +254,6 @@ class Index extends Component
                 $query->delete();
                 continue;
             }
-
             // 🔹 Kalau create → buat baru
             if ($mode === 'create') {
                 Manhour::create([
@@ -267,7 +267,6 @@ class Index extends Component
                     'manpower'         => $this->manpower[$key],
                 ]);
             }
-
             // 🔹 Kalau update → updateOrCreate
             if ($mode === 'update') {
                 Manhour::updateOrCreate(
@@ -291,34 +290,18 @@ class Index extends Component
 
 
         // 🔹 Kirim Email setelah save
-        $mailService = app(GraphMailService::class);
-
-        $fromUserId = 'yoman.banea@archimining.com'; // user/email di O365
-        $to         = 'yomandenis28@gmail.com';
-        $subject    = $mode === 'create' ? 'Input Manhours Baru' : 'Update Data Manhours';
-        $body       = "<p>Data manhours telah {$mode} untuk perusahaan <b>{$this->company}</b>, departemen <b>{$this->department}</b>.</p>";
-
-        $mailService->sendMail($fromUserId, $to, $subject, $body);
-        try {
-        } catch (\Exception $e) {
-            $this->dispatch('alert', [
-                'text'            => 'Gagal kirim email Graph: ' . $e->getMessage(),
-                'duration'        => 5000,
-                'destination'     => '/contact',
-                'newWindow'       => true,
-                'close'           => true,
-                'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
-            ]);
-        }
-
-        $this->dispatch('alert', [
-            'text'            => $mode === 'create' ? "Data berhasil di input!!!" : "Data berhasil diperbarui!!!",
-            'duration'        => 5000,
-            'destination'     => '/contact',
-            'newWindow'       => true,
-            'close'           => true,
-            'backgroundColor' => "linear-gradient(to right, #06b6d4, #22c55e)",
-        ]);
+        MailHelper::sendNotification(
+            Auth::user()->email,
+            'Notifikasi Laporan Manhours',
+             'emails.notification',
+            [
+                'subject'       => 'Laporan Manhours',
+                'title'         => 'Notifikasi Laporan Manhours',
+                'messageText'   => "Telah dibuat laporan Manhours baru.\nSilakan lakukan pemeriksaan.",
+                'additionalInfo' => "Nomor Laporan: HZ-2025-0041\nStatus: Submitted",
+                'actionUrl'     => route('manhours')
+            ]
+        );
     }
 
     public function store()
