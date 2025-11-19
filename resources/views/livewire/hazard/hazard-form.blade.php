@@ -588,11 +588,11 @@
             </table>
             @endif
             <div class="hidden md:block flex justify-end mt-4">
-                <flux:button size="xs" type="submit"  icon:trailing="send" variant="primary">Kirim Laporan
+                <flux:button size="xs" type="submit" icon:trailing="send" variant="primary">Kirim Laporan
                 </flux:button>
             </div>
             <div class="block md:hidden  mt-4">
-                <flux:button size="xs" class="w-full" type="submit"  icon:trailing="send" variant="primary">
+                <flux:button size="xs" class="w-full" type="submit" icon:trailing="send" variant="primary">
                     Kirim Laporan</flux:button>
             </div>
         </form>
@@ -605,45 +605,62 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 <script>
-     let ckAction_description = null;
+    let ckAction_description = null;
+
     document.addEventListener('livewire:navigated', () => {
         ClassicEditor
             .create(document.querySelector('#ckeditor-action_description'), {
                 toolbar: [
-                    , 'bold', 'italic', 'bulletedList', 'numberedList', '|'
-                    , 'undo', 'redo'
-                ]
-                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed'] // buang plugin gambar
+                    'bold', 'italic', 'bulletedList', 'numberedList', '|',
+                    'undo', 'redo'
+                ],
+                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
                 ckAction_description = editor;
+
+                // sinkron ke Livewire
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     document.querySelector('#ckeditor-action_description').value = data;
                     @this.set('action_description', data);
+
                     if (data.trim() !== '') {
                         editor.ui.view.editable.element.classList.remove('error');
                     }
                 });
             })
-            .catch(error => {
-                console.error(error);
-            });
+            .catch(error => console.error(error));
     });
-    Livewire.on('validateCkEditorAddAction', event => {
+
+    // Validasi untuk AddAction
+    Livewire.on('validateCkEditorAddAction', () => {
         if (ckAction_description) {
             const data = ckAction_description.getData().trim();
             if (data === '') {
                 ckAction_description.ui.view.editable.element.classList.add('error');
-                return false; // cegah submit
+                return false;
             }
         }
         return true;
     });
+
+    // RESET CKEDITOR setelah tombol TAMBAH ditekan
+    Livewire.on('reset-ckeditor', () => {
+        if (ckAction_description) {
+            ckAction_description.setData(''); // kosongkan editor
+        }
+
+        // hilangkan warna error jika ada
+        if (ckAction_description?.ui?.view?.editable?.element) {
+            ckAction_description.ui.view.editable.element.classList.remove('error');
+        }
+    });
 </script>
 
+
 <script>
-     let ckImmediate_corrective_action = null;
+    let ckImmediate_corrective_action = null;
     document.addEventListener('livewire:navigated', () => {
         ClassicEditor
             .create(document.querySelector('#ckeditor-immediate_corrective_action'), {
@@ -678,6 +695,7 @@
         }
         return true;
     });
+
 </script>
 
 <script>
