@@ -10,7 +10,7 @@
             @continue
             @endif
             {{-- Skip Administration jika bukan administrator --}}
-            @if($menu->menu === 'Administrator' && (auth()->guest() || !auth()->user()->hasRole('administrator')))
+            @if($menu->menu === 'Administrator' && (auth()->check() || !auth()->user()->hasRole('administrator')))
             @continue
             @endif
 
