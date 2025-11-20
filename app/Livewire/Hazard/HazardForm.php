@@ -310,7 +310,7 @@ class HazardForm extends Component
     public function updatedSearchPelapor()
     {
         $this->reset('manualPelaporName');
-        $this->manualPelaporMode = false;
+
         if (strlen($this->searchPelapor) > 1) {
             $this->pelapors = User::where('name', 'like', '%' . $this->searchPelapor . '%')
                 ->orderBy('name')
