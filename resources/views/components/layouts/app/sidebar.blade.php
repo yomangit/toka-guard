@@ -38,8 +38,8 @@
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                    <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -93,10 +93,9 @@
         <flux:sidebar.toggle class="lg:hidden" icon="bars-3" inset="left" />
 
         <flux:spacer />
-
         <flux:dropdown position="top" align="end">
             <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
-            @auth
+           
             <flux:menu>
                 <flux:menu.radio.group>
                     <div class="p-0 text-sm font-normal">
@@ -108,8 +107,8 @@
                             </span>
 
                             <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                             <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
                             </div>
                         </div>
                     </div>
@@ -130,7 +129,6 @@
                     </flux:menu.item>
                 </form>
             </flux:menu>
-            @endauth
         </flux:dropdown>
     </flux:header>
 
