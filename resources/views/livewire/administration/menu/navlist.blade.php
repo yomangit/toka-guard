@@ -3,12 +3,7 @@
         <flux:navlist.group class="grid">
 
             @foreach ($Menus as $menu)
-            @if($menu->menu === 'Hazard Report' && !auth()->user()?->hasRole('administrator'))
-            @continue
-            @endif
-            @if($menu->menu === 'Hazard Report' && !auth()->user()?->can('viewAny',\App\Models\Hazard::class))
-            @continue
-            @endif
+         
             {{-- Skip Administration jika bukan administrator --}}
             @if($menu->menu === 'Administrator' && (auth()->guest() || !auth()->user()->hasRole('administrator')))
             @continue
