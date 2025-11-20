@@ -4,6 +4,10 @@
 
             @foreach ($Menus as $menu)
 
+            {{-- Skip Dashboard jika guest --}}
+            @if($menu->menu === 'Dashboard' && (auth()->guest() || !auth()->user()->hasRole('administrator')))
+            @continue
+            @endif
             {{-- Skip Administration jika bukan administrator --}}
             @if($menu->menu === 'Administrator' && (auth()->guest() || !auth()->user()->hasRole('administrator')))
             @continue
