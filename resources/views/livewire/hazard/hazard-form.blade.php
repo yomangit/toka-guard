@@ -187,8 +187,11 @@
                                 @endforeach
                                 @else
                                 @if (!$manualPelaporMode)
-                                <li wire:click="enableManualPelapor" class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
+                                <li class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
                                     Tidak ditemukan, tambah pelapor manual
+                                    <flux:button size="xs" wire:click="enableManualPelapor" icon="plus" class="w-full" variant="primary" color="cyan">
+                                        Tidak ditemukan, tambah pelapor manual
+                                    </flux:button>
                                 </li>
                                 @endif
                                 @endif
@@ -198,7 +201,7 @@
                                     <div class="relative w-full">
                                         <input name="manualPelaporName" type="text" wire:model.live="manualPelaporName" placeholder="Masukkan nama pelapor..." class="input input-bordered w-full pr-20 focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('manualPelaporName') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
                                         <div class="!absolute top-1/2 -translate-y-1/2 right-0 z-20">
-                                            <flux:button size="xs" wire:click="addPelaporManual" icon="plus" variant="primary">
+                                            <flux:button size="xs" wire:click="addPelaporManual" icon="plus"  variant="primary">
                                                 Tambah
                                             </flux:button>
                                         </div>
@@ -344,7 +347,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
                             <!-- Tanggal & Waktu -->
                             <fieldset class="fieldset md:col-span-1">
-                                <x-form.label label="Batas Waktu Penyelesaian"  />
+                                <x-form.label label="Batas Waktu Penyelesaian" />
                                 <div class="relative" wire:ignore x-data="{
                                     fp: null,
                                     initFlatpickr() {
@@ -363,7 +366,7 @@
                                 <x-label-error :messages="$errors->get('action_due_date')" />
                             </fieldset>
                             <fieldset class="fieldset md:col-span-1">
-                                <x-form.label label="Tanggal Penyelesaian Tindakan"  />
+                                <x-form.label label="Tanggal Penyelesaian Tindakan" />
                                 <div class="relative" wire:ignore x-data="{
                                     fp: null,
                                     initFlatpickr() {
@@ -383,7 +386,7 @@
                             </fieldset>
                             <!-- Dilaporkan Oleh -->
                             <fieldset class="fieldset md:col-span-1 relative">
-                                <x-form.label label="Dilaporkan Oleh"  />
+                                <x-form.label label="Dilaporkan Oleh" />
                                 <div class="relative">
                                     <input name="searchActResponsibility" type="text" wire:model.live.debounce.300ms="searchActResponsibility" placeholder="Cari Nama Pelapor..." class="input input-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden input-xs {{ $errors->has('pelapor_id') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}" />
 
@@ -611,10 +614,10 @@
         ClassicEditor
             .create(document.querySelector('#ckeditor-action_description'), {
                 toolbar: [
-                    'bold', 'italic', 'bulletedList', 'numberedList', '|',
-                    'undo', 'redo'
-                ],
-                removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
+                    'bold', 'italic', 'bulletedList', 'numberedList', '|'
+                    , 'undo', 'redo'
+                ]
+                , removePlugins: ['ImageUpload', 'EasyImage', 'MediaEmbed']
             })
             .then(editor => {
                 ckAction_description = editor;
@@ -652,10 +655,11 @@
         }
 
         // hilangkan warna error jika ada
-        if (ckAction_description?.ui?.view?.editable?.element) {
+        if (ckAction_description ? .ui ? .view ? .editable ? .element) {
             ckAction_description.ui.view.editable.element.classList.remove('error');
         }
     });
+
 </script>
 
 
