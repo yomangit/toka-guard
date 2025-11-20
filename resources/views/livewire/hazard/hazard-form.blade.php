@@ -231,7 +231,6 @@
                     <input name="immediate_corrective_action" type="hidden" wire:model.live="immediate_corrective_action" id="immediate_corrective_action">
                     <x-label-error :messages="$errors->get('immediate_corrective_action')" />
                 </fieldset>
-
                 <fieldset class=" fieldset">
                     <x-form.label label="Lampirkan foto atau dokumentasi (optional)" />
                     <label class="block"></label>
