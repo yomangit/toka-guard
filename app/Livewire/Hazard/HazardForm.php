@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\DB;
 use App\Models\RiskAssessmentMatrix;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\DateBeforeOrEqualToday;
-use App\Notifications\HazardReportNotif;
 
 class HazardForm extends Component
 {
