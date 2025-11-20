@@ -40,8 +40,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
-Route::get('dashboard',Hazard::class )->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', Hazard::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::redirect('/', 'dashboard');
+Route::get('hazard/form', HazardForm::class)->name('hazard-form');
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
     Route::get('settings/profile', Profile::class)->name('settings.profile');
@@ -49,7 +50,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
     Route::get('manhours', Index::class)->name('manhours');
     Route::get('hazard', HazardReportPanel::class)->name('hazard');
-    Route::get('hazard/form', HazardForm::class)->name('hazard-form');
     Route::get('hazard/{hazard}', HazardDetail::class)->name('hazard-detail');
 });
 Route::middleware(['role:Administrator'])->group(function () {
