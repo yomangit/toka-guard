@@ -151,9 +151,9 @@
             </flux:dropdown>
         @else
             <div class="flex items-center gap-2">
-                <a href="{{ route('login') }}" class="btn btn-ghost btn-sm">{{ __('Login') }}</a>
+                <a href="{{ route('login') }}" class="btn btn-outline btn-xs">{{ __('Login') }}</a>
                 @if(Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn btn-outline btn-sm">{{ __('Register') }}</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline btn-xs">{{ __('Register') }}</a>
                 @endif
             </div>
         @endauth
