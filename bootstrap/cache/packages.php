@@ -100,13 +100,6 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
-  'silviolleite/laravelpwa' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'LaravelPWA\\Providers\\LaravelPWAServiceProvider',
-    ),
-  ),
   'spatie/laravel-activitylog' => 
   array (
     'providers' => 
