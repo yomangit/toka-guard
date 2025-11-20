@@ -1,16 +1,52 @@
 {
+  "_echarts-B6jsFz82.js": {
+    "file": "assets/echarts-B6jsFz82.js",
+    "name": "echarts",
+    "imports": [
+      "_zrender-Bd7CxnuF.js"
+    ]
+  },
+  "_flatpickr-CDHP5xt9.js": {
+    "file": "assets/flatpickr-CDHP5xt9.js",
+    "name": "flatpickr",
+    "css": [
+      "assets/flatpickr-CksuuEqD.css"
+    ]
+  },
+  "_flatpickr-CksuuEqD.css": {
+    "file": "assets/flatpickr-CksuuEqD.css",
+    "src": "_flatpickr-CksuuEqD.css"
+  },
+  "_toastify-js-D7qFenh6.js": {
+    "file": "assets/toastify-js-D7qFenh6.js",
+    "name": "toastify-js",
+    "css": [
+      "assets/toastify-js-U_b-ZeMd.css"
+    ]
+  },
+  "_toastify-js-U_b-ZeMd.css": {
+    "file": "assets/toastify-js-U_b-ZeMd.css",
+    "src": "_toastify-js-U_b-ZeMd.css"
+  },
+  "_zrender-Bd7CxnuF.js": {
+    "file": "assets/zrender-Bd7CxnuF.js",
+    "name": "zrender"
+  },
   "resources/css/app.css": {
     "file": "assets/app-NO3ecPEb.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-DB5cf54u.js",
+    "file": "assets/app-Qdgwj-sL.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
-    "css": [
-      "assets/app-6RlCuSum.css"
+    "imports": [
+      "_toastify-js-D7qFenh6.js",
+      "_flatpickr-CDHP5xt9.js",
+      "_echarts-B6jsFz82.js",
+      "_zrender-Bd7CxnuF.js"
     ]
   }
 }
