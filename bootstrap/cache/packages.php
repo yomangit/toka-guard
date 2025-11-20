@@ -18,17 +18,6 @@
       1 => 'LdapRecord\\Laravel\\LdapAuthServiceProvider',
     ),
   ),
-  'ladumor/laravel-pwa' => 
-  array (
-    'aliases' => 
-    array (
-      'LaravelPwa' => 'Ladumor\\LaravelPwa\\LaravelPwa',
-    ),
-    'providers' => 
-    array (
-      0 => '\\Ladumor\\LaravelPwa\\PWAServiceProvider',
-    ),
-  ),
   'laravel/pail' => 
   array (
     'providers' => 
