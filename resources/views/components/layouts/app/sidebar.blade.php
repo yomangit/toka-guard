@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html data-theme="corporate" lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="forest">
 <head>
-    {{-- @laravelPWA --}}
+     {{-- @laravelPWA --}}
     @include('partials.head')
 </head>
 <body class="min-h-screen " x-data="{ sidebarHidden: false }">
     <flux:sidebar sticky stashable x-bind:class="sidebarHidden ? 'border-e border-zinc-200 bg-zinc-50 bg-base-300 hidden' : 'border-e border-base-100 bg-base-300 '">
-
+        
         <div class="flex items-center justify-between ">
             <!-- Logo -->
             <a href="{{ route('dashboard') }}" class="flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
@@ -14,7 +14,7 @@
             </a>
 
             <!-- Toggle button di lingkaran kuning -->
-            <flux:sidebar.toggle class="lg:hidden" icon="chevron-left" />
+           <flux:sidebar.toggle class="lg:hidden" icon="chevron-left" />
         </div>
 
         <livewire:administration.menu.navlist>
@@ -38,8 +38,8 @@
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
+                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                 <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
             </svg>
         </label>
-
+        
     </flux:header>
 
     <!-- Mobile User Menu -->
@@ -93,6 +93,7 @@
         <flux:sidebar.toggle class="lg:hidden" icon="bars-3" inset="left" />
 
         <flux:spacer />
+
         <flux:dropdown position="top" align="end">
             <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
@@ -107,8 +108,8 @@
                             </span>
 
                             <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
-                                <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
+                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
                             </div>
                         </div>
                     </div>
@@ -117,9 +118,7 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
-                    @auth
                     <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    @endauth
                 </flux:menu.radio.group>
 
                 <flux:menu.separator />
@@ -133,23 +132,9 @@
             </flux:menu>
         </flux:dropdown>
     </flux:header>
-
+   
     {{ $slot }}
-    <script type="text/javascript">
-        // Initialize the service worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/serviceworker.js', {
-                scope: '.'
-            }).then(function(registration) {
-                // Registration was successful
-                console.log('Laravel PWA: ServiceWorker registration successful with scope: ', registration.scope);
-            }, function(err) {
-                // registration failed :(
-                console.log('Laravel PWA: ServiceWorker registration failed: ', err);
-            });
-        }
 
-    </script>
     @fluxScripts
     @livewireScripts
     @stack('scripts')
