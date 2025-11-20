@@ -95,7 +95,7 @@
         <flux:spacer />
         <flux:dropdown position="top" align="end">
             <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
-           
+
             <flux:menu>
                 <flux:menu.radio.group>
                     <div class="p-0 text-sm font-normal">
@@ -107,8 +107,8 @@
                             </span>
 
                             <div class="grid flex-1 text-start text-sm leading-tight">
-                             <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
+                                <span class="truncate font-semibold">{{ auth()->user()->name ?? 'Guest'}}</span>
+                                <span class="truncate text-xs">{{ auth()->user()->email ??'Guest' }}</span>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,9 @@
                 <flux:menu.separator />
 
                 <flux:menu.radio.group>
+                    @auth
                     <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                    @endauth
                 </flux:menu.radio.group>
 
                 <flux:menu.separator />
