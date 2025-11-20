@@ -212,7 +212,6 @@
                         </template>
                         @endif
                     </div>
-
                     <!-- Error Message -->
                     @if ($manualPelaporMode)
                     <x-label-error :messages="$errors->get('manualPelaporName')" />
