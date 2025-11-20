@@ -5,16 +5,17 @@
             @foreach ($Menus as $menu)
             @if($menu->menu === 'Hazard Report' && !auth()->user()?->hasRole('administrator'))
             @continue
-             @endif
+            @endif
             @if($menu->menu === 'Hazard Report' && !auth()->user()?->can('viewAny',\App\Models\Hazard::class))
             @continue
-             @endif
+            @endif
             {{-- Skip Administration jika bukan administrator --}}
-            @if($menu->menu === 'Administrator' && !auth()->user()->hasRole('administrator'))
+            @if($menu->menu === 'Administrator' && (auth()->guest() || !auth()->user()->hasRole('administrator')))
             @continue
             @endif
+
             {{-- Skip Manhours kalau user tidak punya izin --}}
-            @if($menu->menu === 'Manhours' && !auth()->user()->can('viewAny', \App\Models\Manhour::class))
+            @if($menu->menu === 'Manhours' && (auth()->guest() || !auth()->user()->can('viewAny', \App\Models\Manhour::class)))
             @continue
             @endif
             @if(count($menu->SubMenu) > 0)
