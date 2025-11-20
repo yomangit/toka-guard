@@ -2,16 +2,12 @@
 
 namespace App\Livewire\Administration\EventGeneral;
 
-use Flux\Flux;
 use App\Models\User;
-use App\Models\Company;
 use Livewire\Component;
-use App\Models\EventType;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\ErmAssignment;
 use Livewire\Attributes\Validate;
-use App\Models\ModeratorAssignment;
 
 class ErmAssignmentManager extends Component
 {
