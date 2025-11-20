@@ -188,6 +188,7 @@
                                 @else
                                 @if (!$manualPelaporMode)
                                 <li class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
+                                    {{ $manualPelaporMode }}
                                     <flux:button size="xs" wire:click="enableManualPelapor" icon="plus" class="w-full" variant="primary" color="cyan">
                                         Tidak ditemukan, tambah pelapor manual
                                     </flux:button>
