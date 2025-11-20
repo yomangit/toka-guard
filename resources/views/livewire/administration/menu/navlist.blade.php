@@ -31,14 +31,34 @@
                 </flux:navlist.group-list>
                 @elseif(!$submenu->route)
 
-                <flux:menu.item :current="(($submenu->request_route!=null)? Request::is($submenu->request_route ):Request::is($submenu->route ))" icon="{{ $submenu->icon }}" wire:navigate>
+                @php
+                $isActive = ($submenu->request_route != null)
+                ? Request::is($submenu->request_route)
+                : Request::is($submenu->route);
+
+                $isDisabled = auth()->guest() && $isActive;
+                @endphp
+
+                <flux:menu.item :current="$isActive" icon="{{ $submenu->icon }}" wire:navigate @if($isDisabled) disabled class="opacity-50 pointer-events-none" @endif>
                     {{ $submenu->menu }}
                 </flux:menu.item>
+
                 @else
-                <flux:menu.item :href="route($submenu->route)" :current="(($submenu->request_route!=null)? Request::is($submenu->request_route ):request()->routeIs($submenu->route ))" icon="{{ $submenu->icon }}" wire:navigate>
+
+                @php
+                $isActive = ($submenu->request_route != null)
+                ? Request::is($submenu->request_route)
+                : request()->routeIs($submenu->route);
+
+                $isDisabled = auth()->guest() && $isActive;
+                @endphp
+
+                <flux:menu.item :href="route($submenu->route)" :current="$isActive" icon="{{ $submenu->icon }}" wire:navigate @if($isDisabled) disabled class="opacity-50 pointer-events-none" @endif>
                     {{ $submenu->menu }}
                 </flux:menu.item>
+
                 @endif
+
                 @endforeach
             </flux:navlist.group-list>
             @elseif(!$menu->route)
