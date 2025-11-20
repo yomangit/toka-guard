@@ -177,6 +177,7 @@
                                 " class="bg-base-100 border rounded-md mt-1 max-h-60 overflow-auto shadow">
                                 <div wire:loading wire:target="selectPelapor" class="p-2 text-center">
                                     <span class="loading loading-spinner loading-sm text-secondary"></span>
+                                     {{ $manualPelaporMode }}
                                 </div>
 
                                 @if (count($pelapors) > 0)
@@ -188,7 +189,7 @@
                                 @else
                                 @if (!$manualPelaporMode)
                                 <li class="px-3 py-2 cursor-pointer text-warning hover:bg-base-200">
-                                    {{ $manualPelaporMode }}
+                                   
                                     <flux:button size="xs" wire:click="enableManualPelapor" icon="plus" class="w-full" variant="primary" color="cyan">
                                         Tidak ditemukan, tambah pelapor manual
                                     </flux:button>
