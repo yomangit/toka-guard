@@ -96,7 +96,7 @@
 
         <flux:dropdown position="top" align="end">
             <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
-
+            @auth
             <flux:menu>
                 <flux:menu.radio.group>
                     <div class="p-0 text-sm font-normal">
@@ -130,6 +130,7 @@
                     </flux:menu.item>
                 </form>
             </flux:menu>
+            @endauth
         </flux:dropdown>
     </flux:header>
 
