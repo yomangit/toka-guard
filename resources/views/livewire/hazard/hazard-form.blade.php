@@ -42,7 +42,6 @@
                             <option value="{{ $kta->id }}">{{ $kta->name }}</option>
                             @endforeach
                         </select>
-
                     </div>
                     <div class="hidden peer-checked/tta:block ">
                         <select wire:model.live="tindakan_tidak_aman" class="select select-xs mb-1 select-bordered w-full focus:ring-1 focus:border-info focus:ring-info focus:outline-hidden {{ $errors->has('tindakan_tidak_aman') ? 'ring-1 ring-rose-500 focus:ring-rose-500 focus:border-rose-500' : '' }}">
